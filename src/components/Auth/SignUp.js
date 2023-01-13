@@ -1,14 +1,11 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import SignInOptions from "../Shared/SignInOptions";
-import bg1 from "../../assets/images/background/bg1.png";
-import logo from "../../assets/images/logo/logo.png";
 import Modal from "../Shared/Modal";
-import OtpInput from "../Shared/OtpInput";
+import Auth from "../Shared/Auth";
 
 function SignUp() {
   const [modal, setModal] = useState(false);
-  let media = window.screen.width < 600;
   const showOtpModal = () => {
     setModal(true);
   };
@@ -16,32 +13,7 @@ function SignUp() {
   return (
     <div className="signup-main-cont">
       <Modal open={modal} />
-      <div
-        style={media ? { display: "none" } : { display: "flex" }}
-        id="signup-mobile"
-        className="signup-image-sec"
-      >
-        <div className="left-logo-cont">
-          <img className="logo-img" src={logo} />
-        </div>
-        <div className="left-bg-cont">
-          <img className="signup-bg-img" src={bg1} />
-          <div className="signup-logo-text-cont">
-            <h5 className="sign-head">
-              Tap, connect <br />
-              and be hired.
-            </h5>
-            <span className="sign-p">
-              Explore of the most exiting jobs roles based on your intrest and
-              study major
-            </span>
-          </div>
-        </div>
-        <div className="mobile-only-options-div">
-          <div className="sign-options">sign in</div>
-          <div className="sign-options">sign up</div>
-        </div>
-      </div>
+      <Auth/>
       <div className="signup-input-field">
         <div className="right-signup-div1">
           <span>

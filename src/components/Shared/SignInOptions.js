@@ -11,13 +11,13 @@ function SignInOptions() {
       </div>
       <div className="signin-options-logos">
         <div className="single-login-logo">
-          <img className="other-option-img" src={google} />
+          <img className="other-option-img" alt="google icon" src={google} />
         </div>
         <div className="single-login-logo">
-          <img className="other-option-img" src={apple} />
+          <img className="other-option-img" alt="apple icon" src={apple} />
         </div>
         <div className="single-login-logo">
-          <img className="other-option-img" src={fb} />
+          <img className="other-option-img" alt="facebook icon" src={fb} />
         </div>
       </div>
     </div>

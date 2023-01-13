@@ -2,13 +2,21 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
 import "./assets/scss/main.scss";
-import App from "./App";
 import reportWebVitals from "./reportWebVitals";
+import { AuthInit, AuthProvider } from "./core/Auth";
+import { AppRoutes } from "./routing/AppRoutes";
+import { setupAxios } from "./core/AuthHelpers";
+import axios from "axios";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
+setupAxios(axios);
 root.render(
   <React.StrictMode>
-    <App />
+    <AuthInit>
+      <AuthProvider>
+        <AppRoutes />
+      </AuthProvider>
+    </AuthInit>
   </React.StrictMode>
 );
 
