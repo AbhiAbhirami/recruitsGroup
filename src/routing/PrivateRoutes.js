@@ -1,5 +1,6 @@
 import React, { lazy } from "react";
 import { Route, Routes, Navigate } from "react-router-dom";
+import Dashboard from "../components/Dashboard/Dashboard";
 
 const PrivateRoutes = () => {
   const ProfilePage = lazy(() => import("../components/Profile/ProfilePage"));
@@ -8,8 +9,8 @@ const PrivateRoutes = () => {
     <Routes>
       <Route path="auth/*" element={<Navigate to="/dashboard" />} />
       {/* Pages */}
-      {/* <Route path='dashboard' element={<Dashboard />} />
-        <Route path='jobs' element={<Jobs />} />
+      <Route path='dashboard' element={<Dashboard />} />
+      {/* <Route path='jobs' element={<Jobs />} />
         <Route path='applied-jobs' element={<Applied />} /> */}
 
       <Route path="/profile/*" element={<ProfilePage />} />
