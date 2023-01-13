@@ -14,10 +14,10 @@ function Modal({ open }) {
         <span className="close">&times;</span>
         <div className="modal-content-all">
           <div className="modal-top top-color">
-            <img className="mailimg" src={mail} />
-            <span className="otp-head">otp verification</span>
+            <img className="mailimg" alt="mail icon" src={mail} />
+            <span className="otp-head">OTP verification</span>
             <span className="otp-p">
-              Please enter your OTP code send <br />
+              Please enter the OTP send <br />
               to your email
             </span>
           </div>
@@ -25,7 +25,7 @@ function Modal({ open }) {
             <OtpInput value={""} valueLength={4} />
             <div className="resent-div">
               <p>
-                Dont get code? <span className="resent-otp">Resent otp</span>
+                Didn't get code? <span className="resent-otp">Resend OTP</span>
               </p>
             </div>
             <Link to="/dashboard" className="verify-btn link-tag">verify</Link>
