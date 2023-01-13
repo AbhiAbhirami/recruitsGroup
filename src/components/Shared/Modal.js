@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import mail from "../../assets/images/icons/mailimg.png";
 import OtpInput from "./OtpInput";
 
@@ -27,7 +28,7 @@ function Modal({ open }) {
                 Dont get code? <span className="resent-otp">Resent otp</span>
               </p>
             </div>
-            <div className="verify-btn">verify</div>
+            <Link to="/dashboard" className="verify-btn link-tag">verify</Link>
           </div>
         </div>
       </div>
