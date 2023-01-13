@@ -29,13 +29,11 @@ import { LayoutSplashScreen } from "./core/SplashScreen";
 
 const App = () => {
   return (
-
     <Suspense fallback={<LayoutSplashScreen />}>
       <AuthInit>
-        <Outlet />
+      <Outlet />
       </AuthInit>
     </Suspense>
-
   );
 };
 

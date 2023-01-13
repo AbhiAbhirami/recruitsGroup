@@ -12,11 +12,9 @@ const root = ReactDOM.createRoot(document.getElementById("root"));
 setupAxios(axios);
 root.render(
   <React.StrictMode>
-    <AuthInit>
-      <AuthProvider>
-        <AppRoutes />
-      </AuthProvider>
-    </AuthInit>
+    <AuthProvider>
+      <AppRoutes />
+    </AuthProvider>
   </React.StrictMode>
 );
 
