@@ -2,8 +2,10 @@ import React, { useState } from 'react'
 import logoH from '../../assets/images/logo/logo_horizontal.png'
 import searchIcon from '../../assets/images/icons/search.png'
 import bellIcon from '../../assets/images/icons/bellIcon.png'
+import bellDot from '../../assets/images/icons/bellDot.png'
 import profileImg from '../../assets/images/icons/profile.png'
 import downArrow from '../../assets/images/icons/downArrow.png'
+import hamBurger from '../../assets/images/icons/hamburger.png'
 
 
 function Header() {
@@ -23,8 +25,8 @@ function Header() {
                 <div className='header-profile-div'>
                     <img className='search-icon' src={searchIcon} alt="search-icon" />
                     <div className='bellIcon-cont'>
-                        <span style={isNewNotification ? { display: 'block' } : { display: 'none' }} className='notification-dot'></span>
-                        <img className='bell-icon' src={bellIcon} alt="search-icon" />
+                        {/* <span style={isNewNotification ? { display: 'block' } : { display: 'none' }} className='notification-dot'></span> */}
+                        <img className='bell-icon' src={isNewNotification ? bellDot : bellIcon} alt="search-icon" />
                     </div>
                     <div className='profile-dropdown-cont'>
                         <img className='profile-img-tag' src={profileImg} alt="profile-img" />
@@ -38,6 +40,13 @@ function Header() {
                     </div>
                     <img className='down-arrow' src={downArrow} alt="down-arrow" />
 
+                </div>
+            </div>
+            <div className="mobile-hamburger-div">
+                <div className='bellIcon-cont'>
+                    {/* <span style={isNewNotification ? { display: 'block' } : { display: 'none' }} className='notification-dot'></span> */}
+                    <img className='bell-icon' src={isNewNotification ? bellDot : bellIcon} alt="search-icon" />
+                    <img className="hamburger-icon" src={hamBurger} alt="hamburger" />
                 </div>
             </div>
         </div>

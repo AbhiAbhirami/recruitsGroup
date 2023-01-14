@@ -4,6 +4,7 @@ import Header from '../Shared/Header'
 import NewJobs from '../Shared/NewJobs/NewJobs'
 import Notification from '../Shared/Notification/Notification'
 import Todo from '../Shared/Todo/Todo'
+import UpcomingEvents from '../Shared/UpcomingEvents/UpcomingEvents'
 
 function Dashboard() {
     return (
@@ -19,6 +20,7 @@ function Dashboard() {
                 </div>
                 <div className='dashboard-first-section'>
                     <Todo />
+                    <UpcomingEvents />
                 </div>
 
             </div>
