@@ -18,25 +18,19 @@ export function login(email, password) {
   });
 }
 
-export function register(
-  email,
-  first_name,
-  last_name,
-  password,
-  password_confirmation
-) {
+export function signUp(data) {
   return axios.post(REGISTER_URL, {
-    email,
-    first_name,
-    last_name,
-    password,
-    password_confirmation,
+    email: data.email,
+    name: data.name,
+    password: data.password,
+    password_confirmation: data.password_confirmation,
   });
 }
 
 export function getUserByToken(token) {
   return axios.post(GET_USER_BY_ACCESS_TOKEN_URL, {
-    api_token: token,
+    api_token: token.api_token,
+    refresh_token: token.refreshToken,
   });
 }
 

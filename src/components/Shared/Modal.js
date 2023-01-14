@@ -1,9 +1,7 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import mail from "../../assets/images/icons/mailimg.png";
-import OtpInput from "./OtpInput";
 
-function Modal({ open }) {
+function Modal({ open, submit, close, content, invalidMsg, isValid, resend, cancel }) {
   return (
     <div
       id="myModal"
@@ -11,7 +9,9 @@ function Modal({ open }) {
       className="modal"
     >
       <div className="modal-content">
-        <span className="close">&times;</span>
+        <span className="close" onClick={close}>
+          &times;
+        </span>
         <div className="modal-content-all">
           <div className="modal-top top-color">
             <img className="mailimg" alt="mail icon" src={mail} />
@@ -22,13 +22,22 @@ function Modal({ open }) {
             </span>
           </div>
           <div className="modal-top">
-            <OtpInput value={""} valueLength={4} />
+            {content}
+            {!isValid && <span className="validation">{invalidMsg}</span>}
             <div className="resent-div">
               <p>
-                Didn't get code? <span className="resent-otp">Resend OTP</span>
+                Didn't get code?{" "}
+                <span className="resent-otp" onClick={resend}>
+                  Resend OTP
+                </span>
               </p>
             </div>
-            <Link to="/dashboard" className="verify-btn link-tag">verify</Link>
+            <button onClick={submit} className="verify-btn link-tag">
+              verify
+            </button>
+            <button onClick={cancel} className="verify-btn link-tag">
+              Cancel
+            </button>
           </div>
         </div>
       </div>

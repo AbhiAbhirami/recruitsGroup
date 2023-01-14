@@ -31,7 +31,7 @@ const App = () => {
   return (
     <Suspense fallback={<LayoutSplashScreen />}>
       <AuthInit>
-      <Outlet />
+        <Outlet />
       </AuthInit>
     </Suspense>
   );
