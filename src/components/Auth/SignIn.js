@@ -8,6 +8,7 @@ import SignInOptions from "../Shared/SignInOptions";
 
 function SignIn() {
   const [signinPage, setSigninPage] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
   const { saveAuth, setCurrentUser } = useAuth();
   let media = window.screen.width < 600;
 
@@ -60,8 +61,37 @@ function SignIn() {
           <p className="signup-para">Discover your dream job here!</p>
         </div>
         <form className="right-signup-div3" onSubmit={handleSubmit(onSubmit)}>
-          <input placeholder="username" className="signup-input" />
-          <input placeholder="password" className="signup-input" />
+          <input
+            placeholder="Email"
+            defaultValue=""
+            {...register("email", { required: true })}
+            className="signup-input"
+            name="email"
+          />
+          {errors.email && (
+            <span className="validation">Email is required</span>
+          )}
+
+          <input
+            placeholder="Password"
+            type={showPassword ? "text" : "password"}
+            defaultValue=""
+            {...register("password", { required: true })}
+            className="signup-input"
+            name="password"
+          />
+          <i
+            className={showPassword ? " fa fa-eye" : "fa fa-eye-slash"
+            }
+            aria-hidden="true"
+            onClick={() => {
+              setShowPassword(!showPassword);
+            }}
+          ></i>
+
+          {errors.password && (
+            <span className="validation">Password is required</span>
+          )}
           <p
             style={{
               fontSize: "18px",
