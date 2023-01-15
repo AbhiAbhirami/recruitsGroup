@@ -89,7 +89,7 @@ function SignUp() {
         resend={ResendOtp}
         cancel={!modal}
       />
-      <Auth />
+      <Auth signinPage={true} />
       <div className="signup-input-field">
         <div className="right-signup-div1">
           <span>

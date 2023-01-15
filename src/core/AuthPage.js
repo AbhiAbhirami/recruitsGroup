@@ -6,7 +6,7 @@ import SignUp from "../components/Auth/SignUp";
 
 const AuthLayout = () => {
   useEffect(() => {
-    return () => {};
+    return () => { };
   }, []);
 
   return (
