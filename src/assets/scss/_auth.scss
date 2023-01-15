@@ -130,6 +130,7 @@
   box-shadow: 0px 20px 40px rgba(214, 179, 64, 0.35);
   border-radius: 10px;
   cursor: pointer;
+  border-color: rgba(255, 255, 255, 0);
   background-color: #fecf34;
 }
 span {
@@ -375,12 +376,24 @@ hr {
   align-self: center;
   color: #ffffff;
 }
+// <<<<<<< HEAD
 @media only screen and (max-width: 800px) {
   .form-div{
     width:80% ;
   }
   
 }
+// =======
+
+.validation {
+  color: red;
+}
+.password-container {
+  border: 1px solid;
+  display: flex;
+}
+
+// >>>>>>> reusable
 @media only screen and (max-width: 600px) {
   .signup-input-field {
     display: none;
