@@ -24,7 +24,8 @@
 .header-logo-cont{
     flex: 1;
     display: flex;
-    justify-content: center;
+    // justify-content: center;
+    padding-left: 4%;
     align-items: center;
     // background-color: green;
 }
@@ -46,6 +47,23 @@
     justify-content: center;
     display: flex;
 }
+.profile-dropdown-main-cont{
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    position: relative;
+}
+.dropdown-div{
+    display: flex;
+    position: absolute;
+    width: 300px;
+    height: 300px;
+    background-color: #E5E5E5;
+    top: 100%;
+    right: 0;
+    border-radius: 8px;
+    flex-direction: column;
+}
 .profile-dropdown-cont{
     // flex: 1;
     // background-color: red;
@@ -53,8 +71,60 @@
     // height: 50px;
     display: flex;
     cursor: pointer;
+
     gap: 10px;
     max-width: 250px;
+}
+.dropdown-profile-image-cont{
+    display: flex;
+    padding: 2% 4%;
+    height: 70px;
+    border-bottom: 1px solid lightgray;
+
+    // background-color: green;
+}
+.dropdown-nav-options-div{
+    height: 130px;
+    width: 100%;
+    // background-color: red;
+    border-bottom: 1px solid lightgray;
+
+    display: flex;
+    flex-direction: column;
+}
+.dropdown-div-nav-tag{
+    // background-color: green;
+    display: flex;
+    padding-left: 10%;
+    justify-content: flex-start;
+    align-items: center;
+    flex: 1;
+    font-weight: 500;
+
+}
+.dropdown-settings-div{
+    height: 90px;
+    width: 100%;
+    // background-color: red;
+    // border-bottom: 1px solid lightgray;
+
+    display: flex;
+    flex-direction: column;
+}
+.dropdown-div-nav-tag:hover{
+    background-color: #F5F6FA;
+}
+.dropdown-email-tag{
+    font-size: 14px;
+}
+.dropdown-name-tag{
+    font-weight: 500;
+}
+.dropdown-email-div{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
 }
 .down-arrow{
     width: 10px;
@@ -82,7 +152,7 @@
     max-width: 300px;
 }
 .nav-links{
-    
+    // font-family: sans-serif;
 // font-weight: 600;
 font-size: 16px;
 line-height: 30px;
@@ -195,7 +265,7 @@ background: #FECF34;
     width: 7%;
 }
 .new-jobs-head{
-    font-family: 'Open Sans';
+    // font-family: 'Open Sans';
 font-style: normal;
 font-weight: 600;
 font-size: 18px;

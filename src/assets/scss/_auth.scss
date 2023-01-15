@@ -40,7 +40,8 @@
 }
 
 .signup-header {
-  font-family: "Open Sans";
+  font-family: sans-serif;
+
   font-style: normal;
   font-weight: 700;
   font-size: 32px;
@@ -52,7 +53,8 @@
   color: #000000;
 }
 .signup-para {
-  font-family: "Open Sans";
+  font-family: sans-serif;
+
   font-style: normal;
   font-weight: 400;
   font-size: 18px;
@@ -82,6 +84,7 @@
 }
 .signin-btn {
   padding: 3%;
+  border: none;
   width: 45%;
   display: flex;
   justify-content: center;
@@ -93,7 +96,8 @@
   background-color: #fecf34;
 }
 span {
-  font-family: "Open Sans";
+  font-family: sans-serif;
+
   font-style: normal;
   font-weight: 400;
   font-size: 16px;
@@ -136,7 +140,7 @@ span {
 }
 
 .signup-logo-text-cont {
-  font-family: "Open Sans";
+  font-family: sans-serif;
   font-style: normal;
   padding: 4%;
   font-weight: 400;
@@ -150,7 +154,8 @@ span {
 }
 
 .signup-logo-text-cont > p {
-  font-family: "Open Sans";
+  font-family: sans-serif;
+
   font-style: normal;
   /* font-weight: 300; */
   font-size: 20px;
@@ -242,7 +247,8 @@ hr {
   align-items: center;
 }
 .otp-p {
-  font-family: "Open Sans";
+  font-family: sans-serif;
+
   font-style: normal;
   /* font-weight: 600; */
   font-size: 14px;
@@ -280,7 +286,8 @@ hr {
   height: 40px;
 }
 .otp-head {
-  font-family: "Open Sans";
+  font-family: sans-serif;
+
   font-style: normal;
   font-weight: 600;
   font-size: 24px;
@@ -318,7 +325,8 @@ hr {
   cursor: pointer;
 }
 .sign-p {
-  font-family: "Open Sans";
+  font-family: sans-serif;
+
   font-style: normal;
   font-weight: 0;
   font-size: 20px;
@@ -336,6 +344,15 @@ hr {
   .signup-input {
     width: 65%;
   }
+  .signup-header{
+    font-size: 22px;
+  }
+  .signup-para{
+    font-size: 16px;
+  }
+  .signup-input{
+    height: 50px;
+  }
   .mobile-only-options-div {
     display: flex;
     justify-content: center;
@@ -343,7 +360,8 @@ hr {
     gap: 10%;
   }
   .sign-head {
-    font-family: "Open Sans";
+    font-family: sans-serif;
+
     font-style: normal;
     font-weight: 600;
     font-size: 24px;
@@ -356,7 +374,8 @@ hr {
     width: 50%;
   }
   .sign-p {
-    font-family: "Open Sans";
+    font-family: sans-serif;
+
     font-style: normal;
     font-weight: 400;
     font-size: 15px;

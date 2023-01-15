@@ -16,7 +16,6 @@ function SignIn() {
     handleSubmit,
     formState: { errors },
   } = useForm();
-
   const onSubmit = async () => {
     try {
       const values = {
@@ -35,7 +34,7 @@ function SignIn() {
 
   return (
     <div className="signup-main-cont">
-      <Auth />
+      <Auth signinPage={signinPage} setSigninPage={setSigninPage} />
       <div
         style={
           media

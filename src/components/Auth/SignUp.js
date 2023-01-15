@@ -6,6 +6,8 @@ import Auth from "../Shared/Auth";
 
 function SignUp() {
   const [modal, setModal] = useState(false);
+  // const [signupPage, setSignupPage] = useState(false);
+
   const showOtpModal = () => {
     setModal(true);
   };
@@ -13,7 +15,7 @@ function SignUp() {
   return (
     <div className="signup-main-cont">
       <Modal open={modal} />
-      <Auth/>
+      <Auth signinPage={true} />
       <div className="signup-input-field">
         <div className="right-signup-div1">
           <span>

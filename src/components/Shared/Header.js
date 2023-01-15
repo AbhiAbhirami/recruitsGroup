@@ -10,6 +10,7 @@ import hamBurger from '../../assets/images/icons/hamburger.png'
 
 function Header() {
     const [isNewNotification, setIsNewNotification] = useState(true);
+    const [isDropdown, setIsDropDown] = useState(true)
     return (
         <div className='header-main-cont'>
             <div className='header-logo-cont'>
@@ -28,17 +29,37 @@ function Header() {
                         {/* <span style={isNewNotification ? { display: 'block' } : { display: 'none' }} className='notification-dot'></span> */}
                         <img className='bell-icon' src={isNewNotification ? bellDot : bellIcon} alt="search-icon" />
                     </div>
-                    <div className='profile-dropdown-cont'>
-                        <img className='profile-img-tag' src={profileImg} alt="profile-img" />
-                        <div className='profile-welcome-name'>
-                            <span>Hello!</span>
-                            <span className='welcome-name-tag'>Shahid Afrid
-                            </span>
+                    <div className="profile-dropdown-main-cont" >
+                        <div className='profile-dropdown-cont'>
+                            <img className='profile-img-tag' src={profileImg} alt="profile-img" />
+                            <div className='profile-welcome-name'>
+                                <span>Hello!</span>
+                                <span className='welcome-name-tag'>Shahid Afrid
+                                </span>
+
+                            </div>
 
                         </div>
-
+                        <img className='down-arrow' src={downArrow} alt="down-arrow" />
+                        <div className="dropdown-div">
+                            <div className="dropdown-profile-image-cont">
+                                <img className='profile-img-tag' src={profileImg} alt="profile-img" />
+                                <div className="dropdown-email-div">
+                                    <span className="dropdown-name-tag">Shahid Afrid</span>
+                                    <span className="dropdown-email-tag">Shahidafrid@gmail.com</span>
+                                </div>
+                            </div>
+                            <div className="dropdown-nav-options-div">
+                                <span className="dropdown-div-nav-tag">Profile</span>
+                                <span className="dropdown-div-nav-tag">My Projects</span>
+                                <span className="dropdown-div-nav-tag">My Documents</span>
+                            </div>
+                            <div className="dropdown-settings-div">
+                                <span className="dropdown-div-nav-tag">Language</span>
+                                <span className="dropdown-div-nav-tag">Settings</span>
+                            </div>
+                        </div>
                     </div>
-                    <img className='down-arrow' src={downArrow} alt="down-arrow" />
 
                 </div>
             </div>
