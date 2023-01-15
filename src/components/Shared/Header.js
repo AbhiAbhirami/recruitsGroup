@@ -2,8 +2,10 @@ import React, { useState } from "react";
 import logoH from "../../assets/images/logo/logo_horizontal.png";
 import searchIcon from "../../assets/images/icons/search.png";
 import bellIcon from "../../assets/images/icons/bellIcon.png";
+import bellDot from "../../assets/images/icons/bellDot.png";
 import profileImg from "../../assets/images/icons/profile.png";
 import downArrow from "../../assets/images/icons/downArrow.png";
+import hamBurger from "../../assets/images/icons/hamburger.png";
 
 function Header() {
   const [isNewNotification, setIsNewNotification] = useState(false);
