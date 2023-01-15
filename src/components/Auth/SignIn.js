@@ -84,6 +84,7 @@ function SignIn() {
             />
             <i
               className={showPassword ? " fa fa-eye" : "fa fa-eye-slash"}
+              style={{ cursor: "pointer" }}
               aria-hidden="true"
               onClick={() => {
                 setShowPassword(!showPassword);

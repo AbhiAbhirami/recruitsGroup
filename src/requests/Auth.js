@@ -11,11 +11,17 @@ export const UPDATE_USER_DATA = `${API_URL}/update`;
 export const FORGOT_PASSWORD = `${API_URL}/forgot-password`;
 export const CHECK_PASSWORD = `${API_URL}/check-password`;
 
+export const GOOGLE_URL = `${API_URL}/google/login`;
+
 export function login(email, password) {
   return axios.post(LOGIN_URL, {
     email,
     password,
   });
+}
+
+export function googleLogin(code) {
+  return axios.get(GOOGLE_URL + "?code=" + code.code);
 }
 
 export function signUp(data) {

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "./App.css";
 import SignIn from "./components/Auth/SignIn";
@@ -28,6 +28,19 @@ import { AuthInit } from "./core/Auth";
 import { LayoutSplashScreen } from "./core/SplashScreen";
 
 const App = () => {
+  // function handleCallbackResponse(response) {
+  //   console.log(response);
+  // }
+  // useEffect(() => {
+  //   google.accounts.id.initialize({
+  //     client_id: process.env.GOOGLE_CLIENT_ID,
+  //     callback: handleCallbackResponse,
+  //   });
+  //   google.accounts.id.renderButton(document.getElementById("signInDiv"), {
+  //     theme: "outline",
+  //     size: "large",
+  //   });
+  // }, []);
   return (
     <Suspense fallback={<LayoutSplashScreen />}>
       <AuthInit>
