@@ -19,8 +19,9 @@ function Dashboard() {
 
                 </div>
                 <div className='dashboard-first-section'>
-                    <Todo />
                     <UpcomingEvents />
+                    <Todo />
+
                 </div>
 
             </div>

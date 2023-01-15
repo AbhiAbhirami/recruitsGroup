@@ -58,20 +58,23 @@ function SignIn() {
           <h3 className="signup-header">Hello Again!</h3>
           <p className="signup-para">Discover your dream job here!</p>
         </div>
-        <form className="right-signup-div3" onSubmit={handleSubmit(onSubmit)}>
-          <input placeholder="username" className="signup-input" />
-          <input placeholder="password" className="signup-input" />
-          <p
-            style={{
-              fontSize: "18px",
-              cursor: "pointer",
-            }}
-          >
-            <Link to="/auth/forgot-password"> forgot password?</Link>
-          </p>
-          <button type="submit" className="signin-btn">
-            Sign in
-          </button>
+        <form className="right-signin-div3" onSubmit={handleSubmit(onSubmit)}>
+          <div className="form-div">
+            <input placeholder="username" className="signup-input" />
+            <input placeholder="password" className="signup-input" />
+            <p
+              style={{
+                fontSize: "18px",
+                cursor: "pointer",
+              }}
+              className="forget-password-para-tag"
+            >
+              <Link className="forget-password-tag" to="/auth/forgot-password"> forgot password?</Link>
+            </p>
+            <button type="submit" className="signin-btn">
+              Sign in
+            </button>
+          </div>
         </form>
         <SignInOptions />
       </div>

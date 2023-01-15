@@ -6,13 +6,20 @@ import bellDot from '../../assets/images/icons/bellDot.png'
 import profileImg from '../../assets/images/icons/profile.png'
 import downArrow from '../../assets/images/icons/downArrow.png'
 import hamBurger from '../../assets/images/icons/hamburger.png'
+import DropDown from './DropDown'
 
 
 function Header() {
     const [isNewNotification, setIsNewNotification] = useState(true);
-    const [isDropdown, setIsDropDown] = useState(true)
+    const [isDropdown, setIsDropDown] = useState(false)
+    const handleOnClickOutside = (e) => {
+        if (e.target.className === "dropdown-modal") {
+            setIsDropDown(false)
+        }
+    }
     return (
         <div className='header-main-cont'>
+            <div onClick={handleOnClickOutside} className="dropdown-modal" style={isDropdown ? { width: "100%", height: "100vh", zIndex: 10, position: "absolute" } : { display: 'none' }}></div>
             <div className='header-logo-cont'>
                 <img className='header-logo-horizontal' src={logoH} alt="logo-horizontal" />
             </div>
@@ -30,7 +37,7 @@ function Header() {
                         <img className='bell-icon' src={isNewNotification ? bellDot : bellIcon} alt="search-icon" />
                     </div>
                     <div className="profile-dropdown-main-cont" >
-                        <div className='profile-dropdown-cont'>
+                        <div className='profile-dropdown-cont' onClick={() => setIsDropDown(true)}>
                             <img className='profile-img-tag' src={profileImg} alt="profile-img" />
                             <div className='profile-welcome-name'>
                                 <span>Hello!</span>
@@ -41,7 +48,7 @@ function Header() {
 
                         </div>
                         <img className='down-arrow' src={downArrow} alt="down-arrow" />
-                        <div className="dropdown-div">
+                        {/* <div className="dropdown-div">
                             <div className="dropdown-profile-image-cont">
                                 <img className='profile-img-tag' src={profileImg} alt="profile-img" />
                                 <div className="dropdown-email-div">
@@ -57,8 +64,10 @@ function Header() {
                             <div className="dropdown-settings-div">
                                 <span className="dropdown-div-nav-tag">Language</span>
                                 <span className="dropdown-div-nav-tag">Settings</span>
+                                <span className="dropdown-div-nav-tag">Sign Out</span>
                             </div>
-                        </div>
+                        </div> */}
+                        <DropDown open={isDropdown} />
                     </div>
 
                 </div>
@@ -70,7 +79,7 @@ function Header() {
                     <img className="hamburger-icon" src={hamBurger} alt="hamburger" />
                 </div>
             </div>
-        </div>
+        </div >
     )
 }
 

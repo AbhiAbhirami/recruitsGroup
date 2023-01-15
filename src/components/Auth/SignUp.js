@@ -14,7 +14,7 @@ function SignUp() {
 
   return (
     <div className="signup-main-cont">
-      <Modal open={modal} />
+      <Modal open={modal} close={setModal} />
       <Auth signinPage={true} />
       <div className="signup-input-field">
         <div className="right-signup-div1">
@@ -31,13 +31,15 @@ function SignUp() {
           <p className="signup-para">Discover your dream job here!</p>
         </div>
         <div className="right-signup-div3">
-          <input placeholder="username" className="signup-input" />
-          <input placeholder="email" className="signup-input" />
-          <input placeholder="password" className="signup-input" />
-          <input placeholder="confirm password" className="signup-input" />
-          {/* <p style={{ fontSize: '18px', cursor: 'pointer' }}>forget password</p> */}
-          <div className="signin-btn" onClick={showOtpModal}>
-            Sign up
+          <div className="form-div">
+            <input placeholder="username" className="signup-input" />
+            <input placeholder="email" className="signup-input" />
+            <input placeholder="password" className="signup-input" />
+            <input placeholder="confirm password" className="signup-input" />
+            {/* <p style={{ fontSize: '18px', cursor: 'pointer' }}>forget password</p> */}
+            <div className="signin-btn" onClick={showOtpModal}>
+              Sign up
+            </div>
           </div>
         </div>
         <SignInOptions />
