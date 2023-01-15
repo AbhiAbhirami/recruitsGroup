@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { useAuth } from "../../core/Auth";
 import { getUserByToken, login } from "../../requests/Auth";
 // import { getUserByToken, login } from "../../requests/demo";\
-import toast, { Toaster } from "react-hot-toast";
+import { toast, ToastContainer } from "react-toastify";
+
 import Auth from "../Shared/Auth";
 import SignInOptions from "../Shared/SignInOptions";
 
@@ -12,7 +13,13 @@ function SignIn() {
   const [signinPage, setSigninPage] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const { saveAuth, setCurrentUser } = useAuth();
+  const [signedUser, setSignedUser] = useState();
+  const location = useLocation();
   let media = window.screen.width < 600;
+
+  useEffect(() => {
+    if (location?.state) setSignedUser(location?.state);
+  }, []);
 
   const {
     register,
@@ -26,17 +33,16 @@ function SignIn() {
       saveAuth(auth);
       const { data: user } = await getUserByToken(auth.api_token);
       setCurrentUser(user);
-      toast.success(user.message);
+      toast.success(user.message + "✔");
     } catch (error) {
-      console.error(error);
       saveAuth(undefined);
-      toast.error(error.response.data.message);
+      toast.error(error.response.data.message + "❌");
     }
   };
 
   return (
     <>
-      <Toaster position="bottom-right" reverseOrder={true} />
+      <ToastContainer limit={1} draggablePercent={60} />
       <div className="signup-main-cont">
         <Auth />
         <div
@@ -65,7 +71,9 @@ function SignIn() {
           <form className="right-signup-div3" onSubmit={handleSubmit(onSubmit)}>
             <input
               placeholder="Email"
-              defaultValue=""
+              defaultValue={
+                signedUser && signedUser.email ? signedUser.email : ""
+              }
               {...register("email", { required: true })}
               className="signup-input"
               name="email"
@@ -77,7 +85,9 @@ function SignIn() {
             <input
               placeholder="Password"
               type={showPassword ? "text" : "password"}
-              defaultValue=""
+              defaultValue={
+                signedUser && signedUser.password ? signedUser.password : ""
+              }
               {...register("password", { required: true })}
               className="signup-input"
               name="password"

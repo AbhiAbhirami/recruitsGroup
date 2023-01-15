@@ -64,7 +64,6 @@ const AuthInit = ({ children }) => {
           }
         }
       } catch (error) {
-        console.error(error);
         if (!didRequest.current) {
           logout();
         }

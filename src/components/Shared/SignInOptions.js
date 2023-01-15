@@ -5,7 +5,8 @@ import fb from "../../assets/images/social/fb.png";
 import { useGoogleLogin } from "@react-oauth/google";
 import { getUserByToken, googleLogin } from "../../requests/Auth";
 import { useAuth } from "../../core/Auth";
-import toast, { Toaster } from "react-hot-toast";
+
+import { toast, ToastContainer } from "react-toastify";
 
 function SignInOptions() {
   const { saveAuth, setCurrentUser } = useAuth();
@@ -17,11 +18,10 @@ function SignInOptions() {
         saveAuth(auth);
         const { data: user } = await getUserByToken(auth.api_token);
         setCurrentUser(user);
-        toast.success(user.message);
+        toast.success(user.message + "✔");
       } catch (error) {
-        console.error(error);
         saveAuth(undefined);
-        toast.error(error.response.data.message);
+        toast.error(error.response.data.message + "❌");
       }
     },
     flow: "auth-code",
@@ -29,7 +29,7 @@ function SignInOptions() {
 
   return (
     <>
-      <Toaster position="bottom-right" reverseOrder={true} />
+      <ToastContainer limit={1} draggablePercent={60} />
       <div className="right-signup-div4">
         <div className="continue-with-div">
           <hr /> <span> or continue with </span> <hr />

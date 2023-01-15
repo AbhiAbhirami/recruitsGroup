@@ -6,8 +6,8 @@ import Auth from "../Shared/Auth";
 import { useForm } from "react-hook-form";
 import { resendOtp, signUp, verifyEmailOtp } from "../../requests/Auth";
 import OtpInput from "../Shared/OtpInput";
-import { toast, Toaster } from "react-hot-toast";
 import { useAuth } from "../../core/Auth";
+import { toast, ToastContainer } from "react-toastify";
 
 function SignUp() {
   const {
@@ -21,7 +21,7 @@ function SignUp() {
   const { saveAuth, setCurrentUser } = useAuth();
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setConfirmShowPassword] = useState(false);
-
+  const [password, setPass] = useState("");
   const [isValid, setIsValid] = useState(true);
   const [invalidMsg, setInvalidMsg] = useState("");
   const [email, setEmail] = useState("");
@@ -49,7 +49,7 @@ function SignUp() {
       if (verifyOtp.data?.data) {
         toast.success("Registration Successful");
         setModal(false);
-        navigate("/auth/login");
+        navigate("/auth/login", { state: { email, password } });
       }
     } catch (error) {
       setIsValid(false);
@@ -65,12 +65,12 @@ function SignUp() {
     try {
       const auth = await signUp(data);
       setEmail(data.email);
+      setPass(data.password);
       saveAuth(auth);
       if (auth) {
         setModal(true);
       }
     } catch (error) {
-      console.error(error);
       saveAuth(undefined);
       toast.error(error.response.data.message);
     }
@@ -78,7 +78,7 @@ function SignUp() {
 
   return (
     <div className="signup-main-cont">
-      <Toaster position="bottom-right" />
+      <ToastContainer limit={1} draggablePercent={60} />
       <Modal
         open={modal}
         close={toggle}

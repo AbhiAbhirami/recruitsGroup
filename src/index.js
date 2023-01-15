@@ -4,6 +4,7 @@ import "./index.css";
 import "./assets/scss/main.scss";
 import reportWebVitals from "./reportWebVitals";
 import "font-awesome/css/font-awesome.min.css";
+import 'react-toastify/dist/ReactToastify.css';
 import { AuthProvider } from "./core/Auth";
 import { AppRoutes } from "./routing/AppRoutes";
 import { setupAxios } from "./core/AuthHelpers";
