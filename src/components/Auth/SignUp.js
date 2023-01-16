@@ -108,13 +108,14 @@ function SignUp() {
         
         <form onSubmit={handleSubmit(onSubmit)} className="right-signup-div3">
           <div className="form-div">
-
             <input
               className="signup-input"
               {...register("name", { required: true })}
               placeholder="Full Name*"
             />
-            {errors.name && <span className="validation">Name is required</span>}
+            {errors.name && (
+              <span className="validation">Name is required</span>
+            )}
 
             <input
               className="signup-input"
@@ -126,17 +127,35 @@ function SignUp() {
             )}
             <input
               className="signup-input"
+              type={showPassword ? "text" : "password"}
               {...register("password", { required: true })}
               placeholder="Password*"
             />
+            <i
+              className={showPassword ? " fa fa-eye" : "fa fa-eye-slash"}
+              style={{ position: "absolute", right: "14%", top: "52%" }}
+              aria-hidden="true"
+              onClick={() => {
+                setShowPassword(!showPassword);
+              }}
+            ></i>
             {errors.password && (
               <span className="validation">Password is required</span>
             )}
             <input
               placeholder="Confirm Password*"
               className="signup-input"
+              type={showConfirmPassword ? "text" : "password"}
               {...register("password_confirmation", { required: true })}
             />
+            <i
+              className={showConfirmPassword ? " fa fa-eye" : "fa fa-eye-slash"}
+              style={{ position: "absolute", right: "14%", top: "63%" }}
+              aria-hidden="true"
+              onClick={() => {
+                setConfirmShowPassword(!showConfirmPassword);
+              }}
+            ></i>
             {errors.password_confirmation && (
               <span className="validation">Confirm Password is required</span>
             )}
