@@ -1,15 +1,28 @@
 import React from "react";
 import mail from "../../assets/images/icons/mailimg.png";
 
-function Modal({ open, submit, close, content, invalidMsg, isValid, resend, cancel }) {
+function Modal({
+  open,
+  submit,
+  close,
+  content,
+  invalidMsg,
+  isValid,
+  resend,
+  cancel,
+}) {
+  const handleOutsideClick = (e) => {
+    if (e.target.className === "modal") close(false);
+  };
   return (
     <div
       id="myModal"
+      onClick={handleOutsideClick}
       style={open ? { display: "block" } : { display: "none" }}
       className="modal"
     >
       <div className="modal-content">
-        <span className="close" onClick={close}>
+        <span onClick={() => close(false)} className="close">
           &times;
         </span>
         <div className="modal-content-all">

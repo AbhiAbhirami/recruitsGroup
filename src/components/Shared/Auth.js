@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import bg1 from "../../assets/images/background/bg1.png";
 import logo from "../../assets/images/logo/logo.png";
+import logoHorizontal from "../../assets/images/logo/logo_horizontal.png";
 
 function Auth({ setSigninPage, signinPage, signupPage }) {
   // const [signinPage, setSigninPage] = useState(false);
@@ -38,8 +39,8 @@ function Auth({ setSigninPage, signinPage, signupPage }) {
       style={media ? signinPage ? { display: "none" } : { display: "flex" } : null}
       className="signup-image-sec"
     >
-      <div className="left-logo-cont">
-        <img className="logo-img" src={logo} />
+      <div className="left-logo-cont" style={media ? { display: 'flex', justifyContent: 'center', alignItems: 'center' } : null}>
+        <img className="logo-img" style={media ? { width: '60%' } : null} src={media ? logoHorizontal : logo} />
       </div>
       <div className="left-bg-cont">
         <img className="signup-bg-img" src={bg1} />
