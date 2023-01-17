@@ -33,10 +33,10 @@ function SignIn() {
       saveAuth(auth);
       const { data: user } = await getUserByToken(auth.api_token);
       setCurrentUser(user);
-      toast.success(user.message + "✔");
+      toast.success(user.message);
     } catch (error) {
       saveAuth(undefined);
-      toast.error(error.response.data.message + "❌");
+      toast.error(error.response.data.message)
     }
   };
 

@@ -13,6 +13,7 @@ import { AuthPage } from "../core/AuthPage";
 import App from "../App";
 import { ErrorsPage } from "../components/Errors/ErrorsPage";
 import { GoogleOAuthProvider } from "@react-oauth/google";
+import { Logout } from "../components/Auth/Logout";
 
 const { PUBLIC_URL } = process.env;
 
@@ -29,7 +30,7 @@ const AppRoutes = () => {
           }
         >
           <Route path="error/*" element={<ErrorsPage />} />
-          {/* <Route path="logout" element={<Logout />} /> */}
+          <Route path="logout" element={<Logout />} />
           {currentUser ? (
             <>
               <Route path="/*" element={<PrivateRoutes />} />
