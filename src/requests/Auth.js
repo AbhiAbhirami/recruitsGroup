@@ -30,6 +30,7 @@ export function signUp(data) {
     name: data.name,
     password: data.password,
     password_confirmation: data.password_confirmation,
+    joined_on: new Date(),
   });
 }
 

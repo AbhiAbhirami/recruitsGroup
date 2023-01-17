@@ -23,7 +23,7 @@ const AppRoutes = () => {
       <Routes>
         <Route
           element={
-            <GoogleOAuthProvider clientId={process.env.REACT_APP_CLIENT_ID}>
+            <GoogleOAuthProvider clientId="395250203486-oiovkpbqhhf6muc7l8boimv3bf292bs6.apps.googleusercontent.com">
               <App />
             </GoogleOAuthProvider>
           }
