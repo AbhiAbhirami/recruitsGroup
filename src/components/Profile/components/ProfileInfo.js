@@ -7,7 +7,7 @@ import email from "../../../assets/images/icons/mail.png";
 import tips from "../../../assets/video/demo.mp4";
 import videoThumb from "../../../assets/images/background/bg3.png";
 
-function ProfileInfo() {
+function ProfileInfo({ tab, setTab }) {
   return (
     <div>
       <div>
@@ -47,13 +47,25 @@ function ProfileInfo() {
             </p>
           </div>
           <div className="profileInfo-profile-control-tab">
-            <button className={"cursor-pointer " + `${"active"}`} type="button">
+            <button
+              className={`cursor-pointer ${tab === "overview" && "active"}`}
+              type="button"
+              onClick={() => setTab("overview")}
+            >
               Overview
             </button>
-            <button className={"cursor-pointer " + `${""}`} type="button">
+            <button
+              className={`cursor-pointer ${tab === "documents" && "active"}`}
+              type="button"
+              onClick={() => setTab("documents")}
+            >
               Documents
             </button>
-            <button className={"cursor-pointer " + `${""}`} type="button">
+            <button
+              className={`cursor-pointer ${tab === "settings" && "active"}`}
+              type="button"
+              onClick={() => setTab("settings")}
+            >
               Settings
             </button>
           </div>

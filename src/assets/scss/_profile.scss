@@ -11,7 +11,7 @@
   width: 100%;
   background-color: #ffffff;
   box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
-  border-radius: 20px;
+  border-radius: 10px;
   padding-bottom: 20px;
   .profileInfo-cont {
     justify-content: space-between;
@@ -141,7 +141,7 @@
     height: 60px;
     display: flex;
     align-items: center;
-    padding: 0 65px;
+    padding: 0 35px;
     @media screen and (max-width: 768px) {
       padding: 0 30px;
     }
@@ -150,7 +150,12 @@
     }
   }
   .profile-section-personal-detail-left {
-    border-radius: 20px;
+    .personal-details-head {
+      padding: 10px;
+      border-radius: 10px;
+      background: rgba(72, 146, 240, 0.25);
+    }
+    border-radius: 10px;
     width: 25%;
     @media screen and (max-width: 460px) {
       width: 100%;
@@ -165,17 +170,18 @@
       border-bottom: 0.5px solid #afafaf;
     }
     ul {
-      padding: 1rem 2rem 4rem 4rem;
+      padding: 1rem 2rem 4rem 2rem;
       @media screen and (max-width: 768px) {
         padding: 1rem 2rem;
       }
       list-style-type: none;
       li {
-        margin: 10px 0;
+        margin: 0px 0;
         font-weight: 300;
         display: flex;
         align-items: center;
         justify-content: space-between;
+        padding: 10px;
         button {
           color: rgba(59, 111, 177, 1);
           font-size: 13px;
@@ -196,7 +202,7 @@
     .profile-section-personal-table {
       background-color: #ffffff;
       box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
-      border-radius: 20px;
+      border-radius: 10px;
       .personal-detail-title {
         justify-content: space-between;
         padding: 0 3rem;
@@ -236,7 +242,7 @@
       box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
       background-color: #ffffff;
       margin-top: 20px;
-      border-radius: 20px;
+      border-radius: 10px;
       padding-bottom: 10px;
 
       .personal-detail-title,
@@ -319,5 +325,102 @@
         }
       }
     }
+  }
+}
+.modal-close-btn {
+  position: absolute;
+  top: -8px;
+  right: -10px;
+  cursor: pointer;
+}
+.ReactModal__Content {
+  overflow: visible !important;
+  width: 60%;
+}
+.ReactModal__Overlay.ReactModal__Overlay--after-open {
+  background: rgba(92, 91, 91, 0.5) !important;
+  backdrop-filter: blur(7.5px) !important;
+}
+.modal-main-wrapper {
+  width: 100%;
+  padding: 15px 4rem;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  max-height: 600px;
+  p {
+    margin-bottom: 20px;
+  }
+  .modal-buttons {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding: 10px 0;
+    button {
+      height: 45px;
+      width: 130px;
+      box-shadow: none;
+      border: 1px solid #999898;
+    }
+    .cancel-btn {
+      margin-right: 20px;
+      background-color: transparent;
+      color: rgba(59, 111, 177, 1);
+    }
+    .save-btn {
+      color: #ffffff;
+      background: #4892f0;
+      border: 1px solid #afafaf80;
+    }
+  }
+  &::-webkit-scrollbar {
+    width: 3px;
+    background-color: #afafaf80;
+    border-radius: 5px;
+  }
+  &::-webkit-scrollbar-thumb {
+    border-radius: 5px;
+    width: 3px;
+    background-color: #00000080;
+  }
+}
+.input-select select,
+.profile-input {
+  width: 100%;
+  margin-bottom: 10px;
+  height: 45px;
+  padding: 10px;
+  margin-top: 5px;
+  border: 1px solid rgba(175, 175, 175, 0.5);
+  color: #757575;
+}
+.input-label {
+  color: rgba(0, 0, 0, 1);
+  font-weight: 200;
+  font-size: 14px;
+}
+.date-input-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  .profile-input {
+    width: 200px;
+    margin-right: 10px;
+  }
+}
+.input-select {
+  width: 200px;
+  margin-right: 10px;
+}
+
+.document-details-left {
+  .document-details-head {
+    background: rgba(169, 188, 255, 0.25);
+    border-radius: 10px;
+    padding: 10px;
+  }
+}
+.document-details-right {
+  .profile-section-personal-resume {
+    margin-top: 0 !important;
   }
 }

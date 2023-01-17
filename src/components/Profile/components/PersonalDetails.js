@@ -1,8 +1,11 @@
 import React, { Fragment } from "react";
 import edit from "../../../assets/images/icons/edit.png";
 import download from "../../../assets/images/icons/download.png";
+import moment from "moment";
 
-function PersonalDetails() {
+function PersonalDetails({ setIsOpen }) {
+  const [files, setFiles] = React.useState([]);
+
   return (
     <Fragment>
       <div className="profile-section-personal-detail-left">
@@ -10,7 +13,7 @@ function PersonalDetails() {
           <h4>Personal Details</h4>
         </div>
         <ul>
-          <li>Personal details </li>
+          <li className="personal-details-head">Personal details </li>
           <li>
             Resume <button className="cursor-pointer">UPDATE</button>
           </li>
@@ -34,6 +37,7 @@ function PersonalDetails() {
               src={edit}
               height={23}
               alt="edit-icon"
+              onClick={() => setIsOpen(true)}
             />
           </div>
           <div className="personal-detail-table">
@@ -95,24 +99,33 @@ function PersonalDetails() {
             The most key document that employers review is a resume. In general,
             recruiters do not review profiles without resumes.
           </p>
-          <div className="profile-section-personal-resume-update">
-            <div>
-              RESUME.PDF - <span>Updated on 12-01-2023</span>
+          {files[0]?.name ? (
+            <div className="profile-section-personal-resume-update">
+              <div>
+                RESUME.PDF -{" "}
+                <span>
+                  Updated on{" "}
+                  {files && moment(files[0]?.lastModified).format("DD-MM-YYYY")}
+                </span>
+              </div>
+              <div className="resume-delete">
+                <img
+                  className="cursor-pointer"
+                  src={download}
+                  height={25}
+                  alt="download-icon"
+                />
+                <button className="cursor-pointer">DELETE RESUME</button>
+              </div>
             </div>
-            <div className="resume-delete">
-              <img
-                className="cursor-pointer"
-                src={download}
-                height={25}
-                alt="download-icon"
-              />
-              <button className="cursor-pointer">DELETE RESUME</button>
-            </div>
-          </div>
+          ) : (
+            ""
+          )}
           <div className="resume-update">
             <input
               type={"file"}
               id="resume-update"
+              onChange={(e) => setFiles(e.target.files)}
               placeholder=""
               style={{ opacity: 0, visibility: "hidden" }}
             />
