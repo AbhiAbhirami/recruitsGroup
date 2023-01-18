@@ -77,6 +77,12 @@
     gap: 10px;
     max-width: 250px;
 }
+.notification-dropdown-head-cont{
+    display: flex;
+    padding: 2% 4%;
+    height: 50px;
+    border-bottom: 1px solid lightgray;
+}
 .dropdown-profile-image-cont{
     display: flex;
     padding: 2% 4%;
@@ -94,6 +100,16 @@
     display: flex;
     flex-direction: column;
 }
+.notification-dropdown-div-nav-tag{
+    display: flex;
+    margin: 0 20px;
+    justify-content: flex-start;
+    align-items: center;
+    flex: 1;
+    font-weight: 500;
+    border-bottom: 1px solid lightgray;
+    font-size: 14px;
+}
 .dropdown-div-nav-tag{
     // background-color: green;
     display: flex;
@@ -103,6 +119,9 @@
     flex: 1;
     font-weight: 500;
 
+}
+.notification-dropdown-div-nav-tag:hover{
+    background-color: white;
 }
 .dropdown-settings-div{
     height: 130px;
@@ -414,7 +433,7 @@ max-height: 430px;
 .notification-card-main-cont{
     // flex: 1;
     // background-color: red;
-    // width: 80%;
+    width: 100%;
     padding-bottom: 10px;
     border-bottom: 0.5px solid rgba(0, 0, 0, 0.15);
     height: 70px;
@@ -423,7 +442,9 @@ max-height: 430px;
     cursor: pointer;
     align-items: center;
 }
-
+.hamburger-main-cont{
+    display: none;
+}
 .notification-card-main-cont:hover{
     background: #D9D9D9;
 
@@ -567,16 +588,41 @@ max-height: 430px;
     font-size: 15px;
     color: #5C5B5B;
 }
-
+.mobile-more-button{
+    padding: 2% 1%;
+  border: none;
+  width: 40%;
+//   display: flex;
+  justify-content: center;
+  align-items: center;
+  /* border-bottom: 2px solid #AFAFAF; */
+  box-shadow: 0px 20px 40px rgba(214, 179, 64, 0.35);
+  border-radius: 10px;
+  cursor: pointer;
+  border-color: rgba(255, 255, 255, 0);
+  background-color: #fecf34;
+  display: none;
+}
 
 @media only screen and (max-width: 600px) {
+.mobile-more-button{
+    display: flex;
+}
+.hamburger-main-cont{
+    display: flex;
+    width: 100%;
+    position: fixed;
+    z-index: 100;
+    background-color: #1F194C;
+    height: 100%;
+}
     .dashboard-first-section{
         flex-direction: column;
         gap: 10px;
     }
     .new-job-company-heading{
         font-size: 15px;
-        font-weight: 800;
+        font-weight: 600;
     }
     .new-jobs-head{
         font-size: 16px;

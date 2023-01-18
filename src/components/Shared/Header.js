@@ -7,19 +7,24 @@ import profileImg from '../../assets/images/icons/profile.png'
 import downArrow from '../../assets/images/icons/downArrow.png'
 import hamBurger from '../../assets/images/icons/hamburger.png'
 import DropDown from './DropDown'
+import NotificationDropDown from './NotificationDropDown'
+import Hamburger from './Hamburger'
 
 
 function Header() {
     const [isNewNotification, setIsNewNotification] = useState(true);
     const [isDropdown, setIsDropDown] = useState(false)
+    const [isNotifDropdown, setIsNotifDropDown] = useState(false)
     const handleOnClickOutside = (e) => {
         if (e.target.className === "dropdown-modal") {
             setIsDropDown(false)
+            setIsNotifDropDown(false)
         }
     }
     return (
         <div className='header-main-cont'>
-            <div onClick={handleOnClickOutside} className="dropdown-modal" style={isDropdown ? { width: "100%", height: "100vh", zIndex: 10, position: "absolute" } : { display: 'none' }}></div>
+            <div onClick={handleOnClickOutside} className="dropdown-modal" style={isDropdown | isNotifDropdown ? { width: "100%", height: "100vh", zIndex: 10, position: "absolute" } : { display: 'none' }}></div>
+            <Hamburger />
             <div className='header-logo-cont'>
                 <img className='header-logo-horizontal' src={logoH} alt="logo-horizontal" />
             </div>
@@ -32,9 +37,11 @@ function Header() {
             <div className='header-profile-cont'>
                 <div className='header-profile-div'>
                     <img className='search-icon' src={searchIcon} alt="search-icon" />
-                    <div className='bellIcon-cont'>
+                    <div className='bellIcon-cont' onClick={() => setIsNotifDropDown(true)}>
                         {/* <span style={isNewNotification ? { display: 'block' } : { display: 'none' }} className='notification-dot'></span> */}
                         <img className='bell-icon' src={isNewNotification ? bellDot : bellIcon} alt="search-icon" />
+                        <NotificationDropDown open={isNotifDropdown} />
+
                     </div>
                     <div className="profile-dropdown-main-cont" >
                         <div className='profile-dropdown-cont' onClick={() => setIsDropDown(true)}>
@@ -48,25 +55,6 @@ function Header() {
 
                         </div>
                         <img className='down-arrow' src={downArrow} alt="down-arrow" />
-                        {/* <div className="dropdown-div">
-                            <div className="dropdown-profile-image-cont">
-                                <img className='profile-img-tag' src={profileImg} alt="profile-img" />
-                                <div className="dropdown-email-div">
-                                    <span className="dropdown-name-tag">Shahid Afrid</span>
-                                    <span className="dropdown-email-tag">Shahidafrid@gmail.com</span>
-                                </div>
-                            </div>
-                            <div className="dropdown-nav-options-div">
-                                <span className="dropdown-div-nav-tag">Profile</span>
-                                <span className="dropdown-div-nav-tag">My Projects</span>
-                                <span className="dropdown-div-nav-tag">My Documents</span>
-                            </div>
-                            <div className="dropdown-settings-div">
-                                <span className="dropdown-div-nav-tag">Language</span>
-                                <span className="dropdown-div-nav-tag">Settings</span>
-                                <span className="dropdown-div-nav-tag">Sign Out</span>
-                            </div>
-                        </div> */}
                         <DropDown open={isDropdown} />
                     </div>
 
