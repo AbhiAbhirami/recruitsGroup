@@ -9,29 +9,33 @@ import hamBurger from '../../assets/images/icons/hamburger.png'
 import DropDown from './DropDown'
 import NotificationDropDown from './NotificationDropDown'
 import Hamburger from './Hamburger'
+import { Link, useLocation } from 'react-router-dom'
 
 
 function Header() {
+    const location = useLocation();
     const [isNewNotification, setIsNewNotification] = useState(true);
     const [isDropdown, setIsDropDown] = useState(false)
     const [isNotifDropdown, setIsNotifDropDown] = useState(false)
+    const [currentNavLink, setCurrentNavLink] = useState(location.pathname)
     const handleOnClickOutside = (e) => {
         if (e.target.className === "dropdown-modal") {
             setIsDropDown(false)
             setIsNotifDropDown(false)
         }
+
     }
     return (
         <div className='header-main-cont'>
             <div onClick={handleOnClickOutside} className="dropdown-modal" style={isDropdown | isNotifDropdown ? { width: "100%", height: "100vh", zIndex: 10, position: "absolute" } : { display: 'none' }}></div>
-            <Hamburger />
+            {/* <Hamburger /> */}
             <div className='header-logo-cont'>
                 <img className='header-logo-horizontal' src={logoH} alt="logo-horizontal" />
             </div>
             <div className='header-navlinks-cont'>
-                <span className='nav-links nav-links-active'>Dashboard</span>
-                <span className='nav-links'>Jobs</span>
-                <span className='nav-links'>Applied Jobs</span>
+                <Link to="/dashboard" className={currentNavLink === "/dashboard" ? 'nav-links-active' : 'nav-links'}>Dashboard</Link>
+                <Link to="/jobs" className={currentNavLink === "/jobs" ? 'nav-links-active' : 'nav-links'}>Jobs</Link>
+                <Link to="/applied-jobs" className={currentNavLink === "/applied-jobs" ? 'nav-links-active' : 'nav-links'}>Applied Jobs</Link>
                 <span className='nav-links'>Saved Jobs</span>
             </div>
             <div className='header-profile-cont'>
