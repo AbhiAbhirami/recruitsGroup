@@ -142,6 +142,7 @@
     display: flex;
     align-items: center;
     padding: 0 35px;
+
     @media screen and (max-width: 768px) {
       padding: 0 30px;
     }
@@ -244,7 +245,10 @@
       margin-top: 20px;
       border-radius: 10px;
       padding-bottom: 10px;
-
+      &.settings {
+        box-shadow: none !important;
+        margin-top: 0px !important;
+      }
       .personal-detail-title,
       p {
         padding: 0 3rem;
@@ -422,5 +426,59 @@
 .document-details-right {
   .profile-section-personal-resume {
     margin-top: 0 !important;
+  }
+}
+
+.settings-input {
+  padding: 1rem 3rem;
+  width: 60%;
+  padding-bottom: 0rem !important;
+}
+.settings-profile-details {
+  display: flex;
+  flex-direction: column;
+  padding: 25px 35px;
+  padding-bottom: 10px;
+  @media screen and (max-width: 768px) {
+    padding: 0 30px;
+  }
+  h4 {
+    font-weight: 500 !important;
+  }
+}
+.settings-profile-image-wrap {
+  padding-bottom: 30px;
+  padding-top: 20px;
+  border-bottom: 1px solid rgba(153, 152, 152, 0.24);
+  display: flex;
+  align-items: center;
+  .settings-profile-image {
+    height: 82px;
+    width: 82px;
+    border-radius: 50%;
+    object-fit: cover;
+    background-color: #d9d9d9;
+    padding: 5px;
+    img {
+      border-radius: 50%;
+    }
+    margin-right: 30px;
+  }
+  button {
+    padding: 0 20px;
+    border-radius: 10px;
+    height: 48px;
+    color: #ffffff;
+    border: none;
+    font-size: 13px;
+    margin: 0 10px;
+  }
+  .upload-new {
+    background: #4892f0;
+    width: 200px;
+  }
+  .remove-profile {
+    background: #afafaf;
+    width: 300px;
   }
 }
