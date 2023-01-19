@@ -1,55 +1,57 @@
-.dashboard-main-cont {
-  // height: 100vh;
-  // width: 100vw;
-  display: flex;
-  // background-color: red;
-  flex-direction: column;
+.dashboard-main-cont{
+    // height: 100vh;
+    // width: 100vw;
+    display: flex;
+    // background-color: red;
+    flex-direction: column;
 }
 
-.link-tag {
-  text-decoration: none;
+.link-tag{
+    text-decoration: none;
+    
 }
 
-//Header css
 
-.header-main-cont {
-  height: 70px;
-  width: 100%;
-  background-color: white;
-  display: flex;
-}
+//Header css 
 
-.header-logo-cont {
-  flex: 1;
-  display: flex;
-  // justify-content: center;
-  padding-left: 4%;
-  align-items: center;
-  // background-color: green;
-}
-.header-navlinks-cont {
-  flex: 1;
-  display: flex;
-  justify-content: space-evenly;
-  align-items: center;
-  gap: 10px;
-  min-width: 400px;
-}
-.header-logo-horizontal {
-  width: 40%;
-  min-width: 180px;
+.header-main-cont{
+    height: 70px;
+    width: 100%;
+    background-color: white;
+    display: flex;
 }
 
-.header-profile-cont {
-  flex: 1;
-  justify-content: center;
-  display: flex;
+.header-logo-cont{
+    flex: 1;
+    display: flex;
+    // justify-content: center;
+    padding-left: 4%;
+    align-items: center;
+    // background-color: green;
 }
-.profile-dropdown-main-cont {
-  display: flex;
-  align-items: center;
-  cursor: pointer;
-  position: relative;
+.header-navlinks-cont{
+    flex: 1;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    gap: 10px;
+    min-width: 400px;
+}
+.header-logo-horizontal{
+    width: 40%;
+    min-width: 180px;
+}
+
+.header-profile-cont{
+    flex: 1;
+    justify-content: center;
+    display: flex;
+}
+.profile-dropdown-main-cont{
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    position: relative;
 }
 .dropdown-div{
     display: flex;
@@ -64,16 +66,16 @@
     border-radius: 8px;
     flex-direction: column;
 }
-.profile-dropdown-cont {
-  // flex: 1;
-  // background-color: red;
-  display: flex;
-  // height: 50px;
-  display: flex;
-  cursor: pointer;
+.profile-dropdown-cont{
+    // flex: 1;
+    // background-color: red;
+    display: flex;
+    // height: 50px;
+    display: flex;
+    cursor: pointer;
 
-  gap: 10px;
-  max-width: 250px;
+    gap: 10px;
+    max-width: 250px;
 }
 .notification-dropdown-head-cont{
     display: flex;
@@ -87,22 +89,16 @@
     height: 70px;
     border-bottom: 1px solid lightgray;
 
-  // background-color: green;
+    // background-color: green;
 }
-
-// .dropdown-settings-div {
-//   height: 90px;
-//   width: 100%;
-  // background-color: red;
-  // border-bottom: 1px solid lightgray;
 .dropdown-nav-options-div{
     height: 90px;
     width: 100%;
     // background-color: red;
     border-bottom: 1px solid lightgray;
 
-  display: flex;
-  flex-direction: column;
+    display: flex;
+    flex-direction: column;
 }
 .notification-dropdown-div-nav-tag{
     display: flex;
@@ -123,57 +119,6 @@
     flex: 1;
     font-weight: 500;
 
-  display: flex;
-  flex-direction: column;
-}
-.dropdown-div-nav-tag:hover {
-  background-color: #f5f6fa;
-}
-.dropdown-email-tag {
-  font-size: 14px;
-}
-.dropdown-name-tag {
-  font-weight: 500;
-}
-.dropdown-email-div {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  justify-content: center;
-}
-.down-arrow {
-  width: 10px;
-  height: 10px;
-}
-.profile-welcome-name {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-}
-.profile-img-tag {
-  width: 30%;
-  object-fit: contain;
-}
-.welcome-name-tag {
-  font-weight: 600;
-}
-.header-profile-div {
-  flex: 1;
-  display: flex;
-  justify-content: space-evenly;
-  align-items: center;
-  height: 100%;
-  max-width: 300px;
-}
-.nav-links {
-  // font-family: sans-serif;
-  // font-weight: 600;
-  font-size: 16px;
-  line-height: 30px;
-  /* identical to box height */
-  text-align: center;
-  color: #5c5b5b;
-  cursor: pointer;
 }
 .notification-dropdown-div-nav-tag:hover{
     background-color: white;
@@ -184,22 +129,14 @@
     // background-color: red;
     // border-bottom: 1px solid lightgray;
 
-  text-align: center;
-  color: #5c5b5b;
-  cursor: pointer;
-}
-.nav-links-active {
-  color: #1f194c;
-  text-decoration: underline #fecf34;
-  text-underline-offset: 10px;
+    display: flex;
+    flex-direction: column;
 }
 .dropdown-div-nav-tag:hover{
     background-color: white;
 }
-.search-icon {
-  width: 10%;
-  object-fit: contain;
-  cursor: pointer;
+.dropdown-email-tag{
+    font-size: 14px;
 }
 .dropdown-name-tag{
     font-weight: 500;
@@ -267,24 +204,24 @@ cursor: pointer;
     cursor: pointer;
 }
 
-.bellIcon-cont {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: relative;
+.bellIcon-cont{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
 }
-.notification-dot {
-  width: 10px;
-  height: 10px;
-  top: 20px;
-  left: 30px;
-  position: absolute;
-  border-radius: 50%;
-  background: #fecf34;
+.notification-dot{
+    width: 10px;
+height: 10px;
+top: 20px;
+left: 30px;
+position: absolute;
+border-radius: 50%;
+background: #FECF34;
 }
 
-.mobile-hamburger-div {
-  display: none;
+.mobile-hamburger-div{
+    display: none;
 }
 
 @media only screen and (max-width: 768px) {
@@ -314,145 +251,152 @@ cursor: pointer;
 
 //backgoundDesign css
 
-.bg-main-cont {
-  height: 100%;
-  z-index: -100;
-  width: 100%;
-  position: absolute;
-  display: flex;
-  background-color: #1f194c;
-  flex-direction: column;
+.bg-main-cont{
+    height: 100%;
+    z-index: -100;
+    width: 100%;
+    position: absolute;
+    display: flex;
+    background-color: #1F194C;
+    flex-direction: column;
 }
 
-.blue-bg-div {
-  flex: 1.5;
+.blue-bg-div{
+    flex: 1.5;
 }
 
-.white-bg-div {
-  flex: 2;
-  background-color: #e5e5e5;
+.white-bg-div{
+    flex: 2;
+    background-color: #E5E5E5;
 }
+
 
 //NewJobs css
 
-.new-jobs-main-cont {
-  display: flex;
-  // background-color: white;
-  background: #fcfcfc;
-  width: 55%;
-  max-height: 430px;
-  border-radius: 20px;
-  padding: 2%;
-  flex-direction: column;
+.new-jobs-main-cont{
+    display: flex;
+    // background-color: white;
+    background: #FCFCFC;
+    width: 55%;
+    max-height: 430px;
+    border-radius: 20px;
+    padding: 2%;
+    flex-direction: column;
 }
-.newjob-company-logo {
-  width: 7%;
+.newjob-company-logo{
+    width: 7%;
 }
-.new-jobs-head {
-  // font-family: 'Open Sans';
-  font-style: normal;
-  font-weight: 600;
-  font-size: 18px;
-  line-height: 44px;
-  /* identical to box height */
+.new-jobs-head{
+    // font-family: 'Open Sans';
+font-style: normal;
+font-weight: 600;
+font-size: 18px;
+line-height: 44px;
+/* identical to box height */
 
-  color: #000000;
 
-  // text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+color: #000000;
+
+// text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
 
-.new-jobs-cards-cont {
-  flex-direction: column;
-  gap: 20px;
-  display: flex;
-  align-items: center;
-  padding-top: 20px;
-  // padding: 4%;
+.new-jobs-cards-cont{
+    flex-direction: column;
+    gap: 20px;
+display: flex;
+align-items: center;
+padding-top: 20px;
+// padding: 4%;
 }
+
 
 // JobCard css
 
-.job-card-cont {
-  // padding-top: 15px;
-  padding: 3%;
-  height: 90px;
-  // flex: 1;
-  background: #ffffff;
-  box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.25);
-  // width: 50%;
-  display: flex;
-  align-items: center;
-  border-radius: 20px;
+
+.job-card-cont{
+    // padding-top: 15px;
+    padding: 3%;
+    height: 90px;
+    // flex: 1;
+    background: #FFFFFF;
+box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.25);
+    // width: 50%;
+    display: flex;
+    align-items: center;
+border-radius: 20px;
+
 }
 
-.new-job-company-description {
-  flex: 1;
-  // height: 100%;
-  // background-color: #1F194C;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  justify-content: space-evenly;
-  padding: 1% 5%;
+.new-job-company-description{
+    flex: 1;
+    // height: 100%;
+    // background-color: #1F194C;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: space-evenly;
+    padding: 1% 5%;
 }
-.new-job-company-desc-div {
-  display: flex;
-  flex: 1;
-  width: 100%;
-  flex-direction: column;
+.new-job-company-desc-div{
+    display: flex;
+    flex: 1;
+    width: 100%;
+    flex-direction: column;
 }
 
-.new-job-time-of-upload {
-  display: flex;
-  align-items: center;
-  // justify-content: space-evenly;
-  gap: 10px;
-  // flex: 1;
-
-  width: 100%;
+.new-job-time-of-upload{
+    display: flex;
+    align-items: center;
+    // justify-content: space-evenly;
+    gap: 10px;
+    // flex: 1;
+    
+    width: 100%;
 }
 .new-job-time-of-upload > span{
     font-size: 14px;
     white-space: nowrap;
 }
-.new-job-company-extra-detail {
-  flex: 1;
-  // background-color: red;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: flex-end;
-  height: 100%;
+.new-job-company-extra-detail{
+    flex: 1;
+    // background-color: red;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-end;
+    height: 100%;
 }
 
-.new-job-company-heading {
-  font-weight: 600;
-  font-size: 16px;
+.new-job-company-heading{
+    font-weight: 600;
+    font-size: 16px;
 }
-.new-job-company-post {
-  text-align: start;
-  font-size: 14px;
+.new-job-company-post{
+    text-align: start;
+    font-size: 14px;
 }
-.dot {
-  background-color: #5c5b5b;
-  width: 10px;
-  border-radius: 50%;
-  height: 10px;
-}
-
-.new-job-company-extra-detail > span {
-  font-size: 14px;
+.dot{
+    background-color: #5C5B5B;
+    width: 10px;
+    border-radius: 50%;
+    height: 10px;
 }
 
-.new-job-view-deatil-tag {
-  color: #3b6fb1;
-  cursor: pointer;
-  font-size: 14px;
+.new-job-company-extra-detail > span{
+    font-size: 14px;
 }
 
-.dashboard-header {
-  color: white;
-  font-size: 20px;
+.new-job-view-deatil-tag{
+    color: #3B6FB1;
+    cursor: pointer;
+    font-size: 14px;
+
+}
+
+.dashboard-header{
+    color: white;
+    font-size: 20px;
+
 }
 .dashboard-first-section{
     display: flex;
@@ -462,13 +406,15 @@ cursor: pointer;
     
 }
 
-.dashboard-section-cont {
-  display: flex;
-  justify-content: space-evenly;
-  flex-direction: column;
-  padding: 2% 4%;
-  gap: 30px;
+.dashboard-section-cont{
+    display: flex;
+    justify-content: space-evenly;
+    flex-direction: column;
+    padding: 2% 4%;
+    gap: 30px;
+    
 }
+
 
 //Notification css
 
@@ -505,16 +451,18 @@ max-height: 430px;
 
 }
 
-.new-notification-cards-cont {
-  flex-direction: column;
-  gap: 2px;
-  display: flex;
-  // overflow-y: scroll;
+.new-notification-cards-cont{
+    flex-direction: column;
+    gap: 2px;
+display: flex;
+// overflow-y: scroll;
 
-  align-items: flex-start;
-  // justify-content: flex-start;
-  padding-top: 20px;
+
+align-items: flex-start;
+// justify-content: flex-start;
+padding-top: 20px;
 }
+
 
 //Todo css
 
@@ -526,115 +474,120 @@ max-height: 430px;
     border-radius: 20px;
 max-height: 430px;
 
-  padding: 2% 4%;
-  flex-direction: column;
+    padding: 2% 4%;
+    flex-direction: column;
 }
 
-.todo-sub-heading {
-  color: #909090;
-  font-size: 18px;
+.todo-sub-heading{
+    color: #909090;
+    font-size: 18px;
 }
 
-.todo-card-main-cont {
-  // padding-bottom: 10px;
-  // border-bottom: 0.5px solid rgba(0, 0, 0, 0.15);
-  height: 70px;
-  display: flex;
-  gap: 30px;
-
-  align-items: center;
-  cursor: pointer;
+.todo-card-main-cont{
+    // padding-bottom: 10px;
+    // border-bottom: 0.5px solid rgba(0, 0, 0, 0.15);
+    height: 70px;
+    display: flex;
+    gap: 30px;
+    
+    align-items: center;
+    cursor: pointer;
 }
 
 .todo-card-main-cont:hover {
-  background: #d9d9d9;
+    background: #D9D9D9;
 }
-.todo-card-main-cont:hover .square {
-  background: white;
+.todo-card-main-cont:hover .square{
+    background: white;
 }
-.square {
-  width: 36px;
-  height: 36px;
-  background: #d9d9d9;
-  border-radius: 10px;
-}
-
-.todo-card-task-head {
-  color: #000000;
+.square{
+    width: 36px;
+height: 36px;
+background: #D9D9D9;
+border-radius: 10px;
 }
 
-.todo-task-div {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
+.todo-card-task-head{
+    color: #000000;
+    
 }
 
-.todo-cards-cont {
-  flex-direction: column;
-  gap: 20px;
-  display: flex;
-  // align-items: center;
-  padding-top: 20px;
+.todo-task-div{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    
 }
 
-.todo-cars-task-hint {
-  color: #909090;
+.todo-cards-cont{
+    flex-direction: column;
+    gap: 20px;
+display: flex;
+// align-items: center;
+padding-top: 20px;
 }
 
-.vertical-line {
-  height: 80%;
-  background: #1f194c;
-  width: 7px;
-  border-radius: 20px;
+.todo-cars-task-hint{
+    color: #909090;
+
 }
+
+.vertical-line{
+    height: 80%;
+    background: #1F194C;
+    width: 7px;
+    border-radius: 20px;
+}
+
+
 
 // UpcomingEvents css
 
-.upcoming-events-main-cont {
-  display: flex;
-  // background-color: white;
-  background: #fcfcfc;
-  width: 55%;
-  border-radius: 20px;
-  max-height: 430px;
+.upcoming-events-main-cont{
+    display: flex;
+    // background-color: white;
+    background: #FCFCFC;
+    width: 55%;
+    border-radius: 20px;
+max-height: 430px;
 
-  padding: 2% 5%;
-  flex-direction: column;
-}
-
-.upcoming-event-card {
-  display: flex;
-  flex: 1;
-  background: #f5f6fa;
-  border-radius: 6px;
-  align-items: flex-start;
-  font-size: 600;
-  padding: 1% 4%;
-  flex-direction: column;
-}
-.event-timing-div {
-  display: flex;
-  align-items: center;
-  gap: 5px;
-}
-.circle {
-  width: 10px;
-  height: 10px;
-  background-color: green;
-  border-radius: 50%;
+    padding: 2% 5%;
+    flex-direction: column;
 }
 
-.event-timings-tag {
-  font-size: 14px;
+.upcoming-event-card{
+    display: flex;
+    flex: 1;
+    background: #F5F6FA;
+    border-radius: 6px;
+    align-items: flex-start;
+    font-size: 600;
+    padding: 1% 4%;
+    flex-direction: column;
+}
+.event-timing-div{
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+.circle{
+    width: 10px;
+    height: 10px;
+    background-color: green;
+    border-radius: 50%;
 }
 
-.event-name-tag {
-  font-size: 16px;
+.event-timings-tag{
+    font-size: 14px;
 }
 
-.event-desc-tag {
-  font-size: 15px;
-  color: #5c5b5b;
+.event-name-tag{
+    font-size: 16px;
+}
+
+.event-desc-tag{
+    font-size: 15px;
+    color: #5C5B5B;
 }
 .mobile-more-button{
     padding: 2% 1%;
@@ -721,37 +674,37 @@ max-height: 430px;
     }
     .new-jobs-cards-cont{
     padding-top: 5px;
-  }
+    }
 
-  .notification-main-cont {
-    border-radius: 8px;
-    display: none;
-  }
-  .todo-main-cont {
-    width: 100%;
-    border-radius: 8px;
-  }
+    .notification-main-cont{
+        border-radius: 8px;
+        display: none;
+    }
+    .todo-main-cont{
+        width: 100%;
+        border-radius: 8px;
+    }
 
-  .todo-sub-heading {
-    font-size: 14px;
-  }
-  .todo-card-task-head {
-    font-size: 15px;
-  }
-  .todo-cars-task-hint {
-    font-size: 14px;
-  }
-  .upcoming-events-main-cont {
-    width: 100%;
-    border-radius: 8px;
-  }
-  .event-timings-tag {
-    font-size: 14px;
-  }
-  .event-name-tag {
-    font-size: 15px;
-  }
-  .event-desc-tag {
-    font-size: 14px;
-  }
+    .todo-sub-heading{
+        font-size: 14px;
+    }
+    .todo-card-task-head{
+        font-size: 15px;
+    }
+    .todo-cars-task-hint{
+        font-size: 14px;
+    }
+    .upcoming-events-main-cont{
+        width: 100%;
+        border-radius: 8px;
+    }
+    .event-timings-tag {
+        font-size: 14px;
+    }
+    .event-name-tag{
+        font-size: 15px;
+    }
+    .event-desc-tag{
+        font-size: 14px;
+    }
 }
