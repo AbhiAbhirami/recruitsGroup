@@ -9,6 +9,8 @@ function NewJobs() {
                 <JobCard />
                 <JobCard />
                 <JobCard />
+                <div className='mobile-more-button'>More</div>
+
             </div>
         </div>
     )

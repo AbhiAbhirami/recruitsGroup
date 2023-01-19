@@ -10,6 +10,8 @@ function UpcomingEvents() {
                 <UpcomingEventCard />
                 <UpcomingEventCard />
                 <UpcomingEventCard />
+                <div style={{ alignSelf: "center" }} className='mobile-more-button'>More</div>
+
             </div>
         </div>
     )
