@@ -7,8 +7,7 @@ function NotificationCard() {
             <img src={stackIcon} alt="stack-icon" />
             <div>
                 <span style={{ fontSize: "14px" }}>A new comment is added in your
-                    in your recent application A new comment is added in your
-                    in your recent application</span>
+                    in your recent application.</span>
             </div>
         </div>
     )
