@@ -48,21 +48,21 @@ function ProfileInfo({ tab, setTab }) {
           </div>
           <div className="profileInfo-profile-control-tab">
             <button
-              className={`cursor-pointer ${tab === "overview" && "active"}`}
+              className={`cursor-pointer ${tab === "overview" ? "active":""}`}
               type="button"
               onClick={() => setTab("overview")}
             >
               Overview
             </button>
             <button
-              className={`cursor-pointer ${tab === "documents" && "active"}`}
+              className={`cursor-pointer ${tab === "documents" ? "active":""}`}
               type="button"
               onClick={() => setTab("documents")}
             >
               Documents
             </button>
             <button
-              className={`cursor-pointer ${tab === "settings" && "active"}`}
+              className={`cursor-pointer ${tab === "settings" ? "active":""}`}
               type="button"
               onClick={() => setTab("settings")}
             >

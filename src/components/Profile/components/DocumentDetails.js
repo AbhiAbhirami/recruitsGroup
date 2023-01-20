@@ -15,13 +15,13 @@ function DocumentDetails() {
         </div>
         <ul>
           <li
-            className={sideTab === 1 && "document-details-head"}
+            className={sideTab === 1? "document-details-head":""}
             onClick={() => setSideTab(1)}
           >
             Pasport <button className="cursor-pointer">UPDATE</button>
           </li>
           <li
-            className={sideTab === 2 && "document-details-head"}
+            className={sideTab === 2 ? "document-details-head":""}
             onClick={() => setSideTab(2)}
           >
             Identity Document <br />
@@ -30,14 +30,14 @@ function DocumentDetails() {
           </li>
 
           <li
-            className={sideTab === 3 && "document-details-head"}
+            className={sideTab === 3 ?"document-details-head":""}
             // onClick={() => setSideTab(3)}
           >
             Experience Certificate{" "}
             <button className="cursor-pointer">ADD</button>
           </li>
           <li
-            className={sideTab === 4 && "document-details-head"}
+            className={sideTab === 4 ? "document-details-head":""}
             // onClick={() => setSideTab(4)}
           >
             IELTS/ <br />
@@ -46,7 +46,7 @@ function DocumentDetails() {
           </li>
 
           <li
-            className={sideTab === 5 && "document-details-head"}
+            className={sideTab === 5 ?"document-details-head":""}
             // onClick={() => setSideTab(5)}
           >
             Any other Supporting <br />
