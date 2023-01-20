@@ -13,7 +13,8 @@ import NotificationCard from '../Shared/Notification/NotificationCard'
 import profile from '../../assets/images/icons/profile.png'
 
 function Jobs() {
-    const data = [{ task: "Update profile", tag: "To find you" }, { task: "Update profile", tag: "To find you" }, { task: "Update profile", tag: "To find you" }, { task: "Update profile", tag: "To find you" }, { task: "Update profile", tag: "To find you" }, { task: "Update profile", tag: "To find you" }, { task: "Update profile", tag: "To find you" }]
+    let media = window.screen.width < 600;
+    const data = [ { task: "Update profile", tag: "To find you" }, { task: "Update profile", tag: "To find you" }, { task: "Update profile", tag: "To find you" }, { task: "Update profile", tag: "To find you" }, { task: "Update profile", tag: "To find you" }, { task: "Update profile", tag: "To find you" }]
     return (
         <div>
 
@@ -38,9 +39,9 @@ function Jobs() {
                         </div>
                     </div>
 
-                    <div style={{ width: '100%', borderRadius: '18px', backgroundColor: '#fff', display: 'flex', flexDirection: 'column', gap: '20px', padding: '10px' }}>
+                    <div style={{ width: '100%', borderRadius: '18px', backgroundColor: '#fff', display: 'flex', flexDirection: 'column', gap: '20px', padding: '10px',position:"sticky",top:"15px" }}>
                         <div style={{ display: 'flex', width: '100%', marginTop: '20px', gap: '20px' }}>
-                            <img src={save} style={{ height: '25px', width: '25px' }} alt="" /> <h2>Saved Jobs </h2>
+                            <img src={save} style={{ height: '20px', width: '20px' }} alt="" /> <h2 style={{fontSize:'18px'}}>Saved Jobs </h2>
                         </div>
                         <SavedJobsCard />
                         <SavedJobsCard />
@@ -55,13 +56,13 @@ function Jobs() {
                 <div className="w-35" style={{ background: '#E5E5E5', borderRadius: '20px', display: 'flex', flexDirection: 'column', gap: '20px', alignItems: 'center', paddingTop: '33px' }}>
                     <div style={{ width: '90%', height: '150px', borderRadius: '18px', backgroundColor: '#fff', display: 'flex' }}>
                         <div className="" style={{ height: "100%", width: "50%", padding: '5%' }}>
-                            <h2>What</h2>
-                            <p style={{ marginTop: '.75rem' }}>Job title or Company</p>
+                            <h2 style={media ? {fontSize : "16px"} : {fontSize : "20px"}}>What</h2>
+                            <p style={media ? { marginTop: '.75rem' , fontSize :"14px"} : { marginTop: '.75rem' , fontSize :"16px"}}>Job title or Company</p>
                             <input placeholder='Web developer' type="text" style={{ width: '100%', height: '30px', marginTop: '.75rem', backgroundColor: '#F2F3F7', outline: 'none', paddingLeft: '10px', border: 'none', borderRadius: '10px' }} />
                         </div>
                         <div className="" style={{ height: "100%", width: "50%", padding: '5%' }}>
-                            <h2>Where</h2>
-                            <p style={{ marginTop: '.75rem' }}>City or State</p>
+                            <h2 style={media ? {fontSize : "16px"} : {fontSize : "20px"}}>Where</h2>
+                            <p style={media ? { marginTop: '.75rem' , fontSize :"14px"} : { marginTop: '.75rem' , fontSize :"16px"}}>City or State</p>
                             <input placeholder='Delhi' type="text" style={{ width: '100%', height: '30px', marginTop: '.75rem', backgroundColor: '#F2F3F7', outline: 'none', paddingLeft: '10px', border: 'none', borderRadius: '10px' }} />
                         </div>
                     </div>
@@ -84,7 +85,7 @@ function Jobs() {
                     </div>
 
 
-                    <div className='todo-main-cont' style={{ width: '100%', height: 'auto', maxHeight: 'max-content', padding: '20px 30px' }}>
+                    <div className='todo-main-cont' style={{position:"sticky",top:"15px", width: '100%', height: 'auto', maxHeight: 'max-content', padding: '20px 30px' }}>
                         <h3 className='new-jobs-head'>Todo</h3>
                         <p className='todo-sub-heading'>Check your life, not boxes</p>
                         <div className='todo-cards-cont'>
@@ -107,15 +108,15 @@ export default Jobs
 
 const SavedJobsCard = () => {
     return (
-        <div style={{ width: '100%', height: '140px', borderRadius: '20px', boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1)', padding: '20px 30px', display: 'flex' }}>
+        <div style={{ width: '100%', height: '110px', borderRadius: '20px', boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1)', padding: '10px 15px', display: 'flex' }}>
             <div style={{ height: "100%", width: '50%', display: 'flex', flexDirection: 'column', gap: '10px', }}>
-                <h2 style={{ fontWeight: '600' }}>Facebook</h2>
-                <h4 style={{ fontWeight: '400', color: '#5C5B5B' }}>Mern Stack Developer</h4>
-                <h4 style={{ fontWeight: '400', color: '#5C5B5B' }}>3 days ago &nbsp; 13 Applied</h4>
+                <h2 style={{ fontWeight: '600',fontSize:'16px' }}>Facebook</h2>
+                <h4 style={{ fontWeight: '400', color: '#5C5B5B',fontSize:'15px' }}>Mern Stack Developer</h4>
+                <h4 style={{ fontWeight: '400', color: '#5C5B5B',fontSize:"13px" }}>3 days ago &nbsp; 13 Applied</h4>
             </div>
             <div style={{ height: "100%", width: '50%', display: 'flex', flexDirection: 'column', justifyContent: 'space-around', alignItems: 'end' }}>
-                <h4 style={{ fontWeight: '400', color: '#5C5B5B' }}>Singapore</h4>
-                <h4 style={{ color: '#3B6FB1' }}>VIEW DETAILS</h4>
+                <h4 style={{ fontWeight: '400', color: '#5C5B5B',fontSize:"13px" }}>Singapore</h4>
+                <h4 style={{ color: '#3B6FB1',fontSize:"14px" }}>VIEW DETAILS</h4>
             </div>
         </div>
     )

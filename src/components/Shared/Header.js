@@ -10,12 +10,14 @@ import DropDown from './DropDown'
 import NotificationDropDown from './NotificationDropDown'
 import Hamburger from './Hamburger'
 import { Link, useLocation } from 'react-router-dom'
+import SearchDropDown from './SearchDropDown'
 
 
 function Header() {
     const location = useLocation();
     const [isDropdown, setIsDropDown] = useState(false)
     const [isNotifDropdown, setIsNotifDropDown] = useState(false)
+    const [isSearchDropdown, setIsSearchDropDown] = useState(false)
     const [currentNavLink, setCurrentNavLink] = useState(location.pathname)
 const [isNewNotification, setIsNewNotification] = useState(true);
   const [notification, setNotification] = useState([
@@ -33,6 +35,7 @@ const [isNewNotification, setIsNewNotification] = useState(true);
         if (e.target.className === "dropdown-modal") {
             setIsDropDown(false)
             setIsNotifDropDown(false)
+            setIsSearchDropDown(false)
         }
 
     }
@@ -43,7 +46,7 @@ const [isNewNotification, setIsNewNotification] = useState(true);
   };
     return (
         <div className='header-main-cont'>
-            <div onClick={handleOnClickOutside} className="dropdown-modal" style={isDropdown | isNotifDropdown ? { width: "100%", height: "100vh", zIndex: 10, position: "absolute" } : { display: 'none' }}></div>
+            <div onClick={handleOnClickOutside} className="dropdown-modal" style={isDropdown | isNotifDropdown | isSearchDropdown ? { width: "100%", height: "100vh", zIndex: 10, position: "absolute" } : { display: 'none' }}></div>
             {/* <Hamburger /> */}
             <div className='header-logo-cont'>
                 <img className='header-logo-horizontal' src={logoH} alt="logo-horizontal" />
@@ -56,7 +59,10 @@ const [isNewNotification, setIsNewNotification] = useState(true);
             </div>
             <div className='header-profile-cont'>
                 <div className='header-profile-div'>
-                    <img className='search-icon' src={searchIcon} alt="search-icon" />
+                    <div onClick={() => setIsSearchDropDown(true)} className='search-div'>
+                        <img className='search-icon' src={searchIcon} alt="search-icon" />
+                        <SearchDropDown open={isSearchDropdown} />
+                    </div>
                     <div className='bellIcon-cont' onClick={() => setIsNotifDropDown(true)}>
                         {/* <span style={isNewNotification ? { display: 'block' } : { display: 'none' }} className='notification-dot'></span> */}
                         <img className='bell-icon' src={isNewNotification ? bellDot : bellIcon} alt="search-icon" />

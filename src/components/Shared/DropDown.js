@@ -1,6 +1,7 @@
 import React from "react";
 import profileImg from "../../assets/images/icons/profile.png";
 import { useAuth } from "../../core/Auth";
+import { Link } from "react-router-dom";
 
 function DropDown({ open }) {
   const { logout } = useAuth();
@@ -18,7 +19,9 @@ function DropDown({ open }) {
         </div>
       </div>
       <div className="dropdown-nav-options-div">
-        <span className="dropdown-div-nav-tag">Profile</span>
+        <Link to="/profile" className="dropdown-div-nav-tag">
+          Profile
+        </Link>
         {/* <span className="dropdown-div-nav-tag">My Projects</span> */}
         <span className="dropdown-div-nav-tag">My Documents</span>
       </div>
