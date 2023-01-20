@@ -10,6 +10,8 @@ function Notification() {
                 <NotificationCard />
                 <NotificationCard />
                 <NotificationCard />
+                <NotificationCard />
+                <NotificationCard />
             </div>
         </div>
     )

@@ -9,6 +9,7 @@ import send from "../../../assets/images/icons/send.png";
 import closebtn from "../../../assets/images/icons/close.png";
 
 import { Link } from "react-router-dom";
+let media = window.screen.width < 600;
 
 const customStyles = {
   content: {
