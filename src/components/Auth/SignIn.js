@@ -2,8 +2,8 @@ import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { Link, useLocation } from "react-router-dom";
 import { useAuth } from "../../core/Auth";
-import { getUserByToken, login } from "../../requests/Auth";
-// import { getUserByToken, login } from "../../requests/demo";\
+// import { getUserByToken, login } from "../../requests/Auth";
+import { getUserByToken, login } from "../../requests/demo";
 import { toast, ToastContainer } from "react-toastify";
 
 import Auth from "../Shared/Auth";
