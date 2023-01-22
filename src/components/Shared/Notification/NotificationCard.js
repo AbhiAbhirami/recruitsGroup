@@ -5,7 +5,7 @@ function NotificationCard() {
     return (
         <div className='notification-card-main-cont'>
             <img src={stackIcon} alt="stack-icon" />
-            <div>
+            <div style={{ maxWidth: "400px" }}>
                 <span style={{ fontSize: "14px" }}>A new comment is added in your
                     in your recent application.</span>
             </div>

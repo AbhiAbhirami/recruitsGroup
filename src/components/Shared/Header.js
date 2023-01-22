@@ -19,22 +19,23 @@ function Header() {
     const [isDropdown, setIsDropDown] = useState(false)
     const [isNotifDropdown, setIsNotifDropDown] = useState(false)
     const [isSearchDropdown, setIsSearchDropDown] = useState(false)
+    const [isHamburger, setIsHamburger] = useState(false)
     const [currentNavLink, setCurrentNavLink] = useState(location.pathname)
     const handleOnClickOutside = (e) => {
         if (e.target.className === "dropdown-modal") {
             setIsDropDown(false)
             setIsNotifDropDown(false)
             setIsSearchDropDown(false)
+            setIsHamburger(false)
         }
 
     }
     return (
         <div className='header-main-cont'>
-            <div onClick={handleOnClickOutside} className="dropdown-modal" style={isDropdown | isNotifDropdown | isSearchDropdown ? { width: "100%", height: "100vh", zIndex: 10, position: "absolute" } : { display: 'none' }}></div>
-            {/* <Hamburger /> */}
-            <div className='header-logo-cont'>
+            <div onClick={handleOnClickOutside} className="dropdown-modal" style={isDropdown | isHamburger | isNotifDropdown | isSearchDropdown ? { width: "100%", height: "100vh", zIndex: 10, position: "absolute" } : { display: 'none' }}></div>
+            <Link to="/dashboard" className='header-logo-cont'>
                 <img className='header-logo-horizontal' src={logoH} alt="logo-horizontal" />
-            </div>
+            </Link>
             <div className='header-navlinks-cont'>
                 <Link to="/dashboard" className={currentNavLink === "/dashboard" ? 'nav-links-active' : 'nav-links'}>Dashboard</Link>
                 <Link to="/jobs" className={currentNavLink === "/jobs" ? 'nav-links-active' : 'nav-links'}>Jobs</Link>
@@ -70,11 +71,21 @@ function Header() {
 
                 </div>
             </div>
-            <div className="mobile-hamburger-div">
+            <div className="mobile-hamburger-div" >
                 <div className='bellIcon-cont'>
                     {/* <span style={isNewNotification ? { display: 'block' } : { display: 'none' }} className='notification-dot'></span> */}
-                    <img className='bell-icon' src={isNewNotification ? bellDot : bellIcon} alt="search-icon" />
-                    <img className="hamburger-icon" src={hamBurger} alt="hamburger" />
+                    <img onClick={() => setIsNotifDropDown(true)} className='bell-icon' src={isNewNotification ? bellDot : bellIcon} alt="search-icon" />
+                    {isHamburger ?
+                        <><img style={{ visibility: 'hidden' }} className="hamburger-icon" onClick={() => setIsHamburger(true)} src={hamBurger} alt="hamburger" />
+
+                            <span style={{ position: "absolute", left: "60%", top: 24, width: 0, fontSize: '40px' }} class="close">&times;</span>
+                        </>
+                        :
+                        <img className="hamburger-icon" onClick={() => setIsHamburger(true)} src={hamBurger} alt="hamburger" />
+                    }
+                    <NotificationDropDown open={isNotifDropdown} />
+                    <Hamburger open={isHamburger} />
+
                 </div>
             </div>
         </div >

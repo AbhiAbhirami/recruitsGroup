@@ -4,6 +4,8 @@ import SliderContent from "./SliderContent";
 import Dots from "./Dots";
 import "./Slider.css";
 import banner1 from "../../assets/images/background/bg1.png";
+import banner2 from "../../assets/images/background/career_progress.svg";
+import banner3 from "../../assets/images/background/interview.svg";
 
 
 function Slider(props) {
@@ -11,9 +13,9 @@ function Slider(props) {
   const [ImageSlider, setImageSlider] = useState([{
     image: banner1
   }, {
-    image: "https://e7.pngegg.com/pngimages/671/207/png-clipart-dell-laptop-computer-monitors-desktop-computers-personal-computer-laptop-television-electronics.png"
+    image: banner2
   }, {
-    image: banner1
+    image: banner3
   },
   ])
   let media = window.screen.width < 600;
