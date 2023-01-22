@@ -91,7 +91,11 @@ function ProfileInfo({ tab, setTab, user, documents }) {
               controls={true}
             >
               <source
-                src={documents.video_resume ? documents.video_resume : tips}
+                src={
+                  documents && documents.video_resume
+                    ? documents.video_resume
+                    : tips
+                }
                 type="video/mp4"
               />
             </video>

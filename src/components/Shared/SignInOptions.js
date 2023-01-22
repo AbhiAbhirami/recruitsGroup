@@ -18,6 +18,7 @@ function SignInOptions() {
         saveAuth(auth);
         const { data: user } = await getUserByToken(auth.api_token);
         setCurrentUser(user);
+        localStorage.setItem("userData", JSON.stringify(user));
         toast.success(user.message + "✔");
       } catch (error) {
         saveAuth(undefined);
