@@ -1,5 +1,5 @@
 import axios from "axios";
-const API_URL = process.env.REACT_APP_API_URL + "/user";
+const API_URL = process.env.REACT_APP_API_URL;
 
 let userData = JSON.parse(localStorage.getItem("user-information"));
 let api_token, refreshToken;
