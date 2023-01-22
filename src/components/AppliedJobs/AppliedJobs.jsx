@@ -30,7 +30,7 @@ function AppliedJobs() {
 
                     <div style={{ width: '100%', height: '100px', borderRadius: '18px', backgroundColor: '#fff', padding: '20px 30px' }}>
                         <div style={{ display: 'flex', justifyContent: 'space-between', width: "100%" }}>
-                            <h3 style={{ color: '#5C5B5B' }}>Profile Complition</h3>
+                            <h3 style={{ color: '#5C5B5B' }}>Profile Completion</h3>
                             <h3>50%</h3>
                         </div>
                         <div style={{ height: '3px', width: '100%', background: '#D9D9D9', marginTop: '20px' }}>

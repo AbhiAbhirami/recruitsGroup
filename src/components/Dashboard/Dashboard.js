@@ -1,4 +1,7 @@
 import React from 'react'
+import { useEffect } from 'react'
+import { useState } from 'react'
+import { getUserDataById } from '../../requests/Auth'
 import BackgroundDesign from '../Shared/BackgroundDesign'
 import Header from '../Shared/Header'
 import NewJobs from '../Shared/NewJobs/NewJobs'
@@ -7,6 +10,7 @@ import Todo from '../Shared/Todo/Todo'
 import UpcomingEvents from '../Shared/UpcomingEvents/UpcomingEvents'
 
 function Dashboard() {
+  
     return (
         <div className='dashboard-main-cont'>
             <Header />

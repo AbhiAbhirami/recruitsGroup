@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 
 function DropDown({ open }) {
   const { logout } = useAuth();
+  const user = JSON.parse(localStorage.getItem("userData"));
 
   return (
     <div
@@ -14,8 +15,8 @@ function DropDown({ open }) {
       <div className="dropdown-profile-image-cont">
         <img className="profile-img-tag" src={profileImg} alt="profile-img" />
         <div className="dropdown-email-div">
-          <span className="dropdown-name-tag">Shahid Afrid</span>
-          <span className="dropdown-email-tag">Shahidafrid@gmail.com</span>
+          <span className="dropdown-name-tag">{user.name}</span>
+          <span className="dropdown-email-tag">{user.email}</span>
         </div>
       </div>
       <div className="dropdown-nav-options-div">

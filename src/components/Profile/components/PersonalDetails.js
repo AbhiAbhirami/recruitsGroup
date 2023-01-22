@@ -2,9 +2,30 @@ import React, { Fragment } from "react";
 import edit from "../../../assets/images/icons/edit.png";
 import download from "../../../assets/images/icons/download.png";
 import moment from "moment";
+import { useEffect } from "react";
+import { updateUserDocument } from "../../../requests/Auth";
 
-function PersonalDetails({ setIsOpen }) {
-  const [files, setFiles] = React.useState([]);
+function PersonalDetails({
+  setIsOpen,
+  user,
+  documents,
+  deleteResume,
+  setResumeData,
+  deleteCover,
+  setCoverData,
+}) {
+  const [resume, setResume] = React.useState("");
+  const [cover, setCover] = React.useState("");
+  useEffect(() => {
+    setResume(
+      documents.resume ? unescape(documents.resume.split("/").pop()) : ""
+    );
+    setCover(
+      documents.cover_letter
+        ? unescape(documents.cover_letter.split("/").pop())
+        : ""
+    );
+  }, []);
 
   return (
     <Fragment>
@@ -45,23 +66,23 @@ function PersonalDetails({ setIsOpen }) {
               <tbody>
                 <tr>
                   <td>Full Name </td>
-                  <td>Amanda Smith</td>
+                  <td>{user.name ? user.name : "Not Updated"}</td>
                 </tr>
                 <tr>
                   <td>Position</td>
-                  <td>Fulll Stack Developer</td>
+                  <td>{user.position ? user.position : "Not Updated"}</td>
                 </tr>
-                <tr>
+                {/* <tr>
                   <td>Address</td>
                   <td>Not Updated</td>
-                </tr>
+                </tr> */}
                 <tr>
                   <td>Contact</td>
-                  <td>8517601388</td>
+                  <td>{user.phone ? user.phone : "Not Updated"}</td>
                 </tr>
                 <tr>
                   <td>Current Company </td>
-                  <td>Not Updated </td>
+                  <td>{user.company ? user.company : "Not Updated"}</td>
                 </tr>
               </tbody>
             </table>
@@ -69,23 +90,25 @@ function PersonalDetails({ setIsOpen }) {
               <tbody>
                 <tr>
                   <td>Date of birth</td>
-                  <td> Not Updated</td>
+                  <td>
+                    {user.date_of_birth ? user.date_of_birth : "Not Updated"}
+                  </td>
                 </tr>
                 <tr>
                   <td>Country</td>
-                  <td> Not Updated</td>
+                  <td>{user.country ? user.country : "Not Updated"}</td>
                 </tr>
                 <tr>
                   <td>Language</td>
-                  <td>Not Updated</td>
+                  <td>{user.language ? user.language : "Not Updated"}</td>
                 </tr>
                 <tr>
                   <td>Time Zone</td>
-                  <td>Not Updated</td>
+                  <td>{user.time_zone ? user.time_zone : "Not Updated"}</td>
                 </tr>
                 <tr>
                   <td>Currency</td>
-                  <td>Not Updated </td>
+                  <td>{user.currency ? user.currency : "Not Updated"}</td>
                 </tr>
               </tbody>
             </table>
@@ -99,40 +122,125 @@ function PersonalDetails({ setIsOpen }) {
             The most key document that employers review is a resume. In general,
             recruiters do not review profiles without resumes.
           </p>
-          {files[0]?.name ? (
-            <div className="profile-section-personal-resume-update">
-              <div>
-                RESUME.PDF -{" "}
-                <span>
-                  Updated on{" "}
-                  {files && moment(files[0]?.lastModified).format("DD-MM-YYYY")}
-                </span>
-              </div>
-              <div className="resume-delete">
-                <img
-                  className="cursor-pointer"
-                  src={download}
-                  height={25}
-                  alt="download-icon"
-                />
-                <button className="cursor-pointer">DELETE RESUME</button>
-              </div>
-            </div>
-          ) : (
-            ""
-          )}
+
+          <div className="profile-section-personal-resume-update">
+            {documents && documents.resume ? (
+              <>
+                <div>
+                  {resume
+                    ? resume
+                    : unescape(documents.resume.split("/").pop())}
+                  {/* <span>
+                    Updated on{" "}
+                    {files &&
+                      moment(files[0]?.lastModified).format("DD-MM-YYYY")}
+                  </span> */}
+                </div>
+                <div className="resume-delete">
+                  <a href={documents.resume} target="_blank">
+                    <img
+                      className="cursor-pointer"
+                      src={download}
+                      height={25}
+                      alt="download-icon"
+                    />
+                  </a>
+                  <button
+                    className="cursor-pointer"
+                    onClick={() => {
+                      setResume("");
+                      deleteResume();
+                    }}
+                  >
+                    DELETE RESUME
+                  </button>
+                </div>
+              </>
+            ) : (
+              "Not Updated"
+            )}
+          </div>
+
           <div className="resume-update">
             <input
               type={"file"}
               id="resume-update"
-              onChange={(e) => setFiles(e.target.files)}
+              onChange={(e) => {
+                setResume(e.target.files[0].name);
+                setResumeData(e.target.files);
+              }}
               placeholder=""
               style={{ opacity: 0, visibility: "hidden" }}
             />
             <label className="button" htmlFor="resume-update">
               UPDATE RESUME
             </label>
-            <p>Supported Formats: doc, docx, rtf, pdf, upto 2 MB</p>
+            <p>Supported Formats: doc, docx, pdf, upto 2 MB</p>
+          </div>
+        </div>
+
+        <div className="profile-section-personal-resume">
+          <div className="personal-detail-title">
+            <h4>Cover Letter</h4>
+          </div>
+          <p>
+            The most key document that employers review is a resume. In general,
+            recruiters do not review profiles without resumes.
+          </p>
+
+          <div className="profile-section-personal-resume-update">
+            {documents && documents.cover_letter ? (
+              <>
+                <div>
+                  {cover
+                    ? cover
+                    : unescape(documents.cover_letter.split("/").pop())}
+                  {/* <span>
+                    Updated on{" "}
+                    {files &&
+                      moment(files[0]?.lastModified).format("DD-MM-YYYY")}
+                  </span> */}
+                </div>
+                <div className="resume-delete">
+                  <a href={documents.cover_letter} target="_blank">
+                    <img
+                      className="cursor-pointer"
+                      src={download}
+                      height={25}
+                      alt="download-icon"
+                    />
+                  </a>
+                  <button
+                    className="cursor-pointer"
+                    onClick={() => {
+                      setCover("");
+                      deleteCover();
+                    }}
+                  >
+                    DELETE COVER LETTER
+                  </button>
+                </div>
+              </>
+            ) : (
+              "Not Updated"
+            )}
+          </div>
+
+          <div className="resume-update">
+            <input
+              type={"file"}
+              id="cover-update"
+              onChange={(e) => {
+                setCover(e.target.files[0].name);
+                setCoverData(e.target.files);
+              }}
+              placeholder=""
+              style={{ opacity: 0, visibility: "hidden" }}
+            />
+            <label className="button" htmlFor="cover-update">
+              UPDATE COVER LETTER
+            </label>
+            <p>Supported Formats: doc, docx, pdf, upto 2 MB</p>
           </div>
         </div>
       </div>

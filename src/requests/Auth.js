@@ -1,5 +1,5 @@
 import axios from "axios";
-const API_URL = process.env.REACT_APP_API_URL;
+const API_URL = process.env.REACT_APP_API_URL + "/user";
 
 let userData = JSON.parse(localStorage.getItem("user-information"));
 let api_token, refreshToken;
@@ -24,7 +24,7 @@ export const GET_USER_BY_ID = `${API_URL}/id`;
 export const UPDATE_USER_DATA = `${API_URL}/update`;
 export const FORGOT_PASSWORD = `${API_URL}/forgot-password`;
 export const CHECK_PASSWORD = `${API_URL}/check-password`;
-
+export const GET_USER_DOCS = `${API_URL}/document`;
 export const GOOGLE_URL = `${API_URL}/google/login`;
 
 export function login(email, password) {
@@ -122,4 +122,18 @@ export function checkPassword(email, password) {
     },
     config
   );
+}
+
+export function getUserDocuments(id) {
+  return axios.get(GET_USER_DOCS + "/" + id, config);
+}
+
+export function deleteDocument(id, type) {
+  return axios.put(GET_USER_DOCS + "/" + type + "/" + id, config);
+}
+
+export function updateUserDocument(id, type, file) {
+  const data = new FormData();
+  data.append("file", file);
+  return axios.post(GET_USER_DOCS + "/" + type + "/" + id, data);
 }
