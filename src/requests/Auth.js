@@ -1,7 +1,21 @@
 import axios from "axios";
 const API_URL = process.env.REACT_APP_API_URL;
 
-export const GET_USER_BY_ACCESS_TOKEN_URL = `${API_URL}/verify_token`;
+let userData = JSON.parse(localStorage.getItem("user-information"));
+let api_token, refreshToken;
+if (userData) {
+  api_token = userData.api_token;
+  refreshToken = userData.refreshToken;
+}
+
+const config = {
+  headers: {
+    authorization: `Bearer ${api_token}`,
+    RefreshToken: refreshToken,
+    "Content-Type": "application/json",
+  },
+};
+export const GET_USER_BY_ACCESS_TOKEN_URL = `${API_URL}/verify-token`;
 export const LOGIN_URL = `${API_URL}/login`;
 export const REGISTER_URL = `${API_URL}/register`;
 export const VERIFY_OTP = `${API_URL}/verify-otp`;
@@ -14,66 +28,98 @@ export const CHECK_PASSWORD = `${API_URL}/check-password`;
 export const GOOGLE_URL = `${API_URL}/google/login`;
 
 export function login(email, password) {
-  return axios.post(LOGIN_URL, {
-    email,
-    password,
-  });
+  return axios.post(
+    LOGIN_URL,
+    {
+      email,
+      password,
+    },
+    config
+  );
 }
 
 export function googleLogin(code) {
-  return axios.get(GOOGLE_URL + "?code=" + code.code);
+  return axios.get(GOOGLE_URL + "?code=" + code.code, config);
 }
 
 export function signUp(data) {
-  return axios.post(REGISTER_URL, {
-    email: data.email,
-    name: data.name,
-    password: data.password,
-    password_confirmation: data.password_confirmation,
-    joined_on: new Date(),
-  });
+  return axios.post(
+    REGISTER_URL,
+    {
+      email: data.email,
+      name: data.name,
+      password: data.password,
+      password_confirmation: data.password_confirmation,
+      joined_on: new Date(),
+    },
+    config
+  );
 }
 
 export function getUserByToken(token) {
-  return axios.post(GET_USER_BY_ACCESS_TOKEN_URL, {
-    api_token: token.api_token,
-    refresh_token: token.refreshToken,
-  });
+  return axios.post(
+    GET_USER_BY_ACCESS_TOKEN_URL,
+    {
+      api_token: token.api_token,
+      refresh_token: token.refreshToken,
+    },
+    config
+  );
 }
 
 export function verifyEmailOtp(otp, email) {
-  return axios.put(VERIFY_OTP, {
-    otp,
-    email,
-  });
+  return axios.put(
+    VERIFY_OTP,
+    {
+      otp,
+      email,
+    },
+    config
+  );
 }
 
 export function resendOtp(email, newEmail) {
-  return axios.put(RESEND_OTP, {
-    email,
-    newEmail,
-  });
+  return axios.put(
+    RESEND_OTP,
+    {
+      email,
+      newEmail,
+    },
+    config
+  );
 }
 
 export function getUserDataById(id) {
-  return axios.get(GET_USER_BY_ID + "/" + id);
+  return axios.get(GET_USER_BY_ID + "/" + id, config);
 }
 
 export function resetPassword(email) {
-  return axios.post(FORGOT_PASSWORD, {
-    email: email,
-  });
+  return axios.post(
+    FORGOT_PASSWORD,
+    {
+      email: email,
+    },
+    config
+  );
 }
 
 export function updateUser(id, body) {
-  return axios.put(UPDATE_USER_DATA + "/" + id, {
-    ...body,
-  });
+  return axios.put(
+    UPDATE_USER_DATA + "/" + id,
+    {
+      ...body,
+    },
+    config
+  );
 }
 
 export function checkPassword(email, password) {
-  return axios.post(CHECK_PASSWORD, {
-    email: email,
-    password: password,
-  });
+  return axios.post(
+    CHECK_PASSWORD,
+    {
+      email: email,
+      password: password,
+    },
+    config
+  );
 }
