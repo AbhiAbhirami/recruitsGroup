@@ -23,6 +23,7 @@ function Header() {
     { comment: "commented", new: true },
     { comment: "comment 2", new: false },
   ]);
+  const [isHamburger, setIsHamburger] = useState(false);
 
   const user = JSON.parse(localStorage.getItem("userData"));
 
@@ -37,19 +38,21 @@ function Header() {
       setIsDropDown(false);
       setIsNotifDropDown(false);
       setIsSearchDropDown(false);
+      setIsHamburger(false);
     }
   };
 
   const changeNotificationInfo = () => {
     setIsNewNotification(false);
   };
+
   return (
     <div className="header-main-cont">
       <div
         onClick={handleOnClickOutside}
         className="dropdown-modal"
         style={
-          isDropdown | isNotifDropdown | isSearchDropdown
+          isDropdown | isHamburger | isNotifDropdown | isSearchDropdown
             ? {
                 width: "100%",
                 height: "100vh",
@@ -59,14 +62,13 @@ function Header() {
             : { display: "none" }
         }
       ></div>
-      {/* <Hamburger /> */}
-      <div className="header-logo-cont">
+      <Link to="/dashboard" className="header-logo-cont">
         <img
           className="header-logo-horizontal"
           src={logoH}
           alt="logo-horizontal"
         />
-      </div>
+      </Link>
       <div className="header-navlinks-cont">
         <Link
           to="/dashboard"
@@ -138,11 +140,44 @@ function Header() {
         <div className="bellIcon-cont">
           {/* <span style={isNewNotification ? { display: 'block' } : { display: 'none' }} className='notification-dot'></span> */}
           <img
+            onClick={() => setIsNotifDropDown(true)}
             className="bell-icon"
             src={isNewNotification ? bellDot : bellIcon}
             alt="search-icon"
           />
-          <img className="hamburger-icon" src={hamBurger} alt="hamburger" />
+          {isHamburger ? (
+            <>
+              <img
+                style={{ visibility: "hidden" }}
+                className="hamburger-icon"
+                onClick={() => setIsHamburger(true)}
+                src={hamBurger}
+                alt="hamburger"
+              />
+
+              <span
+                style={{
+                  position: "absolute",
+                  left: "60%",
+                  top: 24,
+                  width: 0,
+                  fontSize: "40px",
+                }}
+                class="close"
+              >
+                &times;
+              </span>
+            </>
+          ) : (
+            <img
+              className="hamburger-icon"
+              onClick={() => setIsHamburger(true)}
+              src={hamBurger}
+              alt="hamburger"
+            />
+          )}
+          <NotificationDropDown open={isNotifDropdown} />
+          <Hamburger open={isHamburger} />
         </div>
       </div>
     </div>

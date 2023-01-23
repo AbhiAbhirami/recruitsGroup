@@ -11,7 +11,7 @@ function JobCard({ setIsOpen }) {
           <span className="new-job-company-post">Full Stack Developer</span>
           <div className="new-job-time-of-upload">
             <span>3 days ago</span>
-            <span className="dot"></span>
+            <span className="dot-job"></span>
             <span>13 Applied</span>
           </div>
         </div>
