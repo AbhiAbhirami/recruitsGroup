@@ -3,7 +3,11 @@ import google from "../../assets/images/social/google.png";
 import apple from "../../assets/images/social/apple.png";
 import fb from "../../assets/images/social/fb.png";
 import { useGoogleLogin } from "@react-oauth/google";
-import { getUserByToken, googleLogin } from "../../requests/Auth";
+import {
+  getUserByToken,
+  getUserDocuments,
+  googleLogin,
+} from "../../requests/Auth";
 import { useAuth } from "../../core/Auth";
 
 import { toast, ToastContainer } from "react-toastify";
@@ -13,12 +17,17 @@ function SignInOptions() {
   const login = useGoogleLogin({
     onSuccess: async (codeResponse) => {
       try {
-        debugger;
         const { data: auth } = await googleLogin(codeResponse);
         saveAuth(auth);
         const { data: user } = await getUserByToken(auth.api_token);
         setCurrentUser(user);
-        localStorage.setItem("userData", JSON.stringify(user));
+        const docs = await getUserDocuments(user.data.id);
+        docs &&
+          localStorage.setItem(
+            "user-documents",
+            JSON.stringify(docs.data.data)
+          );
+        localStorage.setItem("user-data", JSON.stringify(user.data));
         toast.success(user.message + "✔");
       } catch (error) {
         saveAuth(undefined);

@@ -102,10 +102,10 @@ function PersonalDetails({
                   <td>Language</td>
                   <td>{user.language ? user.language : "Not Updated"}</td>
                 </tr>
-                <tr>
+                {/* <tr>
                   <td>Time Zone</td>
                   <td>{user.time_zone ? user.time_zone : "Not Updated"}</td>
-                </tr>
+                </tr> */}
                 <tr>
                   <td>Currency</td>
                   <td>{user.currency ? user.currency : "Not Updated"}</td>

@@ -2,12 +2,7 @@ import React from "react";
 import { useEffect } from "react";
 import { useState } from "react";
 import { toast, ToastContainer } from "react-toastify";
-import {
-  deleteDocument,
-  getUserDataById,
-  getUserDocuments,
-  updateUserDocument,
-} from "../../requests/Auth";
+import { deleteDocument, updateUserDocument } from "../../requests/Auth";
 import Header from "../Shared/Header";
 import DocumentDetails from "./components/DocumentDetails";
 import PersonalDetails from "./components/PersonalDetails";
@@ -23,14 +18,8 @@ function ProfilePage() {
   const [documents, setDocs] = useState({});
   useEffect(() => {
     const getUser = async () => {
-      const userData = await getUserDataById(userId);
-      userData && setUser(userData.data.data);
-
-      const docs = await getUserDocuments(userId);
-      docs && setDocs(docs.data.data);
-
-      localStorage.setItem("userData", JSON.stringify(userData.data.data));
-      localStorage.setItem("userDocs", JSON.stringify(docs.data.data));
+      setUser(JSON.parse(localStorage.getItem("user-data")));
+      setDocs(JSON.parse(localStorage.getItem("user-documents")));
     };
     getUser();
   }, []);
@@ -77,7 +66,6 @@ function ProfilePage() {
     <>
       <ToastContainer draggablePercent={60} />
       <div className="dashboard-main-cont">
-        <Header />
         <div className="profile-section-cont">
           <div className="profile-section-card">
             <ProfileInfo
@@ -106,6 +94,7 @@ function ProfilePage() {
           </div>
 
           <ProfileUpdate
+            user={user}
             closeModal={() => setIsOpen(false)}
             isOpen={modalIsOpen}
             updateUserData={updateUserData}

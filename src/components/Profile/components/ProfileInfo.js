@@ -31,20 +31,25 @@ function ProfileInfo({ tab, setTab, user, documents }) {
           <div className="profileInfo-profile-detail-text">
             <h4>{user.name}</h4>
             <p>
-              <img src={flag} height={13} alt="flag-icon" />{" "}
-              {user.location ? user.location : ""}
+              {user.location && <img src={flag} height={13} alt="flag-icon" />}{" "}
+              {user.location && user.location}
             </p>
             <p>
               {user.position ? user.position : ""}
-              <span className="text-dot">&nbsp;</span> <span> Full Time</span>
+              {user.job_type && (
+                <>
+                  <span className="text-dot">&nbsp;</span>{" "}
+                  <span>{user.job_type}</span>
+                </>
+              )}
             </p>
             <p>
               <img src={email} height={15} alt="flag-icon" />
               {user.email}
             </p>
             <p>
-              <img src={phone} height={15} alt="flag-icon" />{" "}
-              {user.phone ? user.phone : ""}
+              {user.phone && <img src={phone} height={15} alt="flag-icon" />}
+              {user.phone && user.phone}
             </p>
           </div>
           <div className="profileInfo-profile-control-tab">

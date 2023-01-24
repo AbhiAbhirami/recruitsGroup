@@ -3,7 +3,6 @@ import { Navigate, Routes } from "react-router-dom";
 import { useAuth } from "../../core/Auth";
 
 export function Logout() {
-  debugger;
   const { logout } = useAuth();
   useEffect(() => {
     logout();

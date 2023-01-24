@@ -3,9 +3,8 @@ import profileImg from "../../assets/images/icons/profile.png";
 import { useAuth } from "../../core/Auth";
 import { Link } from "react-router-dom";
 
-function DropDown({ open }) {
+function DropDown({ open, user }) {
   const { logout } = useAuth();
-  const user = JSON.parse(localStorage.getItem("userData"));
 
   return (
     <div

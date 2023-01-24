@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { Link, useLocation } from "react-router-dom";
 import { useAuth } from "../../core/Auth";
-import { getUserByToken, login } from "../../requests/Auth";
+import { getUserByToken, getUserDocuments, login } from "../../requests/Auth";
 // import { getUserByToken, login } from "../../requests/demo";
 import { toast, ToastContainer } from "react-toastify";
 
@@ -33,7 +33,11 @@ function SignIn() {
       saveAuth(auth);
       const { data: user } = await getUserByToken(auth.api_token);
       setCurrentUser(user);
-      localStorage.setItem("userData", JSON.stringify(user));
+      const docs = await getUserDocuments(user.data.id);
+      docs &&
+        localStorage.setItem("user-documents", JSON.stringify(docs.data.data));
+      localStorage.setItem("user-data", JSON.stringify(user.data));
+
       toast.success(user.message);
     } catch (error) {
       saveAuth(undefined);

@@ -12,20 +12,18 @@ import Hamburger from "./Hamburger";
 import { Link, useLocation } from "react-router-dom";
 import SearchDropDown from "./SearchDropDown";
 
-function Header() {
+function Header({ user }) {
   const location = useLocation();
   const [isDropdown, setIsDropDown] = useState(false);
   const [isNotifDropdown, setIsNotifDropDown] = useState(false);
   const [isSearchDropdown, setIsSearchDropDown] = useState(false);
-  const [currentNavLink, setCurrentNavLink] = useState(location.pathname);
+  // const [location.pathname, setlocation.pathname] = useState("");
   const [isNewNotification, setIsNewNotification] = useState(true);
   const [notification, setNotification] = useState([
     { comment: "commented", new: true },
     { comment: "comment 2", new: false },
   ]);
   const [isHamburger, setIsHamburger] = useState(false);
-
-  const user = JSON.parse(localStorage.getItem("userData"));
 
   useEffect(() => {
     const newNot = notification.filter((item) => item.new);
@@ -73,7 +71,9 @@ function Header() {
         <Link
           to="/dashboard"
           className={
-            currentNavLink === "/dashboard" ? "nav-links-active" : "nav-links"
+            location.pathname === "/dashboard"
+              ? "nav-links-active"
+              : "nav-links"
           }
         >
           Dashboard
@@ -81,7 +81,7 @@ function Header() {
         <Link
           to="/jobs"
           className={
-            currentNavLink === "/jobs" ? "nav-links-active" : "nav-links"
+            location.pathname === "/jobs" ? "nav-links-active" : "nav-links"
           }
         >
           Jobs
@@ -89,7 +89,7 @@ function Header() {
         <Link
           to="/applied-jobs"
           className={
-            currentNavLink === "/applied-jobs"
+            location.pathname === "/applied-jobs"
               ? "nav-links-active"
               : "nav-links"
           }
@@ -128,11 +128,11 @@ function Header() {
               />
               <div className="profile-welcome-name">
                 <span>Hello!</span>
-                <span className="welcome-name-tag"> {user.name}</span>
+                <span className="welcome-name-tag">{user.name} </span>
               </div>
             </div>
             <img className="down-arrow" src={downArrow} alt="down-arrow" />
-            <DropDown open={isDropdown} />
+            <DropDown open={isDropdown} user={user} />
           </div>
         </div>
       </div>

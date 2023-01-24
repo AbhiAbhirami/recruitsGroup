@@ -1,4 +1,6 @@
 const AUTH_LOCAL_STORAGE_KEY = "user-information";
+const AUTH_LOCAL_STORAGE_USER_DATA = "user-data";
+const AUTH_LOCAL_STORAGE_USER_DOCUMENTS = "user-documents";
 const getAuth = () => {
   if (!localStorage) {
     return;
@@ -40,7 +42,8 @@ const removeAuth = () => {
 
   try {
     localStorage.removeItem(AUTH_LOCAL_STORAGE_KEY);
-    localStorage.removeItem("userData");
+    localStorage.removeItem(AUTH_LOCAL_STORAGE_USER_DATA);
+    localStorage.removeItem(AUTH_LOCAL_STORAGE_USER_DOCUMENTS);
   } catch (error) {
     console.error("AUTH LOCAL STORAGE REMOVE ERROR", error);
   }
@@ -61,4 +64,11 @@ export function setupAxios(axios) {
   );
 }
 
-export { getAuth, setAuth, removeAuth, AUTH_LOCAL_STORAGE_KEY };
+export {
+  getAuth,
+  setAuth,
+  removeAuth,
+  AUTH_LOCAL_STORAGE_KEY,
+  AUTH_LOCAL_STORAGE_USER_DATA,
+  AUTH_LOCAL_STORAGE_USER_DOCUMENTS,
+};
