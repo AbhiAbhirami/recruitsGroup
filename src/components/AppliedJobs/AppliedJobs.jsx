@@ -1,6 +1,4 @@
 import React from "react";
-import BackgroundDesign from "../Shared/BackgroundDesign";
-import Header from "../Shared/Header";
 import TodoCard from "../Shared/Todo/TodoCard";
 
 import google from "../../assets/images/social/google.png";
