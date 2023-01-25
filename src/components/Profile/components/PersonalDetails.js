@@ -1,36 +1,72 @@
 import React, { Fragment } from "react";
 import edit from "../../../assets/images/icons/edit.png";
 import download from "../../../assets/images/icons/download.png";
-import moment from "moment";
 import { useEffect } from "react";
-import { updateUserDocument } from "../../../requests/Auth";
+import {
+  AUTH_LOCAL_STORAGE_KEY,
+  getDocuments,
+  getUser,
+  setDocuments,
+} from "../../../core/AuthHelpers";
+import { toast, ToastContainer } from "react-toastify";
+import { deleteDocument, updateUserDocument } from "../../../requests/Auth";
+import { useState } from "react";
 
 function PersonalDetails({
   setIsOpen,
-  user,
-  documents,
-  deleteResume,
-  setResumeData,
-  deleteCover,
-  setCoverData,
+  userData,
+  docs,
+  userUpdated,
+  setIsUserUpdated,
 }) {
-  const [files, setFiles] = React.useState([]);
   const [sideTab, setSideTab] = React.useState(1);
   const [resume, setResume] = React.useState("");
   const [cover, setCover] = React.useState("");
+  const [user, setUserData] = useState(userData);
+  const [documents, setDocumentsData] = useState(docs ? docs : "");
+
   useEffect(() => {
     setResume(
-      documents.resume ? unescape(documents.resume.split("/").pop()) : ""
+      documents && documents.resume
+        ? unescape(documents.resume.split("/").pop())
+        : ""
     );
     setCover(
-      documents.cover_letter
+      documents && documents.cover_letter
         ? unescape(documents.cover_letter.split("/").pop())
         : ""
     );
-  }, []);
+  }, [documents]);
+  useEffect(() => {
+    setUserData(getUser());
+    setDocumentsData(getDocuments());
+  }, [userUpdated]);
+
+  const deleteResume = async () => {
+    try {
+      const documents = await deleteDocument(user.id, "resume");
+      setDocuments(documents.data.data);
+      setIsUserUpdated(true);
+      toast.success(documents.data.message);
+    } catch (error) {
+      toast.error(error.response.data.message);
+    }
+  };
+
+  const setResumeData = async (files) => {
+    try {
+      const documents = await updateUserDocument(user.id, "resume", files[0]);
+      setDocuments(documents.data.data);
+      setIsUserUpdated(true);
+      toast.success(documents.data.message);
+    } catch (error) {
+      toast.error(error.response.data.message);
+    }
+  };
 
   return (
     <Fragment>
+      <ToastContainer draggablePercent={60} />
       <div className="profile-section-personal-detail-left document-details-left">
         <div className="personal-detail-title">
           <h4>Personal Details</h4>
@@ -138,10 +174,10 @@ function PersonalDetails({
                   <td>Time Zone</td>
                   <td>{user.time_zone ? user.time_zone : "Not Updated"}</td>
                 </tr> */}
-                  <tr>
+                  {/* <tr>
                     <td>Currency</td>
                     <td>{user.currency ? user.currency : "Not Updated"}</td>
-                  </tr>
+                  </tr> */}
                 </tbody>
               </table>
             </div>
@@ -158,18 +194,16 @@ function PersonalDetails({
               The most key document that employers review is a resume. In
               general, recruiters do not review profiles without resumes.
             </p>
-            {documents && documents.resume ? (
-              <div className="profile-section-personal-resume-update">
-                <div>
-                  {resume
-                    ? resume
-                    : unescape(documents.resume.split("/").pop())}
-                  {/* <span>
+            <div className="profile-section-personal-resume-update">
+              <div>
+                {resume ? resume : "Not Updated"}
+                {/* <span>
                     Updated on{" "}
                     {files &&
                       moment(files[0]?.lastModified).format("DD-MM-YYYY")}
                   </span> */}
-                </div>
+              </div>
+              {documents && documents.resume ? (
                 <div className="resume-delete">
                   <a href={documents.resume} target="_blank">
                     <img
@@ -182,29 +216,23 @@ function PersonalDetails({
                   <button
                     className="cursor-pointer"
                     onClick={() => {
-                      setResume("");
                       deleteResume();
                     }}
                   >
                     DELETE RESUME
                   </button>
                 </div>
-              </div>
-            ) : (
-              ""
-            )}
-
-            {documents && documents.cover_letter ? (
+              ) : (
+                ""
+              )}
+            </div>
+            {/* {documents && documents.cover_letter ? (
               <>
                 <div>
                   {cover
                     ? cover
                     : unescape(documents.cover_letter.split("/").pop())}
-                  {/* <span>
-                    Updated on{" "}
-                    {files &&
-                      moment(files[0]?.lastModified).format("DD-MM-YYYY")}
-                  </span> */}
+                  
                 </div>
                 <div className="resume-delete">
                   <a href={documents.cover_letter} target="_blank">
@@ -228,13 +256,12 @@ function PersonalDetails({
               </>
             ) : (
               "Not Updated"
-            )}
-
+            )} */}
             <div className="resume-update">
               <input
                 type={"file"}
                 id="resume-update"
-                onChange={(e) => setFiles(e.target.files)}
+                onChange={(e) => setResumeData(e.target.files)}
                 placeholder=""
                 style={{ opacity: 0, visibility: "hidden" }}
               />

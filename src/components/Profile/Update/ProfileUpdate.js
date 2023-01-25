@@ -1,10 +1,11 @@
 import React from "react";
+import { useState } from "react";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import Modal from "react-modal";
 import { toast, ToastContainer } from "react-toastify";
 import closebtn from "../../../assets/images/icons/close.png";
-import { setUser } from "../../../core/AuthHelpers";
+import { getUser, setUser } from "../../../core/AuthHelpers";
 import { updateUser } from "../../../requests/Auth";
 import ProfileInput from "./ProfileInput";
 
@@ -20,7 +21,7 @@ const customStyles = {
   },
 };
 
-function ProfileUpdate({ isOpen, closeModal, user }) {
+function ProfileUpdate({ isOpen, closeModal, user, setIsUserUpdated }) {
   const {
     register,
     handleSubmit,
@@ -42,13 +43,13 @@ function ProfileUpdate({ isOpen, closeModal, user }) {
     console.log(values);
     try {
       const userUpdate = await updateUser(user.id, values);
-      setUser(userUpdate);
+      setUser(userUpdate.data.data);
+      setIsUserUpdated(true);
       toast.success("Details updated");
     } catch (error) {
       toast.error("Something went wrong");
     }
   };
-
   useEffect(() => {
     if (formState.isSubmitSuccessful) {
       resetForm();
@@ -100,7 +101,7 @@ function ProfileUpdate({ isOpen, closeModal, user }) {
               label="Full Name"
               type="text"
             /> */}
-            <div className="date-input-wrap">
+            {/* <div className="date-input-wrap">
               <ProfileInput
                 placeholder="Day"
                 label="Date of birth"
@@ -128,9 +129,9 @@ function ProfileUpdate({ isOpen, closeModal, user }) {
                   { title: "Year 2", value: 1 },
                 ]}
               />
-            </div>
+            </div> */}
 
-            <label htmlFor="email" className="input-label">
+            {/* <label htmlFor="email" className="input-label">
               Email
             </label>
             <input
@@ -145,7 +146,7 @@ function ProfileUpdate({ isOpen, closeModal, user }) {
               {errors.email && (
                 <span className="validation">{`Email is ${errors.email.type}`}</span>
               )}
-            </div>
+            </div> */}
             {/* <ProfileInput
               label={"Email"}
               placeholder="Enter your email"
@@ -225,7 +226,18 @@ function ProfileUpdate({ isOpen, closeModal, user }) {
               placeholder="Enter your Current Company"
               type="text"
             /> */}
-            <label htmlFor="language" className="input-label">
+            <label htmlFor="country" className="input-label">
+              Country
+            </label>
+            <input
+              className="profile-input"
+              placeholder="Enter your country"
+              type="text"
+              defaultValue={user.country ? user.country : ""}
+              {...register("country")}
+              name="country"
+            />
+            <label htmlFor="country" className="input-label">
               Language
             </label>
             <input

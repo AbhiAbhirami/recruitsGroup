@@ -3,8 +3,11 @@ import { useEffect } from "react";
 import { useState } from "react";
 import { toast, ToastContainer } from "react-toastify";
 import {
+  setDocuments,
   AUTH_LOCAL_STORAGE_USER_DATA,
   AUTH_LOCAL_STORAGE_USER_DOCUMENTS,
+  getDocuments,
+  setUser,
 } from "../../core/AuthHelpers";
 import { deleteDocument, updateUserDocument } from "../../requests/Auth";
 import Header from "../Shared/Header";
@@ -20,32 +23,17 @@ function ProfilePage({ user }) {
   const [userId, setUserId] = useState(
     JSON.parse(localStorage.getItem(AUTH_LOCAL_STORAGE_USER_DATA))?.id
   );
+  const [updated, setUpdated] = useState(false);
   const [documents, setDocs] = useState({});
   useEffect(() => {
-    setDocs(
-      JSON.parse(localStorage.getItem(AUTH_LOCAL_STORAGE_USER_DOCUMENTS))
-    );
-  }, [user]);
+    const documents = getDocuments();
+    setDocs(documents);
+  }, []);
 
+  const setUserData = (data) => {
+    setUser(data);
+  };
   const updateUserData = async () => {};
-
-  const deleteResume = async () => {
-    try {
-      const data = await deleteDocument(userId, "resume");
-      toast.success(data.data.message);
-    } catch (error) {
-      toast.error(error.response.data.message);
-    }
-  };
-
-  const setResumeData = async (files) => {
-    try {
-      const data = await updateUserDocument(userId, "resume", files[0]);
-      toast.success(data.data.message);
-    } catch (error) {
-      toast.error(error.response.data.message);
-    }
-  };
 
   const deleteCover = async () => {
     try {
@@ -65,6 +53,10 @@ function ProfilePage({ user }) {
     }
   };
 
+  const setIsUserUpdated = () => {
+    setUpdated(!updated);
+  };
+
   return (
     <>
       <ToastContainer draggablePercent={60} />
@@ -82,12 +74,12 @@ function ProfilePage({ user }) {
             {tab === "overview" && (
               <PersonalDetails
                 setIsOpen={setIsOpen}
-                user={user}
-                documents={documents}
-                deleteResume={deleteResume}
-                setResumeData={setResumeData}
+                userData={user}
+                userUpdated={setIsUserUpdated}
+                docs={documents}
                 deleteCover={deleteCover}
                 setCoverData={setCoverData}
+setIsUserUpdated={setIsUserUpdated}
               />
             )}
             {tab === "documents" && <DocumentDetails documents={documents} />}
@@ -101,6 +93,7 @@ function ProfilePage({ user }) {
             closeModal={() => setIsOpen(false)}
             isOpen={modalIsOpen}
             updateUserData={updateUserData}
+            setIsUserUpdated={setIsUserUpdated}
           />
         </div>
       </div>

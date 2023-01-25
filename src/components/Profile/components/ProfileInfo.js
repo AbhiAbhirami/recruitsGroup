@@ -36,7 +36,7 @@ function ProfileInfo({ tab, setTab, user, documents }) {
             </p>
             <p>
               {user.position ? user.position : ""}
-              {user.job_type && (
+              {user.position && user.job_type && (
                 <>
                   <span className="text-dot">&nbsp;</span>{" "}
                   <span>{user.job_type}</span>
