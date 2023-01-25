@@ -24,15 +24,8 @@ function ProfilePage({ user }) {
     JSON.parse(localStorage.getItem(AUTH_LOCAL_STORAGE_USER_DATA))?.id
   );
   const [updated, setUpdated] = useState(false);
-  const [documents, setDocs] = useState({});
-  useEffect(() => {
-    const documents = getDocuments();
-    setDocs(documents);
-  }, []);
+  const [documents, setDocs] = useState(getDocuments());
 
-  const setUserData = (data) => {
-    setUser(data);
-  };
   const updateUserData = async () => {};
 
   const deleteCover = async () => {
@@ -64,6 +57,7 @@ function ProfilePage({ user }) {
         <div className="profile-section-cont">
           <div className="profile-section-card">
             <ProfileInfo
+              userUpdated={setIsUserUpdated}
               setTab={setTab}
               tab={tab}
               user={user}
@@ -79,12 +73,18 @@ function ProfilePage({ user }) {
                 docs={documents}
                 deleteCover={deleteCover}
                 setCoverData={setCoverData}
-setIsUserUpdated={setIsUserUpdated}
+                setIsUserUpdated={setIsUserUpdated}
               />
             )}
             {tab === "documents" && <DocumentDetails documents={documents} />}
             {tab === "settings" && (
-              <SettingsDetails updateUserData={updateUserData} />
+              <SettingsDetails
+                updateUserData={updateUserData}
+                user={user}
+                setIsUserUpdated={setIsUserUpdated}
+                userUpdated={setIsUserUpdated}
+documents={documents}
+              />
             )}
           </div>
 

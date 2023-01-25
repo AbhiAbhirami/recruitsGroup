@@ -3,7 +3,7 @@ import logoH from "../../assets/images/logo/logo_horizontal.png";
 import searchIcon from "../../assets/images/icons/search.png";
 import bellIcon from "../../assets/images/icons/bellIcon.png";
 import bellDot from "../../assets/images/icons/bellDot.png";
-import profileImg from "../../assets/images/icons/profile.png";
+import profileImg from "../../assets/images/icons/blank.png";
 import downArrow from "../../assets/images/icons/downArrow.png";
 import hamBurger from "../../assets/images/icons/hamburger.png";
 import DropDown from "./DropDown";
@@ -123,7 +123,7 @@ function Header({ user }) {
             >
               <img
                 className="profile-img-tag"
-                src={profileImg}
+                src={user.avatar ? user.avatar : profileImg}
                 alt="profile-img"
               />
               <div className="profile-welcome-name">

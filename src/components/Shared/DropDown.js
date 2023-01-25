@@ -1,5 +1,5 @@
 import React from "react";
-import profileImg from "../../assets/images/icons/profile.png";
+import profileImg from "../../assets/images/icons/blank.png";
 import { useAuth } from "../../core/Auth";
 import { Link } from "react-router-dom";
 
@@ -12,7 +12,11 @@ function DropDown({ open, user }) {
       className="dropdown-div"
     >
       <div className="dropdown-profile-image-cont">
-        <img className="profile-img-tag" src={profileImg} alt="profile-img" />
+        <img
+          className="profile-img-tag"
+          src={user.avatar ? user.avatar : profileImg}
+          alt="profile-img"
+        />
         <div className="dropdown-email-div">
           <span className="dropdown-name-tag">{user.name}</span>
           <span className="dropdown-email-tag">{user.email}</span>

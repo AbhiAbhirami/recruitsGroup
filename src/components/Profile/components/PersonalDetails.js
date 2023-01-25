@@ -273,6 +273,21 @@ function PersonalDetails({
           </div>
         </div>
       )}
+      {sideTab === 3 && (
+        <div className="profile-section-personal-detail-right"></div>
+      )}
+      {sideTab === 4 && (
+        <div className="profile-section-personal-detail-right"></div>
+      )}
+      {sideTab === 5 && (
+        <div className="profile-section-personal-detail-right"></div>
+      )}
+      {sideTab === 6 && (
+        <div className="profile-section-personal-detail-right"></div>
+      )}
+      {sideTab === 7 && (
+        <div className="profile-section-personal-detail-right"></div>
+      )}
     </Fragment>
   );
 }

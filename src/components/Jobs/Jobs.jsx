@@ -10,9 +10,9 @@ import save from "../../assets/images/icons/save.png";
 import send from "../../assets/images/icons/send.png";
 
 import NotificationCard from "../Shared/Notification/NotificationCard";
-import profile from "../../assets/images/icons/profile.png";
+import profile from "../../assets/images/icons/blank.png";
 
-function Jobs() {
+function Jobs({ user }) {
   let media = window.screen.width < 600;
   const data = [
     { task: "Update profile", tag: "To find you" },
@@ -48,12 +48,16 @@ function Jobs() {
               }}
             >
               <img
-                src={profile}
+                src={user.avatar ? user.avatar : profile}
                 style={{ marginTop: "20px", height: "121px", width: "117px" }}
                 alt=""
               />
-              <span style={{ color: "white" }}>Shahid Afrid T</span>
-              <span style={{ color: "white" }}>Full Stack Developer</span>
+              <span style={{ color: "white" }}>
+                {user.name ? user.name : ""}
+              </span>
+              <span style={{ color: "white" }}>
+                {user.position ? user.position : ""}
+              </span>
             </div>
 
             <div
@@ -72,7 +76,7 @@ function Jobs() {
                   width: "100%",
                 }}
               >
-                <h3 style={{ color: "#5C5B5B" }}>Profile Complition</h3>
+                <h3 style={{ color: "#5C5B5B" }}>Profile Completion</h3>
                 <h3>50%</h3>
               </div>
               <div

@@ -7,7 +7,6 @@ import Header from "../components/Shared/Header";
 import { useEffect } from "react";
 import { useState } from "react";
 import {
-  AUTH_LOCAL_STORAGE_KEY,
   AUTH_LOCAL_STORAGE_USER_DATA,
 } from "../core/AuthHelpers";
 
@@ -25,8 +24,8 @@ const PrivateRoutes = () => {
         <Route path="auth/*" element={<Navigate to="/dashboard" />} />
         {/* Pages */}
         <Route path="dashboard" element={<Dashboard />} />
-        <Route path="jobs" element={<Jobs />} />
-        <Route path="applied-jobs" element={<AppliedJobs />} />
+        <Route path="jobs" element={<Jobs user={user} /> } />
+        <Route path="applied-jobs" element={<AppliedJobs user={user} />} />
 
         <Route
           path="/profile/*"
