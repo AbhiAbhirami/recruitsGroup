@@ -12,6 +12,7 @@ import send from "../../assets/images/icons/send.png";
 import NotificationCard from "../Shared/Notification/NotificationCard";
 import profile from "../../assets/images/icons/profile.png";
 import { SavedJobsCard } from "../Jobs/Jobs";
+import { FaUser } from "react-icons/fa";
 
 function AppliedJobs() {
   const data = [
@@ -47,11 +48,26 @@ function AppliedJobs() {
               color: "#fff",
             }}
           >
-            <img
-              src={profile}
-              style={{ marginTop: "20px", height: "121px", width: "117px" }}
-              alt=""
-            />
+            {profile ? (
+              <img
+                src={profile}
+                style={{ marginTop: "20px", height: "121px", width: "117px" }}
+                alt=""
+              />
+            ) : (
+              <div
+                style={{
+                  height: 50,
+                  width: 50,
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  marginTop: 30,
+                }}
+              >
+                <FaUser size={"2.5rem"} />
+              </div>
+            )}
             <span style={{ color: "white" }}>Shahid Afrid T</span>
             <span style={{ color: "white" }}>Full Stack Developer</span>
           </div>

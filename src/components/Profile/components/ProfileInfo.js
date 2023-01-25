@@ -6,6 +6,7 @@ import phone from "../../../assets/images/icons/phone.png";
 import email from "../../../assets/images/icons/mail.png";
 import tips from "../../../assets/video/demo.mp4";
 import videoThumb from "../../../assets/images/background/bg3.png";
+import { FaUser, FaUserCircle } from "react-icons/fa";
 
 function ProfileInfo({ tab, setTab }) {
   return (
