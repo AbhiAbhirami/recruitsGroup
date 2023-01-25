@@ -35,7 +35,7 @@ const PrivateRoutes = () => {
           path="/profile/*"
           element={
             <Suspense fallback={<div>Loading...</div>}>
-              <ProfilePage />
+              <ProfilePage user={user} />
             </Suspense>
           }
         />

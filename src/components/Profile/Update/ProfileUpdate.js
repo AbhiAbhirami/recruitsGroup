@@ -1,5 +1,7 @@
 import React from "react";
+import { useForm } from "react-hook-form";
 import Modal from "react-modal";
+import { toast } from "react-toastify";
 import closebtn from "../../../assets/images/icons/close.png";
 import ProfileInput from "./ProfileInput";
 
@@ -15,7 +17,16 @@ const customStyles = {
   },
 };
 
-function ProfileUpdate({ isOpen, closeModal }) {
+function ProfileUpdate({ isOpen, closeModal, user }) {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+
+  const onSubmit = async (values) => {
+    console.log(values);
+  };
   return (
     <>
       <Modal
@@ -33,12 +44,30 @@ function ProfileUpdate({ isOpen, closeModal }) {
         />
         <div className="modal-main-wrapper">
           <p>Personal Details</p>
-          <form onSubmit={""}>
-            <ProfileInput
+          <form onSubmit={handleSubmit(onSubmit)}>
+            <label htmlFor="name" className="input-label">
+              Full Name
+            </label>
+            <input
+              className="profile-input"
               placeholder="Enter your Full Name"
               label="Full Name"
               type="text"
+              defaultValue={user.name ? user.name : ""}
+              {...register("name", { required: true })}
+              name="name"
             />
+            <div>
+              {errors.name && (
+                <span className="validation">{`Name is ${errors.name.type}`}</span>
+              )}
+            </div>
+
+            {/* <ProfileInput
+              placeholder="Enter your Full Name"
+              label="Full Name"
+              type="text"
+            /> */}
             <div className="date-input-wrap">
               <ProfileInput
                 placeholder="Day"
@@ -68,50 +97,134 @@ function ProfileUpdate({ isOpen, closeModal }) {
                 ]}
               />
             </div>
-            <ProfileInput
+
+            <label htmlFor="email" className="input-label">
+              Email
+            </label>
+            <input
+              className="profile-input"
+              placeholder="Enter your Email"
+              type="email"
+              defaultValue={user.email ? user.email : ""}
+              {...register("email", { required: true })}
+              name="email"
+            />
+            <div>
+              {errors.email && (
+                <span className="validation">{`Email is ${errors.email.type}`}</span>
+              )}
+            </div>
+            {/* <ProfileInput
               label={"Email"}
               placeholder="Enter your email"
               type="email"
+              defaultValue={user.email ? user.email : ""}
+              {...register("email", { required: true })}
+              name="email"
+            /> */}
+
+            <label htmlFor="phone" className="input-label">
+              Contact Number
+            </label>
+            <input
+              className="profile-input"
+              placeholder="Enter your Contact Number"
+              type="number"
+              defaultValue={user.phone ? user.phone : ""}
+              {...register("phone", { required: true })}
+              name="phone"
             />
-            <ProfileInput
+            <div>
+              {errors.phone && (
+                <span className="validation">{`Contact is ${errors.phone.type}`}</span>
+              )}
+            </div>
+
+            {/* <ProfileInput
               label={"Contact Number"}
               placeholder="Enter your Contact Number"
               type="number"
+            /> */}
+            <label htmlFor="position" className="input-label">
+              Position
+            </label>
+            <input
+              className="profile-input"
+              placeholder="Enter your Position"
+              type="text"
+              defaultValue={user.position ? user.position : ""}
+              {...register("position")}
+              name="position"
             />
-            <ProfileInput
+            {/* <ProfileInput
               label={"Position"}
               placeholder="Enter your Position"
               type="text"
+            /> */}
+            <label htmlFor="address" className="input-label">
+              Address
+            </label>
+            <input
+              className="profile-input"
+              placeholder="Enter your Address"
+              type="text"
+              defaultValue={user.address ? user.address : ""}
+              {...register("address")}
+              name="address"
             />
-            <ProfileInput
+            {/* <ProfileInput
               label={"Address"}
               placeholder="Enter your Address"
               type="text"
+            /> */}
+            <label htmlFor="company" className="input-label">
+              Current Company
+            </label>
+            <input
+              className="profile-input"
+              placeholder="Enter your current company"
+              type="text"
+              defaultValue={user.company ? user.company : ""}
+              {...register("company")}
+              name="company"
             />
-            <ProfileInput
+            {/* <ProfileInput
               label={"Current Company"}
               placeholder="Enter your Current Company"
               type="text"
+            /> */}
+            <label htmlFor="language" className="input-label">
+              Language
+            </label>
+            <input
+              className="profile-input"
+              placeholder="Enter your language"
+              type="text"
+              defaultValue={user.language ? user.language : ""}
+              {...register("language")}
+              name="language"
             />
-            <ProfileInput
+            {/* <ProfileInput
               label={"Language"}
               placeholder="Enter your Language"
               type="text"
-            />
-            <ProfileInput
+            /> */}
+            {/* <ProfileInput
               label={"Time Zone"}
               placeholder="Enter your Time Zone"
               type="text"
-            />
-            <ProfileInput
+            /> */}
+            {/* <ProfileInput
               label={"Currency"}
               placeholder="Enter your Time Zone"
               type="text"
-            />
+            /> */}
 
             <div className="modal-buttons">
               <button className="cancel-btn">CANCEL</button>
-              <button className="save-btn">SAVE</button>
+              <button className="save-btn" type="submit">
+                SAVE
+              </button>
             </div>
           </form>
         </div>

@@ -2,6 +2,10 @@ import React from "react";
 import { useEffect } from "react";
 import { useState } from "react";
 import { toast, ToastContainer } from "react-toastify";
+import {
+  AUTH_LOCAL_STORAGE_USER_DATA,
+  AUTH_LOCAL_STORAGE_USER_DOCUMENTS,
+} from "../../core/AuthHelpers";
 import { deleteDocument, updateUserDocument } from "../../requests/Auth";
 import Header from "../Shared/Header";
 import DocumentDetails from "./components/DocumentDetails";
@@ -10,18 +14,17 @@ import ProfileInfo from "./components/ProfileInfo";
 import SettingsDetails from "./components/SettingsDetails";
 import ProfileUpdate from "./Update/ProfileUpdate";
 
-function ProfilePage() {
+function ProfilePage({ user }) {
   const [modalIsOpen, setIsOpen] = React.useState(false);
   const [tab, setTab] = React.useState("overview");
-  const userId = JSON.parse(localStorage.getItem("user-information"))?.userId;
-  const [user, setUser] = useState({});
+  const [userId, setUserId] = useState(
+    JSON.parse(localStorage.getItem(AUTH_LOCAL_STORAGE_USER_DATA))?.id
+  );
   const [documents, setDocs] = useState({});
   useEffect(() => {
-    const getUser = async () => {
-      setUser(JSON.parse(localStorage.getItem("user-data")));
-      setDocs(JSON.parse(localStorage.getItem("user-documents")));
-    };
-    getUser();
+    setDocs(
+      JSON.parse(localStorage.getItem(AUTH_LOCAL_STORAGE_USER_DOCUMENTS))
+    );
   }, []);
 
   const updateUserData = async () => {};

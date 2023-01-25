@@ -8,6 +8,7 @@ import { toast, ToastContainer } from "react-toastify";
 
 import Auth from "../Shared/Auth";
 import SignInOptions from "../Shared/SignInOptions";
+import { AUTH_LOCAL_STORAGE_USER_DOCUMENTS } from "../../core/AuthHelpers";
 
 function SignIn() {
   const [signinPage, setSigninPage] = useState(false);
@@ -35,7 +36,7 @@ function SignIn() {
       setCurrentUser(user);
       const docs = await getUserDocuments(user.data.id);
       docs &&
-        localStorage.setItem("user-documents", JSON.stringify(docs.data.data));
+        localStorage.setItem(AUTH_LOCAL_STORAGE_USER_DOCUMENTS, JSON.stringify(docs.data.data));
       toast.success(user.message);
     } catch (error) {
       saveAuth(undefined);
