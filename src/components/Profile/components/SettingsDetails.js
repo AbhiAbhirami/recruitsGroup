@@ -7,32 +7,55 @@ import profilImage from "../../../assets/images/icons/profile2.png";
 function SettingsDetails() {
   const [files, setFiles] = React.useState([]);
 
+  const [sideTab, setSideTab] = React.useState(1);
+
   return (
     <Fragment>
-      <div className="profile-section-personal-detail-left">
+      <div className="profile-section-personal-detail-left document-details-left">
         <div className="personal-detail-title">
           <h4>Settings</h4>
         </div>
         <ul>
-          <li>
+          <li
+            className={sideTab === 1 && "document-details-head"}
+            onClick={() => setSideTab(1)}
+          >
             Profile picture <button className="cursor-pointer">UPDATE</button>
           </li>
-          <li>
+          <li
+            className={sideTab === 2 && "document-details-head"}
+            onClick={() => setSideTab(2)}
+          >
             User Name <button className="cursor-pointer">UPDATE</button>
           </li>
-          <li>
+          <li
+            className={sideTab === 3 && "document-details-head"}
+            onClick={() => setSideTab(3)}
+          >
             Location <button className="cursor-pointer">ADD</button>
           </li>
-          <li>
+          <li
+            className={sideTab === 4 && "document-details-head"}
+            onClick={() => setSideTab(4)}
+          >
             Position <button className="cursor-pointer">ADD</button>
           </li>
-          <li>
+          <li
+            className={sideTab === 5 && "document-details-head"}
+            onClick={() => setSideTab(5)}
+          >
             Email <button className="cursor-pointer">ADD</button>
           </li>
-          <li>
+          <li
+            className={sideTab === 6 && "document-details-head"}
+            onClick={() => setSideTab(6)}
+          >
             Phone Number <button className="cursor-pointer">ADD</button>
           </li>
-          <li>
+          <li
+            className={sideTab === 7 && "document-details-head"}
+            onClick={() => setSideTab(7)}
+          >
             Video <button className="cursor-pointer">UPDATE</button>
           </li>
         </ul>
