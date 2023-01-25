@@ -6,12 +6,16 @@ import AppliedJobs from "../components/AppliedJobs/AppliedJobs";
 import Header from "../components/Shared/Header";
 import { useEffect } from "react";
 import { useState } from "react";
+import {
+  AUTH_LOCAL_STORAGE_KEY,
+  AUTH_LOCAL_STORAGE_USER_DATA,
+} from "../core/AuthHelpers";
 
 const PrivateRoutes = () => {
   const [user, setUser] = useState({});
   useEffect(() => {
     const getUser = () => {
-      setUser(JSON.parse(localStorage.getItem("user-data")));
+      setUser(JSON.parse(localStorage.getItem(AUTH_LOCAL_STORAGE_USER_DATA)));
     };
     getUser();
   }, []);

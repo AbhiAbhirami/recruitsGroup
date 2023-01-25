@@ -28,8 +28,12 @@ const setAuth = (auth) => {
   }
 
   try {
-    const lsValue = JSON.stringify(auth);
-    localStorage.setItem(AUTH_LOCAL_STORAGE_KEY, lsValue);
+    const lsValue = auth;
+    localStorage.setItem(AUTH_LOCAL_STORAGE_KEY, JSON.stringify(lsValue));
+    localStorage.setItem(
+      AUTH_LOCAL_STORAGE_USER_DATA,
+      JSON.stringify(lsValue.user)
+    );
   } catch (error) {
     console.error("AUTH LOCAL STORAGE SAVE ERROR", error);
   }

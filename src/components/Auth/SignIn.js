@@ -36,8 +36,6 @@ function SignIn() {
       const docs = await getUserDocuments(user.data.id);
       docs &&
         localStorage.setItem("user-documents", JSON.stringify(docs.data.data));
-      localStorage.setItem("user-data", JSON.stringify(user.data));
-
       toast.success(user.message);
     } catch (error) {
       saveAuth(undefined);

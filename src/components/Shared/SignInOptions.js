@@ -27,8 +27,6 @@ function SignInOptions() {
             "user-documents",
             JSON.stringify(docs.data.data)
           );
-        localStorage.setItem("user-data", JSON.stringify(user.data));
-        toast.success(user.message + "✔");
       } catch (error) {
         saveAuth(undefined);
         toast.error(error.response.data.message + "❌");
