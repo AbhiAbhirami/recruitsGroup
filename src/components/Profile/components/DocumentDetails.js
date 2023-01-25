@@ -31,14 +31,14 @@ function DocumentDetails() {
 
           <li
             className={sideTab === 3 && "document-details-head"}
-            // onClick={() => setSideTab(3)}
+            onClick={() => setSideTab(3)}
           >
             Experience Certificate{" "}
             <button className="cursor-pointer">ADD</button>
           </li>
           <li
             className={sideTab === 4 && "document-details-head"}
-            // onClick={() => setSideTab(4)}
+            onClick={() => setSideTab(4)}
           >
             IELTS/ <br />
             Language Proficiency
@@ -47,7 +47,7 @@ function DocumentDetails() {
 
           <li
             className={sideTab === 5 && "document-details-head"}
-            // onClick={() => setSideTab(5)}
+            onClick={() => setSideTab(5)}
           >
             Any other Supporting <br />
             Documents
@@ -110,6 +110,155 @@ function DocumentDetails() {
           <div className="profile-section-personal-resume">
             <div className="personal-detail-title">
               <h4>Identity Document</h4>
+            </div>
+            <p>
+              The most crucial document required to confirm your identification
+              during the hiring procedure
+            </p>
+            {files[0]?.name ? (
+              <div className="profile-section-personal-resume-update">
+                <div>
+                  RESUME.PDF -{" "}
+                  <span>
+                    Updated on{" "}
+                    {files &&
+                      moment(files[0]?.lastModified).format("DD-MM-YYYY")}
+                  </span>
+                </div>
+                <div className="resume-delete">
+                  <img
+                    className="cursor-pointer"
+                    src={download}
+                    height={25}
+                    alt="download-icon"
+                  />
+                  <button className="cursor-pointer">DELETE RESUME</button>
+                </div>
+              </div>
+            ) : (
+              ""
+            )}
+            <div className="resume-update">
+              <input
+                type={"file"}
+                id="resume-update"
+                placeholder=""
+                style={{ opacity: 0, visibility: "hidden" }}
+                onChange={(e) => setFiles(e.target.files)}
+              />
+              <label className="button" htmlFor="resume-update">
+                Add
+              </label>
+              <p>Supported Formats: doc, docx, rtf, pdf, upto 2 MB</p>
+            </div>
+          </div>
+        </div>
+      )}
+      {sideTab === 3 && (
+        <div className="profile-section-personal-detail-right document-details-right">
+          <div className="profile-section-personal-resume">
+            <div className="personal-detail-title">
+              <h4> Experience Certificate</h4>
+            </div>
+            <p>
+              The most crucial document required to confirm your identification
+              during the hiring procedure
+            </p>
+            {files[0]?.name ? (
+              <div className="profile-section-personal-resume-update">
+                <div>
+                  RESUME.PDF -{" "}
+                  <span>
+                    Updated on{" "}
+                    {files &&
+                      moment(files[0]?.lastModified).format("DD-MM-YYYY")}
+                  </span>
+                </div>
+                <div className="resume-delete">
+                  <img
+                    className="cursor-pointer"
+                    src={download}
+                    height={25}
+                    alt="download-icon"
+                  />
+                  <button className="cursor-pointer">DELETE RESUME</button>
+                </div>
+              </div>
+            ) : (
+              ""
+            )}
+            <div className="resume-update">
+              <input
+                type={"file"}
+                id="resume-update"
+                placeholder=""
+                style={{ opacity: 0, visibility: "hidden" }}
+                onChange={(e) => setFiles(e.target.files)}
+              />
+              <label className="button" htmlFor="resume-update">
+                Add
+              </label>
+              <p>Supported Formats: doc, docx, rtf, pdf, upto 2 MB</p>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {sideTab === 4 && (
+        <div className="profile-section-personal-detail-right document-details-right">
+          <div className="profile-section-personal-resume">
+            <div className="personal-detail-title">
+              <h4> IELTS/ Language Proficiency</h4>
+            </div>
+            <p>
+              The most crucial document required to confirm your identification
+              during the hiring procedure
+            </p>
+            {files[0]?.name ? (
+              <div className="profile-section-personal-resume-update">
+                <div>
+                  RESUME.PDF -{" "}
+                  <span>
+                    Updated on{" "}
+                    {files &&
+                      moment(files[0]?.lastModified).format("DD-MM-YYYY")}
+                  </span>
+                </div>
+                <div className="resume-delete">
+                  <img
+                    className="cursor-pointer"
+                    src={download}
+                    height={25}
+                    alt="download-icon"
+                  />
+                  <button className="cursor-pointer">DELETE RESUME</button>
+                </div>
+              </div>
+            ) : (
+              ""
+            )}
+            <div className="resume-update">
+              <input
+                type={"file"}
+                id="resume-update"
+                placeholder=""
+                style={{ opacity: 0, visibility: "hidden" }}
+                onChange={(e) => setFiles(e.target.files)}
+              />
+              <label className="button" htmlFor="resume-update">
+                Add
+              </label>
+              <p>Supported Formats: doc, docx, rtf, pdf, upto 2 MB</p>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {sideTab === 5 && (
+        <div className="profile-section-personal-detail-right document-details-right">
+          <div className="profile-section-personal-resume">
+            <div className="personal-detail-title">
+              <h4> Any other Supporting Documents</h4>
             </div>
             <p>
               The most crucial document required to confirm your identification
