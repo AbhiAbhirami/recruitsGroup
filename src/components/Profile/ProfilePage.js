@@ -25,7 +25,7 @@ function ProfilePage({ user }) {
     setDocs(
       JSON.parse(localStorage.getItem(AUTH_LOCAL_STORAGE_USER_DOCUMENTS))
     );
-  }, []);
+  }, [user]);
 
   const updateUserData = async () => {};
 

@@ -14,10 +14,7 @@ import {
 const PrivateRoutes = () => {
   const [user, setUser] = useState({});
   useEffect(() => {
-    const getUser = () => {
-      setUser(JSON.parse(localStorage.getItem(AUTH_LOCAL_STORAGE_USER_DATA)));
-    };
-    getUser();
+    setUser(JSON.parse(localStorage.getItem(AUTH_LOCAL_STORAGE_USER_DATA)));
   }, []);
   const ProfilePage = lazy(() => import("../components/Profile/ProfilePage"));
 

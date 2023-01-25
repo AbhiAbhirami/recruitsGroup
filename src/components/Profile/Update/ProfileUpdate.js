@@ -1,8 +1,11 @@
 import React from "react";
+import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import Modal from "react-modal";
-import { toast } from "react-toastify";
+import { toast, ToastContainer } from "react-toastify";
 import closebtn from "../../../assets/images/icons/close.png";
+import { setUser } from "../../../core/AuthHelpers";
+import { updateUser } from "../../../requests/Auth";
 import ProfileInput from "./ProfileInput";
 
 const customStyles = {
@@ -21,11 +24,40 @@ function ProfileUpdate({ isOpen, closeModal, user }) {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    reset,
+    formState,
+    formState: { errors, isSubmitSuccessful },
   } = useForm();
 
+  const resetObj = {
+    name: user.name ? user.name : "",
+    email: user.email ? user.email : "",
+    phone: user.phone ? user.phone : "",
+    position: user.position ? user.position : "",
+    address: user.address ? user.address : "",
+    company: user.company ? user.company : "",
+    language: user.language ? user.language : "",
+  };
   const onSubmit = async (values) => {
     console.log(values);
+    try {
+      const userUpdate = await updateUser(user.id, values);
+      setUser(userUpdate);
+      toast.success("Details updated");
+    } catch (error) {
+      toast.error("Something went wrong");
+    }
+  };
+
+  useEffect(() => {
+    if (formState.isSubmitSuccessful) {
+      resetForm();
+    }
+  }, [formState, reset]);
+
+  const resetForm = () => {
+    reset(resetObj);
+    closeModal();
   };
   return (
     <>
@@ -221,7 +253,9 @@ function ProfileUpdate({ isOpen, closeModal, user }) {
             /> */}
 
             <div className="modal-buttons">
-              <button className="cancel-btn">CANCEL</button>
+              <button className="cancel-btn" onClick={() => resetForm()}>
+                CANCEL
+              </button>
               <button className="save-btn" type="submit">
                 SAVE
               </button>

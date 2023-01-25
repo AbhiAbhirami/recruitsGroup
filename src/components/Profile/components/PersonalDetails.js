@@ -31,6 +31,55 @@ function PersonalDetails({
 
   return (
     <Fragment>
+      <div className="profile-section-personal-detail-left document-details-left">
+        <div className="personal-detail-title">
+          <h4>Personal Details</h4>
+        </div>
+        <ul>
+          <li
+            className={sideTab === 1 && "document-details-head"}
+            onClick={() => setSideTab(1)}
+          >
+            Personal details
+          </li>
+          <li
+            className={sideTab === 2 && "document-details-head"}
+            onClick={() => setSideTab(2)}
+          >
+            Resume <button className="cursor-pointer">UPDATE</button>
+          </li>
+          <li
+            className={sideTab === 3 && "document-details-head"}
+            onClick={() => setSideTab(3)}
+          >
+            Key skill{" "}
+          </li>
+          <li
+            className={sideTab === 4 && "document-details-head"}
+            onClick={() => setSideTab(4)}
+          >
+            Education <button className="cursor-pointer">ADD</button>
+          </li>
+          <li
+            className={sideTab === 5 && "document-details-head"}
+            onClick={() => setSideTab(5)}
+          >
+            Projects <button className="cursor-pointer">ADD</button>
+          </li>
+          <li
+            className={sideTab === 6 && "document-details-head"}
+            onClick={() => setSideTab(6)}
+          >
+            Accomplishments{" "}
+          </li>
+          <li
+            className={sideTab === 7 && "document-details-head"}
+            onClick={() => setSideTab(7)}
+          >
+            Career profile{" "}
+          </li>
+        </ul>
+      </div>
       {sideTab === 1 && (
         <div className="profile-section-personal-detail-right">
           <div className="profile-section-personal-table">
@@ -110,7 +159,7 @@ function PersonalDetails({
               general, recruiters do not review profiles without resumes.
             </p>
             {documents && documents.resume ? (
-              <>
+              <div className="profile-section-personal-resume-update">
                 <div>
                   {resume
                     ? resume
@@ -140,9 +189,9 @@ function PersonalDetails({
                     DELETE RESUME
                   </button>
                 </div>
-              </>
+              </div>
             ) : (
-              "Not Updated"
+              ""
             )}
 
             {documents && documents.cover_letter ? (
