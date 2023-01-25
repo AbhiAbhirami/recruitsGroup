@@ -19,13 +19,16 @@ function SignUp() {
   const navigate = useNavigate();
   const [modal, setModal] = useState(false);
   const { saveAuth, setCurrentUser } = useAuth();
-  const [showPassword, setShowPassword] = useState(false);
-  const [showConfirmPassword, setConfirmShowPassword] = useState(false);
   const [password, setPass] = useState("");
   const [isValid, setIsValid] = useState(true);
   const [invalidMsg, setInvalidMsg] = useState("");
   const [email, setEmail] = useState("");
   const [otp, setOtp] = useState("");
+
+  // const [signupPage, setSignupPage] = useState(false);
+
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setConfirmShowPassword] = useState(false);
 
   const toggle = () => {
     setModal(!modal);
@@ -93,19 +96,19 @@ function SignUp() {
 
       <div className="signup-input-field">
         <div className="right-signup-div1">
-          <span>
+          <p className="font-size-14">
             Already a member?{" "}
             <Link to="/signin" className="register-link">
               {" "}
               Sign in
             </Link>
-          </span>
+          </p>
         </div>
         <div className="right-signup-div2">
           <h3 className="signup-header">Register Now</h3>
           <p className="signup-para">Discover your dream job here!</p>
         </div>
-        
+
         <form onSubmit={handleSubmit(onSubmit)} className="right-signup-div3">
           <div className="form-div">
             <input

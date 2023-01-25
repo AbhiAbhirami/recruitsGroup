@@ -23,257 +23,256 @@ function Jobs() {
     { task: "Update profile", tag: "To find you" },
   ];
   return (
-    <>
+    <div>
       <BackgroundDesign />
-
-      <div>
-        <div className="main-jobs">
+      <div className="main-jobs">
+        <div
+          className="w-30"
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            gap: "50px",
+            alignItems: "center",
+          }}
+        >
           <div
-            className="w-30"
+            className=""
             style={{
               display: "flex",
               flexDirection: "column",
-              gap: "50px",
+              gap: "10px",
               alignItems: "center",
+              color: "#fff",
+            }}
+          >
+            <img
+              src={profile}
+              style={{ marginTop: "20px", height: "121px", width: "117px" }}
+              alt=""
+            />
+            <span style={{ color: "white" }}>Shahid Afrid T</span>
+            <span style={{ color: "white" }}>Full Stack Developer</span>
+          </div>
+
+          <div
+            style={{
+              width: "100%",
+              height: "100px",
+              borderRadius: "18px",
+              backgroundColor: "#fff",
+              padding: "20px 30px",
+            }}
+          >
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                width: "100%",
+              }}
+            >
+              <h3 style={{ color: "#5C5B5B" }}>Profile Complition</h3>
+              <h3>50%</h3>
+            </div>
+            <div
+              style={{
+                height: "3px",
+                width: "100%",
+                background: "#D9D9D9",
+                marginTop: "20px",
+              }}
+            >
+              <div
+                style={{ height: "3px", width: "50%", background: "#9AD8A0" }}
+              ></div>
+            </div>
+          </div>
+
+          <div
+            style={{
+              width: "100%",
+              borderRadius: "18px",
+              backgroundColor: "#fff",
+              display: "flex",
+              flexDirection: "column",
+              gap: "20px",
+              padding: "10px",
+              position: "sticky",
+              top: "15px",
+              paddingBottom: 20,
+            }}
+          >
+            <div
+              style={{
+                display: "flex",
+                width: "100%",
+                marginTop: "20px",
+                gap: "20px",
+              }}
+            >
+              <img
+                src={save}
+                style={{ height: "20px", width: "20px" }}
+                alt=""
+              />{" "}
+              <h2 style={{ fontSize: "18px" }}>Saved Jobs </h2>
+            </div>
+            <SavedJobsCard />
+            <SavedJobsCard />
+            <SavedJobsCard />
+            <SavedJobsCard />
+            <SavedJobsCard />
+          </div>
+        </div>
+
+        <div
+          className="w-35"
+          style={{
+            background: "#E5E5E5",
+            borderRadius: "20px",
+            display: "flex",
+            flexDirection: "column",
+            gap: "20px",
+            alignItems: "center",
+            paddingTop: "33px",
+          }}
+        >
+          <div
+            style={{
+              width: "90%",
+              height: "150px",
+              borderRadius: "18px",
+              backgroundColor: "#fff",
+              display: "flex",
             }}
           >
             <div
               className=""
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                gap: "10px",
-                alignItems: "center",
-                color: "#fff",
-              }}
+              style={{ height: "100%", width: "50%", padding: "5%" }}
             >
-              <img
-                src={profile}
-                style={{ marginTop: "20px", height: "121px", width: "117px" }}
-                alt=""
+              <h2 style={media ? { fontSize: "16px" } : { fontSize: "20px" }}>
+                What
+              </h2>
+              <p
+                style={
+                  media
+                    ? { marginTop: ".75rem", fontSize: "14px" }
+                    : { marginTop: ".75rem", fontSize: "16px" }
+                }
+              >
+                Job title or Company
+              </p>
+              <input
+                placeholder="Web developer"
+                type="text"
+                style={{
+                  width: "100%",
+                  height: "30px",
+                  marginTop: ".75rem",
+                  backgroundColor: "#F2F3F7",
+                  outline: "none",
+                  paddingLeft: "10px",
+                  border: "none",
+                  borderRadius: "10px",
+                }}
               />
-              <span style={{ color: "white" }}>Shahid Afrid T</span>
-              <span style={{ color: "white" }}>Full Stack Developer</span>
             </div>
-
             <div
-              style={{
-                width: "100%",
-                height: "100px",
-                borderRadius: "18px",
-                backgroundColor: "#fff",
-                padding: "20px 30px",
-              }}
+              className=""
+              style={{ height: "100%", width: "50%", padding: "5%" }}
             >
-              <div
-                style={{
-                  display: "flex",
-                  justifyContent: "space-between",
-                  width: "100%",
-                }}
+              <h2 style={media ? { fontSize: "16px" } : { fontSize: "20px" }}>
+                Where
+              </h2>
+              <p
+                style={
+                  media
+                    ? { marginTop: ".75rem", fontSize: "14px" }
+                    : { marginTop: ".75rem", fontSize: "16px" }
+                }
               >
-                <h3 style={{ color: "#5C5B5B" }}>Profile Complition</h3>
-                <h3>50%</h3>
-              </div>
-              <div
+                City or State
+              </p>
+              <input
+                placeholder="Delhi"
+                type="text"
                 style={{
-                  height: "3px",
                   width: "100%",
-                  background: "#D9D9D9",
-                  marginTop: "20px",
+                  height: "30px",
+                  marginTop: ".75rem",
+                  backgroundColor: "#F2F3F7",
+                  outline: "none",
+                  paddingLeft: "10px",
+                  border: "none",
+                  borderRadius: "10px",
                 }}
-              >
-                <div
-                  style={{ height: "3px", width: "50%", background: "#9AD8A0" }}
-                ></div>
-              </div>
+              />
             </div>
+          </div>
+          <JobPost />
+          <JobPost />
+          <JobPost />
+          <JobPost />
+        </div>
 
-            <div
-              style={{
-                width: "100%",
-                borderRadius: "18px",
-                backgroundColor: "#fff",
-                display: "flex",
-                flexDirection: "column",
-                gap: "20px",
-                padding: "10px",
-                position: "sticky",
-                top: "15px",
-              }}
-            >
-              <div
-                style={{
-                  display: "flex",
-                  width: "100%",
-                  marginTop: "20px",
-                  gap: "20px",
-                }}
-              >
-                <img
-                  src={save}
-                  style={{ height: "20px", width: "20px" }}
-                  alt=""
-                />{" "}
-                <h2 style={{ fontSize: "18px" }}>Saved Jobs </h2>
-              </div>
-              <SavedJobsCard />
-              <SavedJobsCard />
-              <SavedJobsCard />
-              <SavedJobsCard />
-              <SavedJobsCard />
+        <div
+          className="w-30"
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            gap: "20px",
+          }}
+        >
+          <div
+            className="notification-main-cont"
+            style={{ padding: "20px 30px" }}
+          >
+            <h3 className="new-jobs-head">Notification</h3>
+            <div className="new-notification-cards-cont">
+              <NotificationCard />
+              <NotificationCard />
+              <NotificationCard />
+              <NotificationCard />
             </div>
           </div>
 
           <div
-            className="w-35"
+            className="todo-main-cont"
             style={{
-              background: "#E5E5E5",
-              borderRadius: "20px",
-              display: "flex",
-              flexDirection: "column",
-              gap: "20px",
-              alignItems: "center",
-              paddingTop: "33px",
+              position: "sticky",
+              top: "15px",
+              width: "100%",
+              height: "auto",
+              maxHeight: "max-content",
+              padding: "20px 30px",
             }}
           >
-            <div
-              style={{
-                width: "90%",
-                height: "150px",
-                borderRadius: "18px",
-                backgroundColor: "#fff",
-                display: "flex",
-              }}
-            >
-              <div
-                className=""
-                style={{ height: "100%", width: "50%", padding: "5%" }}
-              >
-                <h2 style={media ? { fontSize: "16px" } : { fontSize: "20px" }}>
-                  What
-                </h2>
-                <p
-                  style={
-                    media
-                      ? { marginTop: ".75rem", fontSize: "14px" }
-                      : { marginTop: ".75rem", fontSize: "16px" }
-                  }
-                >
-                  Job title or Company
-                </p>
-                <input
-                  placeholder="Web developer"
-                  type="text"
-                  style={{
-                    width: "100%",
-                    height: "30px",
-                    marginTop: ".75rem",
-                    backgroundColor: "#F2F3F7",
-                    outline: "none",
-                    paddingLeft: "10px",
-                    border: "none",
-                    borderRadius: "10px",
-                  }}
-                />
-              </div>
-              <div
-                className=""
-                style={{ height: "100%", width: "50%", padding: "5%" }}
-              >
-                <h2 style={media ? { fontSize: "16px" } : { fontSize: "20px" }}>
-                  Where
-                </h2>
-                <p
-                  style={
-                    media
-                      ? { marginTop: ".75rem", fontSize: "14px" }
-                      : { marginTop: ".75rem", fontSize: "16px" }
-                  }
-                >
-                  City or State
-                </p>
-                <input
-                  placeholder="Delhi"
-                  type="text"
-                  style={{
-                    width: "100%",
-                    height: "30px",
-                    marginTop: ".75rem",
-                    backgroundColor: "#F2F3F7",
-                    outline: "none",
-                    paddingLeft: "10px",
-                    border: "none",
-                    borderRadius: "10px",
-                  }}
-                />
-              </div>
-            </div>
-            <JobPost />
-            <JobPost />
-            <JobPost />
-            <JobPost />
-          </div>
-
-          <div
-            className="w-30"
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-              gap: "20px",
-            }}
-          >
-            <div
-              className="notification-main-cont"
-              style={{ padding: "20px 30px" }}
-            >
-              <h3 className="new-jobs-head">Notification</h3>
-              <div className="new-notification-cards-cont">
-                <NotificationCard />
-                <NotificationCard />
-                <NotificationCard />
-                <NotificationCard />
-              </div>
-            </div>
-
-            <div
-              className="todo-main-cont"
-              style={{
-                position: "sticky",
-                top: "15px",
-                width: "100%",
-                height: "auto",
-                maxHeight: "max-content",
-                padding: "20px 30px",
-              }}
-            >
-              <h3 className="new-jobs-head">Todo</h3>
-              <p className="todo-sub-heading">Check your life, not boxes</p>
-              <div className="todo-cards-cont">
-                {data.map((elem, index) => {
-                  return <TodoCard data={elem} key={index} index={index} />;
-                })}
-              </div>
+            <h3 className="new-jobs-head">Todo</h3>
+            <p className="todo-sub-heading">Check your life, not boxes</p>
+            <div className="todo-cards-cont">
+              {data.map((elem, index) => {
+                return <TodoCard data={elem} key={index} index={index} />;
+              })}
             </div>
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 }
 
 export default Jobs;
 
-const SavedJobsCard = () => {
+export const SavedJobsCard = () => {
   return (
     <div
       style={{
         width: "100%",
-        height: "110px",
+        // height: "110px",
         borderRadius: "20px",
-        boxShadow:
-          "0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1)",
+        boxShadow: "rgba(100, 100, 111, 0.2) 0px 7px 29px 0px",
+        // boxShadow:
+        //   "0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1)",
         padding: "10px 15px",
         display: "flex",
       }}
@@ -281,7 +280,7 @@ const SavedJobsCard = () => {
       <div
         style={{
           height: "100%",
-          width: "50%",
+          width: "60%",
           display: "flex",
           flexDirection: "column",
           gap: "10px",
@@ -291,14 +290,14 @@ const SavedJobsCard = () => {
         <h4 style={{ fontWeight: "400", color: "#5C5B5B", fontSize: "15px" }}>
           Mern Stack Developer
         </h4>
-        <h4 style={{ fontWeight: "400", color: "#5C5B5B", fontSize: "13px" }}>
+        <h4 style={{ fontWeight: "400", color: "#5C5B5B", fontSize: "12px" }}>
           3 days ago &nbsp; 13 Applied
         </h4>
       </div>
       <div
         style={{
           height: "100%",
-          width: "50%",
+          width: "40%",
           display: "flex",
           flexDirection: "column",
           justifyContent: "space-around",

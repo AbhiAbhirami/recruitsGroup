@@ -36,7 +36,10 @@ function SignIn() {
       setCurrentUser(user);
       const docs = await getUserDocuments(user.data.id);
       docs &&
-        localStorage.setItem(AUTH_LOCAL_STORAGE_USER_DOCUMENTS, JSON.stringify(docs.data.data));
+        localStorage.setItem(
+          AUTH_LOCAL_STORAGE_USER_DOCUMENTS,
+          JSON.stringify(docs.data.data)
+        );
       toast.success(user.message);
     } catch (error) {
       saveAuth(undefined);
@@ -60,79 +63,97 @@ function SignIn() {
           className="signup-input-field"
         >
           <div className="right-signup-div1">
-            <span>
+            <p className="font-size-14">
               Not a member?{" "}
               <Link to="/auth/sign-up" className="register-link">
                 {" "}
                 Register now
               </Link>
-            </span>
+            </p>
           </div>
-          <div className="right-signup-div2">
-            <h3 className="signup-header">Hello Again!</h3>
-            <p className="signup-para">Discover your dream job here!</p>
-          </div>
-          <form className="right-signin-div3" onSubmit={handleSubmit(onSubmit)}>
-            <div className="form-div">
-              <input
-                placeholder="Email"
-                defaultValue=""
-                {...register("email", { required: true })}
-                className="signup-input"
-                name="email"
-              />
-              {errors.email && (
-                <span className="validation">Email is required</span>
-              )}
-
-              <div
-                style={{ width: "100%", position: "relative", display: "flex" }}
-              >
-                <input
-                  placeholder="Password"
-                  type={showPassword ? "text" : "password"}
-                  defaultValue={
-                    signedUser && signedUser.password ? signedUser.password : ""
-                  }
-                  {...register("password", { required: true })}
-                  className="signup-input"
-                  name="password"
-                />
-                <i
-                  className={showPassword ? " fa fa-eye" : "fa fa-eye-slash"}
-                  style={{ position: "absolute", right: 15, top: "35%" }}
-                  aria-hidden="true"
-                  onClick={() => {
-                    setShowPassword(!showPassword);
-                  }}
-                ></i>
-              </div>
-
-              {errors.password && (
-                <span className="validation">Password is required</span>
-              )}
-
-              <p
-                style={{
-                  fontSize: "18px",
-                  cursor: "pointer",
-                }}
-                className="forget-password-para-tag"
-              >
-                <Link
-                  className="forget-password-tag"
-                  to="/auth/forgot-password"
-                >
-                  {" "}
-                  forgot password?
-                </Link>
-              </p>
-              <button type="submit" className="signin-btn">
-                Sign in
-              </button>
+          <div className="login-wrapper">
+            <div className="right-signup-div2">
+              <h3 className="signup-header">Hello Again!</h3>
+              <p className="signup-para">Discover your dream job here!</p>
             </div>
-          </form>
-          <SignInOptions />
+
+            <form
+              className="right-signin-div3"
+              onSubmit={handleSubmit(onSubmit)}
+            >
+              <div className="form-div">
+                <input
+                  placeholder="Email"
+                  defaultValue=""
+                  {...register("email", { required: true })}
+                  className="signup-input"
+                  name="email"
+                />
+                {errors.email && (
+                  <span className="validation">Email is required</span>
+                )}
+
+                <div
+                  style={{
+                    width: "100%",
+                    position: "relative",
+                    display: "flex",
+                  }}
+                >
+                  <input
+                    placeholder="Password"
+                    type={showPassword ? "text" : "password"}
+                    defaultValue=""
+                    {...register("password", { required: true })}
+                    className="signup-input"
+                    name="password"
+                  />
+                  <i
+                    className={showPassword ? " fa fa-eye" : "fa fa-eye-slash"}
+                    style={{ position: "absolute", right: 15, top: "35%" }}
+                    aria-hidden="true"
+                    onClick={() => {
+                      setShowPassword(!showPassword);
+                    }}
+                  ></i>
+                </div>
+
+                {errors.password && (
+                  <span className="validation">Password is required</span>
+                )}
+                {/* <p
+              style={{
+                fontSize: "18px",
+                cursor: "pointer",
+              }}
+            >
+              <Link to="/auth/forgot-password"> forgot password?</Link>
+            </p> */}
+                <p
+                  style={{
+                    fontSize: "14px",
+                    cursor: "pointer",
+                    width: "100%",
+                    textAlign: "end",
+                  }}
+                  className="forget-password-para-tag"
+                >
+                  <Link
+                    className="forget-password-tag"
+                    to="/auth/forgot-password"
+                  >
+                    {" "}
+                    forgot password?
+                  </Link>
+                </p>
+                <button type="submit" className="signin-btn">
+                  Sign in
+                </button>
+                {/* >>>>>>> reusable */}
+              </div>
+            </form>
+            <SignInOptions />
+          </div>
         </div>
       </div>
     </>
