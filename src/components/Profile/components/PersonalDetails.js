@@ -5,6 +5,7 @@ import moment from "moment";
 
 function PersonalDetails({ setIsOpen }) {
   const [files, setFiles] = React.useState([]);
+  const [sideTab, setSideTab] = React.useState(1);
 
   return (
     <Fragment>
@@ -13,7 +14,12 @@ function PersonalDetails({ setIsOpen }) {
           <h4>Personal Details</h4>
         </div>
         <ul>
-          <li className="personal-details-head">Personal details </li>
+          <li
+            className={sideTab === 1 && "document-details-head"}
+            onClick={() => setSideTab(1)}
+          >
+            Personal details
+          </li>
           <li>
             Resume <button className="cursor-pointer">UPDATE</button>
           </li>

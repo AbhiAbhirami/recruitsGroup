@@ -22,7 +22,8 @@ function JobCard({ setIsOpen }) {
           className="new-job-view-deatil-tag"
           onClick={() => setIsOpen(true)}
         >
-          VIEW DETAILS
+          {/* VIEW DETAILS */}
+          view deatils
         </span>
       </div>
     </div>

@@ -16,10 +16,9 @@ function SignUp() {
 
   // const [signupPage, setSignupPage] = useState(false);
 
-
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setConfirmShowPassword] = useState(false);
-  const onSubmit = (data) => { };
+  const onSubmit = (data) => {};
 
   const showOtpModal = () => {
     setModal(true);
@@ -36,13 +35,13 @@ function SignUp() {
 >>>>>>> reusable */}
       <div className="signup-input-field">
         <div className="right-signup-div1">
-          <span>
+          <p className="font-size-14">
             Already a member?{" "}
             <Link to="/signin" className="register-link">
               {" "}
               Sign in
             </Link>
-          </span>
+          </p>
         </div>
         <div className="right-signup-div2">
           <h3 className="signup-header">Register Now</h3>
@@ -64,13 +63,14 @@ function SignUp() {
 ======= */}
         <form onSubmit={handleSubmit(onSubmit)} className="right-signup-div3">
           <div className="form-div">
-
             <input
               className="signup-input"
               {...register("name", { required: true })}
               placeholder="Full Name*"
             />
-            {errors.name && <span className="validation">Name is required</span>}
+            {errors.name && (
+              <span className="validation">Name is required</span>
+            )}
 
             <input
               className="signup-input"
