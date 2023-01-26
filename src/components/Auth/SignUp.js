@@ -81,7 +81,7 @@ function SignUp() {
 
   return (
     <div className="signup-main-cont">
-      <ToastContainer limit={1} draggablePercent={60} />
+      <ToastContainer draggablePercent={60} />
       <Modal
         open={modal}
         close={toggle}

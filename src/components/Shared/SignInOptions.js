@@ -11,6 +11,7 @@ import {
 import { useAuth } from "../../core/Auth";
 
 import { toast, ToastContainer } from "react-toastify";
+import { AUTH_LOCAL_STORAGE_USER_DOCUMENTS, setDocuments } from "../../core/AuthHelpers";
 
 function SignInOptions() {
   const { saveAuth, setCurrentUser } = useAuth();
@@ -22,11 +23,8 @@ function SignInOptions() {
         const { data: user } = await getUserByToken(auth.api_token);
         setCurrentUser(user);
         const docs = await getUserDocuments(user.data.id);
-        docs &&
-          localStorage.setItem(
-            "user-documents",
-            JSON.stringify(docs.data.data)
-          );
+        docs && setDocuments(docs.data.data)
+          
       } catch (error) {
         saveAuth(undefined);
         toast.error(error.response.data.message + "❌");
@@ -37,7 +35,7 @@ function SignInOptions() {
 
   return (
     <>
-      <ToastContainer limit={1} draggablePercent={60} />
+      <ToastContainer draggablePercent={60} />
       <div className="right-signup-div4">
         <div className="continue-with-div">
           <hr /> <span> or continue with </span> <hr />

@@ -49,7 +49,7 @@ function SignIn() {
 
   return (
     <>
-      <ToastContainer limit={1} draggablePercent={60} />
+      <ToastContainer draggablePercent={60} />
       <div className="signup-main-cont">
         <Auth signinPage={signinPage} setSigninPage={setSigninPage} />
         <div
