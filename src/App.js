@@ -1,6 +1,7 @@
 import React from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "./App.css";
+
 import SignIn from "./components/Auth/SignIn";
 import SignUp from "./components/Auth/SignUp";
 import Dashboard from "./components/Dashboard/Dashboard";
@@ -31,7 +32,7 @@ const App = () => {
   return (
     <Suspense fallback={<LayoutSplashScreen />}>
       <AuthInit>
-      <Outlet />
+        <Outlet />
       </AuthInit>
     </Suspense>
   );

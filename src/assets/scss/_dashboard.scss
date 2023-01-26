@@ -1059,3 +1059,198 @@
     }
   }
 }
+
+//new dashboard
+.dashboard-main-cont {
+  .card {
+    border: none !important;
+  }
+  font-family: "Poppins", sans-serif !important;
+  .dashboard-cards {
+    .dashboard-card {
+      &.card-1 {
+        background-color: #4e36e2 !important;
+      }
+      &.card-2 {
+        background-color: #48a9f8 !important;
+      }
+      &.card-3 {
+        background-color: #1fcd85 !important;
+      }
+      &.card-4 {
+        background-color: #8bc741 !important;
+      }
+      border-radius: 28px !important;
+      p,
+      h1 {
+        font-family: "Poppins", sans-serif;
+      }
+      h1 {
+        font-size: 50px;
+        font-weight: 600;
+      }
+    }
+  }
+  .personal-card {
+    background-color: #ffffff !important;
+    box-shadow: 12px 12px 12px rgba(0, 0, 0, 0.02) !important;
+    border-radius: 17px !important;
+    border: none;
+    .card-head {
+      h4,
+      p {
+        font-family: "Poppins", sans-serif;
+      }
+      h4 {
+        font-weight: 600;
+      }
+      p {
+        font-size: 18px;
+        font-weight: 300;
+      }
+      .image-wrapper {
+        height: 150px;
+        width: 150px;
+        margin: auto;
+        border-radius: 50%;
+        position: relative;
+        img {
+          height: 120px;
+          width: 120px;
+          border-radius: 50%;
+        }
+      }
+    }
+    .card-skills {
+      .skill-progress {
+        height: 70px;
+        width: 70px;
+      }
+      .skill {
+        height: 60px;
+        width: 60px;
+        background: #d9d9d9;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        p {
+          font-weight: 500;
+          font-family: "Poppins", sans-serif;
+        }
+      }
+    }
+    .card-activities {
+      h5 {
+        font-weight: 400;
+        font-size: 16px;
+      }
+      h5,
+      h6,
+      p {
+        font-family: "Poppins", sans-serif;
+      }
+      h6 {
+        font-size: 14px;
+        font-weight: 400;
+        span {
+          font-weight: 500;
+        }
+      }
+      p {
+        font-size: 12px;
+        font-weight: 300;
+        color: #5c5b5b;
+      }
+      img {
+        height: 50px;
+        width: 50px;
+        border-radius: 10px;
+      }
+    }
+    .footer-arrow {
+      bottom: -20px;
+      left: 0;
+      .arrow-icon {
+        border-radius: 50%;
+        box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+      }
+    }
+  }
+  .dashboard-chart {
+    .card {
+      border-radius: 17px !important;
+    }
+    .recomended-jobs {
+      overflow-x: scroll;
+      &::-webkit-scrollbar {
+        display: none;
+      }
+      .card {
+        width: 350px;
+        min-width: 350px;
+        margin-right: 1rem;
+      }
+      p,
+      h5,
+      button {
+        font-family: "Poppins", sans-serif;
+      }
+      h5 {
+        font-size: 22px;
+        span {
+          font-size: 14px;
+        }
+      }
+      .description {
+        font-size: 12px;
+      }
+      .img-wrap {
+        height: 50px;
+        width: 50px;
+        border-radius: 10px;
+
+        img {
+          height: 100%;
+          width: 100%;
+          border-radius: 10px;
+        }
+      }
+      button {
+        background: rgba(18, 46, 193, 0.44);
+        border-radius: 6px;
+        border: none;
+        font-size: 14px;
+      }
+    }
+  }
+  .featured-companies {
+    overflow-x: scroll;
+    &::-webkit-scrollbar {
+      display: none;
+    }
+    .card {
+      min-width: 220px;
+
+      background: #ffffff;
+      border-radius: 16px;
+      h5,
+      p {
+        font-size: 14px;
+        font-family: "Poppins", sans-serif !important;
+      }
+      h5 {
+      }
+      .img-wrap {
+        width: 70px;
+        height: 70px;
+        border-radius: 10px;
+        img {
+          height: 100%;
+          width: 100%;
+          border-radius: 10px;
+        }
+      }
+    }
+  }
+}
