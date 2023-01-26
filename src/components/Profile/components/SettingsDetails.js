@@ -30,7 +30,7 @@ function SettingsDetails({
   const [docs, setDocs] = useState(documents);
   const [user, setUserData] = useState(userData);
   const [sideTab, setSideTab] = React.useState(1);
-  const [avatar, setAvatar] = useState("");
+  const [avatar, setAvatar] = useState(userData.avatar);
   const {
     register,
     handleSubmit,
