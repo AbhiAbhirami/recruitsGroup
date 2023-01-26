@@ -45,7 +45,9 @@ function DropDown({ open, user }) {
       <div className="dropdown-settings-div">
         <span className="dropdown-div-nav-tag">Language</span>
         <span className="dropdown-div-nav-tag">Settings</span>
-        <span className="dropdown-div-nav-tag">Sign Out</span>
+        <span className="dropdown-div-nav-tag" onClick={logout}>
+          Sign Out
+        </span>
       </div>
     </div>
   );
