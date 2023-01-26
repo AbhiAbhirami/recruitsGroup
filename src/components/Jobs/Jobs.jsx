@@ -12,8 +12,14 @@ import send from "../../assets/images/icons/send.png";
 import NotificationCard from "../Shared/Notification/NotificationCard";
 import profile from "../../assets/images/icons/profile.png";
 
+import { FaUser } from "react-icons/fa";
+import JobModal from "../Shared/JobModal/Jobmodal";
+
 function Jobs() {
+  const [modalIsOpen, setIsOpen] = React.useState(false);
+
   let media = window.screen.width < 600;
+
   const data = [
     { task: "Update profile", tag: "To find you" },
     { task: "Update profile", tag: "To find you" },
@@ -24,6 +30,7 @@ function Jobs() {
   ];
   return (
     <div>
+      <JobModal closeModal={() => setIsOpen(false)} isOpen={modalIsOpen} />
       <Header />
       <BackgroundDesign />
       <div className="main-jobs">
@@ -46,11 +53,26 @@ function Jobs() {
               color: "#fff",
             }}
           >
-            <img
-              src={profile}
-              style={{ marginTop: "20px", height: "121px", width: "117px" }}
-              alt=""
-            />
+            {!profile ? (
+              <img
+                src={profile}
+                style={{ marginTop: "20px", height: "121px", width: "117px" }}
+                alt=""
+              />
+            ) : (
+              <div
+                style={{
+                  height: 50,
+                  width: 50,
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  marginTop: 30,
+                }}
+              >
+                <FaUser size={"2.5rem"} />
+              </div>
+            )}
             <span style={{ color: "white" }}>Shahid Afrid T</span>
             <span style={{ color: "white" }}>Full Stack Developer</span>
           </div>
@@ -117,11 +139,14 @@ function Jobs() {
               />{" "}
               <h2 style={{ fontSize: "18px" }}>Saved Jobs </h2>
             </div>
-            <SavedJobsCard />
-            <SavedJobsCard />
-            <SavedJobsCard />
-            <SavedJobsCard />
-            <SavedJobsCard />
+            <p className="text-muted " style={{ paddingLeft: 10 }}>
+              You haven't saved any job yet!
+            </p>
+            <SavedJobsCard setIsOpen={setIsOpen} />
+            <SavedJobsCard setIsOpen={setIsOpen} />
+            <SavedJobsCard setIsOpen={setIsOpen} />
+            <SavedJobsCard setIsOpen={setIsOpen} />
+            <SavedJobsCard setIsOpen={setIsOpen} />
           </div>
         </div>
 
@@ -209,10 +234,10 @@ function Jobs() {
               />
             </div>
           </div>
-          <JobPost />
-          <JobPost />
-          <JobPost />
-          <JobPost />
+          <JobPost setIsOpen={setIsOpen} />
+          <JobPost setIsOpen={setIsOpen} />
+          <JobPost setIsOpen={setIsOpen} />
+          <JobPost setIsOpen={setIsOpen} />
         </div>
 
         <div
@@ -264,57 +289,65 @@ function Jobs() {
 
 export default Jobs;
 
-export const SavedJobsCard = () => {
+export const SavedJobsCard = ({ setIsOpen }) => {
   return (
-    <div
-      style={{
-        width: "100%",
-        // height: "110px",
-        borderRadius: "20px",
-        boxShadow: "rgba(100, 100, 111, 0.2) 0px 7px 29px 0px",
-        // boxShadow:
-        //   "0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1)",
-        padding: "10px 15px",
-        display: "flex",
-      }}
-    >
+    <>
       <div
         style={{
-          height: "100%",
-          width: "60%",
+          width: "100%",
+          // height: "110px",
+          borderRadius: "20px",
+          boxShadow: "rgba(100, 100, 111, 0.2) 0px 7px 29px 0px",
+          // boxShadow:
+          //   "0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1)",
+          padding: "10px 15px",
           display: "flex",
-          flexDirection: "column",
-          gap: "10px",
         }}
       >
-        <h2 style={{ fontWeight: "600", fontSize: "16px" }}>Facebook</h2>
-        <h4 style={{ fontWeight: "400", color: "#5C5B5B", fontSize: "15px" }}>
-          Mern Stack Developer
-        </h4>
-        <h4 style={{ fontWeight: "400", color: "#5C5B5B", fontSize: "12px" }}>
-          3 days ago &nbsp; 13 Applied
-        </h4>
+        <div
+          style={{
+            height: "100%",
+            width: "60%",
+            display: "flex",
+            flexDirection: "column",
+            gap: "10px",
+          }}
+        >
+          <h2 style={{ fontWeight: "600", fontSize: "16px" }}>Facebook</h2>
+          <h4 style={{ fontWeight: "400", color: "#5C5B5B", fontSize: "15px" }}>
+            Mern Stack Developer
+          </h4>
+          <h4 style={{ fontWeight: "400", color: "#5C5B5B", fontSize: "12px" }}>
+            3 days ago &nbsp; 13 Applied
+          </h4>
+        </div>
+        <div
+          style={{
+            height: "100%",
+            width: "40%",
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "space-around",
+            alignItems: "end",
+          }}
+        >
+          <h4 style={{ fontWeight: "400", color: "#5C5B5B", fontSize: "13px" }}>
+            Singapore
+          </h4>
+          <h4
+            onClick={() => setIsOpen(true)}
+            style={{ color: "#3B6FB1", cursor: "pointer", fontSize: "14px" }}
+          >
+            view deatils
+            {/* VIEW DETAILS */}
+          </h4>
+        </div>
       </div>
-      <div
-        style={{
-          height: "100%",
-          width: "40%",
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "space-around",
-          alignItems: "end",
-        }}
-      >
-        <h4 style={{ fontWeight: "400", color: "#5C5B5B", fontSize: "13px" }}>
-          Singapore
-        </h4>
-        <h4 style={{ color: "#3B6FB1", fontSize: "14px" }}>VIEW DETAILS</h4>
-      </div>
-    </div>
+    </>
   );
 };
 
-const JobPost = () => {
+const JobPost = ({ setIsOpen }) => {
   return (
     <div
       style={{ width: "90%", borderRadius: "10px", backgroundColor: "#fff" }}
@@ -334,7 +367,12 @@ const JobPost = () => {
         </div>
         <div className="new-job-company-extra-detail">
           <span>Singapore</span>
-          <span className="new-job-view-deatil-tag">VIEW DETAILS</span>
+          <span
+            className="new-job-view-deatil-tag"
+            onClick={() => setIsOpen(true)}
+          >
+            VIEW DETAILS
+          </span>
         </div>
       </div>
       <img src={post} style={{ width: "100%" }} alt="" />
