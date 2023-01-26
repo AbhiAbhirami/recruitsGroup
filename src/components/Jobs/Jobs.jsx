@@ -10,7 +10,7 @@ import save from "../../assets/images/icons/save.png";
 import send from "../../assets/images/icons/send.png";
 
 import NotificationCard from "../Shared/Notification/NotificationCard";
-import profile from "../../assets/images/icons/blank.png";
+import profile from "../../assets/images/icons/profile.png";
 
 import { FaUser } from "react-icons/fa";
 import JobModal from "../Shared/JobModal/Jobmodal";
@@ -30,19 +30,25 @@ function Jobs({ user }) {
   ];
   return (
     <>
+      <BackgroundDesign />
       <div>
         <JobModal closeModal={() => setIsOpen(false)} isOpen={modalIsOpen} />
-        <Header />
-        <BackgroundDesign />
-
-        <div>
-          <div className="main-jobs">
+        <div className="main-jobs">
+          <div
+            className="w-30"
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              gap: "50px",
+              alignItems: "center",
+            }}
+          >
             <div
-              className="w-30"
+              className=""
               style={{
                 display: "flex",
                 flexDirection: "column",
-                gap: "50px",
+                gap: "10px",
                 alignItems: "center",
                 color: "#fff",
               }}
@@ -50,11 +56,7 @@ function Jobs({ user }) {
               {!profile ? (
                 <img
                   src={profile}
-                  style={{
-                    marginTop: "20px",
-                    height: "121px",
-                    width: "117px",
-                  }}
+                  style={{ marginTop: "20px", height: "121px", width: "117px" }}
                   alt=""
                 />
               ) : (
@@ -85,30 +87,57 @@ function Jobs({ user }) {
               }}
             >
               <div
-                className=""
                 style={{
                   display: "flex",
-                  flexDirection: "column",
-                  gap: "10px",
-                  alignItems: "center",
-                  color: "#fff",
+                  justifyContent: "space-between",
+                  width: "100%",
+                }}
+              >
+                <h3 style={{ color: "#5C5B5B" }}>Profile Complition</h3>
+                <h3>50%</h3>
+              </div>
+              <div
+                style={{
+                  height: "3px",
+                  width: "100%",
+                  background: "#D9D9D9",
+                  marginTop: "20px",
+                }}
+              >
+                <div
+                  style={{ height: "3px", width: "50%", background: "#9AD8A0" }}
+                ></div>
+              </div>
+            </div>
+
+            <div
+              style={{
+                width: "100%",
+                borderRadius: "18px",
+                backgroundColor: "#fff",
+                display: "flex",
+                flexDirection: "column",
+                gap: "20px",
+                padding: "10px",
+                position: "sticky",
+                top: "15px",
+                paddingBottom: 20,
+              }}
+            >
+              <div
+                style={{
+                  display: "flex",
+                  width: "100%",
+                  marginTop: "20px",
+                  gap: "20px",
                 }}
               >
                 <img
-                  src={user.avatar ? user.avatar : profile}
-                  style={{
-                    marginTop: "20px",
-                    height: "121px",
-                    width: "117px",
-                  }}
+                  src={save}
+                  style={{ height: "20px", width: "20px" }}
                   alt=""
-                />
-                <span style={{ color: "white" }}>
-                  {user.name ? user.name : ""}
-                </span>
-                <span style={{ color: "white" }}>
-                  {user.position ? user.position : ""}
-                </span>
+                />{" "}
+                <h2 style={{ fontSize: "18px" }}>Saved Jobs </h2>
               </div>
               <p className="text-muted " style={{ paddingLeft: 10 }}>
                 You haven't saved any job yet!
@@ -122,189 +151,93 @@ function Jobs({ user }) {
           </div>
 
           <div
+            className="w-35"
             style={{
-              width: "100%",
-              height: "100px",
-              borderRadius: "18px",
-              backgroundColor: "#fff",
-              padding: "20px 30px",
-            }}
-          >
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "space-between",
-                width: "100%",
-              }}
-            >
-              <h3 style={{ color: "#5C5B5B" }}>Profile Completion</h3>
-              <h3>50%</h3>
-            </div>
-            <div
-              style={{
-                height: "3px",
-                width: "100%",
-                background: "#D9D9D9",
-                marginTop: "20px",
-              }}
-            >
-              <div
-                style={{ height: "3px", width: "50%", background: "#9AD8A0" }}
-              ></div>
-            </div>
-          </div>
-
-          <div
-            style={{
-              width: "100%",
-              borderRadius: "18px",
-              backgroundColor: "#fff",
+              background: "#E5E5E5",
+              borderRadius: "20px",
               display: "flex",
               flexDirection: "column",
               gap: "20px",
-              padding: "10px",
-              position: "sticky",
-              top: "15px",
-              paddingBottom: 20,
+              alignItems: "center",
+              paddingTop: "33px",
             }}
           >
             <div
               style={{
+                width: "90%",
+                height: "150px",
+                borderRadius: "18px",
+                backgroundColor: "#fff",
                 display: "flex",
-                width: "100%",
-                marginTop: "20px",
-                gap: "20px",
               }}
             >
-              <img
-                src={save}
-                style={{ height: "20px", width: "20px" }}
-                alt=""
-              />{" "}
-              <h2 style={{ fontSize: "18px" }}>Saved Jobs </h2>
-            </div>
-            <SavedJobsCard />
-            <SavedJobsCard />
-            <SavedJobsCard />
-            <SavedJobsCard />
-            <SavedJobsCard />
-          </div>
-        </div>
-
-        <div
-          className="w-35"
-          style={{
-            background: "#E5E5E5",
-            borderRadius: "20px",
-            display: "flex",
-            flexDirection: "column",
-            gap: "20px",
-            alignItems: "center",
-            paddingTop: "33px",
-          }}
-        >
-          <div
-            style={{
-              width: "90%",
-              height: "150px",
-              borderRadius: "18px",
-              backgroundColor: "#fff",
-              display: "flex",
-            }}
-          >
-            <div
-              className=""
-              style={{ height: "100%", width: "50%", padding: "5%" }}
-            >
-              <h2 style={media ? { fontSize: "16px" } : { fontSize: "20px" }}>
-                What
-              </h2>
-              <p
-                style={
-                  media
-                    ? { marginTop: ".75rem", fontSize: "14px" }
-                    : { marginTop: ".75rem", fontSize: "16px" }
-                }
+              <div
+                className=""
+                style={{ height: "100%", width: "50%", padding: "5%" }}
               >
-                Job title or Company
-              </p>
-              <input
-                placeholder="Web developer"
-                type="text"
-                style={{
-                  width: "100%",
-                  height: "30px",
-                  marginTop: ".75rem",
-                  backgroundColor: "#F2F3F7",
-                  outline: "none",
-                  paddingLeft: "10px",
-                  border: "none",
-                  borderRadius: "10px",
-                }}
-              />
-            </div>
-            <div
-              className=""
-              style={{ height: "100%", width: "50%", padding: "5%" }}
-            >
-              <h2 style={media ? { fontSize: "16px" } : { fontSize: "20px" }}>
-                Where
-              </h2>
-              <p
-                style={
-                  media
-                    ? { marginTop: ".75rem", fontSize: "14px" }
-                    : { marginTop: ".75rem", fontSize: "16px" }
-                }
+                <h2 style={media ? { fontSize: "16px" } : { fontSize: "20px" }}>
+                  What
+                </h2>
+                <p
+                  style={
+                    media
+                      ? { marginTop: ".75rem", fontSize: "14px" }
+                      : { marginTop: ".75rem", fontSize: "16px" }
+                  }
+                >
+                  Job title or Company
+                </p>
+                <input
+                  placeholder="Web developer"
+                  type="text"
+                  style={{
+                    width: "100%",
+                    height: "30px",
+                    marginTop: ".75rem",
+                    backgroundColor: "#F2F3F7",
+                    outline: "none",
+                    paddingLeft: "10px",
+                    border: "none",
+                    borderRadius: "10px",
+                  }}
+                />
+              </div>
+              <div
+                className=""
+                style={{ height: "100%", width: "50%", padding: "5%" }}
               >
-                City or State
-              </p>
-              <input
-                placeholder="Delhi"
-                type="text"
-                style={{
-                  width: "100%",
-                  height: "30px",
-                  marginTop: ".75rem",
-                  backgroundColor: "#F2F3F7",
-                  outline: "none",
-                  paddingLeft: "10px",
-                  border: "none",
-                  borderRadius: "10px",
-                }}
-              />
+                <h2 style={media ? { fontSize: "16px" } : { fontSize: "20px" }}>
+                  Where
+                </h2>
+                <p
+                  style={
+                    media
+                      ? { marginTop: ".75rem", fontSize: "14px" }
+                      : { marginTop: ".75rem", fontSize: "16px" }
+                  }
+                >
+                  City or State
+                </p>
+                <input
+                  placeholder="Delhi"
+                  type="text"
+                  style={{
+                    width: "100%",
+                    height: "30px",
+                    marginTop: ".75rem",
+                    backgroundColor: "#F2F3F7",
+                    outline: "none",
+                    paddingLeft: "10px",
+                    border: "none",
+                    borderRadius: "10px",
+                  }}
+                />
+              </div>
             </div>
-          </div>
-          <JobPost setIsOpen={setIsOpen} />
-          <JobPost setIsOpen={setIsOpen} />
-          <JobPost setIsOpen={setIsOpen} />
-          <JobPost setIsOpen={setIsOpen} />
-        </div>
-
-        <div
-          className="w-30"
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            gap: "20px",
-          }}
-        >
-          <div
-            className="notification-main-cont"
-            style={{ padding: "20px 30px" }}
-          >
-            <h3 className="new-jobs-head">Notification</h3>
-            <div className="new-notification-cards-cont">
-              <NotificationCard />
-              <NotificationCard />
-              <NotificationCard />
-              <NotificationCard />
-            </div>
-            <JobPost />
-            <JobPost />
-            <JobPost />
-            <JobPost />
+            <JobPost setIsOpen={setIsOpen} />
+            <JobPost setIsOpen={setIsOpen} />
+            <JobPost setIsOpen={setIsOpen} />
+            <JobPost setIsOpen={setIsOpen} />
           </div>
 
           <div
