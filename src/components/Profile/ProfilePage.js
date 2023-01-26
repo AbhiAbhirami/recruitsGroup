@@ -57,10 +57,11 @@ function ProfilePage({ user }) {
         <div className="profile-section-cont">
           <div className="profile-section-card">
             <ProfileInfo
-              userUpdated={setIsUserUpdated}
+              userUpdated={updated}
+              setIsUserUpdated={setIsUserUpdated}
               setTab={setTab}
               tab={tab}
-              user={user}
+              userData={user}
               documents={documents}
             />
           </div>
@@ -69,21 +70,28 @@ function ProfilePage({ user }) {
               <PersonalDetails
                 setIsOpen={setIsOpen}
                 userData={user}
-                userUpdated={setIsUserUpdated}
                 docs={documents}
                 deleteCover={deleteCover}
                 setCoverData={setCoverData}
+                userUpdated={updated}
                 setIsUserUpdated={setIsUserUpdated}
               />
             )}
-            {tab === "documents" && <DocumentDetails documents={documents} />}
+            {tab === "documents" && (
+              <DocumentDetails
+                docs={documents}
+                user={user}
+                userUpdated={updated}
+                setIsUserUpdated={setIsUserUpdated}
+              />
+            )}
             {tab === "settings" && (
               <SettingsDetails
                 updateUserData={updateUserData}
-                user={user}
+                userData={user}
                 setIsUserUpdated={setIsUserUpdated}
                 userUpdated={setIsUserUpdated}
-documents={documents}
+                documents={documents}
               />
             )}
           </div>

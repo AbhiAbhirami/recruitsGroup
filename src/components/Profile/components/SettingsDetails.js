@@ -2,20 +2,35 @@ import React, { Fragment } from "react";
 import download from "../../../assets/images/icons/download.png";
 import moment from "moment";
 import ProfileInput from "../Update/ProfileInput";
-import profilImage from "../../../assets/images/icons/profile2.png";
+import profilImage from "../../../assets/images/icons/blank.png";
 import { useForm } from "react-hook-form";
-import { updateUser, updateUserDocument } from "../../../requests/Auth";
-import { setDocuments, setUser } from "../../../core/AuthHelpers";
+import {
+  deleteUserImage,
+  updateUser,
+  updateUserDocument,
+  updateUserImage,
+} from "../../../requests/Auth";
+import {
+  getDocuments,
+  getUser,
+  setDocuments,
+  setUser,
+} from "../../../core/AuthHelpers";
 import { toast, ToastContainer } from "react-toastify";
 import { useEffect } from "react";
+import { useState } from "react";
 
 function SettingsDetails({
   updateUserData,
-  user,
+  userData,
   documents,
   setIsUserUpdated,
   userUpdated,
 }) {
+  const [docs, setDocs] = useState(documents);
+  const [user, setUserData] = useState(userData);
+  const [sideTab, setSideTab] = React.useState(1);
+  const [avatar, setAvatar] = useState("");
   const {
     register,
     handleSubmit,
@@ -53,17 +68,49 @@ function SettingsDetails({
   const resetForm = () => {
     reset(resetObj);
   };
-  const [files, setFiles] = React.useState([]);
+  useEffect(() => {
+    setDocs(getDocuments());
+    setUser(getUser());
+    setUserData(getUser());
+  }, [userUpdated]);
 
-  const [sideTab, setSideTab] = React.useState(1);
   const setVideoResume = async (e) => {
-    setFiles(e.target.files);
     const updateDocsData = await updateUserDocument(
       user.id,
       "video_resume",
       e.target.files[0]
     );
     setDocuments(updateDocsData.data.data);
+    setIsUserUpdated(true);
+  };
+  const uploadProfile = async (event) => {
+    try {
+      if (event.target.files && event.target.files[0]) {
+        setAvatar(URL.createObjectURL(event.target.files[0]));
+      }
+      const avatar = await updateUserImage(user.id, event.target.files[0]);
+      setUser(avatar.data.data);
+      setIsUserUpdated(true);
+      toast.success(avatar.data.message);
+    } catch (e) {
+      toast.success(e.response.message);
+    }
+  };
+
+  const removeImage = async () => {
+    try {
+      if (user.avatar) {
+        const avatar = await deleteUserImage(user.id);
+        setAvatar("");
+        setUser(avatar.data.data);
+        setIsUserUpdated(true);
+        toast.success(avatar.data.message);
+      } else {
+        toast.error("Profile picture not updated");
+      }
+    } catch (e) {
+      toast.success(e.response.message);
+    }
   };
   return (
     <Fragment>
@@ -122,18 +169,63 @@ function SettingsDetails({
           <div className="settings-profile-details">
             <h4>Your Profile Picture</h4>
             <div className="settings-profile-image-wrap">
-              <div className="settings-profile-image">
-                <img
-                  src={user.avatar ? user.avatar : profilImage}
+              {/* <div className="settings-profile-image"> */}
+              {/* <img
+                  src={
+                    avatar ? avatar : user.avatar ? user.avatar : profilImage
+                  }
                   width={"100%"}
                   height={"100%"}
                   alt="profile-images"
                 />
               </div>
-              <button className="cursor-pointer upload-new">Upload New</button>
-              <button className="cursor-pointer remove-profile">
+              <input
+                type="file"
+                accept="image/png, image/jpeg"
+                className="cursor-pointer upload-new"
+                onClick={uploadProfile}
+                text="Upload New"
+              /> */}
+              <div className="pic-holder">
+                <img
+                  id="profilePic"
+                  className="pic"
+                  src={avatar ? avatar : profilImage}
+                />
+
+                <input
+                  required
+                  className="uploadProfileInput"
+                  type="file"
+                  name="profile_pic"
+                  id="newProfilePhoto"
+                  accept="image/*"
+                  onChange={uploadProfile}
+                  hidden
+                />
+                <label for="newProfilePhoto" className="upload-file-block">
+                  <div className="text-center">
+                    <div className="mb-2">
+                      <i
+                        className="fa fa-camera fa-2x"
+                        style={{ marginRight: "10px" }}
+                      ></i>
+                    </div>
+                    <div className="text-uppercase">
+                      Update <br /> Profile Photo
+                    </div>
+                  </div>
+                </label>
+                {/* </div> */}
+              </div>
+
+              <button
+                className="cursor-pointer remove-profile"
+                onClick={removeImage}
+              >
                 Remove Profile Picture
               </button>
+              {/* </div> */}
             </div>
           </div>
           <form onSubmit={handleSubmit(onSubmit)} className="settings-input">
@@ -230,10 +322,10 @@ function SettingsDetails({
               <h4>Upload Video</h4>
             </div>
 
-            {files[0]?.name || documents ? (
+            {docs && docs.video_resume ? (
               <div className="profile-section-personal-resume-update">
                 <div>
-                  {files[0]?.name || documents.video_resume.split("/").pop()}
+                  {docs.video_resume.split("/").pop()}
                   {/* <span>
                     Updated on{" "}
                     {files &&

@@ -1,12 +1,27 @@
-import React from "react";
+import React, { useEffect } from "react";
 import backgroundImage from "../../../assets/images/background/bg2.png";
 import profilImage from "../../../assets/images/icons/blank.png";
 import flag from "../../../assets/images/icons/flag.png";
 import phone from "../../../assets/images/icons/phone.png";
 import email from "../../../assets/images/icons/mail.png";
 import tips from "../../../assets/video/demo.mp4";
+import { getDocuments, getUser } from "../../../core/AuthHelpers";
+import { useState } from "react";
 
-function ProfileInfo({ tab, setTab, user, documents }) {
+function ProfileInfo({
+  setIsUserUpdated,
+  userUpdated,
+  tab,
+  setTab,
+  userData,
+  documents,
+}) {
+  const [user, setUserData] = useState(userData);
+  const [docs, setDocs] = useState(documents);
+  useEffect(() => {
+    setUserData(getUser());
+    setDocs(getDocuments());
+  }, [userUpdated]);
   return (
     <div>
       <div>
@@ -88,21 +103,16 @@ function ProfileInfo({ tab, setTab, user, documents }) {
             </div>
           </div>
           <div>
-            <video
-              // poster={videoThumb}
-              width={"100%"}
-              height={"100%"}
-              controls={true}
-            >
-              <source
-                src={
-                  documents && documents.video_resume
-                    ? documents.video_resume
-                    : tips
-                }
-                type="video/mp4"
-              />
-            </video>
+            {docs && docs.video_resume && (
+              <video
+                // poster={videoThumb}
+                width={"100%"}
+                height={"100%"}
+                controls={true}
+              >
+                <source src={docs.video_resume} type="video/mp4" />
+              </video>
+            )}
           </div>
         </div>
       </div>

@@ -1,20 +1,6 @@
 import axios from "axios";
 const API_URL = process.env.REACT_APP_API_URL;
 
-let userData = JSON.parse(localStorage.getItem("user-information"));
-let api_token, refreshToken;
-if (userData) {
-  api_token = userData.api_token;
-  refreshToken = userData.refreshToken;
-}
-
-const config = {
-  headers: {
-    authorization: `Bearer ${api_token}`,
-    RefreshToken: refreshToken,
-    "Content-Type": "application/json",
-  },
-};
 export const GET_USER_BY_ACCESS_TOKEN_URL = `${API_URL}/verify-token`;
 export const LOGIN_URL = `${API_URL}/login`;
 export const REGISTER_URL = `${API_URL}/register`;
@@ -26,114 +12,93 @@ export const FORGOT_PASSWORD = `${API_URL}/forgot-password`;
 export const CHECK_PASSWORD = `${API_URL}/check-password`;
 export const GET_USER_DOCS = `${API_URL}/document`;
 export const GOOGLE_URL = `${API_URL}/google/login`;
+export const UPDATE_USER_IMAGE = `${API_URL}/profile`;
 
 export function login(email, password) {
-  return axios.post(
-    LOGIN_URL,
-    {
-      email,
-      password,
-    },
-    config
-  );
+  return axios.post(LOGIN_URL, {
+    email,
+    password,
+  });
 }
 
 export function googleLogin(code) {
-  return axios.get(GOOGLE_URL + "?code=" + code.code, config);
+  return axios.get(GOOGLE_URL + "?code=" + code.code);
 }
 
 export function signUp(data) {
-  return axios.post(
-    REGISTER_URL,
-    {
-      email: data.email,
-      name: data.name,
-      password: data.password,
-      password_confirmation: data.password_confirmation,
-      joined_on: new Date(),
-    },
-    config
-  );
+  return axios.post(REGISTER_URL, {
+    email: data.email,
+    name: data.name,
+    password: data.password,
+    password_confirmation: data.password_confirmation,
+    joined_on: new Date(),
+  });
 }
 
 export function getUserByToken(token) {
-  return axios.post(
-    GET_USER_BY_ACCESS_TOKEN_URL,
-    {
-      api_token: token.api_token,
-      refresh_token: token.refreshToken,
-    },
-    config
-  );
+  return axios.post(GET_USER_BY_ACCESS_TOKEN_URL, {
+    api_token: token.api_token,
+    refresh_token: token.refreshToken,
+  });
 }
 
 export function verifyEmailOtp(otp, email) {
-  return axios.put(
-    VERIFY_OTP,
-    {
-      otp,
-      email,
-    },
-    config
-  );
+  return axios.put(VERIFY_OTP, {
+    otp,
+    email,
+  });
 }
 
 export function resendOtp(email, newEmail) {
-  return axios.put(
-    RESEND_OTP,
-    {
-      email,
-      newEmail,
-    },
-    config
-  );
+  return axios.put(RESEND_OTP, {
+    email,
+    newEmail,
+  });
 }
 
 export function getUserDataById(id) {
-  return axios.get(GET_USER_BY_ID + "/" + id, config);
+  return axios.get(GET_USER_BY_ID + "/" + id);
 }
 
 export function resetPassword(email) {
-  return axios.post(
-    FORGOT_PASSWORD,
-    {
-      email: email,
-    },
-    config
-  );
+  return axios.post(FORGOT_PASSWORD, {
+    email: email,
+  });
 }
 
 export function updateUser(id, body) {
-  return axios.put(
-    UPDATE_USER_DATA + "/" + id,
-    {
-      ...body,
-    },
-    config
-  );
+  return axios.put(UPDATE_USER_DATA + "/" + id, {
+    ...body,
+  });
 }
 
 export function checkPassword(email, password) {
-  return axios.post(
-    CHECK_PASSWORD,
-    {
-      email: email,
-      password: password,
-    },
-    config
-  );
+  return axios.post(CHECK_PASSWORD, {
+    email: email,
+    password: password,
+  });
 }
 
 export function getUserDocuments(id) {
-  return axios.get(GET_USER_DOCS + "/" + id, config);
+  return axios.get(GET_USER_DOCS + "/" + id);
 }
 
 export function deleteDocument(id, type) {
-  return axios.put(GET_USER_DOCS + "/" + type + "/" + id, config);
+  return axios.put(GET_USER_DOCS + "/" + type + "/" + id);
 }
 
 export function updateUserDocument(id, type, file) {
   const data = new FormData();
   data.append("file", file);
   return axios.post(GET_USER_DOCS + "/" + type + "/" + id, data);
+}
+
+export function updateUserImage(id, image) {
+  const data = new FormData();
+  data.append("image", image);
+  return axios.post(UPDATE_USER_IMAGE + "/" + id, data);
+}
+
+export function deleteUserImage(id) {
+  return axios.put(UPDATE_USER_IMAGE + "/" + id);
 }

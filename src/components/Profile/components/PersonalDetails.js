@@ -21,9 +21,10 @@ function PersonalDetails({
 }) {
   const [sideTab, setSideTab] = React.useState(1);
   const [resume, setResume] = React.useState("");
+  const [documents, setDocumentsData] = useState(docs ? docs : "");
+
   const [cover, setCover] = React.useState("");
   const [user, setUserData] = useState(userData);
-  const [documents, setDocumentsData] = useState(docs ? docs : "");
 
   useEffect(() => {
     setResume(
@@ -140,10 +141,7 @@ function PersonalDetails({
                     <td>Position</td>
                     <td>{user.position ? user.position : "Not Updated"}</td>
                   </tr>
-                  {/* <tr>
-                  <td>Address</td>
-                  <td>Not Updated</td>
-                </tr> */}
+
                   <tr>
                     <td>Contact</td>
                     <td>{user.phone ? user.phone : "Not Updated"}</td>
@@ -158,9 +156,7 @@ function PersonalDetails({
                 <tbody>
                   <tr>
                     <td>Date of birth</td>
-                    <td>
-                      {user.date_of_birth ? user.date_of_birth : "Not Updated"}
-                    </td>
+                    <td>Not Updated</td>
                   </tr>
                   <tr>
                     <td>Country</td>
