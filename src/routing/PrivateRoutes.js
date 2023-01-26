@@ -26,6 +26,7 @@ const PrivateRoutes = () => {
         <Route path="dashboard" element={<Dashboard />} />
         <Route path="jobs" element={<Jobs user={user} /> } />
         <Route path="applied-jobs" element={<AppliedJobs user={user} />} />
+      <Route path="saved-jobs" element={<AppliedJobs />} />
 
         <Route
           path="/profile/*"

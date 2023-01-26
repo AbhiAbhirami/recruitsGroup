@@ -1,12 +1,10 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import backgroundImage from "../../../assets/images/background/bg2.png";
 import profilImage from "../../../assets/images/icons/blank.png";
 import flag from "../../../assets/images/icons/flag.png";
 import phone from "../../../assets/images/icons/phone.png";
 import email from "../../../assets/images/icons/mail.png";
-import tips from "../../../assets/video/demo.mp4";
 import { getDocuments, getUser } from "../../../core/AuthHelpers";
-import { useState } from "react";
 
 function ProfileInfo({
   setIsUserUpdated,
