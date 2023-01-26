@@ -23,7 +23,7 @@ function JobCard({ setIsOpen }) {
           onClick={() => setIsOpen(true)}
         >
           {/* VIEW DETAILS */}
-          view deatils
+          view details
         </span>
       </div>
     </div>

@@ -34,13 +34,15 @@ function SignIn() {
       saveAuth(auth);
       const { data: user } = await getUserByToken(auth.api_token);
       setCurrentUser(user);
+      if (user) {
+        toast.success(user.message);
+      }
       const docs = await getUserDocuments(user.data.id);
       docs &&
         localStorage.setItem(
           AUTH_LOCAL_STORAGE_USER_DOCUMENTS,
           JSON.stringify(docs.data.data)
         );
-      toast.success(user.message);
     } catch (error) {
       saveAuth(undefined);
       toast.error(error.response.data.message);

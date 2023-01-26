@@ -132,7 +132,11 @@ function Header({ user }) {
               </div>
             </div>
             <img className="down-arrow" src={downArrow} alt="down-arrow" />
-            <DropDown open={isDropdown} user={user} />
+            <DropDown
+              open={isDropdown}
+              close={() => setIsDropDown(false)}
+              user={user}
+            />
           </div>
         </div>
       </div>

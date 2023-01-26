@@ -9,6 +9,7 @@ import send from "../../../assets/images/icons/send.png";
 import closebtn from "../../../assets/images/icons/close.png";
 
 import { Link } from "react-router-dom";
+import { useEffect } from "react";
 let media = window.screen.width < 600;
 
 const customStyles = {
@@ -25,6 +26,13 @@ const customStyles = {
 };
 
 function JobModal({ isOpen, closeModal }) {
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "unset";
+    }
+  }, [isOpen]);
   return (
     <>
       <Modal

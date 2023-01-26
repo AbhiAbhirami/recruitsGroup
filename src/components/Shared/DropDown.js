@@ -2,7 +2,7 @@ import React from "react";
 import { useAuth } from "../../core/Auth";
 import { FaUser } from "react-icons/fa";
 import { Link } from "react-router-dom";
-function DropDown({ open, user }) {
+function DropDown({ open, user, close }) {
   const { logout } = useAuth();
 
   return (
@@ -36,15 +36,21 @@ function DropDown({ open, user }) {
         </div>
       </div>
       <div className="dropdown-nav-options-div">
-        <Link to="/profile" className="dropdown-div-nav-tag">
+        <Link to="/profile" className="dropdown-div-nav-tag" onClick={close}>
           Profile
         </Link>
         {/* <span className="dropdown-div-nav-tag">My Projects</span> */}
-        <span className="dropdown-div-nav-tag">My Documents</span>
+        <span className="dropdown-div-nav-tag" onClick={close}>
+          My Documents
+        </span>
       </div>
       <div className="dropdown-settings-div">
-        <span className="dropdown-div-nav-tag">Language</span>
-        <span className="dropdown-div-nav-tag">Settings</span>
+        <span className="dropdown-div-nav-tag" onClick={close}>
+          Language
+        </span>
+        <span className="dropdown-div-nav-tag" onClick={close}>
+          Settings
+        </span>
         <span className="dropdown-div-nav-tag" onClick={logout}>
           Sign Out
         </span>
