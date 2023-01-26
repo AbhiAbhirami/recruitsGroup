@@ -376,7 +376,12 @@ const JobPost = ({ setIsOpen }) => {
           </span>
         </div>
       </div>
-      <img src={post} style={{ width: "100%" }} alt="" />
+      <img
+        src={post}
+        style={{ width: "100%" }}
+        alt=""
+        onClick={() => setIsOpen(true)}
+      />
       <div
         style={{
           display: "flex",
