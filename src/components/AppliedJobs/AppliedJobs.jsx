@@ -6,6 +6,9 @@ import TodoCard from "../Shared/Todo/TodoCard";
 import google from "../../assets/images/social/google.png";
 import post from "../../assets/images/jobs/post.png";
 
+import profilImage from "../../assets/images/icons/profile3.png";
+import file from "../../assets/images/icons/file.png";
+import emoji from "../../assets/images/icons/emoji.png";
 import save from "../../assets/images/icons/save.png";
 import send from "../../assets/images/icons/send.png";
 
@@ -13,6 +16,7 @@ import NotificationCard from "../Shared/Notification/NotificationCard";
 import profile from "../../assets/images/icons/profile.png";
 import { SavedJobsCard } from "../Jobs/Jobs";
 import { FaUser } from "react-icons/fa";
+import InputEmoji from "react-input-emoji";
 
 function AppliedJobs() {
   const data = [
@@ -24,6 +28,7 @@ function AppliedJobs() {
     { task: "Update profile", tag: "To find you" },
     { task: "Update profile", tag: "To find you" },
   ];
+
   return (
     <div>
       <Header />
@@ -260,6 +265,11 @@ function AppliedJobs() {
 export default AppliedJobs;
 
 const JobPost = () => {
+  const [text, setText] = React.useState("");
+
+  function handleOnEnter(text) {
+    console.log("enter", text);
+  }
   return (
     <div
       style={{ width: "90%", borderRadius: "10px", backgroundColor: "#fff" }}
@@ -288,7 +298,10 @@ const JobPost = () => {
           display: "flex",
           justifyContent: "space-between",
           alignItems: "center",
-          padding: "3% 5%",
+          padding: "3% 3%",
+          borderBottom: "1px solid #d9d9d9",
+          margin: "0 3%",
+          marginBottom: 20,
         }}
       >
         <div style={{ display: "flex", gap: "20px" }}>
@@ -311,6 +324,46 @@ const JobPost = () => {
         >
           Apply Now
         </button>
+      </div>
+      <div className="footer-comments ">
+        <h3>Comments</h3>
+        <div className="comment-wrap">
+          <img src={profilImage} style={{ marginRight: 20 }} />
+          <div className="comment-box">
+            <p>Am intrested</p>
+          </div>
+        </div>
+
+        <div className="comment-wrap replay">
+          <div className="comment-box replay">
+            <p>Please send your CV</p>
+          </div>
+          <img src={profilImage} />
+        </div>
+
+        <div className="comment-input">
+          <img src={profilImage} />
+          <div className="input">
+            <input type={"text"} placeholder="Add a Comment..." />
+            <div className="file-wrap">
+              <div className="file-label">
+                <InputEmoji
+                  value={text}
+                  onChange={setText}
+                  cleanOnEnter
+                  onEnter={handleOnEnter}
+                  placeholder="Type a message"
+                />
+              </div>
+              <div className="file-label two">
+                <label htmlFor="file-uploader">
+                  <img src={file} />
+                </label>
+                <input id="file-uploader" type={"file"} />
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );
