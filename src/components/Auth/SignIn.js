@@ -73,57 +73,57 @@ function SignIn() {
               </Link>
             </p>
           </div>
-          <div className="login-wrapper">
-            <div className="right-signup-div2">
-              <h3 className="signup-header">Hello Again!</h3>
-              <p className="signup-para">Discover your dream job here!</p>
-            </div>
+          {/* <div className="login-wrapper"> */}
+          <div className="right-signup-div2">
+            <h3 className="signup-header">Hello Again!</h3>
+            <p className="signup-para">Discover your dream job here!</p>
+          </div>
 
-            <form
-              className="right-signin-div3"
-              onSubmit={handleSubmit(onSubmit)}
-            >
-              <div className="form-div">
+          <form
+            className="right-signin-div3"
+            onSubmit={handleSubmit(onSubmit)}
+          >
+            <div className="form-div">
+              <input
+                placeholder="Email"
+                defaultValue=""
+                {...register("email", { required: true })}
+                className="signup-input"
+                name="email"
+              />
+              {errors.email && (
+                <span className="validation">Email is required</span>
+              )}
+
+              <div
+                style={{
+                  width: "100%",
+                  position: "relative",
+                  display: "flex",
+                }}
+              >
                 <input
-                  placeholder="Email"
+                  placeholder="Password"
+                  type={showPassword ? "text" : "password"}
                   defaultValue=""
-                  {...register("email", { required: true })}
+                  {...register("password", { required: true })}
                   className="signup-input"
-                  name="email"
+                  name="password"
                 />
-                {errors.email && (
-                  <span className="validation">Email is required</span>
-                )}
-
-                <div
-                  style={{
-                    width: "100%",
-                    position: "relative",
-                    display: "flex",
+                <i
+                  className={showPassword ? " fa fa-eye" : "fa fa-eye-slash"}
+                  style={{ position: "absolute", right: 15, top: "35%" }}
+                  aria-hidden="true"
+                  onClick={() => {
+                    setShowPassword(!showPassword);
                   }}
-                >
-                  <input
-                    placeholder="Password"
-                    type={showPassword ? "text" : "password"}
-                    defaultValue=""
-                    {...register("password", { required: true })}
-                    className="signup-input"
-                    name="password"
-                  />
-                  <i
-                    className={showPassword ? " fa fa-eye" : "fa fa-eye-slash"}
-                    style={{ position: "absolute", right: 15, top: "35%" }}
-                    aria-hidden="true"
-                    onClick={() => {
-                      setShowPassword(!showPassword);
-                    }}
-                  ></i>
-                </div>
+                ></i>
+              </div>
 
-                {errors.password && (
-                  <span className="validation">Password is required</span>
-                )}
-                {/* <p
+              {errors.password && (
+                <span className="validation">Password is required</span>
+              )}
+              {/* <p
               style={{
                 fontSize: "18px",
                 cursor: "pointer",
@@ -131,31 +131,31 @@ function SignIn() {
             >
               <Link to="/auth/forgot-password"> forgot password?</Link>
             </p> */}
-                <p
-                  style={{
-                    fontSize: "14px",
-                    cursor: "pointer",
-                    width: "100%",
-                    textAlign: "end",
-                  }}
-                  className="forget-password-para-tag"
+              <p
+                style={{
+                  fontSize: "14px",
+                  cursor: "pointer",
+                  width: "100%",
+                  textAlign: "end",
+                }}
+                className="forget-password-para-tag"
+              >
+                <Link
+                  className="forget-password-tag"
+                  to="/auth/forgot-password"
                 >
-                  <Link
-                    className="forget-password-tag"
-                    to="/auth/forgot-password"
-                  >
-                    {" "}
-                    forgot password?
-                  </Link>
-                </p>
-                <button type="submit" className="signin-btn">
-                  Sign in
-                </button>
-                {/* >>>>>>> reusable */}
-              </div>
-            </form>
-            <SignInOptions />
-          </div>
+                  {" "}
+                  forgot password?
+                </Link>
+              </p>
+              <button type="submit" className="signin-btn">
+                Sign in
+              </button>
+              {/* >>>>>>> reusable */}
+            </div>
+          </form>
+          <SignInOptions />
+          {/* </div> */}
         </div>
       </div>
     </>
