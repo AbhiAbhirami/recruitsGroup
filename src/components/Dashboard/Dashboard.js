@@ -13,6 +13,7 @@ import {
   CardBody,
   CardTitle,
   Button,
+  Spinner,
 } from "reactstrap";
 import cardIcon1 from "../../assets/images/icons/card-icons-1.png";
 import cardIcon2 from "../../assets/images/icons/card-icons-2.png";
@@ -31,9 +32,24 @@ import {
 import "react-circular-progressbar/dist/styles.css";
 import VacancyChart from "./ReservationChart";
 import { MdOutlineKeyboardArrowDown } from "react-icons/md";
+import moment from "moment";
 
 function Dashboard() {
   const percentage = 86;
+
+  const [month, setMonth] = React.useState();
+
+  const [loading, setLoading] = React.useState(false);
+
+  React.useEffect(() => {
+    setLoading(true);
+    const loadData = async () => {
+      await new Promise((r) => setTimeout(r, 2000));
+      setLoading(false);
+    };
+
+    loadData();
+  }, []);
 
   return (
     <>
@@ -41,6 +57,17 @@ function Dashboard() {
         rel="stylesheet"
         href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css"
       />
+      {loading && (
+        <div className="dash-load">
+          {" "}
+          <Spinner
+            animation="border"
+            color="primary"
+            type="grow"
+            className="spinner"
+          />
+        </div>
+      )}
       <div className="dashboard-main-cont">
         <Header />
         {/* <BackgroundDesign /> */}
@@ -78,7 +105,6 @@ function Dashboard() {
               <Card className="dashboard-card card-3">
                 <CardBody className="d-flex align-items-center p-4">
                   <img src={cardIcon3} height={50} />
-
                   <div className="ms-auto text-end text-white">
                     <p className="fs-18 text-white mb-1">Profile Viewed </p>
                     <h1 className="text-white mb-0">837</h1>
@@ -197,13 +223,16 @@ function Dashboard() {
                     }}
                   >
                     <CardTitle>Vacancy Stats</CardTitle>
-                    {/* <div className="month-selector-wrap">
-                      <label htmlFor="bdaymonth">
-                        This Month{" "}
-                        <MdOutlineKeyboardArrowDown size={"1.2rem"} />
-                      </label>
-                      <input type="month" id="bdaymonth" name="bdaymonth" />
-                    </div> */}
+                    <div className="month-selector-wrap">
+                      <input
+                        type="month"
+                        onChange={(e) => setMonth(e.target.value)}
+                        id="bdaymonth"
+                        name="bdaymonth"
+                        value={"2023-01"}
+                      />
+                      <MdOutlineKeyboardArrowDown size={"1.2rem"} />
+                    </div>
                   </div>
                   <div className="card-body">
                     <div id="vacancyChart" className="vacancyChart">

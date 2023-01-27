@@ -1192,14 +1192,28 @@
       border-radius: 14.5px;
       padding: 5px 20px;
       font-size: 14px;
+      position: relative;
+
       label {
         display: flex;
         align-items: center;
         cursor: pointer;
         justify-content: center;
       }
+      input[type="month"]::-webkit-inner-spin-button,
+      input[type="month"]::-webkit-calendar-picker-indicator {
+        background-color: transparent;
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        opacity: 0;
+        cursor: pointer;
+      }
       input {
-        display: none;
+        border: none;
+        width: 72px;
+        // display: none;
       }
     }
     .card {
@@ -1326,6 +1340,7 @@
       justify-content: space-between;
       flex: 1;
       margin-left: 20px;
+
       min-height: 55px;
       background: #ffffff;
       border: 1px solid rgba(153, 152, 152, 0.75);
@@ -1354,8 +1369,15 @@
           align-items: center;
           justify-content: center;
           margin-top: 5px;
+          @media screen and (max-width: 768px) {
+            transform: scale(0.8);
+          }
           &.two {
             margin-right: 30px;
+            @media screen and (max-width: 768px) {
+              margin-right: 0px;
+              transform: scale(0.8);
+            }
           }
           img {
             height: 35px;
@@ -1363,7 +1385,9 @@
           }
           .react-emoji {
             margin-right: 20px;
-
+            @media screen and (max-width: 768px) {
+              margin-right: 0px;
+            }
             .react-input-emoji--container {
               border: none;
             }
@@ -1400,5 +1424,21 @@
   .sm\:px-2 {
     padding-right: 10px !important;
     padding-left: 10px !important;
+  }
+}
+.dash-load {
+  color: #292562;
+  height: 100%;
+  position: fixed;
+  width: 100%;
+  background: #00000078;
+  z-index: 99;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  div {
+    color: #292562 !important;
+    height: 60px;
+    width: 60px;
   }
 }
