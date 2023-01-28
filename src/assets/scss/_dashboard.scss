@@ -1212,7 +1212,11 @@
       }
       input {
         border: none;
-        width: 72px;
+        width: 100px;
+        &:focus {
+          box-shadow: none;
+          outline: none;
+        }
         // display: none;
       }
     }

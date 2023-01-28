@@ -22,7 +22,7 @@ import cardIcon4 from "../../assets/images/icons/card-icons-4.png";
 import activity from "../../assets/images/icons/activity.png";
 import company from "../../assets/images/icons/company.png";
 import profilImage from "../../assets/images/icons/profile2.png";
-
+import DatePicker from "react-datepicker";
 import { IoMdArrowRoundDown } from "react-icons/io";
 
 import {
@@ -30,6 +30,8 @@ import {
   CircularProgressbar,
 } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
+import "react-datepicker/dist/react-datepicker.css";
+
 import VacancyChart from "./ReservationChart";
 import { MdOutlineKeyboardArrowDown } from "react-icons/md";
 import moment from "moment";
@@ -37,7 +39,7 @@ import moment from "moment";
 function Dashboard() {
   const percentage = 86;
 
-  const [month, setMonth] = React.useState();
+  const [month, setMonth] = React.useState(Date.now());
 
   const [loading, setLoading] = React.useState(false);
 
@@ -50,6 +52,8 @@ function Dashboard() {
 
     loadData();
   }, []);
+
+  console.log(month);
 
   return (
     <>
@@ -224,14 +228,23 @@ function Dashboard() {
                   >
                     <CardTitle>Vacancy Stats</CardTitle>
                     <div className="month-selector-wrap">
-                      <input
+                      {/* <input
                         type="month"
                         onChange={(e) => setMonth(e.target.value)}
                         id="bdaymonth"
                         name="bdaymonth"
                         value={"2023-01"}
                       />
-                      <MdOutlineKeyboardArrowDown size={"1.2rem"} />
+                      <MdOutlineKeyboardArrowDown size={"1.2rem"} /> */}
+                      <div className="input-group input-group-sm ">
+                        <DatePicker
+                          selected={month}
+                          onChange={(date) => setMonth(date)}
+                          dateFormat="MMMM"
+                          showMonthYearPicker
+                          className="form-control"
+                        />
+                      </div>
                     </div>
                   </div>
                   <div className="card-body">
