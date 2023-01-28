@@ -73,7 +73,6 @@ function Dashboard() {
         </div>
       )}
       <div className="dashboard-main-cont">
-        <Header />
         {/* <BackgroundDesign /> */}
         <Container
           fluid
