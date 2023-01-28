@@ -10,6 +10,7 @@ import closebtn from "../../../assets/images/icons/close.png";
 
 import { Link } from "react-router-dom";
 import ApplyConfirmModal from "../ApplyConfirmModal";
+import { useEffect } from "react";
 let media = window.screen.width < 600;
 
 const customStyles = {
@@ -28,6 +29,13 @@ const customStyles = {
 
 function JobModal({ isOpen, closeModal }) {
   const [isApplyConfirm, setIsApplyConfirm] = useState(false);
+    useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "unset";
+    }
+  }, [isOpen]);
 
   return (
     <>
