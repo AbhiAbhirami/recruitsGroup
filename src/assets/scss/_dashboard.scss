@@ -1059,3 +1059,390 @@
     }
   }
 }
+
+//new dashboard
+.dashboard-main-cont {
+  .container-fluid {
+    @media screen and (max-width: 768px) {
+      padding-right: 10px !important;
+      padding-left: 10px !important;
+    }
+  }
+  .card {
+    border: none !important;
+  }
+  font-family: "Poppins", sans-serif !important;
+  .dashboard-cards {
+    .dashboard-card {
+      &.card-1 {
+        background-color: #4e36e2 !important;
+      }
+      &.card-2 {
+        background-color: #48a9f8 !important;
+      }
+      &.card-3 {
+        background-color: #1fcd85 !important;
+      }
+      &.card-4 {
+        background-color: #8bc741 !important;
+      }
+      border-radius: 28px !important;
+      p,
+      h1 {
+        font-family: "Poppins", sans-serif;
+      }
+      h1 {
+        font-size: 50px;
+        font-weight: 600;
+      }
+      @media screen and (max-width: 768px) {
+        min-height: 160px;
+      }
+    }
+  }
+  .personal-card {
+    background-color: #ffffff !important;
+    box-shadow: 12px 12px 12px rgba(0, 0, 0, 0.02) !important;
+    border-radius: 17px !important;
+    border: none;
+    .card-head {
+      h4,
+      p {
+        font-family: "Poppins", sans-serif;
+      }
+      h4 {
+        font-weight: 600;
+      }
+      p {
+        font-size: 18px;
+        font-weight: 300;
+      }
+      .image-wrapper {
+        height: 150px;
+        width: 150px;
+        margin: auto;
+        border-radius: 50%;
+        position: relative;
+        img {
+          height: 120px;
+          width: 120px;
+          border-radius: 50%;
+        }
+      }
+    }
+    .card-skills {
+      .skill-progress {
+        height: 70px;
+        width: 70px;
+      }
+      .skill {
+        height: 60px;
+        width: 60px;
+        background: #d9d9d9;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        p {
+          font-weight: 500;
+          font-family: "Poppins", sans-serif;
+        }
+      }
+    }
+    .card-activities {
+      h5 {
+        font-weight: 400;
+        font-size: 16px;
+      }
+      h5,
+      h6,
+      p {
+        font-family: "Poppins", sans-serif;
+      }
+      h6 {
+        font-size: 14px;
+        font-weight: 400;
+        span {
+          font-weight: 500;
+        }
+      }
+      p {
+        font-size: 12px;
+        font-weight: 300;
+        color: #5c5b5b;
+      }
+      img {
+        height: 50px;
+        width: 50px;
+        border-radius: 10px;
+      }
+    }
+    .footer-arrow {
+      bottom: -20px;
+      left: 0;
+      .arrow-icon {
+        border-radius: 50%;
+        box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+      }
+    }
+  }
+  .dashboard-chart {
+    .month-selector-wrap {
+      border: 1px solid rgba(0, 0, 0, 0.23);
+      border-radius: 14.5px;
+      padding: 5px 20px;
+      font-size: 14px;
+      position: relative;
+
+      label {
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+        justify-content: center;
+      }
+      input[type="month"]::-webkit-inner-spin-button,
+      input[type="month"]::-webkit-calendar-picker-indicator {
+        background-color: transparent;
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        opacity: 0;
+        cursor: pointer;
+      }
+      input {
+        border: none;
+        width: 100px;
+        &:focus {
+          box-shadow: none;
+          outline: none;
+        }
+        // display: none;
+      }
+    }
+    .card {
+      border-radius: 17px !important;
+    }
+    .recomended-jobs {
+      overflow-x: scroll;
+      &::-webkit-scrollbar {
+        display: none;
+      }
+      .card {
+        width: 350px;
+        min-width: 350px;
+        margin-right: 1rem;
+      }
+      p,
+      h5,
+      button {
+        font-family: "Poppins", sans-serif;
+      }
+      h5 {
+        font-size: 22px;
+        span {
+          font-size: 14px;
+        }
+      }
+      .description {
+        font-size: 12px;
+      }
+      .img-wrap {
+        height: 50px;
+        width: 50px;
+        border-radius: 10px;
+
+        img {
+          height: 100%;
+          width: 100%;
+          border-radius: 10px;
+        }
+      }
+      button {
+        background: rgba(18, 46, 193, 0.44);
+        border-radius: 6px;
+        border: none;
+        font-size: 14px;
+      }
+    }
+  }
+  .featured-companies {
+    overflow-x: scroll;
+    &::-webkit-scrollbar {
+      display: none;
+    }
+    .card {
+      min-width: 220px;
+
+      background: #ffffff;
+      border-radius: 16px;
+      h5,
+      p {
+        font-size: 14px;
+        font-family: "Poppins", sans-serif !important;
+      }
+
+      .img-wrap {
+        width: 70px;
+        height: 70px;
+        border-radius: 10px;
+        img {
+          height: 100%;
+          width: 100%;
+          border-radius: 10px;
+        }
+      }
+    }
+  }
+}
+.footer-comments {
+  padding: 2rem;
+  padding-top: 1rem;
+  h3 {
+    font-weight: 400;
+    margin-bottom: 20px;
+  }
+  .comment-wrap {
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    margin-bottom: 20px;
+    &.replay {
+      justify-content: end;
+    }
+    img {
+      height: 52px;
+      width: 52px;
+      border-radius: 20px;
+      object-fit: cover;
+    }
+    .comment-box {
+      background: #dfe3f1;
+      border-radius: 10px 0px;
+      min-height: 50px;
+      padding: 0 25px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      p {
+        font-weight: 300;
+        font-size: 14;
+      }
+      &.replay {
+        margin-right: 20px;
+      }
+    }
+  }
+  .comment-input {
+    display: flex;
+    align-items: center;
+    margin-top: 50px;
+
+    .input {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex: 1;
+      margin-left: 20px;
+
+      min-height: 55px;
+      background: #ffffff;
+      border: 1px solid rgba(153, 152, 152, 0.75);
+      border-radius: 20px;
+      input[type="text"] {
+        min-height: 54px;
+        background: #ffffff;
+        border: none;
+        border-radius: 20px;
+        padding-left: 20px;
+        font-weight: 300;
+        font-size: 16px;
+        width: 100%;
+        &:focus {
+          outline: none;
+        }
+      }
+      .file-wrap {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        .file-label {
+          height: 40px;
+          width: 40px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          margin-top: 5px;
+          @media screen and (max-width: 768px) {
+            transform: scale(0.8);
+          }
+          &.two {
+            margin-right: 30px;
+            @media screen and (max-width: 768px) {
+              margin-right: 0px;
+              transform: scale(0.8);
+            }
+          }
+          img {
+            height: 35px;
+            width: 35px;
+          }
+          .react-emoji {
+            margin-right: 20px;
+            @media screen and (max-width: 768px) {
+              margin-right: 0px;
+            }
+            .react-input-emoji--container {
+              border: none;
+            }
+            .react-input-emoji--button {
+              svg {
+                height: 30px;
+                width: 30px;
+                fill: #a8a7a7;
+              }
+            }
+          }
+        }
+        input[type="file"] {
+          display: none;
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .sm\:mb-20 {
+    margin-bottom: 20px;
+  }
+  .sm\:mb-40 {
+    margin-bottom: 40px;
+  }
+  .sm\:mb-60 {
+    margin-bottom: 60px;
+  }
+  .sm\:pl-0 {
+    padding-left: 0;
+  }
+  .sm\:px-2 {
+    padding-right: 10px !important;
+    padding-left: 10px !important;
+  }
+}
+.dash-load {
+  color: #292562;
+  height: 100%;
+  position: fixed;
+  width: 100%;
+  background: #00000078;
+  z-index: 99;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  div {
+    color: #292562 !important;
+    height: 60px;
+    width: 60px;
+  }
+}
