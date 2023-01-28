@@ -1,85 +1,88 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { useAuth } from "../../core/Auth";
-import { getUserByToken, login } from "../../requests/demo";
+import { getUserByToken, getUserDocuments, login } from "../../requests/Auth";
+// import { getUserByToken, login } from "../../requests/demo";
+import { toast, ToastContainer } from "react-toastify";
+
 import Auth from "../Shared/Auth";
 import SignInOptions from "../Shared/SignInOptions";
+import { AUTH_LOCAL_STORAGE_USER_DOCUMENTS } from "../../core/AuthHelpers";
 
 function SignIn() {
   const [signinPage, setSigninPage] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const { saveAuth, setCurrentUser } = useAuth();
+  const [signedUser, setSignedUser] = useState();
+  const location = useLocation();
   let media = window.screen.width < 600;
+
+  useEffect(() => {
+    if (location?.state) setSignedUser(location?.state);
+  }, []);
 
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
-  const onSubmit = async () => {
+
+  const onSubmit = async (values) => {
     try {
-      const values = {
-        email: "admin@demo.com",
-        password: "demo",
-      };
       const { data: auth } = await login(values.email, values.password);
       saveAuth(auth);
       const { data: user } = await getUserByToken(auth.api_token);
       setCurrentUser(user);
+      if (user) {
+        toast.success(user.message);
+      }
+      const docs = await getUserDocuments(user.data.id);
+      docs &&
+        localStorage.setItem(
+          AUTH_LOCAL_STORAGE_USER_DOCUMENTS,
+          JSON.stringify(docs.data.data)
+        );
     } catch (error) {
-      console.error(error);
       saveAuth(undefined);
+      toast.error(error.response.data.message);
     }
   };
 
   return (
-    <div className="signup-main-cont">
-      <Auth signinPage={signinPage} setSigninPage={setSigninPage} />
-      <div
-        style={
-          media
-            ? !signinPage
-              ? { display: "none" }
-              : { display: "flex" }
-            : null
-        }
-        className="signup-input-field"
-      >
-        <div className="right-signup-div1">
-          <p className="font-size-14">
-            Not a member?{" "}
-            <Link to="/auth/sign-up" className="register-link">
-              {" "}
-              Register now
-            </Link>
-          </p>
-        </div>
-        <div className="login-wrapper">
+    <>
+      <ToastContainer draggablePercent={60} />
+      <div className="signup-main-cont">
+        <Auth signinPage={signinPage} setSigninPage={setSigninPage} />
+        <div
+          style={
+            media
+              ? !signinPage
+                ? { display: "none" }
+                : { display: "flex" }
+              : null
+          }
+          className="signup-input-field"
+        >
+          <div className="right-signup-div1">
+            <p className="font-size-14">
+              Not a member?{" "}
+              <Link to="/auth/sign-up" className="register-link">
+                {" "}
+                Register now
+              </Link>
+            </p>
+          </div>
+          {/* <div className="login-wrapper"> */}
           <div className="right-signup-div2">
             <h3 className="signup-header">Hello Again!</h3>
             <p className="signup-para">Discover your dream job here!</p>
           </div>
-          {/* <<<<<<< HEAD
-        <form className="right-signin-div3" onSubmit={handleSubmit(onSubmit)}>
-          <div className="form-div">
-            <input placeholder="username" className="signup-input" />
-            <input placeholder="password" className="signup-input" />
-            <p
-              style={{
-                fontSize: "18px",
-                cursor: "pointer",
-              }}
-              className="forget-password-para-tag"
-            >
-              <Link className="forget-password-tag" to="/auth/forgot-password"> forgot password?</Link>
-            </p>
-            <button type="submit" className="signin-btn">
-              Sign in
-            </button>
-          </div>
-======= */}
-          <form className="right-signin-div3" onSubmit={handleSubmit(onSubmit)}>
+
+          <form
+            className="right-signin-div3"
+            onSubmit={handleSubmit(onSubmit)}
+          >
             <div className="form-div">
               <input
                 placeholder="Email"
@@ -91,8 +94,13 @@ function SignIn() {
               {errors.email && (
                 <span className="validation">Email is required</span>
               )}
+
               <div
-                style={{ width: "100%", position: "relative", display: "flex" }}
+                style={{
+                  width: "100%",
+                  position: "relative",
+                  display: "flex",
+                }}
               >
                 <input
                   placeholder="Password"
@@ -147,9 +155,10 @@ function SignIn() {
             </div>
           </form>
           <SignInOptions />
+          {/* </div> */}
         </div>
       </div>
-    </div>
+    </>
   );
 }
 

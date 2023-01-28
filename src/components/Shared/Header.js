@@ -1,9 +1,9 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import logoH from "../../assets/images/logo/logo_horizontal.png";
 import searchIcon from "../../assets/images/icons/search.png";
 import bellIcon from "../../assets/images/icons/bellIcon.png";
 import bellDot from "../../assets/images/icons/bellDot.png";
-import profileImg from "../../assets/images/icons/profile.png";
+import profileImg from "../../assets/images/icons/blank.png";
 import downArrow from "../../assets/images/icons/downArrow.png";
 import hamBurger from "../../assets/images/icons/hamburger.png";
 import DropDown from "./DropDown";
@@ -11,17 +11,26 @@ import NotificationDropDown from "./NotificationDropDown";
 import Hamburger from "./Hamburger";
 import { Link, useLocation } from "react-router-dom";
 import SearchDropDown from "./SearchDropDown";
-import { FaUser } from "react-icons/fa";
 
-function Header() {
+function Header({ user }) {
   const location = useLocation();
-  const [isNewNotification, setIsNewNotification] = useState(true);
   const [isDropdown, setIsDropDown] = useState(false);
   const [isNotifDropdown, setIsNotifDropDown] = useState(false);
   const [isSearchDropdown, setIsSearchDropDown] = useState(false);
+  // const [location.pathname, setlocation.pathname] = useState("");
+  const [isNewNotification, setIsNewNotification] = useState(true);
+  const [notification, setNotification] = useState([
+    { comment: "commented", new: true },
+    { comment: "comment 2", new: false },
+  ]);
   const [isHamburger, setIsHamburger] = useState(false);
-  const [currentNavLink, setCurrentNavLink] = useState(location.pathname);
 
+  useEffect(() => {
+    const newNot = notification.filter((item) => item.new);
+    if (newNot.length > 0) {
+      setIsNewNotification(true);
+    }
+  }, []);
   const handleOnClickOutside = (e) => {
     if (e.target.className === "dropdown-modal") {
       setIsDropDown(false);
@@ -31,9 +40,9 @@ function Header() {
     }
   };
 
-  React.useEffect(() => {
-    setCurrentNavLink(location.pathname);
-  }, [location.pathname]);
+  const changeNotificationInfo = () => {
+    setIsNewNotification(false);
+  };
 
   return (
     <div className="header-main-cont">
@@ -62,7 +71,9 @@ function Header() {
         <Link
           to="/dashboard"
           className={
-            currentNavLink === "/dashboard" ? "nav-links-active" : "nav-links"
+            location.pathname === "/dashboard"
+              ? "nav-links-active"
+              : "nav-links"
           }
         >
           Dashboard
@@ -70,7 +81,7 @@ function Header() {
         <Link
           to="/jobs"
           className={
-            currentNavLink === "/jobs" ? "nav-links-active" : "nav-links"
+            location.pathname === "/jobs" ? "nav-links-active" : "nav-links"
           }
         >
           Jobs
@@ -78,21 +89,14 @@ function Header() {
         <Link
           to="/applied-jobs"
           className={
-            currentNavLink === "/applied-jobs"
+            location.pathname === "/applied-jobs"
               ? "nav-links-active"
               : "nav-links"
           }
         >
           Applied Jobs
         </Link>
-        <Link
-          to="/saved-jobs"
-          className={
-            currentNavLink === "/saved-jobs" ? "nav-links-active" : "nav-links"
-          }
-        >
-          Saved Jobs
-        </Link>
+        <span className="nav-links">Saved Jobs</span>
       </div>
       <div className="header-profile-cont">
         <div className="header-profile-div">
@@ -117,32 +121,22 @@ function Header() {
               className="profile-dropdown-cont"
               onClick={() => setIsDropDown(true)}
             >
-              {!profileImg ? (
-                <img
-                  className="profile-img-tag"
-                  src={profileImg}
-                  alt="profile-img"
-                />
-              ) : (
-                <div
-                  style={{
-                    width: 40,
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                  }}
-                >
-                  <FaUser size={"1.8rem"} className="text-muted" />
-                </div>
-              )}
-
+              <img
+                className="profile-img-tag"
+                src={user.avatar ? user.avatar : profileImg}
+                alt="profile-img"
+              />
               <div className="profile-welcome-name">
                 <span>Hello!</span>
-                <span className="welcome-name-tag">Shahid Afrid</span>
+                <span className="welcome-name-tag">{user.name} </span>
               </div>
             </div>
             <img className="down-arrow" src={downArrow} alt="down-arrow" />
-            <DropDown open={isDropdown} />
+            <DropDown
+              open={isDropdown}
+              close={() => setIsDropDown(false)}
+              user={user}
+            />
           </div>
         </div>
       </div>

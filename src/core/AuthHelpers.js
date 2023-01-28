@@ -1,4 +1,6 @@
 const AUTH_LOCAL_STORAGE_KEY = "user-information";
+const AUTH_LOCAL_STORAGE_USER_DATA = "user-data";
+const AUTH_LOCAL_STORAGE_USER_DOCUMENTS = "user-documents";
 const getAuth = () => {
   if (!localStorage) {
     return;
@@ -12,7 +14,6 @@ const getAuth = () => {
   try {
     const auth = JSON.parse(lsValue);
     if (auth) {
-      // You can easily check auth_token expiration also
       return auth;
     }
   } catch (error) {
@@ -26,8 +27,77 @@ const setAuth = (auth) => {
   }
 
   try {
-    const lsValue = JSON.stringify(auth);
-    localStorage.setItem(AUTH_LOCAL_STORAGE_KEY, lsValue);
+    const lsValue = auth;
+    localStorage.setItem(AUTH_LOCAL_STORAGE_KEY, JSON.stringify(lsValue));
+    localStorage.setItem(
+      AUTH_LOCAL_STORAGE_USER_DATA,
+      JSON.stringify(lsValue.user)
+    );
+  } catch (error) {
+    console.error("AUTH LOCAL STORAGE SAVE ERROR", error);
+  }
+};
+
+const getUser = () => {
+  if (!localStorage) {
+    return;
+  }
+
+  const lsValue = localStorage.getItem(AUTH_LOCAL_STORAGE_USER_DATA);
+  if (!lsValue) {
+    return;
+  }
+
+  try {
+    const auth = JSON.parse(lsValue);
+    if (auth) {
+      return auth;
+    }
+  } catch (error) {
+    console.error("AUTH LOCAL STORAGE PARSE ERROR", error);
+  }
+};
+const setUser = (user) => {
+  if (!localStorage) {
+    return;
+  }
+
+  try {
+    localStorage.setItem(AUTH_LOCAL_STORAGE_USER_DATA, JSON.stringify(user));
+  } catch (error) {
+    console.error("AUTH LOCAL STORAGE SAVE ERROR", error);
+  }
+};
+
+const getDocuments = () => {
+  if (!localStorage) {
+    return;
+  }
+
+  const lsValue = localStorage.getItem(AUTH_LOCAL_STORAGE_USER_DOCUMENTS);
+  if (!lsValue) {
+    return;
+  }
+
+  try {
+    const auth = JSON.parse(lsValue);
+    if (auth) {
+      return auth;
+    }
+  } catch (error) {
+    console.error("AUTH LOCAL STORAGE PARSE ERROR", error);
+  }
+};
+const setDocuments = (docs) => {
+  if (!localStorage) {
+    return;
+  }
+
+  try {
+    localStorage.setItem(
+      AUTH_LOCAL_STORAGE_USER_DOCUMENTS,
+      JSON.stringify(docs)
+    );
   } catch (error) {
     console.error("AUTH LOCAL STORAGE SAVE ERROR", error);
   }
@@ -40,7 +110,8 @@ const removeAuth = () => {
 
   try {
     localStorage.removeItem(AUTH_LOCAL_STORAGE_KEY);
-    localStorage.removeItem("userData");
+    localStorage.removeItem(AUTH_LOCAL_STORAGE_USER_DATA);
+    localStorage.removeItem(AUTH_LOCAL_STORAGE_USER_DOCUMENTS);
   } catch (error) {
     console.error("AUTH LOCAL STORAGE REMOVE ERROR", error);
   }
@@ -61,4 +132,15 @@ export function setupAxios(axios) {
   );
 }
 
-export { getAuth, setAuth, removeAuth, AUTH_LOCAL_STORAGE_KEY };
+export {
+  getAuth,
+  setAuth,
+  removeAuth,
+  setUser,
+  getUser,
+  getDocuments,
+  setDocuments,
+  AUTH_LOCAL_STORAGE_KEY,
+  AUTH_LOCAL_STORAGE_USER_DATA,
+  AUTH_LOCAL_STORAGE_USER_DOCUMENTS,
+};

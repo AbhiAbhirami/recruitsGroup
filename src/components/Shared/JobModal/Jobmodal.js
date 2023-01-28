@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Modal from "react-modal";
 import google from "../../../assets/images/icons/google.png";
 import dot from "../../../assets/images/icons/dot.png";
@@ -9,6 +9,7 @@ import send from "../../../assets/images/icons/send.png";
 import closebtn from "../../../assets/images/icons/close.png";
 
 import { Link } from "react-router-dom";
+import ApplyConfirmModal from "../ApplyConfirmModal";
 let media = window.screen.width < 600;
 
 const customStyles = {
@@ -21,12 +22,16 @@ const customStyles = {
     transform: "translate(-50%, -50%)",
     width: window.screen.width < 768 ? "90%" : "40%",
     padding: "0",
+    zIndex: 999
   },
 };
 
 function JobModal({ isOpen, closeModal }) {
+  const [isApplyConfirm, setIsApplyConfirm] = useState(false);
+
   return (
     <>
+      <ApplyConfirmModal isOpen={isApplyConfirm} closeModal={() => setIsApplyConfirm(false)} />
       <Modal
         isOpen={isOpen}
         onRequestClose={closeModal}
@@ -132,7 +137,7 @@ function JobModal({ isOpen, closeModal }) {
               <img src={send} height={30} alt="" />
               <img src={bookmark} height={30} alt="" />
             </div>
-            <button>Apply Now</button>
+            <button onClick={() => [setIsApplyConfirm(true), closeModal()]}>Apply Now</button>
           </div>
         </div>
       </Modal>

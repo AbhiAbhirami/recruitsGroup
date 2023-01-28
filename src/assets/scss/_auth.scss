@@ -19,7 +19,7 @@
   background-color: #f5f6fa;
 }
 
-// .right-signup-div1,
+.right-signup-div1,
 .right-signup-div2 {
   flex: 1;
   /* border: 1px solid #1F194C; */
@@ -32,12 +32,9 @@
   width: 100%;
   outline: none;
   border: none;
-  // border-bottom: 2px solid rgba(0, 0, 0, 0.15);
+  border-bottom: 2px solid rgba(0, 0, 0, 0.15);
   border-radius: 10px;
   font-size: 16px;
-  margin-bottom: 1rem;
-  // box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
-  box-shadow: rgba(0, 0, 0, 0.04) 0px 3px 5px;
 }
 .right-signup-div2 {
   display: flex;
@@ -45,7 +42,6 @@
   align-items: center;
   flex-direction: column;
   gap: 10px;
-  margin-bottom: 3rem;
 }
 
 .signup-header {
@@ -97,18 +93,13 @@
   justify-content: flex-end;
   padding: 0 4%;
   align-items: center;
-  height: 60px;
-  margin-bottom: 2rem;
-  padding-top: 10px;
 }
 .right-signup-div3 {
   flex: 4;
   display: flex;
   flex-direction: column;
   align-items: center;
-  // justify-content: space-evenly;
-  justify-content: center;
-  margin-bottom: 3rem;
+  justify-content: space-evenly;
 }
 .register-link {
   color: #4892f0;
@@ -142,8 +133,6 @@
   cursor: pointer;
   border-color: rgba(255, 255, 255, 0);
   background-color: #fecf34;
-  border: none;
-  margin-top: 2rem;
 }
 span {
   font-family: "Open Sans", sans-serif;
@@ -168,8 +157,6 @@ span {
   flex: 1.5;
   display: flex;
   flex-direction: column;
-  margin-bottom: 2rem;
-  margin-top: 2rem;
 }
 .left-logo-cont {
   flex: 1;
@@ -235,7 +222,7 @@ hr {
   align-items: center;
   justify-content: center;
   gap: 25px;
-  margin-top: 2rem;
+  // margin-top: 2rem;
   /* cursor: pointer; */
   /* background-color: red; */
 }
@@ -511,7 +498,7 @@ hr {
   }
 }
 
-.login-wrapper {
-  margin: auto 0;
-  min-width: 300px;
-}
+// .login-wrapper {
+//   margin: auto 0;
+//   min-width: 300px;
+// }

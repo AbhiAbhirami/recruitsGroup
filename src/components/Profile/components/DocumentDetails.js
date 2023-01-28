@@ -1,12 +1,45 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useState, useEffect } from "react";
 import download from "../../../assets/images/icons/download.png";
 import moment from "moment";
+import { getDocuments, setDocuments } from "../../../core/AuthHelpers";
+import { toast, ToastContainer } from "react-toastify";
+import { deleteDocument, updateUserDocument } from "../../../requests/Auth";
 
-function DocumentDetails() {
+function DocumentDetails({ user, docs, userUpdated, setIsUserUpdated }) {
   const [files, setFiles] = React.useState([]);
+  const [documents, setDocumentsData] = useState(docs ? docs : "");
 
   const [sideTab, setSideTab] = React.useState(1);
 
+  useEffect(() => {
+    setDocumentsData(getDocuments());
+  }, [userUpdated]);
+
+  const deleteDocumentData = async (e) => {
+    try {
+      const documents = await deleteDocument(user.id, e.target.name);
+      setDocuments(documents.data.data);
+      setIsUserUpdated(true);
+      toast.success(documents.data.message);
+    } catch (error) {
+      toast.error(error.response.data.message);
+    }
+  };
+
+  const setDocumentData = async (e) => {
+    try {
+      const documents = await updateUserDocument(
+        user.id,
+        e.target.name,
+        e.target.files[0]
+      );
+      setDocuments(documents.data.data);
+      setIsUserUpdated(true);
+      toast.success(documents.data.message);
+    } catch (error) {
+      toast.error(error.response.data.message);
+    }
+  };
   return (
     <Fragment>
       <div className="profile-section-personal-detail-left document-details-left">
@@ -15,13 +48,13 @@ function DocumentDetails() {
         </div>
         <ul>
           <li
-            className={sideTab === 1 && "document-details-head"}
+            className={sideTab === 1 ? "document-details-head" : ""}
             onClick={() => setSideTab(1)}
           >
-            Pasport <button className="cursor-pointer">UPDATE</button>
+            Passport <button className="cursor-pointer">UPDATE</button>
           </li>
           <li
-            className={sideTab === 2 && "document-details-head"}
+            className={sideTab === 2 ? "document-details-head" : ""}
             onClick={() => setSideTab(2)}
           >
             Identity Document <br />
@@ -65,36 +98,50 @@ function DocumentDetails() {
               The most crucial document required to confirm your identification
               during the hiring procedure
             </p>
-            {files[0]?.name ? (
-              <div className="profile-section-personal-resume-update">
-                <div>
-                  RESUME.PDF -{" "}
-                  <span>
-                    Updated on{" "}
-                    {files &&
-                      moment(files[0]?.lastModified).format("DD-MM-YYYY")}
-                  </span>
-                </div>
-                <div className="resume-delete">
-                  <img
-                    className="cursor-pointer"
-                    src={download}
-                    height={25}
-                    alt="download-icon"
-                  />
-                  <button className="cursor-pointer">DELETE RESUME</button>
-                </div>
+            <div className="profile-section-personal-resume-update">
+              <div>
+                {documents &&
+                documents.other_documents &&
+                documents.other_documents.passport
+                  ? unescape(
+                      documents.other_documents.passport.split("/").pop()
+                    )
+                  : "Not Updated"}
               </div>
-            ) : (
-              ""
-            )}
+              {documents &&
+              documents.other_documents &&
+              documents.other_documents.passport ? (
+                <div className="resume-delete">
+                  <a href={documents.other_documents.passport} target="_blank">
+                    <img
+                      className="cursor-pointer"
+                      src={download}
+                      height={25}
+                      alt="download-icon"
+                    />
+                  </a>
+                  <button
+                    className="cursor-pointer"
+                    name="passport"
+                    onClick={(e) => {
+                      deleteDocumentData(e);
+                    }}
+                  >
+                    DELETE RESUME
+                  </button>
+                </div>
+              ) : (
+                ""
+              )}
+            </div>
             <div className="resume-update">
               <input
                 type={"file"}
                 id="resume-update"
+                name="passport"
                 placeholder=""
                 style={{ opacity: 0, visibility: "hidden" }}
-                onChange={(e) => setFiles(e.target.files)}
+                onChange={(e) => setDocumentData(e)}
               />
               <label className="button" htmlFor="resume-update">
                 Add
@@ -115,29 +162,26 @@ function DocumentDetails() {
               The most crucial document required to confirm your identification
               during the hiring procedure
             </p>
-            {files[0]?.name ? (
-              <div className="profile-section-personal-resume-update">
-                <div>
-                  RESUME.PDF -{" "}
-                  <span>
-                    Updated on{" "}
-                    {files &&
-                      moment(files[0]?.lastModified).format("DD-MM-YYYY")}
-                  </span>
-                </div>
-                <div className="resume-delete">
-                  <img
-                    className="cursor-pointer"
-                    src={download}
-                    height={25}
-                    alt="download-icon"
-                  />
-                  <button className="cursor-pointer">DELETE RESUME</button>
-                </div>
+            {/* {files[0]?.name ? ( */}
+            <div className="profile-section-personal-resume-update">
+              <div>
+                RESUME.PDF{" "}
+                {/* <span>
+                  Updated on{" "}
+                  {files && moment(files[0]?.lastModified).format("DD-MM-YYYY")}
+                </span> */}
               </div>
-            ) : (
-              ""
-            )}
+              <div className="resume-delete">
+                <img
+                  className="cursor-pointer"
+                  src={download}
+                  height={25}
+                  alt="download-icon"
+                />
+                <button className="cursor-pointer">DELETE RESUME</button>
+              </div>
+            </div>
+
             <div className="resume-update">
               <input
                 type={"file"}
@@ -164,29 +208,19 @@ function DocumentDetails() {
               The most crucial document required to confirm your identification
               during the hiring procedure
             </p>
-            {files[0]?.name ? (
-              <div className="profile-section-personal-resume-update">
-                <div>
-                  RESUME.PDF -{" "}
-                  <span>
-                    Updated on{" "}
-                    {files &&
-                      moment(files[0]?.lastModified).format("DD-MM-YYYY")}
-                  </span>
-                </div>
-                <div className="resume-delete">
-                  <img
-                    className="cursor-pointer"
-                    src={download}
-                    height={25}
-                    alt="download-icon"
-                  />
-                  <button className="cursor-pointer">DELETE RESUME</button>
-                </div>
+            <div className="profile-section-personal-resume-update">
+              <div>RESUME.PDF</div>
+              <div className="resume-delete">
+                <img
+                  className="cursor-pointer"
+                  src={download}
+                  height={25}
+                  alt="download-icon"
+                />
+                <button className="cursor-pointer">DELETE RESUME</button>
               </div>
-            ) : (
-              ""
-            )}
+            </div>
+
             <div className="resume-update">
               <input
                 type={"file"}
@@ -214,36 +248,48 @@ function DocumentDetails() {
               The most crucial document required to confirm your identification
               during the hiring procedure
             </p>
-            {files[0]?.name ? (
-              <div className="profile-section-personal-resume-update">
-                <div>
-                  RESUME.PDF -{" "}
-                  <span>
-                    Updated on{" "}
-                    {files &&
-                      moment(files[0]?.lastModified).format("DD-MM-YYYY")}
-                  </span>
-                </div>
-                <div className="resume-delete">
-                  <img
-                    className="cursor-pointer"
-                    src={download}
-                    height={25}
-                    alt="download-icon"
-                  />
-                  <button className="cursor-pointer">DELETE RESUME</button>
-                </div>
+            <div className="profile-section-personal-resume-update">
+              <div>
+                {documents &&
+                documents.other_documents &&
+                documents.other_documents.ielts
+                  ? unescape(documents.other_documents.ielts.split("/").pop())
+                  : "Not Updated"}
               </div>
-            ) : (
-              ""
-            )}
+              {documents &&
+              documents.other_documents &&
+              documents.other_documents.ielts ? (
+                <div className="resume-delete">
+                  <a href={documents.other_documents.ielts} target="_blank">
+                    <img
+                      className="cursor-pointer"
+                      src={download}
+                      height={25}
+                      alt="download-icon"
+                    />
+                  </a>
+                  <button
+                    className="cursor-pointer"
+                    name="ielts"
+                    onClick={(e) => {
+                      deleteDocumentData(e);
+                    }}
+                  >
+                    DELETE IELTS/ Language Proficiency
+                  </button>
+                </div>
+              ) : (
+                ""
+              )}
+            </div>
             <div className="resume-update">
               <input
                 type={"file"}
                 id="resume-update"
+                name="ielts"
                 placeholder=""
                 style={{ opacity: 0, visibility: "hidden" }}
-                onChange={(e) => setFiles(e.target.files)}
+                onChange={(e) => setDocumentData(e)}
               />
               <label className="button" htmlFor="resume-update">
                 Add

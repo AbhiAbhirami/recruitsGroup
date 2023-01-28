@@ -1,17 +1,22 @@
 import React from "react";
+import { useAuth } from "../../core/Auth";
 import { FaUser } from "react-icons/fa";
 import { Link } from "react-router-dom";
-import profileImg from "../../assets/images/icons/profile.png";
+function DropDown({ open, user, close }) {
+  const { logout } = useAuth();
 
-function DropDown({ open }) {
   return (
     <div
       style={open ? { display: "flex" } : { display: "none" }}
       className="dropdown-div"
     >
       <div className="dropdown-profile-image-cont">
-        {profileImg ? (
-          <img className="profile-img-tag" src={profileImg} alt="profile-img" />
+        {user.avatar ? (
+          <img
+            className="profile-img-tag"
+            src={user.avatar}
+            alt="profile-img"
+          />
         ) : (
           <div
             style={{
@@ -24,25 +29,29 @@ function DropDown({ open }) {
             <FaUser size={"2rem"} />
           </div>
         )}
+
         <div className="dropdown-email-div">
-          <span className="dropdown-name-tag">Shahid Afrid</span>
-          <span className="dropdown-email-tag">Shahidafrid@gmail.com</span>
+          <span className="dropdown-name-tag">{user.name}</span>
+          <span className="dropdown-email-tag">{user.email}</span>
         </div>
       </div>
       <div className="dropdown-nav-options-div">
-        <Link to="/profile" className="dropdown-div-nav-tag">
+        <Link to="/profile" className="dropdown-div-nav-tag" onClick={close}>
           Profile
         </Link>
         {/* <span className="dropdown-div-nav-tag">My Projects</span> */}
-        <span className="dropdown-div-nav-tag">My Documents</span>
+        <span className="dropdown-div-nav-tag" onClick={close}>
+          My Documents
+        </span>
       </div>
       <div className="dropdown-settings-div">
-        <span className="dropdown-div-nav-tag">Language</span>
-        <span className="dropdown-div-nav-tag">Settings</span>
-        <span
-          className="dropdown-div-nav-tag"
-          onClick={() => localStorage.clear()}
-        >
+        <span className="dropdown-div-nav-tag" onClick={close}>
+          Language
+        </span>
+        <span className="dropdown-div-nav-tag" onClick={close}>
+          Settings
+        </span>
+        <span className="dropdown-div-nav-tag" onClick={logout}>
           Sign Out
         </span>
       </div>

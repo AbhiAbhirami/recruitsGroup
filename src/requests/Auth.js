@@ -1,7 +1,7 @@
 import axios from "axios";
 const API_URL = process.env.REACT_APP_API_URL;
 
-export const GET_USER_BY_ACCESS_TOKEN_URL = `${API_URL}/verify_token`;
+export const GET_USER_BY_ACCESS_TOKEN_URL = `${API_URL}/verify-token`;
 export const LOGIN_URL = `${API_URL}/login`;
 export const REGISTER_URL = `${API_URL}/register`;
 export const VERIFY_OTP = `${API_URL}/verify-otp`;
@@ -10,6 +10,9 @@ export const GET_USER_BY_ID = `${API_URL}/id`;
 export const UPDATE_USER_DATA = `${API_URL}/update`;
 export const FORGOT_PASSWORD = `${API_URL}/forgot-password`;
 export const CHECK_PASSWORD = `${API_URL}/check-password`;
+export const GET_USER_DOCS = `${API_URL}/document`;
+export const GOOGLE_URL = `${API_URL}/google/login`;
+export const UPDATE_USER_IMAGE = `${API_URL}/profile`;
 
 export function login(email, password) {
   return axios.post(LOGIN_URL, {
@@ -18,25 +21,24 @@ export function login(email, password) {
   });
 }
 
-export function register(
-  email,
-  first_name,
-  last_name,
-  password,
-  password_confirmation
-) {
+export function googleLogin(code) {
+  return axios.get(GOOGLE_URL + "?code=" + code.code);
+}
+
+export function signUp(data) {
   return axios.post(REGISTER_URL, {
-    email,
-    first_name,
-    last_name,
-    password,
-    password_confirmation,
+    email: data.email,
+    name: data.name,
+    password: data.password,
+    password_confirmation: data.password_confirmation,
+    joined_on: new Date(),
   });
 }
 
 export function getUserByToken(token) {
   return axios.post(GET_USER_BY_ACCESS_TOKEN_URL, {
-    api_token: token,
+    api_token: token.api_token,
+    refresh_token: token.refreshToken,
   });
 }
 
@@ -75,4 +77,28 @@ export function checkPassword(email, password) {
     email: email,
     password: password,
   });
+}
+
+export function getUserDocuments(id) {
+  return axios.get(GET_USER_DOCS + "/" + id);
+}
+
+export function deleteDocument(id, type) {
+  return axios.put(GET_USER_DOCS + "/" + type + "/" + id);
+}
+
+export function updateUserDocument(id, type, file) {
+  const data = new FormData();
+  data.append("file", file);
+  return axios.post(GET_USER_DOCS + "/" + type + "/" + id, data);
+}
+
+export function updateUserImage(id, image) {
+  const data = new FormData();
+  data.append("image", image);
+  return axios.post(UPDATE_USER_IMAGE + "/" + id, data);
+}
+
+export function deleteUserImage(id) {
+  return axios.put(UPDATE_USER_IMAGE + "/" + id);
 }
