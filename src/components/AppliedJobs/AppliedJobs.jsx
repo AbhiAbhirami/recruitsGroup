@@ -1,4 +1,4 @@
-import React from "react";
+import React ,{ ChangeEvent, useState }  from "react";
 import BackgroundDesign from "../Shared/BackgroundDesign";
 import Header from "../Shared/Header";
 import TodoCard from "../Shared/Todo/TodoCard";
@@ -17,8 +17,8 @@ import profile from "../../assets/images/icons/profile.png";
 // import { SavedJobsCard } from "../Jobs/Jobs";
 import { FaUser } from "react-icons/fa";
 import InputEmoji from "react-input-emoji";
-import JobModal from "../../components/Shared/JobModal/Jobmodal";
-import Comments from "../../components/Shared/Comments";
+import JobModal from "../Shared/JobModal/Jobmodal";
+import Comments from "../Shared/Comments";
 
 function Jobs() {
   let media = window.screen.width < 600;
@@ -354,175 +354,46 @@ const SavedJobsCard = () => {
     </>
   );
 };
-
 const JobPost = () => {
-  const [text, setText] = React.useState("");
   const [modalIsOpen, setIsOpen] = React.useState(false);
   const [isCommentOpen, setIsCommentOpen] = React.useState(false);
-  function handleOnEnter(text) {
-    console.log("enter", text);
-  }
-  return (
-    <>
+  
+  
+    return (
+        <>
       <JobModal closeModal={() => setIsOpen(false)} isOpen={modalIsOpen} />
-      <div
-        style={{ width: "90%", borderRadius: "10px", backgroundColor: "#fff" }}
-      >
-        <div className="job-card-cont" style={{ padding: "3% 5%" }}>
-          <img
-            className="newjob-company-logo"
-            src={google}
-            alt="company-logo"
-          />
-          <div className="new-job-company-description">
-            <span className="new-job-company-heading">Google</span>
-            <div className="new-job-company-desc-div">
-              <span className="new-job-company-post">Full Stack Developer</span>
-              <div className="new-job-time-of-upload">
-                <span>3 days ago</span>
-                <span className="dot"></span>
-                <span>13 Applied</span>
-              </div>
+        
+        <div style={{ width: '90%', borderRadius: '10px', backgroundColor: '#fff' }}>
+            <div className='job-card-cont' style={{ padding: '3% 5%' }}>
+                <img className='newjob-company-logo' src={google} alt='company-logo' />
+                <div className='new-job-company-description'>
+                    <span className='new-job-company-heading'>Google</span>
+                    <div className='new-job-company-desc-div'>
+                        <span className='new-job-company-post'>Full Stack Developer</span>
+                        <div className='new-job-time-of-upload'>
+                            <span >3 days ago</span>
+                            <span className='dot'></span>
+                            <span>13 Applied</span>
+                        </div>
+                    </div>
+                </div>
+                <div className='new-job-company-extra-detail'>
+                    <span>Singapore</span>
+                    <span onClick={() => setIsOpen(true)} className='new-job-view-deatil-tag'>VIEW DETAILS</span>
+                </div>
             </div>
-          </div>
-          <div className="new-job-company-extra-detail">
-            <span>Singapore</span>
-            <span
-              onClick={() => setIsOpen(true)}
-              className="new-job-view-deatil-tag"
-            >
-              VIEW DETAILS
-            </span>
-          </div>
-        </div>
-        <img src={post} style={{ width: "100%" }} alt="" />
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "center",
-            padding: "3% 5%",
-          }}
-        >
-          <div style={{ display: "flex", gap: "20px" }}>
-            <div style={{ height: "30px", width: "30px" }}>
-              <i
-                style={{ fontSize: "25px", cursor: "pointer" }}
-                class="fa fa-bookmark"
-                aria-hidden="true"
-              ></i>
+            <img src={post} style={{ width: '100%' }} alt="" />
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '3% 5%' }}>
+                <div style={{ display: 'flex', gap: '20px' }}>
+                    <div style={{ height: '30px', width: '30px', }} ><i style={{fontSize:'25px',cursor:'pointer'}} class="fa fa-bookmark" aria-hidden="true"></i></div>
+                    <div style={{ height: '30px', width: '30px', }} ><i style={{fontSize:'25px', cursor:'pointer'}} class="fa fa-paper-plane" aria-hidden="true"></i></div>
+                    <div onClick={()=>setIsCommentOpen(!isCommentOpen)} style={{ height: '30px', width: '30px', }} ><i  style={{fontSize:'25px',cursor:'pointer'}} class={isCommentOpen ? "fa fa-comments" : "fa fa-comments-o"} aria-hidden="true"></i></div>
+                </div>
+                <span style={{ width: '120px', height: '45px',display:'flex', color:"black",fontWeight:500,justifyContent:"center",alignItems:"center"}} >Applied</span>
             </div>
-            <div style={{ height: "30px", width: "30px" }}>
-              <i
-                style={{ fontSize: "25px", cursor: "pointer" }}
-                class="fa fa-paper-plane"
-                aria-hidden="true"
-              ></i>
-            </div>
-            <div
-              onClick={() => setIsCommentOpen(!isCommentOpen)}
-              style={{ height: "30px", width: "30px" }}
-            >
-              <i
-                style={{ fontSize: "25px", cursor: "pointer" }}
-                class={isCommentOpen ? "fa fa-comments" : "fa fa-comments-o"}
-                aria-hidden="true"
-              ></i>
-            </div>
-          </div>
-          <span
-            style={{
-              width: "120px",
-              height: "45px",
-              display: "flex",
-              color: "black",
-              fontWeight: 500,
-              justifyContent: "center",
-              alignItems: "center",
-            }}
-          >
-            Applied
-          </span>
+            <Comments isOpen={isCommentOpen}/>
         </div>
-        <Comments isOpen={isCommentOpen} />
-      </div>
-      <div className="new-job-company-extra-detail">
-        <span>Singapore</span>
-        <span className="new-job-view-deatil-tag">VIEW DETAILS</span>
-      </div>
-      <img src={post} style={{ width: "100%" }} alt="" />
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
-          padding: "3% 3%",
-          borderBottom: "1px solid #d9d9d9",
-          margin: "0 3%",
-          marginBottom: 20,
-        }}
-      >
-        <div style={{ display: "flex", gap: "20px" }}>
-          <div style={{ height: "30px", width: "30px" }}>
-            <img style={{ height: "100%", width: "100%" }} src={save} alt="" />
-          </div>
-          <div style={{ height: "30px", width: "30px" }}>
-            <img style={{ height: "100%", width: "100%" }} src={send} alt="" />
-          </div>
-        </div>
-        <button
-          style={{
-            width: "120px",
-            height: "45px",
-            borderRadius: "10px",
-            backgroundColor: "#FECF34",
-            outline: "none",
-            border: "none",
-          }}
-        >
-          Apply Now
-        </button>
-      </div>
-      <div className="footer-comments ">
-        <h3>Comments</h3>
-        <div className="comment-wrap">
-          <img src={profilImage} style={{ marginRight: 20 }} />
-          <div className="comment-box">
-            <p>Am intrested</p>
-          </div>
-        </div>
+        </>
 
-        <div className="comment-wrap replay">
-          <div className="comment-box replay">
-            <p>Please send your CV</p>
-          </div>
-          <img src={profilImage} />
-        </div>
-
-        <div className="comment-input">
-          <img src={profilImage} />
-          <div className="input">
-            <input type={"text"} placeholder="Add a Comment..." />
-            <div className="file-wrap">
-              <div className="file-label">
-                <InputEmoji
-                  value={text}
-                  onChange={setText}
-                  cleanOnEnter
-                  onEnter={handleOnEnter}
-                  placeholder="Type a message"
-                />
-              </div>
-              <div className="file-label two">
-                <label htmlFor="file-uploader">
-                  <img src={file} />
-                </label>
-                <input id="file-uploader" type={"file"} />
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </>
-  );
-};
+    )
+}

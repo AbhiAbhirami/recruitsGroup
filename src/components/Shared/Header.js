@@ -52,11 +52,11 @@ function Header({ user }) {
         style={
           isDropdown | isHamburger | isNotifDropdown | isSearchDropdown
             ? {
-                width: "100%",
-                height: "100vh",
-                zIndex: 10,
-                position: "absolute",
-              }
+              width: "100%",
+              height: "100vh",
+              zIndex: 10,
+              position: "absolute",
+            }
             : { display: "none" }
         }
       ></div>
