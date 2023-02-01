@@ -28,3 +28,15 @@
         width: 100%;
     }
 }
+
+.todo-main-cont::-webkit-scrollbar {
+    width: 3px;
+    background-color: rgba(175, 175, 175, 0.5019607843);
+    border-radius: 5px;
+  }
+
+  .saved-jobs-cont::-webkit-scrollbar {
+    width: 3px;
+    background-color: rgba(175, 175, 175, 0.5019607843);
+    border-radius: 5px;
+  }

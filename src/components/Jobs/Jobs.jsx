@@ -5,6 +5,7 @@ import TodoCard from "../Shared/Todo/TodoCard";
 
 import google from "../../assets/images/social/google.png";
 import post from "../../assets/images/jobs/post.png";
+import searchIcon from '../../assets/images/icons/search.png'
 
 import save from "../../assets/images/icons/save.png";
 import send from "../../assets/images/icons/send.png";
@@ -26,6 +27,9 @@ function Jobs() {
     { task: "Update profile", tag: "To find you" },
     { task: "Update profile", tag: "To find you" },
   ];
+
+  const notifi = ["Profile completion pending", "Profile completion pending","Profile completion pending","Google job application approved", "Todo tasks are added"]
+
   return (
     <>
       <BackgroundDesign />
@@ -171,20 +175,39 @@ function Jobs() {
                 >
                   Job title or Company
                 </p>
-                <input
-                  placeholder="Web developer"
-                  type="text"
-                  style={{
+                <div style={{
                     width: "100%",
                     height: "30px",
                     marginTop: ".75rem",
                     backgroundColor: "#F2F3F7",
                     outline: "none",
                     paddingLeft: "10px",
+                    display:"flex",
                     border: "none",
+                    alignItems:"center",
                     borderRadius: "10px",
-                  }}
+                    paddingRight: "10px",
+
+                  }}>
+                <input
+                style={{
+                  width: "100%",
+                  height: "100%",
+                  backgroundColor: "#F2F3F7",
+                  outline: "none",
+                  
+                  display:"flex",
+                  border: "none",
+                  // borderRadius: "10px",
+                }}
+                
+                  placeholder="Web developer"
+                  type="text"
+                  
                 />
+                <img height="80%" src={searchIcon} alt="search-icon"/>
+                </div>
+                
               </div>
               <div
                 className=""
@@ -202,20 +225,39 @@ function Jobs() {
                 >
                   City or State
                 </p>
-                <input
-                  placeholder="Delhi"
-                  type="text"
-                  style={{
+                <div style={{
                     width: "100%",
                     height: "30px",
                     marginTop: ".75rem",
                     backgroundColor: "#F2F3F7",
                     outline: "none",
                     paddingLeft: "10px",
+                    paddingRight: "10px",
+
+                    display:"flex",
                     border: "none",
+                    alignItems:"center",
                     borderRadius: "10px",
-                  }}
+                    
+                  }}>
+                <input
+                style={{
+                  width: "100%",
+                  height: "100%",
+                  backgroundColor: "#F2F3F7",
+                  outline: "none",
+                  
+                  display:"flex",
+                  border: "none",
+                  // borderRadius: "10px",
+                }}
+                
+                  placeholder="Delhi"
+                  type="text"
+                  
                 />
+                <img height="80%" src={searchIcon} alt="search-icon"/>
+                </div>
               </div>
             </div>
             <JobPost />
@@ -239,10 +281,14 @@ function Jobs() {
             >
               <h3 className="new-jobs-head">Notification</h3>
               <div className="new-notification-cards-cont">
-                <NotificationCard />
-                <NotificationCard />
-                <NotificationCard />
-                <NotificationCard />
+              {notifi.length > 0 ?
+                    notifi.map((e, k) => {
+                        return <NotificationCard key={k} message={e} />;
+
+                    })
+                    :
+                    <p style={{ alignSelf: "center" }}>No notification</p>
+                }
               </div>
             </div>
 
@@ -281,7 +327,7 @@ const SavedJobsCard = () => {
 
   return (
     <>
-      <JobModal closeModal={() => setIsOpen(false)} isOpen={modalIsOpen} />
+      <JobModal closeModal={() => setIsOpen(false)} applied={false} isOpen={modalIsOpen} />
       <div
         style={{
           width: "100%",

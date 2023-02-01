@@ -11,7 +11,8 @@ const customStyles = {
         bottom: "auto",
         marginRight: "-50%",
         transform: "translate(-50%, -50%)",
-        width: "40%",
+        width: window.screen.width < 768 ? "90%" : "40%",
+
         padding: "0",
         zIndex: 999
     },

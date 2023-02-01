@@ -1,27 +1,21 @@
-import React, { ChangeEvent, useState } from "react";
+import React from "react";
 import BackgroundDesign from "../Shared/BackgroundDesign";
 import Header from "../Shared/Header";
 import TodoCard from "../Shared/Todo/TodoCard";
-import searchIcon from '../../assets/images/icons/search.png'
 
 import google from "../../assets/images/social/google.png";
 import post from "../../assets/images/jobs/post.png";
+import searchIcon from '../../assets/images/icons/search.png'
 
-import profilImage from "../../assets/images/icons/profile3.png";
-import file from "../../assets/images/icons/file.png";
-import emoji from "../../assets/images/icons/emoji.png";
 import save from "../../assets/images/icons/save.png";
 import send from "../../assets/images/icons/send.png";
 
 import NotificationCard from "../Shared/Notification/NotificationCard";
 import profile from "../../assets/images/icons/profile.png";
-// import { SavedJobsCard } from "../Jobs/Jobs";
-import { FaUser } from "react-icons/fa";
-import InputEmoji from "react-input-emoji";
 import JobModal from "../Shared/JobModal/Jobmodal";
 import Comments from "../Shared/Comments";
 
-function Jobs() {
+function SavedJobs() {
   let media = window.screen.width < 600;
   const data = [
     { task: "Update profile", tag: "To find you" },
@@ -58,29 +52,15 @@ function Jobs() {
                 color: "#fff",
               }}
             >
-              {profile ? (
-                <img
-                  src={profile}
-                  style={{ marginTop: "20px", height: "121px", width: "117px" }}
-                  alt=""
-                />
-              ) : (
-                <div
-                  style={{
-                    height: 50,
-                    width: 50,
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    marginTop: 30,
-                  }}
-                >
-                  <FaUser size={"2.5rem"} />
-                </div>
-              )}
+              <img
+                src={profile}
+                style={{ marginTop: "20px", height: "121px", width: "117px" }}
+                alt=""
+              />
               <span style={{ color: "white" }}>Shahid Afrid T</span>
               <span style={{ color: "white" }}>Full Stack Developer</span>
             </div>
+
             <div
               style={{
                 width: "100%",
@@ -224,6 +204,7 @@ function Jobs() {
                 />
                 <img height="80%" src={searchIcon} alt="search-icon"/>
                 </div>
+                
               </div>
               <div
                 className=""
@@ -248,12 +229,13 @@ function Jobs() {
                     backgroundColor: "#F2F3F7",
                     outline: "none",
                     paddingLeft: "10px",
+                    paddingRight: "10px",
+
                     display:"flex",
                     border: "none",
                     alignItems:"center",
                     borderRadius: "10px",
-                    paddingRight: "10px",
-
+                    
                   }}>
                 <input
                 style={{
@@ -331,14 +313,14 @@ function Jobs() {
   );
 }
 
-export default Jobs;
+export default SavedJobs;
 
 const SavedJobsCard = () => {
   const [modalIsOpen, setIsOpen] = React.useState(false);
 
   return (
     <>
-      <JobModal closeModal={() => setIsOpen(false)} isOpen={modalIsOpen} />
+      <JobModal closeModal={() => setIsOpen(false)} applied={false} isOpen={modalIsOpen} />
       <div
         style={{
           width: "100%",
@@ -391,46 +373,86 @@ const SavedJobsCard = () => {
     </>
   );
 };
+
 const JobPost = () => {
   const [modalIsOpen, setIsOpen] = React.useState(false);
-  const [isCommentOpen, setIsCommentOpen] = React.useState(false);
-
 
   return (
     <>
-      <JobModal closeModal={() => setIsOpen(false)} applied={true} isOpen={modalIsOpen} />
+      <JobModal closeModal={() => setIsOpen(false)} isOpen={modalIsOpen} />
 
-      <div className="sm:w-100" style={{ width: '90%', borderRadius: '10px', backgroundColor: '#fff' }}>
-        <div className='job-card-cont' style={{ padding: '3% 5%' }}>
-          <img className='newjob-company-logo' src={google} alt='company-logo' />
-          <div className='new-job-company-description'>
-            <span className='new-job-company-heading'>Google</span>
-            <div className='new-job-company-desc-div'>
-              <span className='new-job-company-post'>Full Stack Developer</span>
-              <div className='new-job-time-of-upload'>
-                <span >3 days ago</span>
-                <span className='dot'></span>
+      <div
+        style={{ width: "90%", borderRadius: "10px", backgroundColor: "#fff" }}
+      >
+        <div className="job-card-cont" style={{ padding: "3% 5%" }}>
+          <img
+            className="newjob-company-logo"
+            src={google}
+            alt="company-logo"
+          />
+          <div className="new-job-company-description">
+            <span className="new-job-company-heading">Google</span>
+            <div className="new-job-company-desc-div">
+              <span className="new-job-company-post">Full Stack Developer</span>
+              <div className="new-job-time-of-upload">
+                <span>3 days ago</span>
+                <span className="dot"></span>
                 <span>13 Applied</span>
               </div>
             </div>
           </div>
-          <div className='new-job-company-extra-detail'>
+          <div className="new-job-company-extra-detail">
             <span>Singapore</span>
-            <span onClick={() => setIsOpen(true)} className='new-job-view-deatil-tag sm:font-size-10'>VIEW DETAILS</span>
+            <span
+              onClick={() => setIsOpen(true)}
+              className="new-job-view-deatil-tag"
+            >
+              VIEW DETAILS
+            </span>
           </div>
         </div>
-        <img src={post} style={{ width: '100%' }} alt="" />
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '3% 5%' }}>
-          <div style={{ display: 'flex', gap: '20px' }}>
-            <div style={{ height: '30px', width: '30px', }} ><i style={{ fontSize: '25px', cursor: 'pointer' }} class="fa fa-bookmark" aria-hidden="true"></i></div>
-            <div style={{ height: '30px', width: '30px', }} ><i style={{ fontSize: '25px', cursor: 'pointer' }} class="fa fa-paper-plane" aria-hidden="true"></i></div>
-            <div onClick={() => setIsCommentOpen(!isCommentOpen)} style={{ height: '30px', width: '30px', }} ><i style={{ fontSize: '25px', cursor: 'pointer' }} class={isCommentOpen ? "fa fa-comments" : "fa fa-comments-o"} aria-hidden="true"></i></div>
+        <img src={post} style={{ width: "100%" }} alt="" />
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+            padding: "3% 5%",
+          }}
+        >
+          <div style={{ display: "flex", gap: "20px" }}>
+            <div style={{ height: "30px", width: "30px" }}>
+              <i
+                style={{ fontSize: "25px", cursor: "pointer" }}
+                class="fa fa-bookmark"
+                aria-hidden="true"
+              ></i>
+            </div>
+            <div style={{ height: "30px", width: "30px" }}>
+              <i
+                style={{ fontSize: "25px", cursor: "pointer" }}
+                class="fa fa-paper-plane"
+                aria-hidden="true"
+              ></i>
+            </div>
           </div>
-          <span style={{ width: '120px', height: '45px', display: 'flex', color: "black", fontWeight: 500, justifyContent: "center", alignItems: "center" }} >Applied</span>
+          <button
+            style={{
+              width: "120px",
+              height: "45px",
+              borderRadius: "10px",
+              backgroundColor: "#FECF34",
+              outline: "none",
+              border: "none",
+            }}
+            onClick={() => setIsOpen(true)}
+          >
+            Apply Now
+          </button>
+
+          {/* <span style={{ width: '120px', height: '45px',display:'flex', color:"black",fontWeight:500,justifyContent:"center",alignItems:"center"}} >Applied</span> */}
         </div>
-        <Comments isOpen={isCommentOpen} />
       </div>
     </>
-
-  )
-}
+  );
+};

@@ -4,6 +4,7 @@ import SingleDropdwonNotifCard from './SingleDropdwonNotifCard'
 
 
 function NotificationDropDown({ open }) {
+    const notifi = ["Profile completion pending", "Google job application approved", "Todo tasks are added"]
     return (
         <div style={open ? { display: 'flex' } : { display: "none" }} className="notification-dropdown-div">
             <div className="notification-dropdown-head-cont">
@@ -15,13 +16,14 @@ function NotificationDropDown({ open }) {
             </div>
 
             <div className="dropdown-notification-div">
-                <SingleDropdwonNotifCard />
-                <SingleDropdwonNotifCard />
-                <SingleDropdwonNotifCard />
-                <SingleDropdwonNotifCard />
-                <SingleDropdwonNotifCard />
-                <SingleDropdwonNotifCard />
-                <SingleDropdwonNotifCard />
+                {notifi.length > 0 ?
+                    notifi.map((e, k) => {
+                        return <SingleDropdwonNotifCard key={k} message={e} />;
+
+                    })
+                    :
+                    <p style={{ alignSelf: "center" }}>No notification</p>
+                }
 
 
             </div>

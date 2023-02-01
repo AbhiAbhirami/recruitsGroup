@@ -96,7 +96,16 @@ function Header({ user }) {
         >
           Applied Jobs
         </Link>
-        <span className="nav-links">Saved Jobs</span>
+        <Link
+          to="/saved-jobs"
+          className={
+            location.pathname === "/saved-jobs"
+              ? "nav-links-active"
+              : "nav-links"
+          }
+        >
+          Saved Jobs
+        </Link>
       </div>
       <div className="header-profile-cont">
         <div className="header-profile-div">

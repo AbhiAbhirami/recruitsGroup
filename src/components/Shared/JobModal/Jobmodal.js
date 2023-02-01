@@ -27,9 +27,9 @@ const customStyles = {
   },
 };
 
-function JobModal({ isOpen, closeModal }) {
+function JobModal({ isOpen, closeModal, applied }) {
   const [isApplyConfirm, setIsApplyConfirm] = useState(false);
-    useEffect(() => {
+  useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = "hidden";
     } else {
@@ -145,7 +145,7 @@ function JobModal({ isOpen, closeModal }) {
               <img src={send} height={30} alt="" />
               <img src={bookmark} height={30} alt="" />
             </div>
-            <button onClick={() => [setIsApplyConfirm(true), closeModal()]}>Apply Now</button>
+            {applied ? <p>Applied</p> : <button onClick={() => [setIsApplyConfirm(true), closeModal()]}>Apply Now</button>}
           </div>
         </div>
       </Modal>

@@ -9,6 +9,7 @@ import { useState } from "react";
 import {
   AUTH_LOCAL_STORAGE_USER_DATA,
 } from "../core/AuthHelpers";
+import SavedJobs from "../components/SavedJobs/SavedJobs";
 
 const PrivateRoutes = () => {
   const [user, setUser] = useState({});
@@ -24,9 +25,9 @@ const PrivateRoutes = () => {
         <Route path="auth/*" element={<Navigate to="/dashboard" />} />
         {/* Pages */}
         <Route path="dashboard" element={<Dashboard />} />
-        <Route path="jobs" element={<Jobs user={user} /> } />
+        <Route path="jobs" element={<Jobs user={user} />} />
         <Route path="applied-jobs" element={<AppliedJobs user={user} />} />
-      <Route path="saved-jobs" element={<AppliedJobs />} />
+        <Route path="saved-jobs" element={<SavedJobs user={user} />} />
 
         <Route
           path="/profile/*"
