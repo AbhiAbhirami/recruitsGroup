@@ -4,6 +4,7 @@ import moment from "moment";
 import { getDocuments, setDocuments } from "../../../core/AuthHelpers";
 import { toast, ToastContainer } from "react-toastify";
 import { deleteDocument, updateUserDocument } from "../../../requests/Auth";
+import ConfirmModal from "./confirmModal";
 
 function DocumentDetails({ user, docs, userUpdated, setIsUserUpdated }) {
   const [files, setFiles] = React.useState([]);
@@ -40,8 +41,26 @@ function DocumentDetails({ user, docs, userUpdated, setIsUserUpdated }) {
       toast.error(error.response.data.message);
     }
   };
+
+  const [confirmModal, setConfirmModal] = useState({ status: false, id: '' })
+  const handleModalOpen = (id) => {
+    setConfirmModal({ status: true, id: id })
+  }
+
+  const handleFileChange = (e, setState) => {
+    setState()
+    setConfirmModal({ status: false, id: "" })
+  }
+
   return (
     <Fragment>
+      <ConfirmModal
+        labelId={confirmModal?.id}
+        isOpen={confirmModal?.status}
+        closeModal={() => setConfirmModal({ status: false, id: '' })
+        }
+      />
+
       <div className="profile-section-personal-detail-left document-details-left">
         <div className="personal-detail-title">
           <h4>Documents</h4>
@@ -101,16 +120,16 @@ function DocumentDetails({ user, docs, userUpdated, setIsUserUpdated }) {
             <div className="profile-section-personal-resume-update">
               <div>
                 {documents &&
-                documents.other_documents &&
-                documents.other_documents.passport
+                  documents.other_documents &&
+                  documents.other_documents.passport
                   ? unescape(
-                      documents.other_documents.passport.split("/").pop()
-                    )
+                    documents.other_documents.passport.split("/").pop()
+                  )
                   : "Not Updated"}
               </div>
               {documents &&
-              documents.other_documents &&
-              documents.other_documents.passport ? (
+                documents.other_documents &&
+                documents.other_documents.passport ? (
                 <div className="resume-delete">
                   <a href={documents.other_documents.passport} target="_blank">
                     <img
@@ -141,9 +160,12 @@ function DocumentDetails({ user, docs, userUpdated, setIsUserUpdated }) {
                 name="passport"
                 placeholder=""
                 style={{ opacity: 0, visibility: "hidden" }}
-                onChange={(e) => setDocumentData(e)}
+                onChange={(e) => handleFileChange(e, () => setDocumentData(e))}
+
               />
-              <label className="button" htmlFor="resume-update">
+              <label className="button" htmlFor="resume-updat"
+                onClick={() => handleModalOpen('resume-update')}
+              >
                 Add
               </label>
               <p>Supported Formats: doc, docx, rtf, pdf, upto 2 MB</p>
@@ -188,9 +210,11 @@ function DocumentDetails({ user, docs, userUpdated, setIsUserUpdated }) {
                 id="resume-update"
                 placeholder=""
                 style={{ opacity: 0, visibility: "hidden" }}
-                onChange={(e) => setFiles(e.target.files)}
+                onChange={(e) => handleFileChange(e, () => setFiles(e.target.files))}
               />
-              <label className="button" htmlFor="resume-update">
+              <label className="button" htmlFor="resume-updat"
+                onClick={() => handleModalOpen('resume-update')}
+              >
                 Add
               </label>
               <p>Supported Formats: doc, docx, rtf, pdf, upto 2 MB</p>
@@ -227,9 +251,12 @@ function DocumentDetails({ user, docs, userUpdated, setIsUserUpdated }) {
                 id="resume-update"
                 placeholder=""
                 style={{ opacity: 0, visibility: "hidden" }}
-                onChange={(e) => setFiles(e.target.files)}
+                onChange={(e) => handleFileChange(e, () => setFiles(e.target.files))}
+
               />
-              <label className="button" htmlFor="resume-update">
+              <label className="button" htmlFor="resume-updat"
+                onClick={() => handleModalOpen('resume-update')}
+              >
                 Add
               </label>
               <p>Supported Formats: doc, docx, rtf, pdf, upto 2 MB</p>
@@ -251,14 +278,14 @@ function DocumentDetails({ user, docs, userUpdated, setIsUserUpdated }) {
             <div className="profile-section-personal-resume-update">
               <div>
                 {documents &&
-                documents.other_documents &&
-                documents.other_documents.ielts
+                  documents.other_documents &&
+                  documents.other_documents.ielts
                   ? unescape(documents.other_documents.ielts.split("/").pop())
                   : "Not Updated"}
               </div>
               {documents &&
-              documents.other_documents &&
-              documents.other_documents.ielts ? (
+                documents.other_documents &&
+                documents.other_documents.ielts ? (
                 <div className="resume-delete">
                   <a href={documents.other_documents.ielts} target="_blank">
                     <img
@@ -289,9 +316,11 @@ function DocumentDetails({ user, docs, userUpdated, setIsUserUpdated }) {
                 name="ielts"
                 placeholder=""
                 style={{ opacity: 0, visibility: "hidden" }}
-                onChange={(e) => setDocumentData(e)}
+                onChange={(e) => handleFileChange(e, () => setDocumentData(e))}
               />
-              <label className="button" htmlFor="resume-update">
+              <label className="button" htmlFor="resume-updat"
+                onClick={() => handleModalOpen('resume-update')}
+              >
                 Add
               </label>
               <p>Supported Formats: doc, docx, rtf, pdf, upto 2 MB</p>
@@ -339,9 +368,12 @@ function DocumentDetails({ user, docs, userUpdated, setIsUserUpdated }) {
                 id="resume-update"
                 placeholder=""
                 style={{ opacity: 0, visibility: "hidden" }}
-                onChange={(e) => setFiles(e.target.files)}
+                onChange={(e) => handleFileChange(e, () => setFiles(e.target.files))}
               />
-              <label className="button" htmlFor="resume-update">
+              <label className="button" htmlFor="resume-updat"
+                onClick={() => handleModalOpen('resume-update')}
+
+              >
                 Add
               </label>
               <p>Supported Formats: doc, docx, rtf, pdf, upto 2 MB</p>

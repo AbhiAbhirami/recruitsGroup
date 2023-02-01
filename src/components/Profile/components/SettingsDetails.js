@@ -19,6 +19,7 @@ import {
 import { toast, ToastContainer } from "react-toastify";
 import { useEffect } from "react";
 import { useState } from "react";
+import ConfirmModal from "./confirmModal";
 
 function SettingsDetails({
   updateUserData,
@@ -31,6 +32,7 @@ function SettingsDetails({
   const [user, setUserData] = useState(userData);
   const [sideTab, setSideTab] = React.useState(1);
   const [avatar, setAvatar] = useState(userData.avatar);
+
   const {
     register,
     handleSubmit,
@@ -112,8 +114,26 @@ function SettingsDetails({
       toast.success(e.response.message);
     }
   };
+
+  const [confirmModal, setConfirmModal] = useState({ status: false, id: '' })
+  const handleModalOpen = (id) => {
+    setConfirmModal({ status: true, id: id })
+  }
+
+  const handleFileChange = (e) => {
+    setVideoResume(e)
+    setConfirmModal({ status: false, id: "" })
+  }
+
   return (
     <Fragment>
+      <ConfirmModal
+        labelId={confirmModal?.id}
+        isOpen={confirmModal?.status}
+        closeModal={() => setConfirmModal({ status: false, id: '' })
+        }
+      />
+
       <ToastContainer />
       <div className="profile-section-personal-detail-left document-details-left">
         <div className="personal-detail-title">
@@ -350,11 +370,13 @@ function SettingsDetails({
                 accept="video/*"
                 type={"file"}
                 id="resume-update"
-                onChange={(e) => setVideoResume(e)}
+                onChange={handleFileChange}
                 placeholder=""
                 style={{ opacity: 0, visibility: "hidden" }}
               />
-              <label className="button" htmlFor="resume-update">
+              <label className="button" htmlFor="resume-updat"
+                onClick={() => handleModalOpen('resume-update')}
+              >
                 UPDATE
               </label>
               <p>Supported Formats: doc, docx, rtf, pdf, upto 2 MB</p>
