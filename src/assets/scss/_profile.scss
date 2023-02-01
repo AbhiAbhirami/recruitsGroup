@@ -15,6 +15,11 @@
     border-radius: 50%;
   }
   margin-right: 30px;
+  @media screen and (max-width: 768px) {
+    height: 70px;
+    width: 110px;
+    margin: 0;
+  }
 }
 
 .pic-holder .pic {
@@ -563,6 +568,9 @@
   padding: 1rem 3rem;
   width: 60%;
   padding-bottom: 0rem !important;
+  @media screen and (max-width: 480px) {
+    width: 100%;
+  }
 }
 .settings-profile-details {
   display: flex;
@@ -572,6 +580,11 @@
   @media screen and (max-width: 768px) {
     padding: 0 30px;
   }
+
+  @media screen and (max-width: 480px) {
+    padding: 30px 30px;
+  }
+
   h4 {
     font-weight: 500 !important;
   }
@@ -610,5 +623,10 @@
   .remove-profile {
     background: #afafaf;
     width: 300px;
+  }
+}
+@media screen and (max-width: 768px) {
+  .ReactModal__Content {
+    width: 90% !important;
   }
 }

@@ -11,6 +11,7 @@ import {
 import { toast, ToastContainer } from "react-toastify";
 import { deleteDocument, updateUserDocument } from "../../../requests/Auth";
 import { useState } from "react";
+import ConfirmModal from "./confirmModal";
 
 function PersonalDetails({
   setIsOpen,
@@ -65,8 +66,24 @@ function PersonalDetails({
     }
   };
 
+  const [confirmModal, setConfirmModal] = useState({ status: false, id: '' })
+  const handleModalOpen = (id) => {
+    setConfirmModal({ status: true, id: id })
+  }
+
+  const handleFileChange = (e, setState) => {
+    setState()
+    setConfirmModal({ status: false, id: "" })
+  }
+
   return (
     <Fragment>
+      <ConfirmModal
+        labelId={confirmModal?.id}
+        isOpen={confirmModal?.status}
+        closeModal={() => setConfirmModal({ status: false, id: '' })
+        }
+      />
       <ToastContainer draggablePercent={60} />
       <div className="profile-section-personal-detail-left document-details-left">
         <div className="personal-detail-title">
@@ -257,11 +274,13 @@ function PersonalDetails({
               <input
                 type={"file"}
                 id="resume-update"
-                onChange={(e) => setResumeData(e.target.files)}
+                onChange={(e) => handleFileChange(e, () => setResumeData(e.target.files))}
                 placeholder=""
                 style={{ opacity: 0, visibility: "hidden" }}
               />
-              <label className="button" htmlFor="resume-update">
+              <label className="button" htmlFor="resume-updat"
+                onClick={() => handleModalOpen('resume-update')}
+              >
                 UPDATE RESUME
               </label>
               <p>Supported Formats: doc, docx, rtf, pdf, upto 2 MB</p>
