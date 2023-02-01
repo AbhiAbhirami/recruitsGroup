@@ -1,4 +1,4 @@
-import React ,{ ChangeEvent, useState }  from "react";
+import React, { ChangeEvent, useState } from "react";
 import BackgroundDesign from "../Shared/BackgroundDesign";
 import Header from "../Shared/Header";
 import TodoCard from "../Shared/Todo/TodoCard";
@@ -357,43 +357,43 @@ const SavedJobsCard = () => {
 const JobPost = () => {
   const [modalIsOpen, setIsOpen] = React.useState(false);
   const [isCommentOpen, setIsCommentOpen] = React.useState(false);
-  
-  
-    return (
-        <>
-      <JobModal closeModal={() => setIsOpen(false)} isOpen={modalIsOpen} />
-        
-        <div style={{ width: '90%', borderRadius: '10px', backgroundColor: '#fff' }}>
-            <div className='job-card-cont' style={{ padding: '3% 5%' }}>
-                <img className='newjob-company-logo' src={google} alt='company-logo' />
-                <div className='new-job-company-description'>
-                    <span className='new-job-company-heading'>Google</span>
-                    <div className='new-job-company-desc-div'>
-                        <span className='new-job-company-post'>Full Stack Developer</span>
-                        <div className='new-job-time-of-upload'>
-                            <span >3 days ago</span>
-                            <span className='dot'></span>
-                            <span>13 Applied</span>
-                        </div>
-                    </div>
-                </div>
-                <div className='new-job-company-extra-detail'>
-                    <span>Singapore</span>
-                    <span onClick={() => setIsOpen(true)} className='new-job-view-deatil-tag'>VIEW DETAILS</span>
-                </div>
-            </div>
-            <img src={post} style={{ width: '100%' }} alt="" />
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '3% 5%' }}>
-                <div style={{ display: 'flex', gap: '20px' }}>
-                    <div style={{ height: '30px', width: '30px', }} ><i style={{fontSize:'25px',cursor:'pointer'}} class="fa fa-bookmark" aria-hidden="true"></i></div>
-                    <div style={{ height: '30px', width: '30px', }} ><i style={{fontSize:'25px', cursor:'pointer'}} class="fa fa-paper-plane" aria-hidden="true"></i></div>
-                    <div onClick={()=>setIsCommentOpen(!isCommentOpen)} style={{ height: '30px', width: '30px', }} ><i  style={{fontSize:'25px',cursor:'pointer'}} class={isCommentOpen ? "fa fa-comments" : "fa fa-comments-o"} aria-hidden="true"></i></div>
-                </div>
-                <span style={{ width: '120px', height: '45px',display:'flex', color:"black",fontWeight:500,justifyContent:"center",alignItems:"center"}} >Applied</span>
-            </div>
-            <Comments isOpen={isCommentOpen}/>
-        </div>
-        </>
 
-    )
+
+  return (
+    <>
+      <JobModal closeModal={() => setIsOpen(false)} isOpen={modalIsOpen} />
+
+      <div className="sm:w-100" style={{ width: '90%', borderRadius: '10px', backgroundColor: '#fff' }}>
+        <div className='job-card-cont' style={{ padding: '3% 5%' }}>
+          <img className='newjob-company-logo' src={google} alt='company-logo' />
+          <div className='new-job-company-description'>
+            <span className='new-job-company-heading'>Google</span>
+            <div className='new-job-company-desc-div'>
+              <span className='new-job-company-post'>Full Stack Developer</span>
+              <div className='new-job-time-of-upload'>
+                <span >3 days ago</span>
+                <span className='dot'></span>
+                <span>13 Applied</span>
+              </div>
+            </div>
+          </div>
+          <div className='new-job-company-extra-detail'>
+            <span>Singapore</span>
+            <span onClick={() => setIsOpen(true)} className='new-job-view-deatil-tag sm:font-size-10'>VIEW DETAILS</span>
+          </div>
+        </div>
+        <img src={post} style={{ width: '100%' }} alt="" />
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '3% 5%' }}>
+          <div style={{ display: 'flex', gap: '20px' }}>
+            <div style={{ height: '30px', width: '30px', }} ><i style={{ fontSize: '25px', cursor: 'pointer' }} class="fa fa-bookmark" aria-hidden="true"></i></div>
+            <div style={{ height: '30px', width: '30px', }} ><i style={{ fontSize: '25px', cursor: 'pointer' }} class="fa fa-paper-plane" aria-hidden="true"></i></div>
+            <div onClick={() => setIsCommentOpen(!isCommentOpen)} style={{ height: '30px', width: '30px', }} ><i style={{ fontSize: '25px', cursor: 'pointer' }} class={isCommentOpen ? "fa fa-comments" : "fa fa-comments-o"} aria-hidden="true"></i></div>
+          </div>
+          <span style={{ width: '120px', height: '45px', display: 'flex', color: "black", fontWeight: 500, justifyContent: "center", alignItems: "center" }} >Applied</span>
+        </div>
+        <Comments isOpen={isCommentOpen} />
+      </div>
+    </>
+
+  )
 }

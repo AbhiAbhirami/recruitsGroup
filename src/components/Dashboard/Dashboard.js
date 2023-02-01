@@ -81,7 +81,7 @@ function Dashboard() {
         >
           <Row className="dashboard-cards mt-4">
             <Col className="col-xl-3 col-sm-6 sm:mb-20">
-              <Card className="dashboard-card card-1 ">
+              <Card className="dashboard-card card-1 shiny-effect">
                 <CardBody className="d-flex align-items-center p-4">
                   <img src={cardIcon1} height={50} />
 
@@ -93,7 +93,7 @@ function Dashboard() {
               </Card>
             </Col>
             <Col className="col-xl-3 col-sm-6 sm:mb-20">
-              <Card className="dashboard-card card-2">
+              <Card className="dashboard-card card-2 shiny-effect">
                 <CardBody className="d-flex align-items-center p-4">
                   <img src={cardIcon2} height={50} />
 
@@ -105,7 +105,7 @@ function Dashboard() {
               </Card>
             </Col>
             <Col className="col-xl-3 col-sm-6 sm:mb-20">
-              <Card className="dashboard-card card-3">
+              <Card className="dashboard-card card-3 shiny-effect">
                 <CardBody className="d-flex align-items-center p-4">
                   <img src={cardIcon3} height={50} />
                   <div className="ms-auto text-end text-white">
@@ -116,7 +116,7 @@ function Dashboard() {
               </Card>
             </Col>
             <Col className="col-xl-3 col-sm-6 sm:mb-20">
-              <Card className="dashboard-card card-4">
+              <Card className="dashboard-card card-4 shiny-effect">
                 <CardBody className="d-flex align-items-center p-4">
                   <img src={cardIcon4} height={50} />
 
@@ -216,7 +216,7 @@ function Dashboard() {
               </Card>
             </Col>
             <Col lg={9} className="dashboard-chart sm:pl-0">
-              <Card className="mb-4">
+              <Card className="mb-4 ">
                 <CardBody>
                   <div
                     style={{
@@ -254,8 +254,8 @@ function Dashboard() {
                 </CardBody>
               </Card>
               <p>Recomended Jobs</p>
-              <div className="recomended-jobs d-flex">
-                <Card className="p-2">
+              <div className="recomended-jobs d-flex p-2">
+                <Card className="p-2 zoom-effect zoom-effect">
                   <CardBody>
                     <div className="d-flex align-items-start justify-content-between">
                       <div>
@@ -281,7 +281,7 @@ function Dashboard() {
                     </div>
                   </CardBody>
                 </Card>
-                <Card className="p-2">
+                <Card className="p-2 zoom-effect">
                   <CardBody>
                     <div className="d-flex align-items-start justify-content-between">
                       <div>
@@ -307,7 +307,7 @@ function Dashboard() {
                     </div>
                   </CardBody>
                 </Card>
-                <Card className="p-2">
+                <Card className="p-2 zoom-effect">
                   <CardBody>
                     <div className="d-flex align-items-start justify-content-between">
                       <div>
@@ -339,8 +339,19 @@ function Dashboard() {
 
           <Row>
             <p> Featured Companies</p>
-            <div className="d-flex featured-companies">
-              <Card className="me-3">
+            <div className="d-flex featured-companies p-2">
+              <Card className="me-3 zoom-effect">
+                <CardBody className=" d-flex align-items-center p-2">
+                  <div className="img-wrap me-3">
+                    <img src={company} />
+                  </div>
+                  <div className="pe-3">
+                    <h5 className="p-0 m-0">Company Name</h5>
+                    <p className="p-0 m-0 text-muted">21 Vacancy</p>
+                  </div>
+                </CardBody>
+              </Card>
+              <Card className="me-3  zoom-effect">
                 <CardBody className="d-flex align-items-center p-2">
                   <div className="img-wrap me-3">
                     <img src={company} />
@@ -351,7 +362,7 @@ function Dashboard() {
                   </div>
                 </CardBody>
               </Card>
-              <Card className="me-3">
+              <Card className="me-3  zoom-effect">
                 <CardBody className="d-flex align-items-center p-2">
                   <div className="img-wrap me-3">
                     <img src={company} />
@@ -362,18 +373,7 @@ function Dashboard() {
                   </div>
                 </CardBody>
               </Card>
-              <Card className="me-3">
-                <CardBody className="d-flex align-items-center p-2">
-                  <div className="img-wrap me-3">
-                    <img src={company} />
-                  </div>
-                  <div className="pe-3">
-                    <h5 className="p-0 m-0">Company Name</h5>
-                    <p className="p-0 m-0 text-muted">21 Vacancy</p>
-                  </div>
-                </CardBody>
-              </Card>
-              <Card className="me-3">
+              <Card className="me-3  zoom-effect">
                 <CardBody className="d-flex align-items-center p-2">
                   <div className="img-wrap me-3">
                     <img src={company} />
@@ -385,7 +385,7 @@ function Dashboard() {
                 </CardBody>
               </Card>
 
-              <Card className="me-3">
+              <Card className="me-3  zoom-effect">
                 <CardBody className="d-flex align-items-center p-2">
                   <div className="img-wrap me-3">
                     <img src={company} />
