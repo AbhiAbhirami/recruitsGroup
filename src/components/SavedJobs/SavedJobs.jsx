@@ -359,10 +359,10 @@ const SavedJobsCard = () => {
           }}
         >
           <h2 style={{ fontWeight: "600", fontSize: "16px" }}>Facebook</h2>
-          <h4 style={{ fontWeight: "400", color: "#5C5B5B", fontSize: "15px" }}>
+          <h4 style={{ fontWeight: "400", color: "#5C5B5B", fontSize: "15px",whiteSpace:"nowrap" }}>
             Mern Stack Developer
           </h4>
-          <h4 style={{ fontWeight: "400", color: "#5C5B5B", fontSize: "13px" }}>
+          <h4 style={{ fontWeight: "400", color: "#5C5B5B", fontSize: "13px",whiteSpace:"nowrap" }}>
             3 days ago &nbsp; 13 Applied
           </h4>
         </div>
@@ -413,7 +413,7 @@ const JobPost = () => {
               <span className="new-job-company-post">Full Stack Developer</span>
               <div className="new-job-time-of-upload">
                 <span>3 days ago</span>
-                <span className="dot"></span>
+                <span className="dot-job-post"></span>
                 <span>13 Applied</span>
               </div>
             </div>

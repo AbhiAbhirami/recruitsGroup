@@ -21,7 +21,8 @@ const customStyles = {
     bottom: "auto",
     marginRight: "-50%",
     transform: "translate(-50%, -50%)",
-    width: window.screen.width < 768 ? "90%" : "40%",
+    width: window.screen.width < 768 ? "100%" : "40%",
+    // height: window.screen.width < 768 ? "95%" : "95%",
     padding: "0",
     zIndex: 999
   },
@@ -46,15 +47,17 @@ function JobModal({ isOpen, closeModal, applied }) {
         style={customStyles}
         contentLabel="Example Modal"
       >
-        {/* <img
+        <img
           src={closebtn}
           height={25}
           alt="close-modal"
+          style={window.screen.width < 768 ? { top: "10px", right: "0px" } : {}}
           className="modal-close-btn"
           onClick={closeModal}
-        /> */}
+        />
 
         <div className="job-modal-wrapper">
+
           <div className="modal-header p-30">
             <img src={google} height={50} alt="header-logo" />
             <div className="content">

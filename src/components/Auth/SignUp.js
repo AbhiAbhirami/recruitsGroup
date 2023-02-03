@@ -128,37 +128,41 @@ function SignUp() {
             {errors.email && (
               <span className="validation">Email is required</span>
             )}
-            <input
-              className="signup-input"
-              type={showPassword ? "text" : "password"}
-              {...register("password", { required: true })}
-              placeholder="Password*"
-            />
-            <i
-              className={showPassword ? " fa fa-eye" : "fa fa-eye-slash"}
-              style={{ position: "absolute", right: "14%", top: "52%" }}
-              aria-hidden="true"
-              onClick={() => {
-                setShowPassword(!showPassword);
-              }}
-            ></i>
+            <div style={{ width: '100%', position: "relative" }}>
+              <input
+                className="signup-input"
+                type={showPassword ? "text" : "password"}
+                {...register("password", { required: true })}
+                placeholder="Password*"
+              />
+              <i
+                className={showPassword ? " fa fa-eye" : "fa fa-eye-slash"}
+                style={{ position: "absolute", right: "5%", top: "40%", cursor: 'pointer' }}
+                aria-hidden="true"
+                onClick={() => {
+                  setShowPassword(!showPassword);
+                }}
+              ></i>
+            </div>
             {errors.password && (
               <span className="validation">Password is required</span>
             )}
-            <input
-              placeholder="Confirm Password*"
-              className="signup-input"
-              type={showConfirmPassword ? "text" : "password"}
-              {...register("password_confirmation", { required: true })}
-            />
-            <i
-              className={showConfirmPassword ? " fa fa-eye" : "fa fa-eye-slash"}
-              style={{ position: "absolute", right: "14%", top: "63%" }}
-              aria-hidden="true"
-              onClick={() => {
-                setConfirmShowPassword(!showConfirmPassword);
-              }}
-            ></i>
+            <div style={{ width: '100%', position: "relative" }}>
+              <input
+                placeholder="Confirm Password*"
+                className="signup-input"
+                type={showConfirmPassword ? "text" : "password"}
+                {...register("password_confirmation", { required: true })}
+              />
+              <i
+                className={showConfirmPassword ? " fa fa-eye" : "fa fa-eye-slash"}
+                style={{ position: "absolute", right: "5%", top: "40%", cursor: "pointer" }}
+                aria-hidden="true"
+                onClick={() => {
+                  setConfirmShowPassword(!showConfirmPassword);
+                }}
+              ></i>
+            </div>
             {errors.password_confirmation && (
               <span className="validation">Confirm Password is required</span>
             )}

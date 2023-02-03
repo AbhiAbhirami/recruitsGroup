@@ -190,7 +190,7 @@ function Header({ user }) {
             />
           )}
           <NotificationDropDown open={isNotifDropdown} />
-          <Hamburger open={isHamburger} />
+          <Hamburger open={isHamburger} close={setIsHamburger} />
         </div>
       </div>
     </div>

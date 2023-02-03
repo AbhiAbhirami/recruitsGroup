@@ -521,11 +521,13 @@ border-radius: 10px;
   text-align: start;
   font-size: 14px;
 }
-.dot {
-  background-color: #5c5b5b;
+.dot-job-post {
+  // background-color: #5c5b5b;
+  background: rgba(184, 184, 184, 0.27);
   width: 10px;
   border-radius: 50%;
   height: 10px;
+  z-index: 0;
 }
 
 .new-job-company-extra-detail > span {
