@@ -7,6 +7,8 @@ import searchIcon from '../../assets/images/icons/search.png'
 import google from "../../assets/images/social/google.png";
 import post from "../../assets/images/jobs/post.png";
 
+import task from "../../assets/images/icons/task.svg";
+import notification from "../../assets/images/icons/notification.svg";
 import profilImage from "../../assets/images/icons/profile3.png";
 import file from "../../assets/images/icons/file.png";
 import emoji from "../../assets/images/icons/emoji.png";
@@ -20,6 +22,9 @@ import { FaUser } from "react-icons/fa";
 import InputEmoji from "react-input-emoji";
 import JobModal from "../Shared/JobModal/Jobmodal";
 import Comments from "../Shared/Comments";
+const notifi = ["Profile completion pending sxsxsxsxsxsxsx", "Profile completion pending","Profile completion pending","Google job application approved", "Todo tasks are added"]
+
+
 
 function Jobs() {
   let media = window.screen.width < 600;
@@ -296,10 +301,18 @@ function Jobs() {
             >
               <h3 className="new-jobs-head">Notification</h3>
               <div className="new-notification-cards-cont">
-                <NotificationCard />
-                <NotificationCard />
-                <NotificationCard />
-                <NotificationCard />
+              {notifi.length > 0 ?
+                    notifi.map((e, k) => {
+                        return <NotificationCard key={k} message={e} />;
+
+                    })
+                    :
+                    <>
+                    <img width="50%" style={{alignSelf:"center"}} src={notification} alt="notification" />
+                    <p style={{ alignSelf: "center",paddingTop:"15px" }}>No notification</p>
+
+                    </>
+                }
               </div>
             </div>
 
@@ -319,9 +332,15 @@ function Jobs() {
               <h3 className="new-jobs-head">Todo</h3>
               <p className="todo-sub-heading">Check your life, not boxes</p>
               <div className="todo-cards-cont">
-                {data.map((elem, index) => {
+              {data.length > 0 ?data.map((elem, index) => {
                   return <TodoCard data={elem} key={index} index={index} />;
-                })}
+                }) : 
+                <>
+                    <img style={{position:"absolute" , alignSelf:"center",top:"40%"}} width="50%" src={task} alt="task" />
+                    <p style={{alignSelf:"center",position:"absolute",top:"70%"}}>No tasks are pending</p>
+
+                </>
+                }
               </div>
             </div>
           </div>

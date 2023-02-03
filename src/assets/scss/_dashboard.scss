@@ -233,6 +233,8 @@
 }
 .profile-img-tag {
   width: 30%;
+  
+border-radius: 10px;
   object-fit: contain;
 }
 .welcome-name-tag {
@@ -573,6 +575,7 @@
   border-radius: 20px;
   max-height: 430px;
   min-width: 40%;
+  width: 100%;
   padding: 2%;
   flex-direction: column;
 }
@@ -590,6 +593,7 @@
   cursor: pointer;
   align-items: center;
   padding: 10px;
+  // min-width: 250px;
   transition: all ease-in-out 0.3s;
   &:hover {
     background: #e2e2e2;

@@ -10,6 +10,8 @@ import searchIcon from '../../assets/images/icons/search.png'
 import save from "../../assets/images/icons/save.png";
 import send from "../../assets/images/icons/send.png";
 
+import task from "../../assets/images/icons/task.svg";
+import notification from "../../assets/images/icons/notification.svg";
 import NotificationCard from "../Shared/Notification/NotificationCard";
 import profile from "../../assets/images/icons/profile.png";
 import JobModal from "../Shared/JobModal/Jobmodal";
@@ -28,7 +30,7 @@ function Jobs() {
     { task: "Update profile", tag: "To find you" },
   ];
 
-  const notifi = ["Profile completion pending", "Profile completion pending","Profile completion pending","Google job application approved", "Todo tasks are added"]
+  const notifi = ["Profile completion pending sxsxsxsxsxsxsx", "Profile completion pending","Profile completion pending","Google job application approved", "Todo tasks are added"]
 
   return (
     <>
@@ -287,7 +289,11 @@ function Jobs() {
 
                     })
                     :
-                    <p style={{ alignSelf: "center" }}>No notification</p>
+                    <>
+                    <img width="50%" style={{alignSelf:"center"}} src={notification} alt="notification" />
+                    <p style={{ alignSelf: "center",paddingTop:"15px" }}>No notification</p>
+
+                    </>
                 }
               </div>
             </div>
@@ -308,9 +314,15 @@ function Jobs() {
               <h3 className="new-jobs-head">Todo</h3>
               <p className="todo-sub-heading">Check your life, not boxes</p>
               <div className="todo-cards-cont">
-                {data.map((elem, index) => {
+              {data.length > 0 ?data.map((elem, index) => {
                   return <TodoCard data={elem} key={index} index={index} />;
-                })}
+                }) : 
+                <>
+                    <img style={{position:"absolute" , alignSelf:"center",top:"40%"}} width="50%" src={task} alt="task" />
+                    <p style={{alignSelf:"center",position:"absolute",top:"70%"}}>No tasks are pending</p>
+
+                </>
+                }
               </div>
             </div>
           </div>
