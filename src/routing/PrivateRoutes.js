@@ -10,6 +10,7 @@ import {
   AUTH_LOCAL_STORAGE_USER_DATA,
 } from "../core/AuthHelpers";
 import SavedJobs from "../components/SavedJobs/SavedJobs";
+import ForgotPassword from "../components/ForgotPasword/ForgotPassword";
 
 const PrivateRoutes = () => {
   const [user, setUser] = useState({});
@@ -23,6 +24,7 @@ const PrivateRoutes = () => {
       <Header user={user} />
       <Routes>
         <Route path="auth/*" element={<Navigate to="/dashboard" />} />
+
         {/* Pages */}
         <Route path="dashboard" element={<Dashboard />} />
         <Route path="jobs" element={<Jobs user={user} />} />
