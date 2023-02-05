@@ -4,7 +4,7 @@ import moment from "moment";
 import { getDocuments, setDocuments } from "../../../core/AuthHelpers";
 import { toast, ToastContainer } from "react-toastify";
 import { deleteDocument, updateUserDocument } from "../../../requests/Auth";
-import ConfirmModal from "./confirmModal";
+import ConfirmModal from "./ConfirmModal";
 
 function DocumentDetails({ user, docs, userUpdated, setIsUserUpdated }) {
   const [files, setFiles] = React.useState([]);

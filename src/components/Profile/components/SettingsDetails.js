@@ -1,7 +1,5 @@
 import React, { Fragment } from "react";
 import download from "../../../assets/images/icons/download.png";
-import moment from "moment";
-import ProfileInput from "../Update/ProfileInput";
 import profilImage from "../../../assets/images/icons/blank.png";
 import { useForm } from "react-hook-form";
 import {
@@ -19,7 +17,9 @@ import {
 import { toast, ToastContainer } from "react-toastify";
 import { useEffect } from "react";
 import { useState } from "react";
-import ConfirmModal from "./confirmModal";
+import ConfirmModal from "./ConfirmModal";
+import { HiOutlinePencil } from "react-icons/hi"
+import PhoneVerifyModal from "./PhoneVerifyModal";
 
 function SettingsDetails({
   updateUserData,
@@ -125,6 +125,11 @@ function SettingsDetails({
     setConfirmModal({ status: false, id: "" })
   }
 
+  const [verifyModal, setVerifyModal] = useState({
+    status: false,
+    data: {}
+  })
+
   return (
     <Fragment>
       <ConfirmModal
@@ -140,6 +145,12 @@ function SettingsDetails({
           <h4>Settings</h4>
         </div>
         <ul>
+          <li
+            className={sideTab === 8 && "document-details-head"}
+            onClick={() => setSideTab(8)}
+          >
+            Account <button className="cursor-pointer">UPDATE</button>
+          </li>
           <li
             className={sideTab === 1 && "document-details-head"}
             onClick={() => setSideTab(1)}
@@ -184,7 +195,8 @@ function SettingsDetails({
           </li>
         </ul>
       </div>
-      <div className="profile-section-personal-detail-right">
+
+      {sideTab !== 8 && <div className="profile-section-personal-detail-right">
         <div className="profile-section-personal-table">
           <div className="settings-profile-details">
             <h4>Your Profile Picture</h4>
@@ -383,7 +395,60 @@ function SettingsDetails({
             </div>
           </div>
         </div>
-      </div>
+      </div>}
+
+      {sideTab === 8 && <>
+        <PhoneVerifyModal
+          isOpen={verifyModal?.status}
+          closeModal={() => setVerifyModal({ status: false, data: {} })}
+          currentData={verifyModal?.data}
+        />
+        <div className="profile-section-personal-detail-right">
+          <div className="profile-section-personal-table">
+            <div className="settings-profile-details settings-account">
+              <h4>Account Settings</h4>
+              <p style={{ marginBottom: 25 }} className="text-muted">Change your primary email, mobile number or password.</p>
+
+              <h5 >
+                Email Address
+              </h5>
+
+              <div>
+                <p>Primary Email</p>
+                <h6>mohammedsalihak350@gmail.com</h6>
+              </div>
+              <button >
+                Change Email
+              </button>
+
+              <div>
+                <h5>Mobile number</h5>
+                <div style={{ display: "flex", alignItems: "center", marginBottom: 30 }}>
+                  <p className="mb-0">9947453142</p>
+                  <HiOutlinePencil
+                    color="#509dff"
+                    className="mx-2" />
+                  <button className="mb-0"
+                    onClick={() => setVerifyModal({ status: true })}
+                  >
+                    Verify
+                  </button>
+                </div>
+              </div>
+
+              <div>
+                <h5>
+                  Password
+                </h5>
+                <button>
+                  Change Password
+                </button>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </>}
     </Fragment>
   );
 }

@@ -387,6 +387,9 @@
       .personal-detail-title,
       p {
         padding: 0 3rem;
+        @media screen and (max-width: 768px) {
+          padding: 0 2rem;
+        }
       }
       p {
         font-weight: 300;
@@ -628,5 +631,325 @@
 @media screen and (max-width: 768px) {
   .ReactModal__Content {
     width: 90% !important;
+  }
+}
+
+//education
+.profile-education {
+  .education-heading {
+    justify-content: space-between;
+    button {
+      color: #4892f0;
+      border: none;
+      background-color: transparent;
+      cursor: pointer;
+      font-weight: 500;
+    }
+  }
+  .profile-education-details {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 2rem;
+    h4 {
+      color: #585656;
+      margin-bottom: 10px;
+      font-weight: 500;
+    }
+    p {
+      padding: 0 !important;
+      font-size: 14px;
+      margin-bottom: 5px !important;
+    }
+  }
+  svg {
+    color: #4892f0;
+    font-size: 16px;
+  }
+  button {
+    color: #4892f0;
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+    font-weight: 300;
+    font-size: 14px;
+  }
+}
+.ed-modal {
+  .modal-close-btn {
+    position: absolute;
+    top: -6px;
+    right: -6px;
+    cursor: pointer;
+    background: #fff;
+    border-radius: 50%;
+    height: 18px;
+    width: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: rgb(0 0 0 / 25%) 0px 0px 0px 0px,
+      rgb(0 0 0 / 22%) 1px 0px 11px 0px;
+  }
+  .input-radio-group {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 550px;
+    input {
+      margin-right: 15px;
+    }
+    label {
+      color: rgb(0, 0, 0);
+      font-weight: 200;
+      font-size: 14px;
+    }
+    @media screen and (max-width: 768px) {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  }
+  .education-form {
+    input {
+      margin-top: 10px;
+    }
+  }
+  .course-duration {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 500px;
+    span {
+      margin: 0 20px;
+    }
+  }
+}
+
+.profile-skills {
+  .skills-heading {
+    svg {
+      margin: 0 10px;
+      color: #4892f0;
+    }
+  }
+  .skills-list {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    max-width: 90%;
+    @media screen and (max-width: 768px) {
+      max-width: 100%;
+    }
+    button {
+      background-color: #eeeeee;
+      border: none;
+      padding: 10px 20px;
+      margin: 0 15px 0px 0px;
+      border-radius: 5px;
+      color: #7c7b7d;
+      margin-bottom: 10px;
+    }
+  }
+}
+.skills-modal {
+  .skill-input-react-tag {
+    margin-bottom: 30px;
+    .react-tags-wrapper {
+      margin-top: 10px;
+      border: 1px solid #eeeeee;
+      padding: 15px 10px;
+      .ReactTags__selected {
+        display: flex;
+        flex-wrap: wrap;
+      }
+      .tag-wrapper.ReactTags__tag {
+        background: #eeeeee;
+        padding: 10px 15px;
+        border-radius: 3px;
+        margin-right: 10px;
+        margin-bottom: 10px;
+        color: #707070;
+        font-size: 14px;
+        display: flex;
+        width: fit-content;
+        .ReactTags__remove {
+          margin: 0 5px;
+          border: none;
+          font-size: 14px;
+          color: #818181;
+          width: 20px;
+        }
+      }
+      .ReactTags__tagInput {
+        margin-top: 0px;
+        width: 100%;
+        input {
+          width: 100%;
+          height: 40px;
+          border: none;
+          padding: 0 10px;
+          color: #585656;
+          font-size: 14px;
+          &:focus {
+            outline: none;
+          }
+          &::placeholder {
+            color: #a9a9a9;
+          }
+        }
+      }
+    }
+  }
+  .skills-select {
+    .skills-list {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      margin-top: 10px;
+
+      button {
+        border-radius: 3px;
+        font-size: 14px;
+        padding: 10px 15px;
+        margin-right: 10px;
+        margin-bottom: 10px;
+        display: flex;
+        align-items: center;
+        color: #585656;
+        justify-content: center;
+        border: 1px solid #cccccc;
+        background-color: transparent;
+        svg {
+          font-size: 18px;
+          color: #a9a9a9;
+          margin: 0 5px;
+        }
+        &:hover {
+          background-color: #eeeeee;
+        }
+      }
+    }
+  }
+}
+.profile-career {
+  .career-heading {
+    svg {
+      margin: 0 10px;
+      color: #4892f0;
+    }
+  }
+  .career-info {
+    font-size: 13px;
+    opacity: 0.8;
+  }
+  .career-list {
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 40px;
+    div {
+      width: 50%;
+      @media screen and (max-width: 768px) {
+        width: 100%;
+      }
+      margin-bottom: 20px;
+      p {
+        font-size: 14px !important;
+        font-weight: 500 !important;
+        button {
+          border: none;
+          color: #509dff;
+          background-color: transparent;
+        }
+      }
+      .title {
+        color: #cecdd1;
+        margin-bottom: 5px;
+      }
+      .value {
+        color: #797979;
+      }
+    }
+  }
+}
+.carrer-modal {
+  label {
+    font-weight: unset;
+  }
+}
+
+.px-3 {
+  padding: 0 3rem;
+  @media screen and (max-width: 768px) {
+    padding: 0 2rem;
+  }
+}
+.mb-2 {
+  margin-bottom: 1rem;
+}
+.mx-2 {
+  margin: 0 2rem;
+}
+.mb-0 {
+  margin-bottom: 0 !important;
+}
+button {
+  cursor: pointer;
+}
+.text-danger {
+  color: red;
+}
+.settings-account {
+  flex-direction: column;
+  display: flex;
+  align-items: flex-start;
+
+  h4 {
+    margin-bottom: 5px;
+  }
+  p {
+    font-size: 14px;
+  }
+  button {
+    border: none;
+    color: #509dff;
+    background-color: transparent;
+    margin-bottom: 30px;
+  }
+  h5 {
+    opacity: 0.8;
+    color: #313131;
+    font-weight: 600;
+    margin-bottom: 10px;
+    font-size: 14px;
+    letter-spacing: 0.5px;
+  }
+  p {
+    color: #8d8d8d;
+    margin-bottom: 5px;
+  }
+  h6 {
+    margin-bottom: 15px;
+    color: #797979;
+    font-size: 13px;
+    font-weight: 300;
+  }
+}
+.phone-verify-modal {
+  .verify-input {
+    text-align: center;
+    max-width: 300px;
+    margin: auto;
+  }
+  .phone-verify-btn {
+    width: 40%;
+    @media screen and (max-width: 768px) {
+      width: 80%;
+    }
+    height: 38;
+    padding: 15px 20px;
+    border: none;
+    background-color: #f4f4f4;
+    color: gray;
+    cursor: pointer;
   }
 }
