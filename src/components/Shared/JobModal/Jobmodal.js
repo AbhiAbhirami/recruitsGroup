@@ -24,11 +24,11 @@ const customStyles = {
     width: window.screen.width < 768 ? "100%" : "40%",
     // height: window.screen.width < 768 ? "95%" : "95%",
     padding: "0",
-    zIndex: 999
+    zIndex: 999,
   },
 };
 
-function JobModal({ isOpen, closeModal, applied }) {
+function JobModal({ isOpen, closeModal, applied, job }) {
   const [isApplyConfirm, setIsApplyConfirm] = useState(false);
   useEffect(() => {
     if (isOpen) {
@@ -37,10 +37,13 @@ function JobModal({ isOpen, closeModal, applied }) {
       document.body.style.overflow = "unset";
     }
   }, [isOpen]);
-
+  console.log(job);
   return (
     <>
-      <ApplyConfirmModal isOpen={isApplyConfirm} closeModal={() => setIsApplyConfirm(false)} />
+      <ApplyConfirmModal
+        isOpen={isApplyConfirm}
+        closeModal={() => setIsApplyConfirm(false)}
+      />
       <Modal
         isOpen={isOpen}
         onRequestClose={closeModal}
@@ -57,89 +60,78 @@ function JobModal({ isOpen, closeModal, applied }) {
         />
 
         <div className="job-modal-wrapper">
-
           <div className="modal-header p-30">
-            <img src={google} height={50} alt="header-logo" />
+            <img src={job && job.logo} height={50} alt="header-logo" />
             <div className="content">
-              <h3>Google</h3>
+              <h3>{job && job.company}</h3>
               <p>
-                Full Stack Developer <br /> 3 Days ago{" "}
-                <img src={dot} height={5} alt="header-logo" /> 13 Applied{" "}
+                {job && job.title} <br /> 3 Days ago{" "}
+                <img src={dot} height={5} alt="header-logo" />
+                {job && job.applied_candidates?.length
+                  ? job.applied_candidates.length
+                  : "Be the first to apply"}
               </p>
             </div>
             <div>
               <img src={marker} height={15} alt="header-logo" />
-              Singapore
+              {job && job.location}
             </div>
           </div>
           <div className="modal-image-section">
             <img
-              src={modalBg}
+              src={job && job.description_image}
               height={"100%"}
               width={"100%"}
-              alt="header-logo"
+              alt={job && job.company}
             />
           </div>
           <div className="modal-job-details p-30">
             <p>
-              <span>UI / UX Designer -</span> Full time / Intern
+              <span>{job && job.title} -</span> {job && job.type}
               <br />
-              <Link to={"#!"}>Cyces Innovation Labs LLP</Link>
+              <Link to={job && job.company_url}>{job && job.company}</Link>
               <br />
               <hr />
-              Alandur , Chennai , Tamil Nadu
-              <br /> ₹1,80,000 - ₹4,80,000 a year
+              {job && job.location}
+              <br />
+              {job && job.salary_offered
+                ? job.salary_offered + "a year"
+                : "Not disclosed"}
             </p>
           </div>
           <div className="modal-job-full-details p-30">
-            <h2>Full job discription</h2>
+            <h2>Full job description</h2>
             <div className="details">
-              <p>
-                Strong knowledge in HTML5, CSS3 or SCSS, Bootstrap 5, JQuery,
-                Adobe XD or Photoshop. Develop process flows, wireframes, and
-                mockups to e ffectively conceptualize and communicate high-level
-                design strategies and detailed interaction models. Advanced
-                skills in problem-solving and familiarity with technical
-                constraints and limitations as they apply to design for
-                platforms such as desktop and mobile, Android, and iOS.
-                Preferring immediate joiner
-              </p>
+              <p>{job && job.job_description}</p>
               <h3>Requirements :</h3>
               <ul className="detail-ul">
-                <li>
-                  Bachelor's degree in Design, related field, or equivalent
-                  experience.
-                </li>
-                <li>2 years of experience in UX Design.</li>
-                <li>
-                  A design portfolio demonstrating design principles for web
-                  and/or mobile platforms.
-                </li>
-                <li>
-                  Experience and passion designing for the low/no code app
-                  building space or for enterprise customers and/or developers
-                </li>
+                {job &&
+                  job.requirements.map((item) => {
+                    return <li>{item}</li>;
+                  })}
               </ul>
               <h3>Qualifications:</h3>
               <ul className="detail-ul">
-                <li>Any Degree or Diploma/B.E. in civil background.</li>
+                {job &&
+                  job.qualifications.map((item) => {
+                    return <li>{item}</li>;
+                  })}
               </ul>
               <div className="about-card">
                 <h3>About the company</h3>
                 <div className="about">
-                  <img src={google} height={50} alt="header-logo" />
+                  <img
+                    src={job && job.logo}
+                    height={50}
+                    alt={job && job.company}
+                  />
                   <p>
-                    <span>Google</span>
-                    <br /> 150 - 300+ Employees . Software company
+                    <span>{job && job.company}</span>
+                    <br /> {(job && job.employee_count) || 0} Employees .{" "}
+                    {job && job.company_type ? job.company_type : ""}
                   </p>
                 </div>
-                <p>
-                  Looking at the future, the world knows that Artificial
-                  intelligence, Robotics, and Web designs are going to be in
-                  great demand. More than 80% of the jobs will be about
-                  technology. Keeping this in mind, Techokids have stepped up
-                  and makes sure that no student goes more about coding
-                </p>
+                <p>{job && job.about_company}</p>
               </div>
             </div>
           </div>
@@ -148,7 +140,13 @@ function JobModal({ isOpen, closeModal, applied }) {
               <img src={send} height={30} alt="" />
               <img src={bookmark} height={30} alt="" />
             </div>
-            {applied ? <p>Applied</p> : <button onClick={() => [setIsApplyConfirm(true), closeModal()]}>Apply Now</button>}
+            {applied ? (
+              <p>Applied</p>
+            ) : (
+              <button onClick={() => [setIsApplyConfirm(true), closeModal()]}>
+                Apply Now
+              </button>
+            )}
           </div>
         </div>
       </Modal>

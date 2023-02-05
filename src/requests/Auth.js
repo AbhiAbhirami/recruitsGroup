@@ -13,6 +13,7 @@ export const CHECK_PASSWORD = `${API_URL}/check-password`;
 export const GET_USER_DOCS = `${API_URL}/document`;
 export const GOOGLE_URL = `${API_URL}/google/login`;
 export const UPDATE_USER_IMAGE = `${API_URL}/profile`;
+export const GET_ALL_JOBS = `${API_URL}/jobs`;
 
 export function login(email, password) {
   return axios.post(LOGIN_URL, {
@@ -101,4 +102,8 @@ export function updateUserImage(id, image) {
 
 export function deleteUserImage(id) {
   return axios.put(UPDATE_USER_IMAGE + "/" + id);
+}
+
+export function getJobs() {
+  return axios.get(GET_ALL_JOBS);
 }

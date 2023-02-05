@@ -11,7 +11,7 @@ import {
 import { useAuth } from "../../core/Auth";
 
 import { toast, ToastContainer } from "react-toastify";
-import { AUTH_LOCAL_STORAGE_USER_DOCUMENTS, setDocuments } from "../../core/AuthHelpers";
+import { setDocuments } from "../../core/AuthHelpers";
 
 function SignInOptions() {
   const { saveAuth, setCurrentUser } = useAuth();

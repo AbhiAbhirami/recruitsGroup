@@ -6,7 +6,7 @@ import React, {
   useRef,
 } from "react";
 import * as authHelper from "./AuthHelpers";
-import { getUserByToken } from "../requests/Auth";
+import { getJobs, getUserByToken } from "../requests/Auth";
 import { LayoutSplashScreen } from "./SplashScreen";
 
 const initAuthContextPropsState = {
@@ -74,8 +74,17 @@ const AuthInit = ({ children }) => {
       return () => (didRequest.current = true);
     };
 
+    const requestJobs = async () => {
+      debugger;
+      const jobs = await getJobs();
+      if (jobs.data?.data?.rows) {
+        authHelper.setJobsInfo(jobs.data.data.rows);
+      }
+    };
+
     if (auth && auth.api_token) {
       requestUser(auth.api_token);
+      requestJobs();
     } else {
       logout();
       setShowSplashScreen(false);
