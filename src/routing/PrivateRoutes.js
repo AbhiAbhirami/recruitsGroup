@@ -6,6 +6,7 @@ import AppliedJobs from "../components/AppliedJobs/AppliedJobs";
 import Header from "../components/Shared/Header";
 
 import SavedJobs from "../components/SavedJobs/SavedJobs";
+import ForgotPassword from "../components/ForgotPasword/ForgotPassword";
 
 import { getJobsInfo, getUser } from "../core/AuthHelpers";
 const PrivateRoutes = () => {
@@ -20,6 +21,7 @@ const PrivateRoutes = () => {
       <Header user={user} />
       <Routes>
         <Route path="auth/*" element={<Navigate to="/dashboard" />} />
+
         {/* Pages */}
         <Route path="dashboard" element={<Dashboard />} />
         <Route path="jobs" element={<Jobs user={user} />} />
