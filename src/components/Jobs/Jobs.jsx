@@ -11,7 +11,7 @@ import save from "../../assets/images/icons/save.png";
 import send from "../../assets/images/icons/send.png";
 
 import task from "../../assets/images/icons/task.svg";
-import notification from "../../assets/images/icons/notification.svg";
+import notificationIcon from "../../assets/images/icons/notification.svg";
 import NotificationCard from "../Shared/Notification/NotificationCard";
 import profile from "../../assets/images/icons/profile.png";
 import JobModal from "../Shared/JobModal/Jobmodal";
@@ -19,12 +19,41 @@ import Comments from "../Shared/Comments";
 
 import { useState } from "react";
 import { useEffect } from "react";
-import { getJobs } from "../../requests/Auth";
-import { getJobsInfo } from "../../core/AuthHelpers";
+import { getAppliedJobs, getSavedJobs } from "../../requests/Auth";
+import { getJobsInfo, getUser } from "../../core/AuthHelpers";
 import JobPost from "./JobPost";
+import SavedJobsCard from "./SavedJobsCard";
 
-function Jobs({ user }) {
+function Jobs() {
   const [modalIsOpen, setIsOpen] = React.useState(false);
+  const [notification, setNotification] = useState([]);
+  const [jobs, setJobs] = useState();
+  const [savedJobs, setSavedJobs] = useState();
+  const [user, setUser] = useState(getUser());
+  useEffect(() => {
+    if (window.location.pathname == "/jobs") {
+      setJobs(getJobsInfo());
+    }
+    if (window.location.pathname == "/applied-jobs") {
+      const appliedJobs = async () => {
+        const jobsInfo = await getAppliedJobs(user.id);
+        jobsInfo && setJobs(jobsInfo.data.data.rows);
+      };
+
+      appliedJobs();
+    }
+    if (window.location.pathname == "/saved-jobs") {
+      const savedJobs = async () => {
+        const jobsInfo = await getSavedJobs(user.id);
+        if (jobsInfo) {
+          setSavedJobs(jobsInfo.data.data.rows);
+          setJobs(jobsInfo.data.data.rows);
+        }
+      };
+
+      savedJobs();
+    }
+  }, [window.location.pathname]);
   let media = window.screen.width < 600;
   const data = [
     { task: "Update profile", tag: "To find you" },
@@ -37,17 +66,17 @@ function Jobs({ user }) {
     { task: "Update profile", tag: "To find you" },
   ];
 
-  const notifi = [
-    "Profile completion pending sxsxsxsxsxsxsx",
-    "Profile completion pending",
-    "Profile completion pending",
-    "Google job application approved",
-    "Todo tasks are added",
-  ];
+  // const notification = [
+  //   "Profile completion pending sxsxsxsxsxsxsx",
+  //   "Profile completion pending",
+  //   "Profile completion pending",
+  //   "Google job application approved",
+  //   "Todo tasks are added",
+  // ];
 
-  const openModal=()=>{
-  setIsOpen(true)
-}
+  const openModal = () => {
+    setIsOpen(true);
+  };
 
   return (
     <>
@@ -99,7 +128,7 @@ function Jobs({ user }) {
                   width: "100%",
                 }}
               >
-                <h3 style={{ color: "#5C5B5B" }}>Profile Complition</h3>
+                <h3 style={{ color: "#5C5B5B" }}>Profile Completion</h3>
                 <h3>50%</h3>
               </div>
               <div
@@ -147,13 +176,7 @@ function Jobs({ user }) {
                 />{" "}
                 <h2 style={{ fontSize: "18px" }}>Saved Jobs </h2>
               </div>
-              <SavedJobsCard />
-              <SavedJobsCard />
-              <SavedJobsCard />
-              <SavedJobsCard />
-              <SavedJobsCard />
-              <SavedJobsCard />
-              <SavedJobsCard />
+              <SavedJobsCard jobs={savedJobs} />
             </div>
           </div>
 
@@ -276,7 +299,7 @@ function Jobs({ user }) {
                 </div>
               </div>
             </div>
-            <JobPost setIsOpen={setIsOpen} />
+            <JobPost setIsOpen={setIsOpen} jobs={jobs} />
           </div>
 
           <div
@@ -294,8 +317,8 @@ function Jobs({ user }) {
             >
               <h3 className="new-jobs-head">Notification</h3>
               <div className="new-notification-cards-cont">
-                {notifi.length > 0 ? (
-                  notifi.map((e, k) => {
+                {notification.length > 0 ? (
+                  notification.map((e, k) => {
                     return <NotificationCard key={k} message={e} />;
                   })
                 ) : (
@@ -303,7 +326,7 @@ function Jobs({ user }) {
                     <img
                       width="50%"
                       style={{ alignSelf: "center" }}
-                      src={notification}
+                      src={notificationIcon}
                       alt="notification"
                     />
                     <p style={{ alignSelf: "center", paddingTop: "15px" }}>
@@ -367,81 +390,3 @@ function Jobs({ user }) {
 }
 
 export default Jobs;
-
-const SavedJobsCard = () => {
-  const [modalIsOpen, setIsOpen] = React.useState(false);
-
-  return (
-    <>
-      <JobModal
-        closeModal={() => setIsOpen(false)}
-        applied={false}
-        isOpen={modalIsOpen}
-        
-      />
-      <div
-        style={{
-          width: "100%",
-          height: "110px",
-          borderRadius: "20px",
-          boxShadow:
-            "0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1)",
-          padding: "10px 15px",
-          display: "flex",
-        }}
-      >
-        <div
-          style={{
-            height: "100%",
-            width: "50%",
-            display: "flex",
-            flexDirection: "column",
-            gap: "10px",
-          }}
-        >
-          <h2 style={{ fontWeight: "600", fontSize: "16px" }}>Facebook</h2>
-          <h4
-            style={{
-              fontWeight: "400",
-              color: "#5C5B5B",
-              fontSize: "15px",
-              whiteSpace: "nowrap",
-            }}
-          >
-            Mern Stack Developer
-          </h4>
-          <h4
-            style={{
-              fontWeight: "400",
-              color: "#5C5B5B",
-              fontSize: "13px",
-              whiteSpace: "nowrap",
-            }}
-          >
-            3 days ago &nbsp; 13 Applied
-          </h4>
-        </div>
-        <div
-          style={{
-            height: "100%",
-            width: "50%",
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "space-around",
-            alignItems: "end",
-          }}
-        >
-          <h4 style={{ fontWeight: "400", color: "#5C5B5B", fontSize: "13px" }}>
-            Singapore
-          </h4>
-          <h4
-            style={{ color: "#3B6FB1", fontSize: "14px", cursor: "pointer" }}
-            onClick={() => setIsOpen(true)}
-          >
-            VIEW DETAILS
-          </h4>
-        </div>
-      </div>
-    </>
-  );
-};

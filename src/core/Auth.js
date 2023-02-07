@@ -75,7 +75,6 @@ const AuthInit = ({ children }) => {
     };
 
     const requestJobs = async () => {
-      debugger;
       const jobs = await getJobs();
       if (jobs.data?.data?.rows) {
         authHelper.setJobsInfo(jobs.data.data.rows);

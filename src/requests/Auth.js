@@ -14,6 +14,8 @@ export const GET_USER_DOCS = `${API_URL}/document`;
 export const GOOGLE_URL = `${API_URL}/google/login`;
 export const UPDATE_USER_IMAGE = `${API_URL}/profile`;
 export const GET_ALL_JOBS = `${API_URL}/jobs`;
+export const APPLIED_JOBS = `${API_URL}/applied`;
+export const SAVED_JOBS = `${API_URL}/saved`;
 
 export function login(email, password) {
   return axios.post(LOGIN_URL, {
@@ -106,4 +108,20 @@ export function deleteUserImage(id) {
 
 export function getJobs() {
   return axios.get(GET_ALL_JOBS);
+}
+
+export function getAppliedJobs(id) {
+  return axios.get(APPLIED_JOBS + "/" + id);
+}
+
+export function updateAppliedjobs(id, userId) {
+  return axios.put(APPLIED_JOBS + "/" + id, userId);
+}
+
+export function getSavedJobs(id) {
+  return axios.get(SAVED_JOBS + "/" + id);
+}
+
+export function updateSavedjobs(id, userId) {
+  return axios.put(SAVED_JOBS + "/" + id, userId);
 }

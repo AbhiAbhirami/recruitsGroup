@@ -11,6 +11,9 @@ import closebtn from "../../../assets/images/icons/close.png";
 import { Link } from "react-router-dom";
 import ApplyConfirmModal from "../ApplyConfirmModal";
 import { useEffect } from "react";
+import { updateAppliedjobs } from "../../../requests/Auth";
+import { getUser } from "../../../core/AuthHelpers";
+import { toast, ToastContainer } from "react-toastify";
 let media = window.screen.width < 600;
 
 const customStyles = {
@@ -37,12 +40,24 @@ function JobModal({ isOpen, closeModal, applied, job }) {
       document.body.style.overflow = "unset";
     }
   }, [isOpen]);
-  console.log(job);
+  const applyToJob = async () => {
+    try {
+      const user = getUser();
+      const apply = await updateAppliedjobs(job.id, { userId: user.id });
+      apply && toast.success("Applied");
+    } catch (e) {
+      console.log(e);
+      toast.error(e.response.data.message);
+    }
+    setIsApplyConfirm(false);
+  };
   return (
     <>
+      <ToastContainer />
       <ApplyConfirmModal
         isOpen={isApplyConfirm}
         closeModal={() => setIsApplyConfirm(false)}
+        applyToJob={applyToJob}
       />
       <Modal
         isOpen={isOpen}
@@ -68,7 +83,7 @@ function JobModal({ isOpen, closeModal, applied, job }) {
                 {job && job.title} <br /> 3 Days ago{" "}
                 <img src={dot} height={5} alt="header-logo" />
                 {job && job.applied_candidates?.length
-                  ? job.applied_candidates.length
+                  ? job.applied_candidates.length +"Applicants"
                   : "Be the first to apply"}
               </p>
             </div>
