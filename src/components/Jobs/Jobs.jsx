@@ -5,19 +5,55 @@ import TodoCard from "../Shared/Todo/TodoCard";
 
 import google from "../../assets/images/social/google.png";
 import post from "../../assets/images/jobs/post.png";
-import searchIcon from '../../assets/images/icons/search.png'
+import searchIcon from "../../assets/images/icons/search.png";
 
 import save from "../../assets/images/icons/save.png";
 import send from "../../assets/images/icons/send.png";
 
 import task from "../../assets/images/icons/task.svg";
-import notification from "../../assets/images/icons/notification.svg";
+import notificationIcon from "../../assets/images/icons/notification.svg";
 import NotificationCard from "../Shared/Notification/NotificationCard";
 import profile from "../../assets/images/icons/profile.png";
 import JobModal from "../Shared/JobModal/Jobmodal";
 import Comments from "../Shared/Comments";
 
+import { useState } from "react";
+import { useEffect } from "react";
+import { getAppliedJobs, getSavedJobs } from "../../requests/Auth";
+import { getJobsInfo, getUser } from "../../core/AuthHelpers";
+import JobPost from "./JobPost";
+import SavedJobsCard from "./SavedJobsCard";
+
 function Jobs() {
+  const [modalIsOpen, setIsOpen] = React.useState(false);
+  const [notification, setNotification] = useState([]);
+  const [jobs, setJobs] = useState();
+  const [savedJobs, setSavedJobs] = useState();
+  const [user, setUser] = useState(getUser());
+  useEffect(() => {
+    if (window.location.pathname == "/jobs") {
+      setJobs(getJobsInfo());
+    }
+    if (window.location.pathname == "/applied-jobs") {
+      const appliedJobs = async () => {
+        const jobsInfo = await getAppliedJobs(user.id);
+        jobsInfo && setJobs(jobsInfo.data.data.rows);
+      };
+
+      appliedJobs();
+    }
+    if (window.location.pathname == "/saved-jobs") {
+      const savedJobs = async () => {
+        const jobsInfo = await getSavedJobs(user.id);
+        if (jobsInfo) {
+          setSavedJobs(jobsInfo.data.data.rows);
+          setJobs(jobsInfo.data.data.rows);
+        }
+      };
+
+      savedJobs();
+    }
+  }, [window.location.pathname]);
   let media = window.screen.width < 600;
   const data = [
     { task: "Update profile", tag: "To find you" },
@@ -30,7 +66,17 @@ function Jobs() {
     { task: "Update profile", tag: "To find you" },
   ];
 
-  const notifi = ["Profile completion pending sxsxsxsxsxsxsx", "Profile completion pending","Profile completion pending","Google job application approved", "Todo tasks are added"]
+  // const notification = [
+  //   "Profile completion pending sxsxsxsxsxsxsx",
+  //   "Profile completion pending",
+  //   "Profile completion pending",
+  //   "Google job application approved",
+  //   "Todo tasks are added",
+  // ];
+
+  const openModal = () => {
+    setIsOpen(true);
+  };
 
   return (
     <>
@@ -82,7 +128,7 @@ function Jobs() {
                   width: "100%",
                 }}
               >
-                <h3 style={{ color: "#5C5B5B" }}>Profile Complition</h3>
+                <h3 style={{ color: "#5C5B5B" }}>Profile Completion</h3>
                 <h3>50%</h3>
               </div>
               <div
@@ -130,13 +176,7 @@ function Jobs() {
                 />{" "}
                 <h2 style={{ fontSize: "18px" }}>Saved Jobs </h2>
               </div>
-              <SavedJobsCard />
-              <SavedJobsCard />
-              <SavedJobsCard />
-              <SavedJobsCard />
-              <SavedJobsCard />
-              <SavedJobsCard />
-              <SavedJobsCard />
+              <SavedJobsCard jobs={savedJobs} />
             </div>
           </div>
 
@@ -177,39 +217,37 @@ function Jobs() {
                 >
                   Job title or Company
                 </p>
-                <div style={{
+                <div
+                  style={{
                     width: "100%",
                     height: "30px",
                     marginTop: ".75rem",
                     backgroundColor: "#F2F3F7",
                     outline: "none",
                     paddingLeft: "10px",
-                    display:"flex",
+                    display: "flex",
                     border: "none",
-                    alignItems:"center",
+                    alignItems: "center",
                     borderRadius: "10px",
                     paddingRight: "10px",
+                  }}
+                >
+                  <input
+                    style={{
+                      width: "100%",
+                      height: "100%",
+                      backgroundColor: "#F2F3F7",
+                      outline: "none",
 
-                  }}>
-                <input
-                style={{
-                  width: "100%",
-                  height: "100%",
-                  backgroundColor: "#F2F3F7",
-                  outline: "none",
-                  
-                  display:"flex",
-                  border: "none",
-                  // borderRadius: "10px",
-                }}
-                
-                  placeholder="Web developer"
-                  type="text"
-                  
-                />
-                <img height="80%" src={searchIcon} alt="search-icon"/>
+                      display: "flex",
+                      border: "none",
+                      // borderRadius: "10px",
+                    }}
+                    placeholder="Web developer"
+                    type="text"
+                  />
+                  <img height="80%" src={searchIcon} alt="search-icon" />
                 </div>
-                
               </div>
               <div
                 className=""
@@ -227,7 +265,8 @@ function Jobs() {
                 >
                   City or State
                 </p>
-                <div style={{
+                <div
+                  style={{
                     width: "100%",
                     height: "30px",
                     marginTop: ".75rem",
@@ -236,36 +275,31 @@ function Jobs() {
                     paddingLeft: "10px",
                     paddingRight: "10px",
 
-                    display:"flex",
+                    display: "flex",
                     border: "none",
-                    alignItems:"center",
+                    alignItems: "center",
                     borderRadius: "10px",
-                    
-                  }}>
-                <input
-                style={{
-                  width: "100%",
-                  height: "100%",
-                  backgroundColor: "#F2F3F7",
-                  outline: "none",
-                  
-                  display:"flex",
-                  border: "none",
-                  // borderRadius: "10px",
-                }}
-                
-                  placeholder="Delhi"
-                  type="text"
-                  
-                />
-                <img height="80%" src={searchIcon} alt="search-icon"/>
+                  }}
+                >
+                  <input
+                    style={{
+                      width: "100%",
+                      height: "100%",
+                      backgroundColor: "#F2F3F7",
+                      outline: "none",
+
+                      display: "flex",
+                      border: "none",
+                      // borderRadius: "10px",
+                    }}
+                    placeholder="Delhi"
+                    type="text"
+                  />
+                  <img height="80%" src={searchIcon} alt="search-icon" />
                 </div>
               </div>
             </div>
-            <JobPost />
-            <JobPost />
-            <JobPost />
-            <JobPost />
+            <JobPost setIsOpen={setIsOpen} jobs={jobs} />
           </div>
 
           <div
@@ -283,18 +317,23 @@ function Jobs() {
             >
               <h3 className="new-jobs-head">Notification</h3>
               <div className="new-notification-cards-cont">
-              {notifi.length > 0 ?
-                    notifi.map((e, k) => {
-                        return <NotificationCard key={k} message={e} />;
-
-                    })
-                    :
-                    <>
-                    <img width="50%" style={{alignSelf:"center"}} src={notification} alt="notification" />
-                    <p style={{ alignSelf: "center",paddingTop:"15px" }}>No notification</p>
-
-                    </>
-                }
+                {notification.length > 0 ? (
+                  notification.map((e, k) => {
+                    return <NotificationCard key={k} message={e} />;
+                  })
+                ) : (
+                  <>
+                    <img
+                      width="50%"
+                      style={{ alignSelf: "center" }}
+                      src={notificationIcon}
+                      alt="notification"
+                    />
+                    <p style={{ alignSelf: "center", paddingTop: "15px" }}>
+                      No notification
+                    </p>
+                  </>
+                )}
               </div>
             </div>
 
@@ -314,15 +353,33 @@ function Jobs() {
               <h3 className="new-jobs-head">Todo</h3>
               <p className="todo-sub-heading">Check your life, not boxes</p>
               <div className="todo-cards-cont">
-              {data.length > 0 ?data.map((elem, index) => {
-                  return <TodoCard data={elem} key={index} index={index} />;
-                }) : 
-                <>
-                    <img style={{position:"absolute" , alignSelf:"center",top:"40%"}} width="50%" src={task} alt="task" />
-                    <p style={{alignSelf:"center",position:"absolute",top:"70%"}}>No tasks are pending</p>
-
-                </>
-                }
+                {data.length > 0 ? (
+                  data.map((elem, index) => {
+                    return <TodoCard data={elem} key={index} index={index} />;
+                  })
+                ) : (
+                  <>
+                    <img
+                      style={{
+                        position: "absolute",
+                        alignSelf: "center",
+                        top: "40%",
+                      }}
+                      width="50%"
+                      src={task}
+                      alt="task"
+                    />
+                    <p
+                      style={{
+                        alignSelf: "center",
+                        position: "absolute",
+                        top: "70%",
+                      }}
+                    >
+                      No tasks are pending
+                    </p>
+                  </>
+                )}
               </div>
             </div>
           </div>
@@ -333,145 +390,3 @@ function Jobs() {
 }
 
 export default Jobs;
-
-const SavedJobsCard = () => {
-  const [modalIsOpen, setIsOpen] = React.useState(false);
-
-  return (
-    <>
-      <JobModal closeModal={() => setIsOpen(false)} applied={false} isOpen={modalIsOpen} />
-      <div
-        style={{
-          width: "100%",
-          height: "110px",
-          borderRadius: "20px",
-          boxShadow:
-            "0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1)",
-          padding: "10px 15px",
-          display: "flex",
-        }}
-      >
-        <div
-          style={{
-            height: "100%",
-            width: "50%",
-            display: "flex",
-            flexDirection: "column",
-            gap: "10px",
-          }}
-        >
-          <h2 style={{ fontWeight: "600", fontSize: "16px" }}>Facebook</h2>
-          <h4 style={{ fontWeight: "400", color: "#5C5B5B", fontSize: "15px" ,whiteSpace:"nowrap"}}>
-            Mern Stack Developer
-          </h4>
-          <h4 style={{ fontWeight: "400", color: "#5C5B5B", fontSize: "13px",whiteSpace:"nowrap" }}>
-            3 days ago &nbsp; 13 Applied
-          </h4>
-        </div>
-        <div
-          style={{
-            height: "100%",
-            width: "50%",
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "space-around",
-            alignItems: "end",
-          }}
-        >
-          <h4 style={{ fontWeight: "400", color: "#5C5B5B", fontSize: "13px" }}>
-            Singapore
-          </h4>
-          <h4
-            style={{ color: "#3B6FB1", fontSize: "14px", cursor: "pointer" }}
-            onClick={() => setIsOpen(true)}
-          >
-            VIEW DETAILS
-          </h4>
-        </div>
-      </div>
-    </>
-  );
-};
-
-const JobPost = () => {
-  const [modalIsOpen, setIsOpen] = React.useState(false);
-
-  return (
-    <>
-      <JobModal closeModal={() => setIsOpen(false)} isOpen={modalIsOpen} />
-
-      <div
-        style={{ width: "90%", borderRadius: "10px", backgroundColor: "#fff" }}
-      >
-        <div className="job-card-cont" style={{ padding: "3% 5%" }}>
-          <img
-            className="newjob-company-logo"
-            src={google}
-            alt="company-logo"
-          />
-          <div className="new-job-company-description">
-            <span className="new-job-company-heading">Google</span>
-            <div className="new-job-company-desc-div">
-              <span className="new-job-company-post">Full Stack Developer</span>
-              <div className="new-job-time-of-upload">
-                <span>3 days ago</span>
-                <span className="dot-job-post"></span>
-                <span>13 Applied</span>
-              </div>
-            </div>
-          </div>
-          <div className="new-job-company-extra-detail">
-            <span>Singapore</span>
-            <span
-              onClick={() => setIsOpen(true)}
-              className="new-job-view-deatil-tag"
-            >
-              VIEW DETAILS
-            </span>
-          </div>
-        </div>
-        <img src={post} style={{ width: "100%" }} alt="" />
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "center",
-            padding: "3% 5%",
-          }}
-        >
-          <div style={{ display: "flex", gap: "20px" }}>
-            <div style={{ height: "30px", width: "30px" }}>
-              <i
-                style={{ fontSize: "25px", cursor: "pointer" }}
-                class="fa fa-bookmark"
-                aria-hidden="true"
-              ></i>
-            </div>
-            <div style={{ height: "30px", width: "30px" }}>
-              <i
-                style={{ fontSize: "25px", cursor: "pointer" }}
-                class="fa fa-paper-plane"
-                aria-hidden="true"
-              ></i>
-            </div>
-          </div>
-          <button
-            style={{
-              width: "120px",
-              height: "45px",
-              borderRadius: "10px",
-              backgroundColor: "#FECF34",
-              outline: "none",
-              border: "none",
-            }}
-            onClick={() => setIsOpen(true)}
-          >
-            Apply Now
-          </button>
-
-          {/* <span style={{ width: '120px', height: '45px',display:'flex', color:"black",fontWeight:500,justifyContent:"center",alignItems:"center"}} >Applied</span> */}
-        </div>
-      </div>
-    </>
-  );
-};
