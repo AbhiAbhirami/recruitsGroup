@@ -233,7 +233,8 @@
 }
 .profile-img-tag {
   width: 30%;
-  
+  width: 44px;
+  height: 44px;
 border-radius: 10px;
   object-fit: contain;
 }
@@ -398,6 +399,11 @@ border-radius: 10px;
 
 .welcome-name-tag {
   font-size: 15px;
+  white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 70px;
+    text-align: start;
 }
 //backgoundDesign css
 
