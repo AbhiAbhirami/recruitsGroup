@@ -298,11 +298,13 @@
     }
 }
 
-@media (min-width:600px) and (max-width:800px) {
+@media (min-width:600px) and (max-width:850px) {
     .slides {
         height: 50vh;
     }
-
+    .slide-image{
+        height: 30%;
+    }
     .slider-container {
         /* height: 50vh; */
     }
