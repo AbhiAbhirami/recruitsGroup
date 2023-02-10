@@ -11,7 +11,11 @@ import {
 import { toast, ToastContainer } from "react-toastify";
 import { deleteDocument, updateUserDocument } from "../../../requests/Auth";
 import { useState } from "react";
-import ConfirmModal from "./confirmModal";
+import ConfirmModal from "./ConfirmModal";
+import { HiOutlinePencil } from "react-icons/hi"
+import EducationModal from "./EducationModal";
+import SkillsModal from "./SkillsModal";
+import CareerModal from "./CareerModal";
 
 function PersonalDetails({
   setIsOpen,
@@ -76,8 +80,41 @@ function PersonalDetails({
     setConfirmModal({ status: false, id: "" })
   }
 
+  const [educationModal, setEducationModal] = useState({
+    status: false,
+    data: {} //for update education modal, pass current data to the modal
+  })
+
+  const [skillsModal, setSkillsModal] = useState({
+    status: false,
+    data: []
+  })
+
+  const skills = [
+    'Sql Ui',
+    "Project Management",
+    'Microsoft',
+    "Crm",
+    "Sales",
+    "Excel",
+    "Data Visualization",
+    "Project Management",
+    'Microsoft',
+    "Crm",
+    "Sales",
+    "Excel",
+    "Data Visualization",
+  ]
+
+  const [careerModal, setCareerModal] = useState({
+    status: false,
+    data: {}
+  })
+
+
   return (
     <Fragment>
+
       <ConfirmModal
         labelId={confirmModal?.id}
         isOpen={confirmModal?.status}
@@ -289,10 +326,82 @@ function PersonalDetails({
         </div>
       )}
       {sideTab === 3 && (
-        <div className="profile-section-personal-detail-right"></div>
+        <>
+          <SkillsModal
+            isOpen={skillsModal?.status}
+            closeModal={() => setSkillsModal({ status: false, data: [] })}
+            currentData={skillsModal?.data}
+          />
+          <div className="profile-section-personal-detail-right">
+            <div className="profile-section-personal-resume profile-skills mt-0">
+              <div className="personal-detail-title skills-heading">
+                <h4>Key Skills</h4>
+                <HiOutlinePencil
+                  onClick={() => setSkillsModal({ status: true, data: skills })} />
+              </div>
+              <div className="px-3 skills-list ">
+                {skills?.map((item, key) => (
+                  <button key={key}>
+                    {item}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+          </div>
+        </>
+
       )}
       {sideTab === 4 && (
-        <div className="profile-section-personal-detail-right"></div>
+        <>
+          <EducationModal
+            isOpen={educationModal?.status}
+            closeModal={() => setEducationModal({ status: false, data: {} })}
+            currentData={educationModal?.data}
+          />
+          <div className="profile-section-personal-detail-right">
+            <div className="profile-section-personal-resume profile-education mt-0">
+              <div className="personal-detail-title education-heading">
+                <h4>Education</h4>
+                <button to={'#'} onClick={() => setEducationModal({ status: true })} >ADD EDUCATION</button>
+              </div>
+
+              <div className="px-3 profile-education-details">
+                <div>
+                  <h4>B. Tech/B.E. Computers</h4>
+                  <p className="text-muted">MEA ENGINEERING COLLEGE</p>
+                  <p className="text-muted">2018-2022 • Full Time</p>
+                </div>
+                <HiOutlinePencil onClick={() => setEducationModal({
+                  status: true, data: {
+                    education: "b.tech"
+                  }
+                })} />
+              </div>
+              <div className="px-3 profile-education-details">
+                <div>
+                  <h4>B. Tech/B.E. Computers</h4>
+                  <p className="text-muted">MEA ENGINEERING COLLEGE</p>
+                  <p className="text-muted">2018-2022 • Full Time</p>
+                </div>
+                <HiOutlinePencil />
+              </div>
+              <div className="px-3 profile-education-details">
+                <div>
+                  <h4>B. Tech/B.E. Computers</h4>
+                  <p className="text-muted">MEA ENGINEERING COLLEGE</p>
+                  <p className="text-muted">2018-2022 • Full Time</p>
+                </div>
+                <HiOutlinePencil />
+              </div>
+              <div className="px-3">
+                <button className="mb-2">Add Doctorate/PhD</button> <br />
+                <button className="mb-2">Add Masters/Post-Graduation</button>
+              </div>
+            </div>
+          </div>
+        </>
+
       )}
       {sideTab === 5 && (
         <div className="profile-section-personal-detail-right"></div>
@@ -301,7 +410,87 @@ function PersonalDetails({
         <div className="profile-section-personal-detail-right"></div>
       )}
       {sideTab === 7 && (
-        <div className="profile-section-personal-detail-right"></div>
+        <>
+          <CareerModal
+            isOpen={careerModal?.status}
+            closeModal={() => setCareerModal({ status: false, data: {} })}
+            currentData={careerModal?.data}
+          />
+          <div className="profile-section-personal-detail-right">
+
+            <div className="profile-section-personal-resume profile-career mt-0">
+              <div className="personal-detail-title career-heading">
+                <h4>Career Profile</h4>
+                <HiOutlinePencil
+                  style={{ cursor: "pointer" }}
+                  onClick={() => setCareerModal({ status: true, data: skills })} />
+              </div>
+              <div>
+                <p className="text-muted career-info">This information will help the recruiters and Naukri know about your current job profile and also your desired job criteria.
+                  This will also help us personalize your job recommendations.</p>
+              </div>
+              <div className="career-list">
+                <div>
+                  <p className="title">Current Industry</p>
+                  <p className="value">IT Services & Consulting</p>
+                </div>
+                <div>
+                  <p className="title">Department</p>
+                  <p className="value">Data Science & Analytics</p>
+                </div>
+                <div>
+                  <p className="title">Role Category</p>
+                  <p className="value">Data Science & Analytics - Other</p>
+                </div>
+                <div>
+                  <p className="title">Job Role</p>
+                  <p className="value">Data Science & Analytics - Other</p>
+                </div>
+                <div>
+                  <p className="title">Desired Job Type</p>
+                  <p >
+                    <button>
+                      Add Desired Job Type
+                    </button>
+                  </p>
+                </div>
+                <div>
+                  <p className="title">Desired Employment Type</p>
+                  <p >
+                    <button>
+                      Add Desired Employment Type
+                    </button>
+                  </p>
+                </div>
+                <div>
+                  <p className="title">Preferred Shift</p>
+                  <p >
+                    <button>
+                      Add Preferred Shift
+                    </button>
+                  </p>
+                </div>
+                <div>
+                  <p className="title">Preferred Work Location</p>
+                  <p >
+                    <button>
+                      Add Preferred Work Location
+                    </button>
+                  </p>
+                </div>
+                <div>
+                  <p className="title">Expected Salary</p>
+                  <p >
+                    <button>
+                      Add Expected Salary
+                    </button>
+                  </p>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </>
       )}
     </Fragment>
   );

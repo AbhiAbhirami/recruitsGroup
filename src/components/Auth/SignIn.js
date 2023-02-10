@@ -73,6 +73,7 @@ function SignIn() {
               </Link>
             </p>
           </div>
+
           {/* <div className="login-wrapper"> */}
           <div className="right-signup-div2">
             <h3 className="signup-header">Hello Again!</h3>
@@ -154,6 +155,7 @@ function SignIn() {
               {/* >>>>>>> reusable */}
             </div>
           </form>
+
           <SignInOptions />
           {/* </div> */}
         </div>
