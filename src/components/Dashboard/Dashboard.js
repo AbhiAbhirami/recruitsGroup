@@ -80,11 +80,10 @@ function Dashboard() {
           style={{ backgroundColor: "#F2F2F2", overflow: "hidden" }}
         >
           <Row className="dashboard-cards mt-4">
-            <Col className="col-xl-3 col-sm-6 sm:mb-20">
+            <Col className="col-xl-3 col-sm-6 sm:mb-20 md:mb-10">
               <Card className="dashboard-card card-1 shiny-effect">
                 <CardBody className="d-flex align-items-center p-4">
                   <img src={cardIcon1} height={50} />
-
                   <div className="ms-auto text-end text-white">
                     <p className="fs-18 text-white mb-1">Interview Schedule</p>
                     <h1 className="text-white mb-0">87</h1>
@@ -92,7 +91,7 @@ function Dashboard() {
                 </CardBody>
               </Card>
             </Col>
-            <Col className="col-xl-3 col-sm-6 sm:mb-20">
+            <Col className="col-xl-3 col-sm-6 sm:mb-20 md:mb-10">
               <Card className="dashboard-card card-2 shiny-effect">
                 <CardBody className="d-flex align-items-center p-4">
                   <img src={cardIcon2} height={50} />
@@ -104,7 +103,7 @@ function Dashboard() {
                 </CardBody>
               </Card>
             </Col>
-            <Col className="col-xl-3 col-sm-6 sm:mb-20">
+            <Col className="col-xl-3 col-sm-6 sm:mb-20 md:mb-10">
               <Card className="dashboard-card card-3 shiny-effect">
                 <CardBody className="d-flex align-items-center p-4">
                   <img src={cardIcon3} height={50} />
@@ -115,7 +114,7 @@ function Dashboard() {
                 </CardBody>
               </Card>
             </Col>
-            <Col className="col-xl-3 col-sm-6 sm:mb-20">
+            <Col className="col-xl-3 col-sm-6 sm:mb-20 md:mb-10">
               <Card className="dashboard-card card-4 shiny-effect">
                 <CardBody className="d-flex align-items-center p-4">
                   <img src={cardIcon4} height={50} />
@@ -130,7 +129,7 @@ function Dashboard() {
           </Row>
 
           <Row className="mt-4 px-2 mb-5 ">
-            <Col lg={3} className="p-0 pe-3 sm:mb-60">
+            <Col lg={3} className="lg:pe-3 sm:mb-60 md:mb-60 md:p-0">
               <Card className="personal-card p-3 position-relative">
                 <CardBody>
                   <div className="card-head text-center">
@@ -215,7 +214,7 @@ function Dashboard() {
                 </CardBody>
               </Card>
             </Col>
-            <Col lg={9} className="dashboard-chart sm:pl-0">
+            <Col lg={9} className="dashboard-chart sm:pl-0 ">
               <Card className="mb-4 ">
                 <CardBody>
                   <div
