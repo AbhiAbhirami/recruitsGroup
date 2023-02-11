@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { toast, ToastContainer } from "react-toastify";
 import save from "../../assets/images/icons/save.png";
 import send from "../../assets/images/icons/send.png";
@@ -15,6 +15,10 @@ const JobPost = ({ jobs }) => {
     setOpen(true);
     setJob(item);
   };
+
+  useEffect(() => {
+    setIsCommentOpen(false);
+  }, [window.location.pathname]);
 
   const getDayPosted = (item) => {
     const today = new Date();
@@ -163,7 +167,9 @@ const JobPost = ({ jobs }) => {
                       </button>
                     )}
                   </div>
-                  <Comments isOpen={isCommentOpen} />
+                  {window.location.pathname == "/applied-jobs" && (
+                    <Comments isOpen={isCommentOpen} />
+                  )}
                 </>
               );
             })

@@ -110,16 +110,8 @@ export function getJobs() {
   return axios.get(GET_ALL_JOBS);
 }
 
-export function getAppliedJobs(id) {
-  return axios.get(APPLIED_JOBS + "/" + id);
-}
-
 export function updateAppliedjobs(id, userId) {
   return axios.put(APPLIED_JOBS + "/" + id, userId);
-}
-
-export function getSavedJobs(id) {
-  return axios.get(SAVED_JOBS + "/" + id);
 }
 
 export function updateSavedjobs(id, userId) {

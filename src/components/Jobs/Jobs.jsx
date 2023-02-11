@@ -22,8 +22,9 @@ import SavedJobsCard from "./SavedJobsCard";
 function Jobs() {
   const [modalIsOpen, setIsOpen] = React.useState(false);
   const [notification, setNotification] = useState([]);
-  const [jobs, setJobs] = useState();
+  const [jobs, setJobs] = useState(getJobsInfo());
   const [savedJobsData, setSavedJobs] = useState();
+  const [appliedJobsData, setAppliedJobs] = useState();
   const [user, setUser] = useState(getUser());
   const [loading, setLoading] = React.useState(false);
 
@@ -41,32 +42,30 @@ function Jobs() {
     } else {
       loadData();
     }
+    const getSavedJobsDetails = () => {
+      const saved = jobs.filter((item) =>
+        user.saved_jobs.includes(item.id.toString())
+      );
+
+      setSavedJobs(saved);
+    };
+    const getAppliedJobsDetails = () => {
+      const applied = jobs.filter((item) =>
+        user.applied_jobs.includes(item.id.toString())
+      );
+      setAppliedJobs(applied);
+    };
     if (window.location.pathname == "/jobs") {
-      !jobs ? setLoading(true) : setLoading(false);
-      setJobs(getJobsInfo());
+      getSavedJobsDetails();
     }
     if (window.location.pathname == "/applied-jobs") {
-      !jobs ? setLoading(true) : setLoading(false);
-      const appliedJobs = async () => {
-        const jobsInfo = await getAppliedJobs(user.id);
-        jobsInfo && setJobs(jobsInfo.data.data.rows);
-      };
-
-      appliedJobs();
+      getAppliedJobsDetails();
+      getSavedJobsDetails();
     }
     if (window.location.pathname == "/saved-jobs") {
-      !savedJobsData ? setLoading(true) : setLoading(false);
-      const savedJobs = async () => {
-        debugger;
-        const jobsInfo = await getSavedJobs(user.id);
-        if (jobsInfo) {
-          setSavedJobs(jobsInfo.data.data.rows);
-          setJobs(jobsInfo.data.data.rows);
-        }
-      };
-      savedJobs();
+      getSavedJobsDetails();
     }
-  }, [window.location.pathname, savedJobsData, jobs]);
+  }, [window.location.pathname]);
   let media = window.screen.width < 600;
   const data = [
     { task: "Update profile", tag: "To find you" },

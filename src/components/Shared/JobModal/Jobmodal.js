@@ -103,9 +103,13 @@ function JobModal({ isOpen, closeModal, applied, job }) {
           </div>
           <div className="modal-job-details p-30">
             <p>
-              <span>{job && job.title} -</span> {job && job.type}
+              {job && <span>{job.title} -</span>} {job && job.type}
               <br />
-              <Link to={job && job.company_url}>{job && job.company}</Link>
+              {job && (
+                <a href={`https://` + job.company_url} target="_blank">
+                  {job.company}
+                </a>
+              )}
               <br />
               <hr />
               {job && job.location}
@@ -118,10 +122,11 @@ function JobModal({ isOpen, closeModal, applied, job }) {
           <div className="modal-job-full-details p-30">
             <h2>Full job description</h2>
             <div className="details">
-              <p>{job && job.job_description}</p>
+              <p>{job && job.job_description ? job.job_description : "-"}</p>
               <h3>Requirements :</h3>
               <ul className="detail-ul">
                 {job &&
+                  job.requirements.length > 0 &&
                   job.requirements.map((item) => {
                     return <li>{item}</li>;
                   })}
@@ -129,6 +134,7 @@ function JobModal({ isOpen, closeModal, applied, job }) {
               <h3>Qualifications:</h3>
               <ul className="detail-ul">
                 {job &&
+                  job.qualifications.length > 0 &&
                   job.qualifications.map((item) => {
                     return <li>{item}</li>;
                   })}
