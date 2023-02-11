@@ -10,13 +10,11 @@ import JobModal from "../Shared/JobModal/Jobmodal";
 const JobPost = ({ jobs }) => {
   const [job, setJob] = useState();
   const [open, setOpen] = useState(false);
-  const [modalIsOpen, setIsOpen] = React.useState(false);
   const [isCommentOpen, setIsCommentOpen] = React.useState(false);
   const openModal = (e, item) => {
     setOpen(true);
     setJob(item);
   };
-  console.log(jobs);
 
   const getDayPosted = (item) => {
     const today = new Date();
@@ -28,6 +26,7 @@ const JobPost = ({ jobs }) => {
 
   const saveJob = async (e, item) => {
     try {
+      debugger;
       const user = getUser();
       const saved = await updateSavedjobs(item.id, { userId: user.id });
       saved && toast.success("Saved");
@@ -38,7 +37,7 @@ const JobPost = ({ jobs }) => {
   };
   return (
     <>
-      <ToastContainer />
+      <ToastContainer draggablePercent={60} />
       <JobModal
         closeModal={() => setOpen(false)}
         applied={false}
@@ -52,83 +51,6 @@ const JobPost = ({ jobs }) => {
           ? jobs.map((item) => {
               return (
                 <>
-                  {/* <div className="job-card-cont" style={{ padding: "3% 5%" }}>
-                    <img
-                      className="newjob-company-logo"
-                      src={item.logo}
-                      alt="company-logo"
-                    />
-                    <div className="new-job-company-description">
-                      <span className="new-job-company-heading"></span>
-                      <div className="new-job-company-desc-div">
-                        <span className="new-job-company-post">
-                          {item.title}
-                        </span>
-                        <div className="new-job-time-of-upload">
-                          <span>{getDayPosted(item.created_on)}</span>
-                          <span className="dot"></span>
-                          <span>
-                            {item.applied_candidates?.length > 0
-                              ? item.applied_candidates.length + " Applicants"
-                              : "No applicants yet"}
-                          </span>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="new-job-company-extra-detail">
-                      <span>{item.location}</span>
-                      <span
-                        className="new-job-view-deatil-tag"
-                        onClick={(e) => openModal(e, item)}
-                      >
-                        VIEW DETAILS
-                      </span>
-                    </div>
-                  </div>
-                  <img
-                    src={item.description_image}
-                    style={{ width: "100%" }}
-                    className="job_description"
-                    alt="job description"
-                    onClick={(e) => openModal(e, item)}
-                  />
-                  <div
-                    style={{
-                      display: "flex",
-                      justifyContent: "space-between",
-                      alignItems: "center",
-                      padding: "3% 5%",
-                    }}
-                  >
-                    <div style={{ display: "flex", gap: "20px" }}>
-                      <div style={{ height: "30px", width: "30px" }}>
-                        <img
-                          style={{ height: "100%", width: "100%" }}
-                          src={save}
-                          alt=""
-                        />
-                      </div>
-                      <div style={{ height: "30px", width: "30px" }}>
-                        <img
-                          style={{ height: "100%", width: "100%" }}
-                          src={send}
-                          alt=""
-                        />
-                      </div>
-                    </div>
-                    <button
-                      style={{
-                        width: "120px",
-                        height: "45px",
-                        borderRadius: "10px",
-                        backgroundColor: "#FECF34",
-                        outline: "none",
-                        border: "none",
-                      }}
-                    >
-                      Apply Now
-                    </button>
-                  </div> */}
                   <div className="job-card-cont" style={{ padding: "3% 5%" }}>
                     <img
                       className="newjob-company-logo"
@@ -157,7 +79,7 @@ const JobPost = ({ jobs }) => {
                     <div className="new-job-company-extra-detail">
                       <span>{item.location}</span>
                       <span
-                        onClick={() => setIsOpen(true)}
+                        onClick={(e) => openModal(e, item)}
                         className="new-job-view-deatil-tag sm:font-size-10"
                       >
                         VIEW DETAILS
@@ -235,6 +157,7 @@ const JobPost = ({ jobs }) => {
                           outline: "none",
                           border: "none",
                         }}
+                        onClick={(e) => openModal(e, item)}
                       >
                         Apply Now
                       </button>

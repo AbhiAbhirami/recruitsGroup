@@ -1,23 +1,17 @@
-import React from "react";
-import { useEffect } from "react";
-import { useState } from "react";
+import React, { useState } from "react";
 import { toast, ToastContainer } from "react-toastify";
 import {
-  setDocuments,
   AUTH_LOCAL_STORAGE_USER_DATA,
-  AUTH_LOCAL_STORAGE_USER_DOCUMENTS,
   getDocuments,
-  setUser,
 } from "../../core/AuthHelpers";
 import { deleteDocument, updateUserDocument } from "../../requests/Auth";
-import Header from "../Shared/Header";
 import DocumentDetails from "./components/DocumentDetails";
 import PersonalDetails from "./components/PersonalDetails";
 import ProfileInfo from "./components/ProfileInfo";
 import SettingsDetails from "./components/SettingsDetails";
 import ProfileUpdate from "./Update/ProfileUpdate";
 
-function ProfilePage({ user }) {
+function ProfilePage({ user, isChanged }) {
   const [modalIsOpen, setIsOpen] = React.useState(false);
   const [tab, setTab] = React.useState("overview");
   const [userId, setUserId] = useState(
@@ -48,6 +42,7 @@ function ProfilePage({ user }) {
 
   const setIsUserUpdated = () => {
     setUpdated(!updated);
+    isChanged();
   };
 
   return (

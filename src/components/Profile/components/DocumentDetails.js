@@ -42,23 +42,23 @@ function DocumentDetails({ user, docs, userUpdated, setIsUserUpdated }) {
     }
   };
 
-  const [confirmModal, setConfirmModal] = useState({ status: false, id: '' })
+  const [confirmModal, setConfirmModal] = useState({ status: false, id: "" });
   const handleModalOpen = (id) => {
-    setConfirmModal({ status: true, id: id })
-  }
+    setConfirmModal({ status: true, id: id });
+  };
 
   const handleFileChange = (e, setState) => {
-    setState()
-    setConfirmModal({ status: false, id: "" })
-  }
+    setState();
+    setConfirmModal({ status: false, id: "" });
+  };
 
   return (
     <Fragment>
+      {confirmModal.status == false && <ToastContainer draggablePercent={60} />}
       <ConfirmModal
         labelId={confirmModal?.id}
         isOpen={confirmModal?.status}
-        closeModal={() => setConfirmModal({ status: false, id: '' })
-        }
+        closeModal={() => setConfirmModal({ status: false, id: "" })}
       />
 
       <div className="profile-section-personal-detail-left document-details-left">
@@ -120,16 +120,16 @@ function DocumentDetails({ user, docs, userUpdated, setIsUserUpdated }) {
             <div className="profile-section-personal-resume-update">
               <div>
                 {documents &&
-                  documents.other_documents &&
-                  documents.other_documents.passport
+                documents.other_documents &&
+                documents.other_documents.passport
                   ? unescape(
-                    documents.other_documents.passport.split("/").pop()
-                  )
+                      documents.other_documents.passport.split("/").pop()
+                    )
                   : "Not Updated"}
               </div>
               {documents &&
-                documents.other_documents &&
-                documents.other_documents.passport ? (
+              documents.other_documents &&
+              documents.other_documents.passport ? (
                 <div className="resume-delete">
                   <a href={documents.other_documents.passport} target="_blank">
                     <img
@@ -161,10 +161,11 @@ function DocumentDetails({ user, docs, userUpdated, setIsUserUpdated }) {
                 placeholder=""
                 style={{ opacity: 0, visibility: "hidden" }}
                 onChange={(e) => handleFileChange(e, () => setDocumentData(e))}
-
               />
-              <label className="button" htmlFor="resume-updat"
-                onClick={() => handleModalOpen('resume-update')}
+              <label
+                className="button"
+                htmlFor="resume-updat"
+                onClick={() => handleModalOpen("resume-update")}
               >
                 Add
               </label>
@@ -210,10 +211,14 @@ function DocumentDetails({ user, docs, userUpdated, setIsUserUpdated }) {
                 id="resume-update"
                 placeholder=""
                 style={{ opacity: 0, visibility: "hidden" }}
-                onChange={(e) => handleFileChange(e, () => setFiles(e.target.files))}
+                onChange={(e) =>
+                  handleFileChange(e, () => setFiles(e.target.files))
+                }
               />
-              <label className="button" htmlFor="resume-updat"
-                onClick={() => handleModalOpen('resume-update')}
+              <label
+                className="button"
+                htmlFor="resume-updat"
+                onClick={() => handleModalOpen("resume-update")}
               >
                 Add
               </label>
@@ -251,11 +256,14 @@ function DocumentDetails({ user, docs, userUpdated, setIsUserUpdated }) {
                 id="resume-update"
                 placeholder=""
                 style={{ opacity: 0, visibility: "hidden" }}
-                onChange={(e) => handleFileChange(e, () => setFiles(e.target.files))}
-
+                onChange={(e) =>
+                  handleFileChange(e, () => setFiles(e.target.files))
+                }
               />
-              <label className="button" htmlFor="resume-updat"
-                onClick={() => handleModalOpen('resume-update')}
+              <label
+                className="button"
+                htmlFor="resume-updat"
+                onClick={() => handleModalOpen("resume-update")}
               >
                 Add
               </label>
@@ -278,14 +286,14 @@ function DocumentDetails({ user, docs, userUpdated, setIsUserUpdated }) {
             <div className="profile-section-personal-resume-update">
               <div>
                 {documents &&
-                  documents.other_documents &&
-                  documents.other_documents.ielts
+                documents.other_documents &&
+                documents.other_documents.ielts
                   ? unescape(documents.other_documents.ielts.split("/").pop())
                   : "Not Updated"}
               </div>
               {documents &&
-                documents.other_documents &&
-                documents.other_documents.ielts ? (
+              documents.other_documents &&
+              documents.other_documents.ielts ? (
                 <div className="resume-delete">
                   <a href={documents.other_documents.ielts} target="_blank">
                     <img
@@ -318,8 +326,10 @@ function DocumentDetails({ user, docs, userUpdated, setIsUserUpdated }) {
                 style={{ opacity: 0, visibility: "hidden" }}
                 onChange={(e) => handleFileChange(e, () => setDocumentData(e))}
               />
-              <label className="button" htmlFor="resume-updat"
-                onClick={() => handleModalOpen('resume-update')}
+              <label
+                className="button"
+                htmlFor="resume-updat"
+                onClick={() => handleModalOpen("resume-update")}
               >
                 Add
               </label>
@@ -368,11 +378,14 @@ function DocumentDetails({ user, docs, userUpdated, setIsUserUpdated }) {
                 id="resume-update"
                 placeholder=""
                 style={{ opacity: 0, visibility: "hidden" }}
-                onChange={(e) => handleFileChange(e, () => setFiles(e.target.files))}
+                onChange={(e) =>
+                  handleFileChange(e, () => setFiles(e.target.files))
+                }
               />
-              <label className="button" htmlFor="resume-updat"
-                onClick={() => handleModalOpen('resume-update')}
-
+              <label
+                className="button"
+                htmlFor="resume-updat"
+                onClick={() => handleModalOpen("resume-update")}
               >
                 Add
               </label>

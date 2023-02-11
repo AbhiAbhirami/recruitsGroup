@@ -74,16 +74,8 @@ const AuthInit = ({ children }) => {
       return () => (didRequest.current = true);
     };
 
-    const requestJobs = async () => {
-      const jobs = await getJobs();
-      if (jobs.data?.data?.rows) {
-        authHelper.setJobsInfo(jobs.data.data.rows);
-      }
-    };
-
     if (auth && auth.api_token) {
       requestUser(auth.api_token);
-      requestJobs();
     } else {
       logout();
       setShowSplashScreen(false);

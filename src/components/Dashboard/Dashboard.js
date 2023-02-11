@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 // import BackgroundDesign from "../Shared/BackgroundDesign";
 import Header from "../Shared/Header";
 // import NewJobs from "../Shared/NewJobs/NewJobs";
@@ -21,39 +21,32 @@ import cardIcon3 from "../../assets/images/icons/card-icons-3.png";
 import cardIcon4 from "../../assets/images/icons/card-icons-4.png";
 import activity from "../../assets/images/icons/activity.png";
 import company from "../../assets/images/icons/company.png";
-import profilImage from "../../assets/images/icons/profile2.png";
+import profilImage from "../../assets/images/icons/blank.png";
 import DatePicker from "react-datepicker";
 import { IoMdArrowRoundDown } from "react-icons/io";
-
-import {
-  CircularProgressbarWithChildren,
-  CircularProgressbar,
-} from "react-circular-progressbar";
+import { CircularProgressbarWithChildren } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
 import "react-datepicker/dist/react-datepicker.css";
-
 import VacancyChart from "./ReservationChart";
-import { MdOutlineKeyboardArrowDown } from "react-icons/md";
-import moment from "moment";
+import { getUser } from "../../core/AuthHelpers";
 
 function Dashboard() {
   const percentage = 86;
-
+  const [user, setUser] = useState(getUser);
   const [month, setMonth] = React.useState(Date.now());
-
   const [loading, setLoading] = React.useState(false);
-
   React.useEffect(() => {
     setLoading(true);
+    if (loading) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "unset";
+    }
     const loadData = async () => {
-      await new Promise((r) => setTimeout(r, 2000));
       setLoading(false);
     };
-
-    loadData();
-  }, []);
-
-  console.log(month);
+    user && loadData();
+  }, [loading]);
 
   return (
     <>
@@ -138,12 +131,12 @@ function Dashboard() {
                         value={percentage}
                         styles={progressbarStyle}
                       >
-                        <img src={profilImage} />
+                        <img src={user.avatar ? user.avatar : profilImage} />
                       </CircularProgressbarWithChildren>
                     </div>
                     <div>
-                      <h4 className="mb-0 pb-0">Salih</h4>
-                      <p className="">Programmer</p>
+                      <h4 className="mb-0 pb-0">{user && user.name}</h4>
+                      <p className="">{user && user.position}</p>
                     </div>
                   </div>
 

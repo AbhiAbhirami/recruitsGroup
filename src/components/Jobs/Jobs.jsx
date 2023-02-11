@@ -1,22 +1,17 @@
 import React from "react";
 import BackgroundDesign from "../Shared/BackgroundDesign";
-import Header from "../Shared/Header";
 import TodoCard from "../Shared/Todo/TodoCard";
 
-import google from "../../assets/images/social/google.png";
-import post from "../../assets/images/jobs/post.png";
 import searchIcon from "../../assets/images/icons/search.png";
 
 import save from "../../assets/images/icons/save.png";
-import send from "../../assets/images/icons/send.png";
 
 import task from "../../assets/images/icons/task.svg";
 import notificationIcon from "../../assets/images/icons/notification.svg";
 import NotificationCard from "../Shared/Notification/NotificationCard";
-import profile from "../../assets/images/icons/profile.png";
-import JobModal from "../Shared/JobModal/Jobmodal";
-import Comments from "../Shared/Comments";
+import profile from "../../assets/images/icons/blank.png";
 
+import { Spinner } from "reactstrap";
 import { useState } from "react";
 import { useEffect } from "react";
 import { getAppliedJobs, getSavedJobs } from "../../requests/Auth";
@@ -28,13 +23,30 @@ function Jobs() {
   const [modalIsOpen, setIsOpen] = React.useState(false);
   const [notification, setNotification] = useState([]);
   const [jobs, setJobs] = useState();
-  const [savedJobs, setSavedJobs] = useState();
+  const [savedJobsData, setSavedJobs] = useState();
   const [user, setUser] = useState(getUser());
+  const [loading, setLoading] = React.useState(false);
+
   useEffect(() => {
+    if (loading) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "unset";
+    }
+    const loadData = async () => {
+      setLoading(false);
+    };
+    if (!getJobsInfo() || !user) {
+      setLoading(true);
+    } else {
+      loadData();
+    }
     if (window.location.pathname == "/jobs") {
+      !jobs ? setLoading(true) : setLoading(false);
       setJobs(getJobsInfo());
     }
     if (window.location.pathname == "/applied-jobs") {
+      !jobs ? setLoading(true) : setLoading(false);
       const appliedJobs = async () => {
         const jobsInfo = await getAppliedJobs(user.id);
         jobsInfo && setJobs(jobsInfo.data.data.rows);
@@ -43,17 +55,18 @@ function Jobs() {
       appliedJobs();
     }
     if (window.location.pathname == "/saved-jobs") {
+      !savedJobsData ? setLoading(true) : setLoading(false);
       const savedJobs = async () => {
+        debugger;
         const jobsInfo = await getSavedJobs(user.id);
         if (jobsInfo) {
           setSavedJobs(jobsInfo.data.data.rows);
           setJobs(jobsInfo.data.data.rows);
         }
       };
-
       savedJobs();
     }
-  }, [window.location.pathname]);
+  }, [window.location.pathname, savedJobsData, jobs]);
   let media = window.screen.width < 600;
   const data = [
     { task: "Update profile", tag: "To find you" },
@@ -66,22 +79,21 @@ function Jobs() {
     { task: "Update profile", tag: "To find you" },
   ];
 
-  // const notification = [
-  //   "Profile completion pending sxsxsxsxsxsxsx",
-  //   "Profile completion pending",
-  //   "Profile completion pending",
-  //   "Google job application approved",
-  //   "Todo tasks are added",
-  // ];
-
-  const openModal = () => {
-    setIsOpen(true);
-  };
-
   return (
     <>
       <BackgroundDesign />
 
+      {loading && (
+        <div className="dash-load">
+          {" "}
+          <Spinner
+            animation="border"
+            color="primary"
+            type="grow"
+            className="spinner"
+          />
+        </div>
+      )}
       <div>
         <div className="main-jobs">
           <div
@@ -104,12 +116,12 @@ function Jobs() {
               }}
             >
               <img
-                src={profile}
+                src={user.avatar ? user.avatar : profile}
                 style={{ marginTop: "20px", height: "121px", width: "117px" }}
                 alt=""
               />
-              <span style={{ color: "white" }}>Shahid Afrid T</span>
-              <span style={{ color: "white" }}>Full Stack Developer</span>
+              <span style={{ color: "white" }}>{user && user.name}</span>
+              <span style={{ color: "white" }}>{user && user.position}</span>
             </div>
 
             <div
@@ -176,7 +188,7 @@ function Jobs() {
                 />{" "}
                 <h2 style={{ fontSize: "18px" }}>Saved Jobs </h2>
               </div>
-              <SavedJobsCard jobs={savedJobs} />
+              <SavedJobsCard jobs={savedJobsData} />
             </div>
           </div>
 

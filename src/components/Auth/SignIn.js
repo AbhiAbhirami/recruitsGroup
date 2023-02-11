@@ -2,13 +2,22 @@ import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { Link, useLocation } from "react-router-dom";
 import { useAuth } from "../../core/Auth";
-import { getUserByToken, getUserDocuments, login } from "../../requests/Auth";
+import {
+  getJobs,
+  getUserByToken,
+  getUserDocuments,
+  login,
+} from "../../requests/Auth";
 // import { getUserByToken, login } from "../../requests/demo";
 import { toast, ToastContainer } from "react-toastify";
 
 import Auth from "../Shared/Auth";
 import SignInOptions from "../Shared/SignInOptions";
-import { AUTH_LOCAL_STORAGE_USER_DOCUMENTS } from "../../core/AuthHelpers";
+import {
+  AUTH_LOCAL_STORAGE_USER_DOCUMENTS,
+  setDocuments,
+  setJobsInfo,
+} from "../../core/AuthHelpers";
 
 function SignIn() {
   const [signinPage, setSigninPage] = useState(false);
@@ -38,11 +47,9 @@ function SignIn() {
         toast.success(user.message);
       }
       const docs = await getUserDocuments(user.data.id);
-      docs &&
-        localStorage.setItem(
-          AUTH_LOCAL_STORAGE_USER_DOCUMENTS,
-          JSON.stringify(docs.data.data)
-        );
+      const jobs = await getJobs();
+      docs && setDocuments(docs.data.data);
+      jobs && setJobsInfo(jobs.data.data.rows);
     } catch (error) {
       saveAuth(undefined);
       toast.error(error.response.data.message);
@@ -80,10 +87,7 @@ function SignIn() {
             <p className="signup-para">Discover your dream job here!</p>
           </div>
 
-          <form
-            className="right-signin-div3"
-            onSubmit={handleSubmit(onSubmit)}
-          >
+          <form className="right-signin-div3" onSubmit={handleSubmit(onSubmit)}>
             <div className="form-div">
               <input
                 placeholder="Email"

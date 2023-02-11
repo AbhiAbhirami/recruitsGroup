@@ -11,14 +11,15 @@ import NotificationDropDown from "./NotificationDropDown";
 import Hamburger from "./Hamburger";
 import { Link, useLocation } from "react-router-dom";
 import SearchDropDown from "./SearchDropDown";
+import { getUser } from "../../core/AuthHelpers";
 
-function Header({ user }) {
+function Header({ userData }) {
   const location = useLocation();
   const [isDropdown, setIsDropDown] = useState(false);
   const [isNotifDropdown, setIsNotifDropDown] = useState(false);
   const [isSearchDropdown, setIsSearchDropDown] = useState(false);
-  // const [location.pathname, setlocation.pathname] = useState("");
   const [isNewNotification, setIsNewNotification] = useState(true);
+  const [user, setUser] = useState(getUser);
   const [notification, setNotification] = useState([
     { comment: "commented", new: true },
     { comment: "comment 2", new: false },
@@ -30,7 +31,9 @@ function Header({ user }) {
     if (newNot.length > 0) {
       setIsNewNotification(true);
     }
-  }, []);
+    setUser(getUser);
+  }, [userData]);
+
   const handleOnClickOutside = (e) => {
     if (e.target.className === "dropdown-modal") {
       setIsDropDown(false);
@@ -52,11 +55,11 @@ function Header({ user }) {
         style={
           isDropdown | isHamburger | isNotifDropdown | isSearchDropdown
             ? {
-              width: "100%",
-              height: "100vh",
-              zIndex: 10,
-              position: "absolute",
-            }
+                width: "100%",
+                height: "100vh",
+                zIndex: 10,
+                position: "absolute",
+              }
             : { display: "none" }
         }
       ></div>

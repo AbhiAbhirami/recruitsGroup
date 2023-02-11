@@ -53,7 +53,8 @@ function JobModal({ isOpen, closeModal, applied, job }) {
   };
   return (
     <>
-      <ToastContainer />
+      <ToastContainer draggablePercent={60} />
+
       <ApplyConfirmModal
         isOpen={isApplyConfirm}
         closeModal={() => setIsApplyConfirm(false)}
@@ -83,7 +84,7 @@ function JobModal({ isOpen, closeModal, applied, job }) {
                 {job && job.title} <br /> 3 Days ago{" "}
                 <img src={dot} height={5} alt="header-logo" />
                 {job && job.applied_candidates?.length
-                  ? job.applied_candidates.length +"Applicants"
+                  ? job.applied_candidates.length + "Applicants"
                   : "Be the first to apply"}
               </p>
             </div>
@@ -155,7 +156,7 @@ function JobModal({ isOpen, closeModal, applied, job }) {
               <img src={send} height={30} alt="" />
               <img src={bookmark} height={30} alt="" />
             </div>
-            {applied ? (
+            {applied || window.location.pathname == "/applied-jobs" ? (
               <p>Applied</p>
             ) : (
               <button onClick={() => [setIsApplyConfirm(true), closeModal()]}>

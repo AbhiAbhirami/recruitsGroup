@@ -3,6 +3,7 @@ import download from "../../../assets/images/icons/download.png";
 import profilImage from "../../../assets/images/icons/blank.png";
 import { useForm } from "react-hook-form";
 import {
+  deleteDocument,
   deleteUserImage,
   updateUser,
   updateUserDocument,
@@ -18,7 +19,7 @@ import { toast, ToastContainer } from "react-toastify";
 import { useEffect } from "react";
 import { useState } from "react";
 import ConfirmModal from "./ConfirmModal";
-import { HiOutlinePencil } from "react-icons/hi"
+import { HiOutlinePencil } from "react-icons/hi";
 import PhoneVerifyModal from "./PhoneVerifyModal";
 
 function SettingsDetails({
@@ -115,31 +116,43 @@ function SettingsDetails({
     }
   };
 
-  const [confirmModal, setConfirmModal] = useState({ status: false, id: '' })
+  const [confirmModal, setConfirmModal] = useState({ status: false, id: "" });
   const handleModalOpen = (id) => {
-    setConfirmModal({ status: true, id: id })
-  }
+    setConfirmModal({ status: true, id: id });
+  };
 
   const handleFileChange = (e) => {
-    setVideoResume(e)
-    setConfirmModal({ status: false, id: "" })
-  }
+    setVideoResume(e);
+    setConfirmModal({ status: false, id: "" });
+  };
 
   const [verifyModal, setVerifyModal] = useState({
     status: false,
-    data: {}
-  })
+    data: {},
+  });
+
+  const deleteVideo = async (e) => {
+    try {
+      debugger;
+      const documents = await deleteDocument(user.id, e.target.name);
+      setDocuments(documents.data.data);
+      setIsUserUpdated(true);
+      toast.success(documents.data.message);
+    } catch (error) {
+      toast.error(error.response.data.message);
+    }
+  };
 
   return (
     <Fragment>
       <ConfirmModal
         labelId={confirmModal?.id}
         isOpen={confirmModal?.status}
-        closeModal={() => setConfirmModal({ status: false, id: '' })
-        }
+        closeModal={() => setConfirmModal({ status: false, id: "" })}
       />
 
-      <ToastContainer />
+      {confirmModal.status == false && <ToastContainer draggablePercent={60} />}
+
       <div className="profile-section-personal-detail-left document-details-left">
         <div className="personal-detail-title">
           <h4>Settings</h4>
@@ -196,13 +209,14 @@ function SettingsDetails({
         </ul>
       </div>
 
-      {sideTab !== 8 && <div className="profile-section-personal-detail-right">
-        <div className="profile-section-personal-table">
-          <div className="settings-profile-details">
-            <h4>Your Profile Picture</h4>
-            <div className="settings-profile-image-wrap">
-              {/* <div className="settings-profile-image"> */}
-              {/* <img
+      {sideTab !== 8 && (
+        <div className="profile-section-personal-detail-right">
+          <div className="profile-section-personal-table">
+            <div className="settings-profile-details">
+              <h4>Your Profile Picture</h4>
+              <div className="settings-profile-image-wrap">
+                {/* <div className="settings-profile-image"> */}
+                {/* <img
                   src={
                     avatar ? avatar : user.avatar ? user.avatar : profilImage
                   }
@@ -218,114 +232,114 @@ function SettingsDetails({
                 onClick={uploadProfile}
                 text="Upload New"
               /> */}
-              <div className="pic-holder">
-                <img
-                  id="profilePic"
-                  className="pic"
-                  src={avatar ? avatar : profilImage}
-                />
+                <div className="pic-holder">
+                  <img
+                    id="profilePic"
+                    className="pic"
+                    src={avatar ? avatar : profilImage}
+                  />
 
-                <input
-                  required
-                  className="uploadProfileInput"
-                  type="file"
-                  name="profile_pic"
-                  id="newProfilePhoto"
-                  accept="image/*"
-                  onChange={uploadProfile}
-                  hidden
-                />
-                <label for="newProfilePhoto" className="upload-file-block">
-                  <div className="text-center">
-                    <div className="mb-2">
-                      <i
-                        className="fa fa-camera fa-2x"
-                        style={{ marginRight: "10px" }}
-                      ></i>
+                  <input
+                    required
+                    className="uploadProfileInput"
+                    type="file"
+                    name="profile_pic"
+                    id="newProfilePhoto"
+                    accept="image/*"
+                    onChange={uploadProfile}
+                    hidden
+                  />
+                  <label for="newProfilePhoto" className="upload-file-block">
+                    <div className="text-center">
+                      <div className="mb-2">
+                        <i
+                          className="fa fa-camera fa-2x"
+                          style={{ marginRight: "10px" }}
+                        ></i>
+                      </div>
+                      <div className="text-uppercase">
+                        Update <br /> Profile Photo
+                      </div>
                     </div>
-                    <div className="text-uppercase">
-                      Update <br /> Profile Photo
-                    </div>
-                  </div>
-                </label>
+                  </label>
+                  {/* </div> */}
+                </div>
+
+                <button
+                  className="cursor-pointer remove-profile"
+                  onClick={removeImage}
+                >
+                  Remove Profile Picture
+                </button>
                 {/* </div> */}
               </div>
-
-              <button
-                className="cursor-pointer remove-profile"
-                onClick={removeImage}
-              >
-                Remove Profile Picture
-              </button>
-              {/* </div> */}
             </div>
-          </div>
-          <form onSubmit={handleSubmit(onSubmit)} className="settings-input">
-            <label htmlFor="name" className="input-label">
-              Full Name
-            </label>
-            <input
-              className="profile-input"
-              placeholder="Enter your Full Name"
-              label="Full Name"
-              type="text"
-              defaultValue={user.name ? user.name : ""}
-              {...register("name", { required: true })}
-              name="name"
-            />
-            <div>
-              {errors.name && (
-                <span className="validation">{`Name is ${errors.name.type}`}</span>
-              )}
-            </div>
+            <form onSubmit={handleSubmit(onSubmit)} className="settings-input">
+              <label htmlFor="name" className="input-label">
+                Full Name
+              </label>
+              <input
+                className="profile-input"
+                placeholder="Enter your Full Name"
+                label="Full Name"
+                type="text"
+                defaultValue={user.name ? user.name : ""}
+                {...register("name", { required: true })}
+                name="name"
+              />
+              <div>
+                {errors.name && (
+                  <span className="validation">{`Name is ${errors.name.type}`}</span>
+                )}
+              </div>
 
-            <label htmlFor="email" className="input-label">
-              Email
-            </label>
-            <input
-              className="profile-input"
-              placeholder="Enter your Email"
-              type="email"
-              defaultValue={user.email ? user.email : ""}
-              {...register("email", { required: true })}
-              name="email"
-            />
-            <div>
-              {errors.email && (
-                <span className="validation">{`Email is ${errors.email.type}`}</span>
-              )}
-            </div>
+              <label htmlFor="email" className="input-label">
+                Email
+              </label>
+              <input
+                className="profile-input"
+                placeholder="Enter your Email"
+                type="email"
+                defaultValue={user.email ? user.email : ""}
+                {...register("email", { required: true })}
+                name="email"
+              />
+              <div>
+                {errors.email && (
+                  <span className="validation">{`Email is ${errors.email.type}`}</span>
+                )}
+              </div>
 
-            <label htmlFor="phone" className="input-label">
-              Contact Number
-            </label>
-            <input
-              className="profile-input"
-              placeholder="Enter your Contact Number"
-              type="number"
-              defaultValue={user.phone ? user.phone : ""}
-              {...register("phone", { required: true })}
-              name="phone"
-            />
-            <div>
-              {errors.phone && (
-                <span className="validation">{`Contact is ${errors.phone.type}`}</span>
-              )}
-            </div>
+              <label htmlFor="phone" className="input-label">
+                Contact Number
+              </label>
+              <input
+                className="profile-input"
+                placeholder="Enter your Contact Number"
+                type="number"
+                defaultValue={user.phone ? user.phone : ""}
+                {...register("phone", { required: true })}
+                name="phone"
+              />
+              <div>
+                {errors.phone && (
+                  <span className="validation">{`Contact is ${errors.phone.type}`}</span>
+                )}
+              </div>
 
-            <label htmlFor="position" className="input-label">
-              Position
-            </label>
-            <input
-              className="profile-input"
-              placeholder="Enter your Position"
-              type="text"
-              defaultValue={user.position ? user.position : ""}
-              {...register("position")}
-              name="position"
-            />
-          </form>
-          {/* <form onSubmit={""} className="settings-input">
+              <label htmlFor="position" className="input-label">
+                Position
+              </label>
+              <input
+                className="profile-input"
+                placeholder="Enter your Position"
+                type="text"
+                defaultValue={user.position ? user.position : ""}
+                {...register("position")}
+                name="position"
+              />
+            </form>
+            {/* <form onSubmit={""} className="settings-input">
             <ProfileInput
               placeholder="Enter your User Name"
               label="User Name"
@@ -349,106 +363,115 @@ function SettingsDetails({
               type="number"
             />
           </form> */}
-          <div className="profile-section-personal-resume settings">
-            <div className="personal-detail-title">
-              <h4>Upload Video</h4>
-            </div>
+            <div className="profile-section-personal-resume settings">
+              <div className="personal-detail-title">
+                <h4>Upload Video</h4>
+              </div>
 
-            {docs && docs.video_resume ? (
-              <div className="profile-section-personal-resume-update">
-                <div>
-                  {docs.video_resume.split("/").pop()}
-                  {/* <span>
+              {docs && docs.video_resume ? (
+                <div className="profile-section-personal-resume-update">
+                  <div>
+                    {docs.video_resume.split("/").pop()}
+                    {/* <span>
                     Updated on{" "}
                     {files &&
                       moment(files[0]?.lastModified).format("DD-MM-YYYY")}
                   </span> */}
+                  </div>
+                  <div className="resume-delete">
+                    <img
+                      className="cursor-pointer"
+                      src={download}
+                      height={25}
+                      alt="download-icon"
+                    />
+                    <button
+                      className="cursor-pointer"
+                      name="video_resume"
+                      onClick={(e) => deleteVideo(e)}
+                    >
+                      DELETE VIDEO
+                    </button>
+                  </div>
                 </div>
-                <div className="resume-delete">
-                  <img
-                    className="cursor-pointer"
-                    src={download}
-                    height={25}
-                    alt="download-icon"
-                  />
-                  <button className="cursor-pointer">DELETE VIDEO</button>
-                </div>
+              ) : (
+                ""
+              )}
+              <div className="resume-update">
+                <input
+                  accept="video/*"
+                  type={"file"}
+                  id="resume-update"
+                  onChange={handleFileChange}
+                  placeholder=""
+                  style={{ opacity: 0, visibility: "hidden" }}
+                />
+                <label
+                  className="button"
+                  htmlFor="resume-updat"
+                  onClick={() => handleModalOpen("resume-update")}
+                >
+                  UPDATE
+                </label>
+                <p>Supported Formats: doc, docx, rtf, pdf, upto 2 MB</p>
               </div>
-            ) : (
-              ""
-            )}
-            <div className="resume-update">
-              <input
-                accept="video/*"
-                type={"file"}
-                id="resume-update"
-                onChange={handleFileChange}
-                placeholder=""
-                style={{ opacity: 0, visibility: "hidden" }}
-              />
-              <label className="button" htmlFor="resume-updat"
-                onClick={() => handleModalOpen('resume-update')}
-              >
-                UPDATE
-              </label>
-              <p>Supported Formats: doc, docx, rtf, pdf, upto 2 MB</p>
             </div>
           </div>
         </div>
-      </div>}
+      )}
 
-      {sideTab === 8 && <>
-        <PhoneVerifyModal
-          isOpen={verifyModal?.status}
-          closeModal={() => setVerifyModal({ status: false, data: {} })}
-          currentData={verifyModal?.data}
-        />
-        <div className="profile-section-personal-detail-right">
-          <div className="profile-section-personal-table">
-            <div className="settings-profile-details settings-account">
-              <h4>Account Settings</h4>
-              <p style={{ marginBottom: 25 }} className="text-muted">Change your primary email, mobile number or password.</p>
+      {sideTab === 8 && (
+        <>
+          <PhoneVerifyModal
+            isOpen={verifyModal?.status}
+            closeModal={() => setVerifyModal({ status: false, data: {} })}
+            currentData={verifyModal?.data}
+          />
+          <div className="profile-section-personal-detail-right">
+            <div className="profile-section-personal-table">
+              <div className="settings-profile-details settings-account">
+                <h4>Account Settings</h4>
+                <p style={{ marginBottom: 25 }} className="text-muted">
+                  Change your primary email, mobile number or password.
+                </p>
 
-              <h5 >
-                Email Address
-              </h5>
+                <h5>Email Address</h5>
 
-              <div>
-                <p>Primary Email</p>
-                <h6>mohammedsalihak350@gmail.com</h6>
-              </div>
-              <button >
-                Change Email
-              </button>
+                <div>
+                  <p>Primary Email</p>
+                  <h6>mohammedsalihak350@gmail.com</h6>
+                </div>
+                <button>Change Email</button>
 
-              <div>
-                <h5>Mobile number</h5>
-                <div style={{ display: "flex", alignItems: "center", marginBottom: 30 }}>
-                  <p className="mb-0">9947453142</p>
-                  <HiOutlinePencil
-                    color="#509dff"
-                    className="mx-2" />
-                  <button className="mb-0"
-                    onClick={() => setVerifyModal({ status: true })}
+                <div>
+                  <h5>Mobile number</h5>
+                  <div
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      marginBottom: 30,
+                    }}
                   >
-                    Verify
-                  </button>
+                    <p className="mb-0">9947453142</p>
+                    <HiOutlinePencil color="#509dff" className="mx-2" />
+                    <button
+                      className="mb-0"
+                      onClick={() => setVerifyModal({ status: true })}
+                    >
+                      Verify
+                    </button>
+                  </div>
+                </div>
+
+                <div>
+                  <h5>Password</h5>
+                  <button>Change Password</button>
                 </div>
               </div>
-
-              <div>
-                <h5>
-                  Password
-                </h5>
-                <button>
-                  Change Password
-                </button>
-              </div>
             </div>
-
           </div>
-        </div>
-      </>}
+        </>
+      )}
     </Fragment>
   );
 }
