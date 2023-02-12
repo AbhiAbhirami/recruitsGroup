@@ -16,6 +16,8 @@ import { HiOutlinePencil } from "react-icons/hi";
 import EducationModal from "./EducationModal";
 import SkillsModal from "./SkillsModal";
 import CareerModal from "./CareerModal";
+import { AiFillEye } from "react-icons/ai"
+import { FaTrash } from "react-icons/fa"
 
 function PersonalDetails({
   setIsOpen,
@@ -150,7 +152,7 @@ function PersonalDetails({
           >
             Education <button className="cursor-pointer">ADD</button>
           </li>
-          <li
+          {/* <li
             className={sideTab === 5 && "document-details-head"}
             onClick={() => setSideTab(5)}
           >
@@ -161,7 +163,7 @@ function PersonalDetails({
             onClick={() => setSideTab(6)}
           >
             Accomplishments{" "}
-          </li>
+          </li> */}
           <li
             className={sideTab === 7 && "document-details-head"}
             onClick={() => setSideTab(7)}
@@ -253,23 +255,34 @@ function PersonalDetails({
                   </span> */}
               </div>
               {documents && documents.resume ? (
-                <div className="resume-delete">
-                  <a href={documents.resume} target="_blank">
-                    <img
-                      className="cursor-pointer"
-                      src={download}
-                      height={25}
-                      alt="download-icon"
-                    />
+                <div className="resume-delete" style={{ alignItems: "center", flexDirection: "row", justifyContent: "center" }}>
+                  <a href={documents.resume} style={{ lineHeight: 0 }} target="_blank" className="text-muted">
+                    {/* <img
+                    className="cursor-pointer"
+                    src={download}
+                    height={25}
+                    alt="download-icon"
+                  /> */}
+                    <AiFillEye size={'1.4rem'} />
                   </a>
-                  <button
+                  <FaTrash
                     className="cursor-pointer"
                     onClick={() => {
                       deleteResume();
+                    }} size={'1rem'}
+                    style={{
+                      color: "lightcoral",
+                      margin: "0 10px"
                     }}
-                  >
-                    DELETE RESUME
-                  </button>
+                  />
+                  {/* <button
+                  className="cursor-pointer"
+                  onClick={() => {
+                    deleteResume();
+                  }}
+                >
+                  DELETE RESUME
+                </button> */}
                 </div>
               ) : (
                 ""
@@ -306,25 +319,47 @@ function PersonalDetails({
             ) : (
               "Not Updated"
             )} */}
-            <div className="resume-update">
-              <input
-                type={"file"}
-                id="resume-update"
-                onChange={(e) =>
-                  handleFileChange(e, () => setResumeData(e.target.files))
-                }
-                placeholder=""
-                style={{ opacity: 0, visibility: "hidden" }}
-              />
-              <label
-                className="button"
-                htmlFor="resume-updat"
-                onClick={() => handleModalOpen("resume-update")}
-              >
-                UPDATE RESUME
-              </label>
-              <p>Supported Formats: doc, docx, rtf, pdf, upto 2 MB</p>
+            <div className="file-uploader-wrap">
+              <div className="resume-update">
+                <input
+                  type={"file"}
+                  id="resume-update"
+                  onChange={(e) =>
+                    handleFileChange(e, () => setResumeData(e.target.files))
+                  }
+                  placeholder=""
+                  style={{ opacity: 0, visibility: "hidden" }}
+                />
+                <label
+                  className="button"
+                  htmlFor="resume-updat"
+                  onClick={() => handleModalOpen("resume-update")}
+                >
+                  UPDATE RESUME
+                </label>
+                <p>Supported Formats: doc, docx, rtf, pdf, upto 2 MB</p>
+              </div>
+              <div className="resume-update">
+                <input
+                  type={"file"}
+                  id="resume-update"
+                  onChange={(e) =>
+                    handleFileChange(e, () => setResumeData(e.target.files))
+                  }
+                  placeholder=""
+                  style={{ opacity: 0, visibility: "hidden" }}
+                />
+                <label
+                  className="button"
+                  htmlFor="resume-updat"
+                  onClick={() => handleModalOpen("resume-update")}
+                >
+                  UPDATE COVER LETTER
+                </label>
+                <p>Supported Formats: doc, docx, rtf, pdf, upto 2 MB</p>
+              </div>
             </div>
+
           </div>
         </div>
       )}
@@ -404,10 +439,10 @@ function PersonalDetails({
                 </div>
                 <HiOutlinePencil />
               </div>
-              <div className="px-3">
+              {/* <div className="px-3">
                 <button className="mb-2">Add Doctorate/PhD</button> <br />
                 <button className="mb-2">Add Masters/Post-Graduation</button>
-              </div>
+              </div> */}
             </div>
           </div>
         </>

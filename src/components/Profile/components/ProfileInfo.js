@@ -4,7 +4,10 @@ import profilImage from "../../../assets/images/icons/blank.png";
 import flag from "../../../assets/images/icons/flag.png";
 import phone from "../../../assets/images/icons/phone.png";
 import email from "../../../assets/images/icons/mail.png";
-import { getDocuments, getUser } from "../../../core/AuthHelpers";
+import { getDocuments, getUser, setUser } from "../../../core/AuthHelpers";
+import { deleteUserImage, updateUserImage } from "../../../requests/Auth";
+import { toast } from "react-toastify";
+import { MdDelete } from "react-icons/md"
 
 function ProfileInfo({
   setIsUserUpdated,
@@ -20,6 +23,42 @@ function ProfileInfo({
     setUserData(getUser());
     setDocs(getDocuments());
   }, [userUpdated]);
+
+  const [avatar, setAvatar] = useState(userData.avatar);
+
+  const uploadProfile = async (event) => {
+    try {
+      if (event.target.files && event.target.files[0]) {
+        setAvatar(URL.createObjectURL(event.target.files[0]));
+      }
+      const avatar = await updateUserImage(user.id, event.target.files[0]);
+      setUser(avatar.data.data);
+      setIsUserUpdated(true);
+      toast.success(avatar.data.message);
+    } catch (e) {
+      toast.success(e.response.message);
+    }
+  };
+
+  const removeImage = async () => {
+    try {
+      if (user.avatar) {
+        const avatar = await deleteUserImage(user.id);
+        setAvatar("");
+        setUser(avatar.data.data);
+        setIsUserUpdated(true);
+        toast.success(avatar.data.message);
+      } else {
+        toast.error("Profile picture not updated");
+      }
+    } catch (e) {
+      toast.success(e.response.message);
+    }
+  };
+
+
+
+
   return (
     <div>
       <div>
@@ -33,13 +72,55 @@ function ProfileInfo({
       <div className="profileInfo-cont">
         <div className="profileInfo-profile-detail">
           <div className="profileInfo-profile-image">
-            <img
+            {/* <img
               src={user.avatar ? user.avatar : profilImage}
               width={"100%"}
               height={"100%"}
               alt="profile-images"
-            />
+            /> */}
+            <div className="pic-holder" style={{ padding: 0 }}>
+              <img
+                id="profilePic"
+                className="pic"
+                width={"100%"}
+                height={"100%"}
+                src={avatar ? avatar : profilImage}
+              />
+
+              <input
+                required
+                className="uploadProfileInput"
+                type="file"
+                name="profile_pic"
+                id="newProfilePhoto"
+                accept="image/*"
+                onChange={uploadProfile}
+                hidden
+              />
+              <label for="newProfilePhoto" className="upload-file-block">
+                <div className="text-center">
+                  <div className="mb-2">
+                    <i
+                      className="fa fa-camera fa-2x"
+                    ></i>
+                  </div>
+                  <div className="text-uppercase">
+                    Update <br /> Profile Photo
+                  </div>
+                </div>
+              </label>
+
+            </div>
+
+            <button
+              className="cursor-pointer remove-profile remove-profile-new "
+              onClick={removeImage}
+            >
+              <MdDelete className="" size={'1rem'} color={'red'} />
+            </button>
+
           </div>
+
           <div className="profileInfo-profile-detail-text">
             <h4>{user.name}</h4>
             <p>
@@ -73,9 +154,8 @@ function ProfileInfo({
               Overview
             </button>
             <button
-              className={`cursor-pointer ${
-                tab === "documents" ? "active" : ""
-              }`}
+              className={`cursor-pointer ${tab === "documents" ? "active" : ""
+                }`}
               type="button"
               onClick={() => setTab("documents")}
             >

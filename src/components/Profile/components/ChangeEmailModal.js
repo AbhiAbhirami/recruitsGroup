@@ -18,7 +18,7 @@ const customStyles = {
   },
 };
 
-function PhoneVerifyModal({ isOpen, closeModal, confirmClick, currentData }) {
+function ChangeEmailModal({ isOpen, closeModal, confirmClick, currentData }) {
   useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = "hidden";
@@ -61,20 +61,21 @@ function PhoneVerifyModal({ isOpen, closeModal, confirmClick, currentData }) {
                 style={{
                   textAlign: "center",
                   marginBottom: 25,
-
                 }}
               >
                 <h3 style={{
                   fontSize: 18,
-                }} className="text-black">Verify Mobile Number</h3>
+                  marginBottom: 10,
+
+                }} className="text-black">Change Email</h3>
                 <p
                   style={{
                     fontSize: 13,
                     lineHeight: '18px',
                     marginBottom: 5,
                   }}
-                >Enter the OTP sent to mobile number</p>
-                <p>9947453142</p>
+                >Enter the new email </p>
+                <p>{currentData}</p>
               </div>
 
               <div style={{
@@ -83,10 +84,9 @@ function PhoneVerifyModal({ isOpen, closeModal, confirmClick, currentData }) {
                 justifyContent: "center",
                 marginBottom: 10
               }}>
-                <input type={'text'} name="verify" placeholder="Enter OTP" className="verify-input profile-input"
+                <input type={'text'} name="verify" placeholder="Enter New Email" className="verify-input profile-input"
                 />
               </div>
-              <p className="text-center">Your OTP should arrive in 59 Seconds</p>
               <div
                 style={{
                   marginTop: "2rem",
@@ -96,11 +96,10 @@ function PhoneVerifyModal({ isOpen, closeModal, confirmClick, currentData }) {
                 }}
               >
                 <button
-
                   type={'submit'}
                   className="button phone-verify-btn"
                 >
-                  VERIFY
+                  UPDATE
                 </button>
               </div>
             </form>
@@ -112,4 +111,4 @@ function PhoneVerifyModal({ isOpen, closeModal, confirmClick, currentData }) {
   );
 }
 
-export default PhoneVerifyModal;
+export default ChangeEmailModal;

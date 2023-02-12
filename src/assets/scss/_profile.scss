@@ -148,6 +148,7 @@
   box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
   border-radius: 10px;
   padding-bottom: 20px;
+
   .profileInfo-cont {
     justify-content: space-between;
     display: flex;
@@ -163,15 +164,24 @@
       flex: 1;
       margin-top: -5rem;
       .profileInfo-profile-image {
-        height: 180px;
-        width: 180px;
-        border-radius: 50%;
-        object-fit: cover;
-        background-color: #d9d9d9;
-        padding: 5px;
-        img {
-          border-radius: 50%;
+        position: relative;
+        .remove-profile-new {
+          position: absolute;
+          position: absolute;
+          bottom: 0;
+          left: 0;
+          background: transparent;
+          border: none;
         }
+        // height: 180px;
+        // width: 180px;
+        // border-radius: 50%;
+        // object-fit: cover;
+        // background-color: #d9d9d9;
+        // padding: 5px;
+        // img {
+        //   border-radius: 50%;
+        // }
       }
       .profileInfo-profile-detail-text {
         font-size: 16px;
@@ -430,6 +440,14 @@
           }
         }
       }
+      .file-uploader-wrap {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        .resume-update {
+          width: 100%;
+        }
+      }
       .resume-update {
         margin: 3rem;
         height: 140px;
@@ -469,6 +487,7 @@
     }
   }
 }
+
 .modal-close-btn {
   position: absolute;
   top: -8px;
@@ -485,12 +504,12 @@
 }
 .modal-main-wrapper {
   width: 100%;
-  padding: 15px 4rem;
-  overflow-y: scroll;
-  overflow-x: hidden;
-  max-height: 600px;
+  // overflow-y: scroll;
+  // overflow-x: hidden;
+  // max-height: 600px;
   p {
     margin-bottom: 20px;
+    font-size: 16px !important;
   }
   .modal-buttons {
     display: flex;
@@ -578,7 +597,7 @@
 .settings-profile-details {
   display: flex;
   flex-direction: column;
-  padding: 25px 35px;
+  padding: 25px 23px;
   padding-bottom: 10px;
   @media screen and (max-width: 768px) {
     padding: 0 30px;
@@ -902,7 +921,6 @@ button {
   flex-direction: column;
   display: flex;
   align-items: flex-start;
-
   h4 {
     margin-bottom: 5px;
   }
@@ -957,5 +975,16 @@ button {
 @media screen and (max-width: 768px) {
   .signup-main-cont {
     flex-direction: column;
+  }
+}
+.spinner {
+  animation: spin 1s linear infinite;
+}
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
   }
 }
