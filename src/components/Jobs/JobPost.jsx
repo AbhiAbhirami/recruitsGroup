@@ -49,12 +49,12 @@ const JobPost = ({ jobs }) => {
         job={job}
       />
       <div
-        style={{ width: "90%", borderRadius: "10px", backgroundColor: "#fff" }}
+        style={{ width: "95%", borderRadius: "10px", backgroundColor: "#fff",display:"flex",flexDirection:"column",gap:"35px",backgroundColor:"#E5E5E5" }}
       >
         {jobs && jobs.length
           ? jobs.map((item) => {
               return (
-                <>
+                <div style={{display:"flex",flexDirection:"column", backgroundColor:"#FFFFFF",borderRadius:"20px"}}>
                   <div className="job-card-cont" style={{ padding: "3% 5%" }}>
                     <img
                       className="newjob-company-logo"
@@ -170,7 +170,7 @@ const JobPost = ({ jobs }) => {
                   {window.location.pathname == "/applied-jobs" && (
                     <Comments isOpen={isCommentOpen} />
                   )}
-                </>
+                </div>
               );
             })
           : "No Jobs Found"}
