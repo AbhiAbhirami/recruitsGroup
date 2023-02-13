@@ -6,6 +6,8 @@ import { getJobsInfo, getUser } from "../../core/AuthHelpers";
 import { updateSavedjobs } from "../../requests/Auth";
 import Comments from "../Shared/Comments";
 import JobModal from "../Shared/JobModal/Jobmodal";
+import jobsImage from "../../assets/images/icons/jobs.svg";
+
 
 const JobPost = ({ jobs }) => {
   const [job, setJob] = useState();
@@ -173,7 +175,11 @@ const JobPost = ({ jobs }) => {
                 </div>
               );
             })
-          : "No Jobs Found"}
+          : <div style={{height:"50vh",width:"100%",backgroundColor:"white",gap:"10px",display:"flex",flexDirection:"column",justifyContent:"center",alignItems:"center"}}>
+            <img src={jobsImage} width="60%" alt="jobs"/>
+            No job posts are available
+
+            </div>}
       </div>
     </>
   );
