@@ -198,7 +198,7 @@ function Jobs() {
               borderRadius: "20px",
               display: "flex",
               flexDirection: "column",
-              gap: "20px",
+              gap: "10px",
               alignItems: "center",
               paddingTop: "33px",
             }}
