@@ -1,9 +1,7 @@
 import React, { Fragment } from "react";
 import edit from "../../../assets/images/icons/edit.png";
-import download from "../../../assets/images/icons/download.png";
 import { useEffect } from "react";
 import {
-  AUTH_LOCAL_STORAGE_KEY,
   getDocuments,
   getUser,
   setDocuments,
