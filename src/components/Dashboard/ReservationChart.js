@@ -84,7 +84,7 @@ const VacancyChart = () => {
     },
   };
   return (
-    <div id="chart" style={{ maxWidth: "100%" }}>
+    <div id="chart" className="dashboard-chart" style={{ maxWidth: "100%" }}>
       <ReactApexChart
         options={option.options}
         series={option.series}

@@ -16,8 +16,8 @@
   }
   margin-right: 30px;
   @media screen and (max-width: 768px) {
-    height: 70px;
-    width: 110px;
+    height: 100px;
+    width: 100px;
     margin: 0;
   }
 }
@@ -148,6 +148,7 @@
   box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
   border-radius: 10px;
   padding-bottom: 20px;
+
   .profileInfo-cont {
     justify-content: space-between;
     display: flex;
@@ -163,15 +164,24 @@
       flex: 1;
       margin-top: -5rem;
       .profileInfo-profile-image {
-        height: 180px;
-        width: 180px;
-        border-radius: 50%;
-        object-fit: cover;
-        background-color: #d9d9d9;
-        padding: 5px;
-        img {
-          border-radius: 50%;
+        position: relative;
+        .remove-profile-new {
+          position: absolute;
+          position: absolute;
+          bottom: 0;
+          left: 0;
+          background: transparent;
+          border: none;
         }
+        // height: 180px;
+        // width: 180px;
+        // border-radius: 50%;
+        // object-fit: cover;
+        // background-color: #d9d9d9;
+        // padding: 5px;
+        // img {
+        //   border-radius: 50%;
+        // }
       }
       .profileInfo-profile-detail-text {
         font-size: 16px;
@@ -286,6 +296,10 @@
     }
   }
   .profile-section-personal-detail-left {
+    @media screen and (min-width: 768px) {
+      position: sticky;
+      top: 1rem;
+    }
     .personal-details-head {
       padding: 10px;
       border-radius: 10px;
@@ -329,6 +343,9 @@
   }
   .profile-section-personal-detail-right {
     width: 75%;
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+    border-radius: 10px;
+
     @media screen and (max-width: 460px) {
       width: 100%;
       margin-bottom: 20px;
@@ -337,8 +354,8 @@
     margin-left: 15px;
     .profile-section-personal-table {
       background-color: #ffffff;
-      box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
-      border-radius: 10px;
+      // box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+      // border-radius: 10px;
       .personal-detail-title {
         justify-content: space-between;
         padding: 0 3rem;
@@ -375,10 +392,10 @@
       }
     }
     .profile-section-personal-resume {
-      box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+      // box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
       background-color: #ffffff;
       margin-top: 20px;
-      border-radius: 10px;
+      // border-radius: 10px;
       padding-bottom: 10px;
       &.settings {
         box-shadow: none !important;
@@ -430,6 +447,21 @@
           }
         }
       }
+      .file-uploader-wrap {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        @media screen and (max-width: 1024px) {
+          flex-direction: column;
+          padding: 0 45px;
+        }
+        @media screen and (max-width: 460px) {
+          padding: 0 30px;
+        }
+        .resume-update {
+          width: 100%;
+        }
+      }
       .resume-update {
         margin: 3rem;
         height: 140px;
@@ -462,13 +494,14 @@
             padding: 0 1rem;
           }
           .button {
-            width: 260px;
+            width: 200px;
           }
         }
       }
     }
   }
 }
+
 .modal-close-btn {
   position: absolute;
   top: -8px;
@@ -485,12 +518,12 @@
 }
 .modal-main-wrapper {
   width: 100%;
-  padding: 15px 4rem;
-  overflow-y: scroll;
-  overflow-x: hidden;
-  max-height: 600px;
+  // overflow-y: scroll;
+  // overflow-x: hidden;
+  // max-height: 600px;
   p {
     margin-bottom: 20px;
+    font-size: 16px !important;
   }
   .modal-buttons {
     display: flex;
@@ -555,6 +588,10 @@
 }
 
 .document-details-left {
+  a {
+    text-decoration: none;
+    color: #313131;
+  }
   .document-details-head {
     background: rgba(169, 188, 255, 0.25);
     border-radius: 10px;
@@ -578,7 +615,7 @@
 .settings-profile-details {
   display: flex;
   flex-direction: column;
-  padding: 25px 35px;
+  padding: 25px 23px;
   padding-bottom: 10px;
   @media screen and (max-width: 768px) {
     padding: 0 30px;
@@ -902,7 +939,6 @@ button {
   flex-direction: column;
   display: flex;
   align-items: flex-start;
-
   h4 {
     margin-bottom: 5px;
   }
@@ -957,5 +993,16 @@ button {
 @media screen and (max-width: 768px) {
   .signup-main-cont {
     flex-direction: column;
+  }
+}
+.spinner {
+  animation: spin 1s linear infinite;
+}
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
   }
 }

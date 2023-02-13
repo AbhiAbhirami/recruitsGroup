@@ -52,7 +52,7 @@ function SignIn() {
       jobs && setJobsInfo(jobs.data.data.rows);
     } catch (error) {
       saveAuth(undefined);
-      toast.error(error.response.data.message);
+      toast.error(error.response.data.message,);
     }
   };
 
