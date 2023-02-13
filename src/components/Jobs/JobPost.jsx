@@ -92,7 +92,7 @@ const JobPost = ({ jobs }) => {
                   </div>
                   <img
                     src={item.description_image}
-                    style={{ width: "100%" }}
+                    style={{ width: "100%" ,height:"50vh",objectFit:"cover"}}
                     alt="Job description"
                     onClick={(e) => openModal(e, item)}
                   />

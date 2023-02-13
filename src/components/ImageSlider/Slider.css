@@ -309,3 +309,17 @@
         /* height: 50vh; */
     }
 }
+
+@media screen and ( min-height: 1200px ) { 
+    .slide-image{
+        width: 80%;
+        height: 28%;
+    }
+    .form-div{
+        width: 80%;
+    }
+    .image-slider-section{
+        margin-top: 15%;
+    }
+
+}
