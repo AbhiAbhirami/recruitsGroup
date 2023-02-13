@@ -24,6 +24,7 @@ import { HiOutlinePencil } from "react-icons/hi";
 import PhoneVerifyModal from "./PhoneVerifyModal";
 import ChangeEmailModal from "./ChangeEmailModal";
 import ChangePasswoardModal from "./ChangePasswoardModal";
+import { NavHashLink } from 'react-router-hash-link';
 
 function SettingsDetails({
   updateUserData,
@@ -174,7 +175,10 @@ function SettingsDetails({
             className={sideTab === 8 && "document-details-head"}
             onClick={() => setSideTab(8)}
           >
-            Account <button className="cursor-pointer">UPDATE</button>
+            <NavHashLink smooth to="/profile#account-sn" >
+              Account
+            </NavHashLink>
+            <button className="cursor-pointer">UPDATE</button>
           </li>
           {/* <li
             className={sideTab === 1 && "document-details-head"}
@@ -186,37 +190,52 @@ function SettingsDetails({
             className={sideTab === 2 && "document-details-head"}
             onClick={() => setSideTab(2)}
           >
-            User Name <button className="cursor-pointer">UPDATE</button>
+            <NavHashLink smooth to="/profile#username-sn" >
+              User Name
+            </NavHashLink>
+            <button className="cursor-pointer">UPDATE</button>
           </li>
-          <li
+          {/* <li
             className={sideTab === 3 && "document-details-head"}
             onClick={() => setSideTab(3)}
           >
             Location <button className="cursor-pointer">ADD</button>
-          </li>
+          </li> */}
           <li
             className={sideTab === 4 && "document-details-head"}
             onClick={() => setSideTab(4)}
           >
-            Position <button className="cursor-pointer">ADD</button>
+            <NavHashLink smooth to="/profile#position-sn" >
+              Position
+            </NavHashLink>
+            <button className="cursor-pointer">ADD</button>
           </li>
           <li
             className={sideTab === 5 && "document-details-head"}
             onClick={() => setSideTab(5)}
           >
-            Email <button className="cursor-pointer">ADD</button>
+            <NavHashLink smooth to="/profile#email-sn" >
+              Email
+            </NavHashLink>
+            <button className="cursor-pointer">ADD</button>
           </li>
           <li
             className={sideTab === 6 && "document-details-head"}
             onClick={() => setSideTab(6)}
           >
-            Phone Number <button className="cursor-pointer">ADD</button>
+            <NavHashLink smooth to="/profile#phone-sn" >
+              Phone Number
+            </NavHashLink>
+            <button className="cursor-pointer">ADD</button>
           </li>
           <li
             className={sideTab === 7 && "document-details-head"}
             onClick={() => setSideTab(7)}
           >
-            Video <button className="cursor-pointer">UPDATE</button>
+            <NavHashLink smooth to="/profile#video-sn" >
+              Video
+            </NavHashLink>
+            <button className="cursor-pointer">UPDATE</button>
           </li>
         </ul>
       </div>
@@ -242,8 +261,9 @@ function SettingsDetails({
                 closeModal={() => setChangePasswordModal({ status: false, data: '' })}
                 currentData={changePasswordModal?.data}
               />
-              <div className="settings-profile-details settings-account">
+              <div className="settings-profile-details settings-account" id="account-sn">
                 <h4>Account Settings</h4>
+
                 <p style={{ marginBottom: 25 }} className="text-muted">
                   Change your primary email, mobile number or password.
                 </p>
@@ -342,7 +362,7 @@ function SettingsDetails({
             {/* </div> */}
           </div>
           <form onSubmit={handleSubmit(onSubmit)} className="settings-input" style={{ marginBottom: "30px" }}>
-            <label htmlFor="name" className="input-label">
+            <label htmlFor="name" className="input-label" >
               Full Name
             </label>
             <input
@@ -353,6 +373,7 @@ function SettingsDetails({
               defaultValue={user.name ? user.name : ""}
               {...register("name", { required: true })}
               name="name"
+              id="username-sn"
             />
             <div>
               {errors.name && (
@@ -370,6 +391,8 @@ function SettingsDetails({
               defaultValue={user.email ? user.email : ""}
               {...register("email", { required: true })}
               name="email"
+              id="email-sn"
+
             />
             <div>
               {errors.email && (
@@ -387,6 +410,8 @@ function SettingsDetails({
               defaultValue={user.phone ? user.phone : ""}
               {...register("phone", { required: true })}
               name="phone"
+              id="phone-sn"
+
             />
             <div>
               {errors.phone && (
@@ -404,7 +429,10 @@ function SettingsDetails({
               defaultValue={user.position ? user.position : ""}
               {...register("position")}
               name="position"
+              id="position-sn"
+
             />
+
           </form>
           {/* <form onSubmit={""} className="settings-input">
             <ProfileInput
@@ -430,7 +458,7 @@ function SettingsDetails({
               type="number"
             />
           </form> */}
-          <div className="profile-section-personal-resume settings" >
+          <div className="profile-section-personal-resume settings" id="video-sn">
             <div className="personal-detail-title">
               <h4>Upload Video</h4>
             </div>

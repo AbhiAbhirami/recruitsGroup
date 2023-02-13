@@ -18,6 +18,7 @@ import SkillsModal from "./SkillsModal";
 import CareerModal from "./CareerModal";
 import { AiFillEye } from "react-icons/ai"
 import { FaTrash } from "react-icons/fa"
+import { NavHashLink } from 'react-router-hash-link';
 
 function PersonalDetails({
   setIsOpen,
@@ -125,32 +126,46 @@ function PersonalDetails({
       {confirmModal.status == false && <ToastContainer draggablePercent={60} />}
       <div className="profile-section-personal-detail-left document-details-left">
         <div className="personal-detail-title">
-          <h4>Personal Details</h4>
+          <h4>
+            Personal Details
+          </h4>
         </div>
         <ul>
           <li
             className={sideTab === 1 && "document-details-head"}
             onClick={() => setSideTab(1)}
           >
-            Personal details
+            <NavHashLink smooth to="/profile#personal-sn" >
+              Personal Details
+            </NavHashLink>
           </li>
           <li
             className={sideTab === 2 && "document-details-head"}
             onClick={() => setSideTab(2)}
           >
-            Resume <button className="cursor-pointer">UPDATE</button>
+            <NavHashLink smooth to="/profile#resume-sn" >
+              Resume / Cover Letter
+            </NavHashLink>
+            <button className="cursor-pointer">UPDATE</button>
           </li>
           <li
             className={sideTab === 3 && "document-details-head"}
             onClick={() => setSideTab(3)}
           >
-            Key skill{" "}
+            <NavHashLink smooth to="/profile#skill-sn" >
+              Key skill
+            </NavHashLink>
+            {" "}
           </li>
           <li
             className={sideTab === 4 && "document-details-head"}
             onClick={() => setSideTab(4)}
           >
-            Education <button className="cursor-pointer">ADD</button>
+            <NavHashLink smooth to="/profile#education-sn" >
+              Education
+            </NavHashLink>
+
+            <button className="cursor-pointer">ADD</button>
           </li>
           {/* <li
             className={sideTab === 5 && "document-details-head"}
@@ -168,114 +183,116 @@ function PersonalDetails({
             className={sideTab === 7 && "document-details-head"}
             onClick={() => setSideTab(7)}
           >
-            Career profile{" "}
+            <NavHashLink smooth to="/profile#career-sn" >
+              Career profile
+            </NavHashLink>
+            {" "}
           </li>
         </ul>
       </div>
-      {sideTab === 1 && (
-        <div className="profile-section-personal-detail-right">
-          <div className="profile-section-personal-table">
-            <div className="personal-detail-title">
-              <h4>Personal Details</h4>
-              <img
-                className="cursor-pointer"
-                src={edit}
-                height={23}
-                alt="edit-icon"
-                onClick={() => setIsOpen(true)}
-              />
-            </div>
-            <div className="personal-detail-table">
-              <table>
-                <tbody>
-                  <tr>
-                    <td>Full Name </td>
-                    <td>{user.name ? user.name : "Not Updated"}</td>
-                  </tr>
-                  <tr>
-                    <td>Position</td>
-                    <td>{user.position ? user.position : "Not Updated"}</td>
-                  </tr>
 
-                  <tr>
-                    <td>Contact</td>
-                    <td>{user.phone ? user.phone : "Not Updated"}</td>
-                  </tr>
-                  <tr>
-                    <td>Current Company </td>
-                    <td>{user.company ? user.company : "Not Updated"}</td>
-                  </tr>
-                </tbody>
-              </table>
-              <table>
-                <tbody>
-                  <tr>
-                    <td>Date of birth</td>
-                    <td>Not Updated</td>
-                  </tr>
-                  <tr>
-                    <td>Country</td>
-                    <td>{user.country ? user.country : "Not Updated"}</td>
-                  </tr>
-                  <tr>
-                    <td>Language</td>
-                    <td>{user.language ? user.language : "Not Updated"}</td>
-                  </tr>
-                  {/* <tr>
+      <div className="profile-section-personal-detail-right">
+        {/* {sideTab === 1 && ( */}
+        <div className="profile-section-personal-table">
+          <div className="personal-detail-title" id="personal-sn">
+            <h4>Personal Details</h4>
+            <img
+              className="cursor-pointer"
+              src={edit}
+              height={23}
+              alt="edit-icon"
+              onClick={() => setIsOpen(true)}
+            />
+          </div>
+          <div className="personal-detail-table">
+            <table>
+              <tbody>
+                <tr>
+                  <td>Full Name </td>
+                  <td>{user.name ? user.name : "Not Updated"}</td>
+                </tr>
+                <tr>
+                  <td>Position</td>
+                  <td>{user.position ? user.position : "Not Updated"}</td>
+                </tr>
+
+                <tr>
+                  <td>Contact</td>
+                  <td>{user.phone ? user.phone : "Not Updated"}</td>
+                </tr>
+                <tr>
+                  <td>Current Company </td>
+                  <td>{user.company ? user.company : "Not Updated"}</td>
+                </tr>
+              </tbody>
+            </table>
+            <table>
+              <tbody>
+                <tr>
+                  <td>Date of birth</td>
+                  <td>Not Updated</td>
+                </tr>
+                <tr>
+                  <td>Country</td>
+                  <td>{user.country ? user.country : "Not Updated"}</td>
+                </tr>
+                <tr>
+                  <td>Language</td>
+                  <td>{user.language ? user.language : "Not Updated"}</td>
+                </tr>
+                {/* <tr>
                   <td>Time Zone</td>
                   <td>{user.time_zone ? user.time_zone : "Not Updated"}</td>
                 </tr> */}
-                  {/* <tr>
+                {/* <tr>
                     <td>Currency</td>
                     <td>{user.currency ? user.currency : "Not Updated"}</td>
                   </tr> */}
-                </tbody>
-              </table>
-            </div>
+              </tbody>
+            </table>
           </div>
         </div>
-      )}
-      {sideTab === 2 && (
-        <div className="profile-section-personal-detail-right">
-          <div className="profile-section-personal-resume mt-0">
-            <div className="personal-detail-title">
-              <h4>Resume</h4>
-            </div>
-            <p>
-              The most key document that employers review is a resume. In
-              general, recruiters do not review profiles without resumes.
-            </p>
-            <div className="profile-section-personal-resume-update">
-              <div>
-                {resume ? resume : "Not Updated"}
-                {/* <span>
+        {/* )} */}
+        {/* {sideTab === 2 && ( */}
+        <div className="profile-section-personal-resume mt-0">
+          <div className="personal-detail-title" id="resume-sn">
+            <h4>Resume</h4>
+          </div>
+          <p>
+            The most key document that employers review is a resume. In
+            general, recruiters do not review profiles without resumes.
+          </p>
+          <div className="profile-section-personal-resume-update">
+            <div>
+              {resume ? resume : "Not Updated"}
+              {/* <span>
                     Updated on{" "}
                     {files &&
                       moment(files[0]?.lastModified).format("DD-MM-YYYY")}
                   </span> */}
-              </div>
-              {documents && documents.resume ? (
-                <div className="resume-delete" style={{ alignItems: "center", flexDirection: "row", justifyContent: "center" }}>
-                  <a href={documents.resume} style={{ lineHeight: 0 }} target="_blank" className="text-muted">
-                    {/* <img
+            </div>
+            {documents && documents.resume ? (
+              <div className="resume-delete" style={{ alignItems: "center", flexDirection: "row", justifyContent: "center" }}>
+                <a href={documents.resume} style={{ lineHeight: 0 }} target="_blank" className="text-muted">
+                  {/* <img
                     className="cursor-pointer"
                     src={download}
                     height={25}
                     alt="download-icon"
                   /> */}
-                    <AiFillEye size={'1.4rem'} />
-                  </a>
-                  <FaTrash
-                    className="cursor-pointer"
-                    onClick={() => {
-                      deleteResume();
-                    }} size={'1rem'}
-                    style={{
-                      color: "lightcoral",
-                      margin: "0 10px"
-                    }}
-                  />
-                  {/* <button
+                  <AiFillEye size={'1.4rem'} />
+                </a>
+                <FaTrash
+                  className="cursor-pointer"
+                  onClick={() => {
+                    deleteResume();
+                  }} size={'1rem'}
+                  style={{
+                    color: "lightcoral",
+                    margin: "0 10px"
+                  }}
+                />
+                {/* <button
                   className="cursor-pointer"
                   onClick={() => {
                     deleteResume();
@@ -283,12 +300,12 @@ function PersonalDetails({
                 >
                   DELETE RESUME
                 </button> */}
-                </div>
-              ) : (
-                ""
-              )}
-            </div>
-            {/* {documents && documents.cover_letter ? (
+              </div>
+            ) : (
+              ""
+            )}
+          </div>
+          {/* {documents && documents.cover_letter ? (
               <>
                 <div>
                   {cover
@@ -319,61 +336,60 @@ function PersonalDetails({
             ) : (
               "Not Updated"
             )} */}
-            <div className="file-uploader-wrap">
-              <div className="resume-update">
-                <input
-                  type={"file"}
-                  id="resume-update"
-                  onChange={(e) =>
-                    handleFileChange(e, () => setResumeData(e.target.files))
-                  }
-                  placeholder=""
-                  style={{ opacity: 0, visibility: "hidden" }}
-                />
-                <label
-                  className="button"
-                  htmlFor="resume-updat"
-                  onClick={() => handleModalOpen("resume-update")}
-                >
-                  UPDATE RESUME
-                </label>
-                <p>Supported Formats: doc, docx, rtf, pdf, upto 2 MB</p>
-              </div>
-              <div className="resume-update">
-                <input
-                  type={"file"}
-                  id="resume-update"
-                  onChange={(e) =>
-                    handleFileChange(e, () => setResumeData(e.target.files))
-                  }
-                  placeholder=""
-                  style={{ opacity: 0, visibility: "hidden" }}
-                />
-                <label
-                  className="button"
-                  htmlFor="resume-updat"
-                  onClick={() => handleModalOpen("resume-update")}
-                >
-                  UPDATE COVER LETTER
-                </label>
-                <p>Supported Formats: doc, docx, rtf, pdf, upto 2 MB</p>
-              </div>
+          <div className="file-uploader-wrap">
+            <div className="resume-update">
+              <input
+                type={"file"}
+                id="resume-update"
+                onChange={(e) =>
+                  handleFileChange(e, () => setResumeData(e.target.files))
+                }
+                placeholder=""
+                style={{ opacity: 0, visibility: "hidden" }}
+              />
+              <label
+                className="button"
+                htmlFor="resume-updat"
+                onClick={() => handleModalOpen("resume-update")}
+              >
+                UPDATE RESUME
+              </label>
+              <p>Supported Formats: doc, docx, rtf, pdf, upto 2 MB</p>
             </div>
-
+            <div className="resume-update">
+              <input
+                type={"file"}
+                id="resume-update"
+                onChange={(e) =>
+                  handleFileChange(e, () => setResumeData(e.target.files))
+                }
+                placeholder=""
+                style={{ opacity: 0, visibility: "hidden" }}
+              />
+              <label
+                className="button"
+                htmlFor="resume-updat"
+                onClick={() => handleModalOpen("resume-update")}
+              >
+                UPDATE COVER LETTER
+              </label>
+              <p>Supported Formats: doc, docx, rtf, pdf, upto 2 MB</p>
+            </div>
           </div>
+
         </div>
-      )}
-      {sideTab === 3 && (
+        {/* )} */}
+        {/* {sideTab === 3 && ( */}
         <>
           <SkillsModal
             isOpen={skillsModal?.status}
             closeModal={() => setSkillsModal({ status: false, data: [] })}
             currentData={skillsModal?.data}
           />
-          <div className="profile-section-personal-detail-right">
+          <div >
             <div className="profile-section-personal-resume profile-skills mt-0">
-              <div className="personal-detail-title skills-heading">
-                <h4>Key Skills</h4>
+              <div id="skill-sn" className="personal-detail-title skills-heading">
+                <h4 >Key Skills</h4>
                 <HiOutlinePencil
                   onClick={() => setSkillsModal({ status: true, data: skills })}
                 />
@@ -386,17 +402,17 @@ function PersonalDetails({
             </div>
           </div>
         </>
-      )}
-      {sideTab === 4 && (
+        {/* )} */}
+        {/* {sideTab === 4 && ( */}
         <>
           <EducationModal
             isOpen={educationModal?.status}
             closeModal={() => setEducationModal({ status: false, data: {} })}
             currentData={educationModal?.data}
           />
-          <div className="profile-section-personal-detail-right">
+          <div >
             <div className="profile-section-personal-resume profile-education mt-0">
-              <div className="personal-detail-title education-heading">
+              <div id="education-sn" className="personal-detail-title education-heading">
                 <h4>Education</h4>
                 <button
                   to={"#"}
@@ -446,23 +462,18 @@ function PersonalDetails({
             </div>
           </div>
         </>
-      )}
-      {sideTab === 5 && (
-        <div className="profile-section-personal-detail-right"></div>
-      )}
-      {sideTab === 6 && (
-        <div className="profile-section-personal-detail-right"></div>
-      )}
-      {sideTab === 7 && (
+        {/* )} */}
+
+        {/* {sideTab === 7 && ( */}
         <>
           <CareerModal
             isOpen={careerModal?.status}
             closeModal={() => setCareerModal({ status: false, data: {} })}
             currentData={careerModal?.data}
           />
-          <div className="profile-section-personal-detail-right">
+          <div >
             <div className="profile-section-personal-resume profile-career mt-0">
-              <div className="personal-detail-title career-heading">
+              <div id="career-sn" className="personal-detail-title career-heading">
                 <h4>Career Profile</h4>
                 <HiOutlinePencil
                   style={{ cursor: "pointer" }}
@@ -528,7 +539,9 @@ function PersonalDetails({
             </div>
           </div>
         </>
-      )}
+      </div>
+
+      {/* )} */}
     </Fragment>
   );
 }

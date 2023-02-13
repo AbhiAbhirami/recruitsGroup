@@ -8,6 +8,7 @@ import { getDocuments, getUser, setUser } from "../../../core/AuthHelpers";
 import { deleteUserImage, updateUserImage } from "../../../requests/Auth";
 import { toast } from "react-toastify";
 import { MdDelete } from "react-icons/md"
+import DeleteModal from "./DeleteModal";
 
 function ProfileInfo({
   setIsUserUpdated,
@@ -56,11 +57,18 @@ function ProfileInfo({
     }
   };
 
-
-
+  const [confirmModal, setConfirmModal] = useState({ status: false, id: "" });
+  const handleModalOpen = (id) => {
+    setConfirmModal({ status: true, id: id });
+  };
 
   return (
     <div>
+      <DeleteModal
+        onDelete={removeImage}
+        isOpen={confirmModal?.status}
+        closeModal={() => setConfirmModal({ status: false, id: "" })}
+      />
       <div>
         <img
           src={backgroundImage}
@@ -114,7 +122,7 @@ function ProfileInfo({
 
             <button
               className="cursor-pointer remove-profile remove-profile-new "
-              onClick={removeImage}
+              onClick={handleModalOpen}
             >
               <MdDelete className="" size={'1rem'} color={'red'} />
             </button>

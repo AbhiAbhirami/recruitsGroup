@@ -16,8 +16,8 @@
   }
   margin-right: 30px;
   @media screen and (max-width: 768px) {
-    height: 70px;
-    width: 110px;
+    height: 100px;
+    width: 100px;
     margin: 0;
   }
 }
@@ -296,6 +296,10 @@
     }
   }
   .profile-section-personal-detail-left {
+    @media screen and (min-width: 768px) {
+      position: sticky;
+      top: 1rem;
+    }
     .personal-details-head {
       padding: 10px;
       border-radius: 10px;
@@ -339,6 +343,9 @@
   }
   .profile-section-personal-detail-right {
     width: 75%;
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+    border-radius: 10px;
+
     @media screen and (max-width: 460px) {
       width: 100%;
       margin-bottom: 20px;
@@ -347,8 +354,8 @@
     margin-left: 15px;
     .profile-section-personal-table {
       background-color: #ffffff;
-      box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
-      border-radius: 10px;
+      // box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+      // border-radius: 10px;
       .personal-detail-title {
         justify-content: space-between;
         padding: 0 3rem;
@@ -385,10 +392,10 @@
       }
     }
     .profile-section-personal-resume {
-      box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+      // box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
       background-color: #ffffff;
       margin-top: 20px;
-      border-radius: 10px;
+      // border-radius: 10px;
       padding-bottom: 10px;
       &.settings {
         box-shadow: none !important;
@@ -444,6 +451,13 @@
         display: flex;
         align-items: center;
         justify-content: space-between;
+        @media screen and (max-width: 1024px) {
+          flex-direction: column;
+          padding: 0 45px;
+        }
+        @media screen and (max-width: 460px) {
+          padding: 0 30px;
+        }
         .resume-update {
           width: 100%;
         }
@@ -480,7 +494,7 @@
             padding: 0 1rem;
           }
           .button {
-            width: 260px;
+            width: 200px;
           }
         }
       }
@@ -574,6 +588,10 @@
 }
 
 .document-details-left {
+  a {
+    text-decoration: none;
+    color: #313131;
+  }
   .document-details-head {
     background: rgba(169, 188, 255, 0.25);
     border-radius: 10px;
