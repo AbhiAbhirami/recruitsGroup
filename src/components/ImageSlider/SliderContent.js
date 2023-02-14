@@ -17,7 +17,7 @@ function SliderContent({ activeIndex, ImageSlider }) {
 
   // const device = deviceType();
   return (
-    <section>
+    <section className="image-slider-section">
       {
         ImageSlider.map((slide, index) => (
           <a ><div

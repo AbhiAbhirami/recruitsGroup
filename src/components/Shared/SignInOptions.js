@@ -4,6 +4,7 @@ import apple from "../../assets/images/social/apple.png";
 import fb from "../../assets/images/social/fb.png";
 import { useGoogleLogin } from "@react-oauth/google";
 import {
+  getJobs,
   getUserByToken,
   getUserDocuments,
   googleLogin,
@@ -11,7 +12,7 @@ import {
 import { useAuth } from "../../core/Auth";
 
 import { toast, ToastContainer } from "react-toastify";
-import { setDocuments } from "../../core/AuthHelpers";
+import { setDocuments, setJobsInfo } from "../../core/AuthHelpers";
 
 function SignInOptions() {
   const { saveAuth, setCurrentUser } = useAuth();
@@ -23,8 +24,9 @@ function SignInOptions() {
         const { data: user } = await getUserByToken(auth.api_token);
         setCurrentUser(user);
         const docs = await getUserDocuments(user.data.id);
-        docs && setDocuments(docs.data.data)
-          
+        docs && setDocuments(docs.data.data);
+        const jobs = await getJobs();
+        jobs && setJobsInfo(jobs.data.data.rows);
       } catch (error) {
         saveAuth(undefined);
         toast.error(error.response.data.message + "❌");

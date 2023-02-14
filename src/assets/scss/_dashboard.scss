@@ -236,7 +236,7 @@
   width: 44px;
   height: 44px;
   border-radius: 50%;
-  object-fit: contain;
+  object-fit: cover;
 }
 .welcome-name-tag {
   font-weight: 600;
@@ -251,18 +251,21 @@
 }
 .nav-links {
   // font-family: sans-serif;
-  // font-weight: 600;
+  font-weight: 600;
   font-size: 14px;
   line-height: 30px;
   text-decoration: none;
   /* identical to box height */
 
   text-align: center;
-  color: #5c5b5b;
+  // color: #5c5b5b;
+  color: black;
   cursor: pointer;
 }
 .nav-links-active {
-  color: #1f194c;
+  // color: #1f194c;
+  color: black;
+  font-weight: 600;
   text-decoration: underline #fecf34;
   text-underline-offset: 10px;
 }
@@ -521,6 +524,7 @@
 
 .new-job-company-heading {
   font-weight: 600;
+  white-space: nowrap;
   font-size: 16px;
 }
 .new-job-company-post {
@@ -1527,5 +1531,14 @@
   }
   .md\:p-0 {
     padding: 0 !important;
+  }
+}
+
+.dashboard-chart {
+  .apexcharts-canvas {
+    width: 100%;
+    svg {
+      width: 100%;
+    }
   }
 }
