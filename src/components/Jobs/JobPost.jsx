@@ -2,14 +2,17 @@ import React, { useEffect, useState } from "react";
 import { toast, ToastContainer } from "react-toastify";
 import save from "../../assets/images/icons/save.png";
 import send from "../../assets/images/icons/send.png";
-import { getJobsInfo, getUser } from "../../core/AuthHelpers";
-import { updateSavedjobs } from "../../requests/Auth";
+import { useAuth } from "../../core/Auth";
+import { getAuth, getJobsInfo, getUser } from "../../core/AuthHelpers";
+import { getUserByToken, updateSavedjobs } from "../../requests/Auth";
 import Comments from "../Shared/Comments";
 import JobModal from "../Shared/JobModal/Jobmodal";
 
 const JobPost = ({ jobs }) => {
   const [job, setJob] = useState();
   const [open, setOpen] = useState(false);
+  const { saveAuth, setCurrentUser } = useAuth();
+
   const [isCommentOpen, setIsCommentOpen] = React.useState(false);
   const openModal = (e, item) => {
     setOpen(true);
@@ -30,9 +33,10 @@ const JobPost = ({ jobs }) => {
 
   const saveJob = async (e, item) => {
     try {
-      debugger;
       const user = getUser();
       const saved = await updateSavedjobs(item.id, { userId: user.id });
+      const { data: userData } = await getUserByToken(getAuth().api_key);
+      setCurrentUser(userData);
       saved && toast.success("Saved");
     } catch (e) {
       console.log(e);
@@ -92,7 +96,11 @@ const JobPost = ({ jobs }) => {
                   </div>
                   <img
                     src={item.description_image}
-                    style={{ width: "100%" }}
+                    style={{
+                      width: "100%",
+                      height: "50vh",
+                      objectFit: "cover",
+                    }}
                     alt="Job description"
                     onClick={(e) => openModal(e, item)}
                   />

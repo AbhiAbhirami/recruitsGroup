@@ -11,9 +11,10 @@ import closebtn from "../../../assets/images/icons/close.png";
 import { Link } from "react-router-dom";
 import ApplyConfirmModal from "../ApplyConfirmModal";
 import { useEffect } from "react";
-import { updateAppliedjobs } from "../../../requests/Auth";
-import { getUser } from "../../../core/AuthHelpers";
+import { getUserByToken, updateAppliedjobs } from "../../../requests/Auth";
+import { getAuth, getUser } from "../../../core/AuthHelpers";
 import { toast, ToastContainer } from "react-toastify";
+import { useAuth } from "../../../core/Auth";
 let media = window.screen.width < 600;
 
 const customStyles = {
@@ -33,6 +34,8 @@ const customStyles = {
 
 function JobModal({ isOpen, closeModal, applied, job }) {
   const [isApplyConfirm, setIsApplyConfirm] = useState(false);
+  const { saveAuth, setCurrentUser } = useAuth();
+
   useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = "hidden";
@@ -42,8 +45,12 @@ function JobModal({ isOpen, closeModal, applied, job }) {
   }, [isOpen]);
   const applyToJob = async () => {
     try {
+      debugger;
       const user = getUser();
       const apply = await updateAppliedjobs(job.id, { userId: user.id });
+      const auth = getAuth();
+      const { data: userData } = await getUserByToken(auth.api_token);
+      setCurrentUser(userData);
       apply && toast.success("Applied");
     } catch (e) {
       console.log(e);

@@ -4,19 +4,25 @@ import "./index.css";
 import "./assets/scss/main.scss";
 import reportWebVitals from "./reportWebVitals";
 import "font-awesome/css/font-awesome.min.css";
-import 'react-toastify/dist/ReactToastify.css';
+import "react-toastify/dist/ReactToastify.css";
 import { AuthProvider } from "./core/Auth";
 import { AppRoutes } from "./routing/AppRoutes";
 import { setupAxios } from "./core/AuthHelpers";
+import { Provider } from "react-redux";
 import axios from "axios";
+import jobState from "./store/jobs";
+import { createStore } from "redux";
 
+const store = createStore(jobState);
 const root = ReactDOM.createRoot(document.getElementById("root"));
 setupAxios(axios);
 root.render(
   <React.StrictMode>
-    <AuthProvider>
-      <AppRoutes />
-    </AuthProvider>
+    <Provider store={store}>
+      <AuthProvider>
+        <AppRoutes />
+      </AuthProvider>
+    </Provider>
   </React.StrictMode>
 );
 
