@@ -205,7 +205,7 @@ function Jobs() {
           >
             <div
               style={{
-                width: "90%",
+                width: "95%",
                 height: "150px",
                 borderRadius: "18px",
                 backgroundColor: "#fff",
