@@ -1,4 +1,5 @@
 import React from "react";
+import { useState } from "react";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { IoIosClose } from "react-icons/io";
@@ -69,7 +70,7 @@ function ProfileUpdate({ isOpen, closeModal, user, setIsUserUpdated }) {
         contentLabel="Example Modal"
       >
         <div className="job-modal-wrapper ed-modal">
-          <div className="modal-header p-10 "
+          <div className="modal-header p-25 "
             style={{
               display: "flex"
               , flexDirection: "column"
@@ -175,46 +176,20 @@ function ProfileUpdate({ isOpen, closeModal, user, setIsUserUpdated }) {
                   {...register("language")}
                   name="language"
                 />
-                <div
-                  style={{
-                    marginTop: "2rem",
-                    display: "flex",
-                    justifyContent: "flex-end",
-                    alignItems: "center"
-                  }}
-                >
-                  <button
-                    style={{
-                      height: 38,
-                      marginRight: 10,
-                      padding: "10px 20px",
-                      border: "none",
-                      color: "#4892f0"
-                      , backgroundColor: "transparent"
-                    }}
-                    className="" onClick={() => resetForm()}>
-                    Cancel
+
+                <div className="modal-buttons">
+                  <button className="cancel-btn" onClick={() => resetForm()}>
+                    CANCEL
                   </button>
-                  <button
-                    style={{
-                      height: 38,
-                      padding: "10px 20px",
-                      border: "none",
-                      backgroundColor: "#4892f0"
-                      , color: "#fff",
-                      cursor: "pointer"
-                    }}
-                    type={'submit'}
-                    className="button"
-                  >
-                    Save
+                  <button className="save-btn" type="submit">
+                    SAVE
                   </button>
                 </div>
-
               </form>
             </div>
           </div>
         </div>
+
       </Modal>
     </>
   );

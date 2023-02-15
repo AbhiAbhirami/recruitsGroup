@@ -9,6 +9,7 @@ import { deleteUserImage, updateUserImage } from "../../../requests/Auth";
 import { toast } from "react-toastify";
 import { MdDelete } from "react-icons/md"
 import DeleteModal from "./DeleteModal";
+import { useLocation } from "react-router-dom";
 
 function ProfileInfo({
   setIsUserUpdated,
@@ -18,6 +19,10 @@ function ProfileInfo({
   userData,
   documents,
 }) {
+  const location = useLocation()
+
+  console.log(location);
+
   const [user, setUserData] = useState(userData);
   const [docs, setDocs] = useState(documents);
   useEffect(() => {
@@ -61,6 +66,13 @@ function ProfileInfo({
   const handleModalOpen = (id) => {
     setConfirmModal({ status: true, id: id });
   };
+
+  useEffect(() => {
+    if (location?.search) {
+      setTab(location?.search?.split('?')[1])
+    }
+  }, [location.search])
+
 
   return (
     <div>
@@ -107,25 +119,27 @@ function ProfileInfo({
               />
               <label for="newProfilePhoto" className="upload-file-block">
                 <div className="text-center">
-                  <div className="mb-2">
+                  <div className="mb-2" style={{ display: "flex", alignItems: "center", justifyContent: "flex-end" }}>
                     <i
                       className="fa fa-camera fa-2x"
                     ></i>
+                    <button
+                      className="cursor-pointer remove-profile remove-profile-new "
+                      onClick={handleModalOpen}
+                    >
+                      <MdDelete className="" size={'1.6rem'} color={'white'} />
+                    </button>
                   </div>
                   <div className="text-uppercase">
                     Update <br /> Profile Photo
                   </div>
+
                 </div>
               </label>
 
             </div>
 
-            <button
-              className="cursor-pointer remove-profile remove-profile-new "
-              onClick={handleModalOpen}
-            >
-              <MdDelete className="" size={'1rem'} color={'red'} />
-            </button>
+
 
           </div>
 
