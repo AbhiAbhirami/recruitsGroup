@@ -10,6 +10,7 @@ import { toast } from "react-toastify";
 import { MdDelete } from "react-icons/md"
 import DeleteModal from "./DeleteModal";
 import { useLocation } from "react-router-dom";
+import { ImSpinner6 } from "react-icons/im";
 
 function ProfileInfo({
   setIsUserUpdated,
@@ -73,9 +74,30 @@ function ProfileInfo({
     }
   }, [location.search])
 
+  const [loading, setLoading] = React.useState(false);
+  React.useEffect(() => {
+    setLoading(true);
+    if (loading) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "unset";
+    }
+
+    const loadData = async () => {
+      setTimeout(() => {
+        setLoading(false);
+      }, 500);
+    };
+    user && loadData();
+  }, [tab]);
 
   return (
     <div>
+      {loading && (
+        <div className="dash-load">
+          <ImSpinner6 className="spinner" size={'2rem'} style={{ margin: "0 5px" }} />
+        </div>
+      )}
       <DeleteModal
         onDelete={removeImage}
         isOpen={confirmModal?.status}
