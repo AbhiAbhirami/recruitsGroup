@@ -191,7 +191,7 @@ function PersonalDetails({
 
       <div className="profile-section-personal-detail-right">
         {/* {sideTab === 1 && ( */}
-        <div className="profile-section-personal-table">
+        <div className="profile-section-personal-table card">
           <div className="personal-detail-title" id="personal-sn">
             <h4>Personal Details</h4>
             <img
@@ -250,9 +250,10 @@ function PersonalDetails({
             </table>
           </div>
         </div>
+
         {/* )} */}
         {/* {sideTab === 2 && ( */}
-        <div className="profile-section-personal-resume mt-0">
+        <div className="profile-section-personal-resume mt-0 card">
           <div className="personal-detail-title" id="resume-sn">
             <h4>Resume</h4>
           </div>
@@ -269,39 +270,7 @@ function PersonalDetails({
                       moment(files[0]?.lastModified).format("DD-MM-YYYY")}
                   </span> */}
             </div>
-            {documents && documents.resume ? (
-              <div className="resume-delete" style={{ alignItems: "center", flexDirection: "row", justifyContent: "center" }}>
-                <a href={documents.resume} style={{ lineHeight: 0 }} target="_blank" className="text-muted">
-                  {/* <img
-                    className="cursor-pointer"
-                    src={download}
-                    height={25}
-                    alt="download-icon"
-                  /> */}
-                  <AiFillEye size={'1.4rem'} />
-                </a>
-                <FaTrash
-                  className="cursor-pointer"
-                  onClick={() => {
-                    deleteResume();
-                  }} size={'1rem'}
-                  style={{
-                    color: "lightcoral",
-                    margin: "0 10px"
-                  }}
-                />
-                {/* <button
-                  className="cursor-pointer"
-                  onClick={() => {
-                    deleteResume();
-                  }}
-                >
-                  DELETE RESUME
-                </button> */}
-              </div>
-            ) : (
-              ""
-            )}
+
           </div>
           {/* {documents && documents.cover_letter ? (
               <>
@@ -334,45 +303,146 @@ function PersonalDetails({
             ) : (
               "Not Updated"
             )} */}
+
           <div className="file-uploader-wrap">
-            <div className="resume-update">
-              <input
-                type={"file"}
-                id="resume-update"
-                onChange={(e) =>
-                  handleFileChange(e, () => setResumeData(e.target.files))
-                }
-                placeholder=""
-                style={{ opacity: 0, visibility: "hidden" }}
-              />
-              <label
-                className="button"
-                htmlFor="resume-updat"
-                onClick={() => handleModalOpen("resume-update")}
-              >
-                UPDATE RESUME
-              </label>
-              <p>Supported Formats: doc, docx, rtf, pdf, upto 2 MB</p>
+            <div style={{
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "end",
+              marginBottom: 30
+            }}>
+              {documents && documents.resume ? (
+                <div className="resume-delete " style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "flex-end",
+                  marginBottom: "20px",
+                  width: "100%"
+                }}  >
+                  <a
+                    // href={documents.resume} 
+                    style={{ lineHeight: 0 }} target="_blank" className="text-muted">
+                    {/* <img
+                    className="cursor-pointer"
+                    src={download}
+                    height={25}
+                    alt="download-icon"
+                  /> */}
+                    <AiFillEye size={'1.4rem'} style={{ marginBottom: 10 }} />
+                  </a>
+                  {/* <FaTrash
+                  className="cursor-pointer"
+                  onClick={() => {
+                    deleteResume();
+                  }} size={'1rem'}
+                  style={{
+                    color: "lightcoral",
+                    margin: "0 10px"
+                  }}
+                /> */}
+                  <button
+                    className="cursor-pointer"
+                    onClick={() => {
+                      deleteResume();
+                    }}
+                  >
+                    DELETE RESUME
+                  </button>
+                </div>
+              ) : (
+                ""
+              )}
+              <div className="resume-update" style={{ margin: 0 }}>
+                <input
+                  type={"file"}
+                  id="resume-update"
+                  onChange={(e) =>
+                    handleFileChange(e, () => setResumeData(e.target.files))
+                  }
+                  placeholder=""
+                  style={{ opacity: 0, visibility: "hidden" }}
+                />
+                <label
+                  className="button"
+                  htmlFor="resume-updat"
+                  onClick={() => handleModalOpen("resume-update")}
+                >
+                  UPDATE RESUME
+                </label>
+                <p>Supported Formats: doc, docx, rtf, pdf, upto 2 MB</p>
+              </div>
             </div>
-            <div className="resume-update">
-              <input
-                type={"file"}
-                id="resume-update"
-                onChange={(e) =>
-                  handleFileChange(e, () => setResumeData(e.target.files))
-                }
-                placeholder=""
-                style={{ opacity: 0, visibility: "hidden" }}
-              />
-              <label
-                className="button"
-                htmlFor="resume-updat"
-                onClick={() => handleModalOpen("resume-update")}
-              >
-                UPDATE COVER LETTER
-              </label>
-              <p>Supported Formats: doc, docx, rtf, pdf, upto 2 MB</p>
+
+            <div style={{
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "end",
+              marginBottom: 30
+
+            }}>
+              {documents && documents.resume ? (
+                <div className="resume-delete " style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "flex-end",
+                  marginBottom: "20px",
+                  width: "100%"
+                }} >
+                  <a
+                    // href={documents.resume} 
+                    style={{ lineHeight: 0 }} target="_blank" className="text-muted">
+                    {/* <img
+                    className="cursor-pointer"
+                    src={download}
+                    height={25}
+                    alt="download-icon"
+                  /> */}
+                    <AiFillEye size={'1.4rem'} style={{ marginBottom: 10 }} />
+                  </a>
+                  {/* <FaTrash
+                  className="cursor-pointer"
+                  onClick={() => {
+                    deleteResume();
+                  }} size={'1rem'}
+                  style={{
+                    color: "lightcoral",
+                    margin: "0 10px"
+                  }}
+                /> */}
+                  <button
+                    className="cursor-pointer"
+                    onClick={() => {
+                      deleteResume();
+                    }}
+                  >
+                    DELETE COVER LETTER
+                  </button>
+                </div>
+              ) : (
+                ""
+              )}
+              <div className="resume-update " style={{ margin: 0 }}>
+                <input
+                  type={"file"}
+                  id="resume-update"
+                  onChange={(e) =>
+                    handleFileChange(e, () => setResumeData(e.target.files))
+                  }
+                  placeholder=""
+                  style={{ opacity: 0, visibility: "hidden" }}
+                />
+                <label
+                  className="button"
+                  htmlFor="resume-updat"
+                  onClick={() => handleModalOpen("resume-update")}
+                >
+                  UPDATE COVER LETTER
+                </label>
+                <p>Supported Formats: doc, docx, rtf, pdf, upto 2 MB</p>
+              </div>
             </div>
+
+
           </div>
 
         </div>
@@ -384,7 +454,7 @@ function PersonalDetails({
             closeModal={() => setSkillsModal({ status: false, data: [] })}
             currentData={skillsModal?.data}
           />
-          <div >
+          <div className="card">
             <div className="profile-section-personal-resume profile-skills mt-0">
               <div id="skill-sn" className="personal-detail-title skills-heading">
                 <h4 >Key Skills</h4>
@@ -408,7 +478,7 @@ function PersonalDetails({
             closeModal={() => setEducationModal({ status: false, data: {} })}
             currentData={educationModal?.data}
           />
-          <div >
+          <div className="card">
             <div className="profile-section-personal-resume profile-education mt-0">
               <div id="education-sn" className="personal-detail-title education-heading">
                 <h4>Education</h4>
@@ -469,7 +539,7 @@ function PersonalDetails({
             closeModal={() => setCareerModal({ status: false, data: {} })}
             currentData={careerModal?.data}
           />
-          <div >
+          <div className="card">
             <div className="profile-section-personal-resume profile-career mt-0">
               <div id="career-sn" className="personal-detail-title career-heading">
                 <h4>Career Profile</h4>

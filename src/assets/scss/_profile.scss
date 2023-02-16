@@ -1,3 +1,6 @@
+.p-10 {
+  padding: 0 10px;
+}
 .pic-holder {
   text-align: center;
   position: relative;
@@ -166,10 +169,11 @@
       .profileInfo-profile-image {
         position: relative;
         .remove-profile-new {
-          position: absolute;
-          position: absolute;
-          bottom: 0;
-          left: 0;
+          // position: absolute;
+          // bottom: 0;
+          // left: 0;
+          margin: 0 5px;
+          margin-bottom: -2px;
           background: transparent;
           border: none;
         }
@@ -343,9 +347,7 @@
   }
   .profile-section-personal-detail-right {
     width: 75%;
-    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
     border-radius: 10px;
-
     @media screen and (max-width: 460px) {
       width: 100%;
       margin-bottom: 20px;
@@ -450,7 +452,7 @@
       .file-uploader-wrap {
         display: flex;
         align-items: center;
-        justify-content: space-between;
+        justify-content: space-evenly;
         @media screen and (max-width: 1024px) {
           flex-direction: column;
           padding: 0 45px;
@@ -1005,4 +1007,9 @@ button {
   100% {
     transform: rotate(360deg);
   }
+}
+
+.card {
+  margin-bottom: 2rem;
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
 }

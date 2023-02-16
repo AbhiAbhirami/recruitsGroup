@@ -34,6 +34,7 @@ function Dashboard() {
   const percentage = 86;
   const [user, setUser] = useState(getUser);
   const [month, setMonth] = React.useState(Date.now());
+
   const [loading, setLoading] = React.useState(false);
   React.useEffect(() => {
     setLoading(true);

@@ -25,6 +25,7 @@ import PhoneVerifyModal from "./PhoneVerifyModal";
 import ChangeEmailModal from "./ChangeEmailModal";
 import ChangePasswoardModal from "./ChangePasswoardModal";
 import { NavHashLink } from 'react-router-hash-link';
+import { AiFillEye } from "react-icons/ai";
 
 function SettingsDetails({
   updateUserData,
@@ -465,21 +466,28 @@ function SettingsDetails({
 
             {docs && docs.video_resume ? (
               <div className="profile-section-personal-resume-update">
-                <div>
-                  {docs.video_resume.split("/").pop()}
+                <p style={{
+                  wordBreak: "break-all",
+                  padding: 0
+                }}>
+                  {/* {docs.video_resume.split("/").pop()} */}
                   {/* <span>
                     Updated on{" "}
                     {files &&
                       moment(files[0]?.lastModified).format("DD-MM-YYYY")}
                   </span> */}
-                </div>
+                </p>
                 <div className="resume-delete">
-                  <img
-                    className="cursor-pointer"
-                    src={download}
-                    height={25}
-                    alt="download-icon"
-                  />
+                  {/* <img
+                  className="cursor-pointer"
+                  src={download}
+                  height={25}
+                  alt="download-icon"
+                /> */}
+                  <a href={documents.resume}
+                  >
+                    <AiFillEye size={'1.4rem'} style={{ marginBottom: 10 }} />
+                  </a>
                   <button
                     className="cursor-pointer"
                     name="video_resume"
@@ -506,7 +514,8 @@ function SettingsDetails({
                 htmlFor="resume-updat"
                 onClick={() => handleModalOpen("resume-update")}
               >
-                UPDATE <ImSpinner6 className="spinner" style={{ margin: "0 5px" }} />
+                UPDATE
+                {/* {loading && <ImSpinner6 className="spinner" style={{ margin: "0 5px" }} />} */}
               </label>
               <p>Supported Formats: doc, docx, rtf, pdf, upto 2 MB</p>
             </div>
