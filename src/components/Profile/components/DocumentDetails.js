@@ -5,6 +5,7 @@ import { getDocuments, setDocuments } from "../../../core/AuthHelpers";
 import { toast, ToastContainer } from "react-toastify";
 import { deleteDocument, updateUserDocument } from "../../../requests/Auth";
 import ConfirmModal from "./ConfirmModal";
+import { AiFillEye } from "react-icons/ai";
 
 function DocumentDetails({ user, docs, userUpdated, setIsUserUpdated }) {
   const [files, setFiles] = React.useState([]);
@@ -120,24 +121,25 @@ function DocumentDetails({ user, docs, userUpdated, setIsUserUpdated }) {
             <div className="profile-section-personal-resume-update">
               <div>
                 {documents &&
-                documents.other_documents &&
-                documents.other_documents.passport
+                  documents.other_documents &&
+                  documents.other_documents.passport
                   ? unescape(
-                      documents.other_documents.passport.split("/").pop()
-                    )
+                    documents.other_documents.passport.split("/").pop()
+                  )
                   : "Not Updated"}
               </div>
               {documents &&
-              documents.other_documents &&
-              documents.other_documents.passport ? (
+                documents.other_documents &&
+                documents.other_documents.passport ? (
                 <div className="resume-delete">
                   <a href={documents.other_documents.passport} target="_blank">
-                    <img
+                    {/* <img
                       className="cursor-pointer"
                       src={download}
                       height={25}
                       alt="download-icon"
-                    />
+                    /> */}
+                    <AiFillEye size={'1.4rem'} style={{ marginBottom: 10 }} />
                   </a>
                   <button
                     className="cursor-pointer"
@@ -146,7 +148,7 @@ function DocumentDetails({ user, docs, userUpdated, setIsUserUpdated }) {
                       deleteDocumentData(e);
                     }}
                   >
-                    DELETE RESUME
+                    DELETE PASSPORT
                   </button>
                 </div>
               ) : (
@@ -195,13 +197,16 @@ function DocumentDetails({ user, docs, userUpdated, setIsUserUpdated }) {
                 </span> */}
               </div>
               <div className="resume-delete">
-                <img
+                {/* <img
                   className="cursor-pointer"
                   src={download}
                   height={25}
                   alt="download-icon"
-                />
-                <button className="cursor-pointer">DELETE RESUME</button>
+                /> */}
+                <a href="#">
+                  <AiFillEye size={'1.4rem'} style={{ marginBottom: 10 }} />
+                </a>
+                <button className="cursor-pointer">DELETE DOCUMENT </button>
               </div>
             </div>
 
@@ -240,13 +245,16 @@ function DocumentDetails({ user, docs, userUpdated, setIsUserUpdated }) {
             <div className="profile-section-personal-resume-update">
               <div>RESUME.PDF</div>
               <div className="resume-delete">
-                <img
+                {/* <img
                   className="cursor-pointer"
                   src={download}
                   height={25}
                   alt="download-icon"
-                />
-                <button className="cursor-pointer">DELETE RESUME</button>
+                /> */}
+                <a href="#">
+                  <AiFillEye size={'1.4rem'} style={{ marginBottom: 10 }} />
+                </a>
+                <button className="cursor-pointer">DELETE CERTIFICATE</button>
               </div>
             </div>
 
@@ -286,22 +294,23 @@ function DocumentDetails({ user, docs, userUpdated, setIsUserUpdated }) {
             <div className="profile-section-personal-resume-update">
               <div>
                 {documents &&
-                documents.other_documents &&
-                documents.other_documents.ielts
+                  documents.other_documents &&
+                  documents.other_documents.ielts
                   ? unescape(documents.other_documents.ielts.split("/").pop())
                   : "Not Updated"}
               </div>
               {documents &&
-              documents.other_documents &&
-              documents.other_documents.ielts ? (
+                documents.other_documents &&
+                documents.other_documents.ielts ? (
                 <div className="resume-delete">
                   <a href={documents.other_documents.ielts} target="_blank">
-                    <img
+                    {/* <img
                       className="cursor-pointer"
                       src={download}
                       height={25}
                       alt="download-icon"
-                    />
+                    /> */}
+                    <AiFillEye size={'1.4rem'} style={{ marginBottom: 10 }} />
                   </a>
                   <button
                     className="cursor-pointer"
@@ -310,7 +319,7 @@ function DocumentDetails({ user, docs, userUpdated, setIsUserUpdated }) {
                       deleteDocumentData(e);
                     }}
                   >
-                    DELETE IELTS/ Language Proficiency
+                    DELETE DOCUMENT
                   </button>
                 </div>
               ) : (
@@ -360,13 +369,16 @@ function DocumentDetails({ user, docs, userUpdated, setIsUserUpdated }) {
                   </span>
                 </div>
                 <div className="resume-delete">
-                  <img
+                  {/* <img
                     className="cursor-pointer"
                     src={download}
                     height={25}
                     alt="download-icon"
-                  />
-                  <button className="cursor-pointer">DELETE RESUME</button>
+                  /> */}
+                  <a href="#">
+                    <AiFillEye size={'1.4rem'} style={{ marginBottom: 10 }} />
+                  </a>
+                  <button className="cursor-pointer">DELETE DOCUMENT</button>
                 </div>
               </div>
             ) : (

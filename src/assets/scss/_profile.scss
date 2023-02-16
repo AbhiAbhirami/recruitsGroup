@@ -347,9 +347,7 @@
   }
   .profile-section-personal-detail-right {
     width: 75%;
-    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
     border-radius: 10px;
-
     @media screen and (max-width: 460px) {
       width: 100%;
       margin-bottom: 20px;
@@ -454,7 +452,7 @@
       .file-uploader-wrap {
         display: flex;
         align-items: center;
-        justify-content: space-between;
+        justify-content: space-evenly;
         @media screen and (max-width: 1024px) {
           flex-direction: column;
           padding: 0 45px;
