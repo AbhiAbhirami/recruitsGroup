@@ -380,6 +380,7 @@ function PersonalDetails({
               marginBottom: 30
 
             }}>
+
               {documents && documents.resume ? (
                 <div className="resume-delete " style={{
                   display: "flex",
