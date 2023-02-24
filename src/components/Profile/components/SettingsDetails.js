@@ -362,7 +362,7 @@ function SettingsDetails({
                 </button> */}
             {/* </div> */}
           </div>
-          <form onSubmit={handleSubmit(onSubmit)} className="settings-input" style={{ marginBottom: "30px" }}>
+          {/* <form onSubmit={handleSubmit(onSubmit)} className="settings-input" style={{ marginBottom: "30px" }}>
             <label htmlFor="name" className="input-label" >
               Full Name
             </label>
@@ -434,7 +434,7 @@ function SettingsDetails({
 
             />
 
-          </form>
+          </form> */}
           {/* <form onSubmit={""} className="settings-input">
             <ProfileInput
               placeholder="Enter your User Name"
