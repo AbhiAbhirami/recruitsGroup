@@ -392,6 +392,9 @@ hr {
 
 // >>>>>>> reusable
 @media only screen and (max-width: 600px) {
+  .signup-main-cont {
+    height: 93vh;
+  }
   .signup-input-field {
     display: none;
   }
@@ -511,3 +514,134 @@ hr {
 //   margin: auto 0;
 //   min-width: 300px;
 // }
+
+
+
+
+
+
+@media only screen and (max-width: 800px) {
+  .form-div {
+    width: 80%;
+  }
+}
+// =======
+
+.validation {
+  color: red;
+}
+.password-container {
+  border: 1px solid;
+  display: flex;
+}
+
+// >>>>>>> reusable
+@media only screen and (min-height: 1300px) {
+  .signup-main-cont {
+    // height: 93vh;
+  }
+  .signup-input-field {
+    display: flex;
+  }
+  .left-bg-cont {
+    background-color: white;
+    color: #000000;
+  }
+  .left-logo-cont {
+    background-color: white;
+  }
+  hr {
+    width: 20%;
+  }
+  .signup-main-cont {
+    // height: 93vh;
+  }
+  .modal {
+    padding-top: 0;
+    border-radius: 0;
+  }
+  // .top-color {
+  //   border-radius: 0px ;
+  // }
+  .modal-content {
+    width: 100%;
+    border-radius: 0px;
+    position: fixed;
+    height: 100%;
+  }
+  .signup-main-cont {
+    // max-height: 100vh;
+    // position: fixed;
+    overflow: hidden;
+  }
+  .signup-image-sec {
+    background: #1f194c;
+  }
+  .form-div {
+    width: 70%;
+  }
+  .signup-input {
+    width: 100%;
+  }
+  .signup-header {
+    font-size: 22px;
+  }
+  .signup-para {
+    font-size: 16px;
+  }
+  .signup-input {
+    height: 50px;
+  }
+  .mobile-only-options-div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10%;
+  }
+
+  .sign-head {
+    font-family: "Open Sans", sans-serif;
+
+    font-style: normal;
+    font-weight: 600;
+    font-size: 24px;
+    line-height: 30px;
+    text-align: center;
+
+    color: black;
+  }
+  .signup-bg-img {
+    width: 50%;
+  }
+  .sign-p {
+    font-family: "Open Sans", sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 15px;
+    line-height: 18px;
+    text-align: center;
+    width: 80%;
+    align-self: center;
+    color: black;
+  }
+  .left-bg-cont {
+    flex: 2;
+    border-bottom-right-radius: 20%;
+    border-bottom-left-radius: 20%;
+  }
+
+  .sign-options {
+    border: 1px solid #d9d9d9;
+    color: white;
+    border-radius: 15px;
+    padding: 6%;
+    text-decoration: none;
+  }
+  .logo-img {
+    width: 40%;
+  }
+
+  .slider-container{
+    display: none !important;
+  }
+}

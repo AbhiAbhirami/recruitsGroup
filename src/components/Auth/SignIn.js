@@ -26,6 +26,8 @@ function SignIn() {
   const [signedUser, setSignedUser] = useState();
   const location = useLocation();
   let media = window.screen.width < 600;
+  let ipad = window.screen.width > 1000 && window.screen.height > 1300
+
 
   useEffect(() => {
     if (location?.state) setSignedUser(location?.state);
@@ -63,7 +65,7 @@ function SignIn() {
         <Auth signinPage={signinPage} setSigninPage={setSigninPage} />
         <div
           style={
-            media
+            media || ipad
               ? !signinPage
                 ? { display: "none" }
                 : { display: "flex" }

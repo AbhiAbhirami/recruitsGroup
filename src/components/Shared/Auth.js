@@ -9,6 +9,8 @@ function Auth({ setSigninPage, signinPage, signupPage }) {
   // const [signinPage, setSigninPage] = useState(false);
 
   let media = window.screen.width < 600;
+  let ipad = window.screen.width > 1000 && window.screen.height > 1300
+  console.log(window.screen.width, window.screen.height);
   return (
     // <div
     //   style={media ? { display: "flex" } : { display: "none" }}
@@ -37,13 +39,13 @@ function Auth({ setSigninPage, signinPage, signupPage }) {
     //   </div>
     // </div>
     <div
-      style={media ? signinPage ? { display: "none" } : { display: "flex" } : null}
+      style={media || ipad ? signinPage ? { display: "none" } : { display: "flex" } : null}
       className="signup-image-sec"
     >
-      <div className="left-logo-cont" style={media ? { display: 'flex', justifyContent: 'center', alignItems: 'center' } : null}>
-        <img className="logo-img" style={media ? { width: '60%' } : null} src={media ? logoHorizontal : logo} />
+      <div className="left-logo-cont" style={media || ipad ? { display: 'flex', justifyContent: 'center', alignItems: 'center' } : null}>
+        <img className="logo-img" style={media || ipad ? { width: '60%' } : null} src={media || ipad ? logoHorizontal : logo} />
       </div>
-      <div style={media ? { display: "flex" } : { display: "none" }} className="left-bg-cont">
+      <div style={media || ipad ? { display: "flex" } : { display: "none" }} className="left-bg-cont">
         <img className="signup-bg-img" src={bg1} />
         <div className="signup-logo-text-cont">
           <h5 className="sign-head">
