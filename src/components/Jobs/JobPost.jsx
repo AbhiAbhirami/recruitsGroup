@@ -56,7 +56,7 @@ const JobPost = ({ jobs }) => {
         {jobs && jobs.length
           ? jobs.map((item) => {
               return (
-                <div style={{display:"flex",flexDirection:"column", backgroundColor:"#FFFFFF",borderRadius:"20px"}}>
+                <div style={{display:"flex",flexDirection:"column", backgroundColor:"#FFFFFF",borderRadius:"17px"}}>
                   <div className="job-card-cont" style={{ padding: "3% 5%" }}>
                     <img
                       className="newjob-company-logo"

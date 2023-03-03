@@ -19,7 +19,7 @@ const SavedJobsCard = ({ jobs }) => {
                 style={{
                   width: "100%",
                   height: "110px",
-                  borderRadius: "20px",
+                  borderRadius: "17px",
                   boxShadow:
                     "0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1)",
                   padding: "10px 15px",
@@ -32,7 +32,7 @@ const SavedJobsCard = ({ jobs }) => {
                     width: "50%",
                     display: "flex",
                     flexDirection: "column",
-                    gap: "10px",
+                    // gap: "10px",
                   }}
                 >
                   <h2 style={{ fontWeight: "600", fontSize: "16px" }}>

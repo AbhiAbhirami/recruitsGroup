@@ -127,7 +127,7 @@ function Jobs() {
               style={{
                 width: "100%",
                 height: "100px",
-                borderRadius: "18px",
+                borderRadius: "17px",
                 backgroundColor: "#fff",
                 padding: "20px 30px",
               }}
@@ -160,7 +160,7 @@ function Jobs() {
               className="saved-jobs-cont"
               style={{
                 width: "100%",
-                borderRadius: "18px",
+                borderRadius: "17px",
                 backgroundColor: "#fff",
                 display: "flex",
                 flexDirection: "column",
@@ -195,7 +195,7 @@ function Jobs() {
             className="w-35"
             style={{
               background: "#E5E5E5",
-              borderRadius: "20px",
+              borderRadius: "17px",
               display: "flex",
               flexDirection: "column",
               gap: "10px",
@@ -207,14 +207,14 @@ function Jobs() {
               style={{
                 width: "95%",
                 height: "150px",
-                borderRadius: "18px",
+                borderRadius: "17px",
                 backgroundColor: "#fff",
                 display: "flex",
               }}
             >
               <div
                 className=""
-                style={{ height: "100%", width: "50%", padding: "5%" }}
+                style={{ height: "100%", width: "50%", padding: "5% 2%" }}
               >
                 <h2 style={media ? { fontSize: "16px" } : { fontSize: "20px" }}>
                   What
@@ -222,8 +222,8 @@ function Jobs() {
                 <p
                   style={
                     media
-                      ? { marginTop: ".75rem", fontSize: "14px" }
-                      : { marginTop: ".75rem", fontSize: "16px" }
+                      ? {  fontSize: "12px" }
+                      : {  fontSize: "16px" }
                   }
                 >
                   Job title or Company
@@ -231,7 +231,7 @@ function Jobs() {
                 <div
                   style={{
                     width: "100%",
-                    height: "30px",
+                    height: "35px",
                     marginTop: ".75rem",
                     backgroundColor: "#F2F3F7",
                     outline: "none",
@@ -262,7 +262,7 @@ function Jobs() {
               </div>
               <div
                 className=""
-                style={{ height: "100%", width: "50%", padding: "5%" }}
+                style={{ height: "100%", width: "50%", padding: "5% 2%" }}
               >
                 <h2 style={media ? { fontSize: "16px" } : { fontSize: "20px" }}>
                   Where
@@ -270,8 +270,8 @@ function Jobs() {
                 <p
                   style={
                     media
-                      ? { marginTop: ".75rem", fontSize: "14px" }
-                      : { marginTop: ".75rem", fontSize: "16px" }
+                      ? {  fontSize: "12px" }
+                      : {  fontSize: "16px" }
                   }
                 >
                   City or State
@@ -279,7 +279,7 @@ function Jobs() {
                 <div
                   style={{
                     width: "100%",
-                    height: "30px",
+                    height: "35px",
                     marginTop: ".75rem",
                     backgroundColor: "#F2F3F7",
                     outline: "none",
