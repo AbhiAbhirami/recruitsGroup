@@ -15,6 +15,7 @@ const VacancyChart = () => {
     ],
     options: {
       chart: {
+        width: 600,
         height: 400,
         type: "area",
         toolbar: {
@@ -84,7 +85,7 @@ const VacancyChart = () => {
     },
   };
   return (
-    <div id="chart" className="dashboard-chart" style={{ maxWidth: "100%" }}>
+    <div id="chart" className="dashboard-chart" style={{ maxWidth: "1200px" }}>
       <ReactApexChart
         options={option.options}
         series={option.series}
