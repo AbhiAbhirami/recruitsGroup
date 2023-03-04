@@ -6,6 +6,7 @@ import { toast, ToastContainer } from "react-toastify";
 import { deleteDocument, updateUserDocument } from "../../../requests/Auth";
 import ConfirmModal from "./ConfirmModal";
 import { AiFillEye } from "react-icons/ai";
+import { Circle } from "rc-progress";
 
 function DocumentDetails({ user, docs, userUpdated, setIsUserUpdated }) {
   const [files, setFiles] = React.useState([]);
@@ -111,67 +112,67 @@ function DocumentDetails({ user, docs, userUpdated, setIsUserUpdated }) {
       {sideTab === 1 && (
         <div className="profile-section-personal-detail-right document-details-right">
           <div className="profile-section-personal-resume">
-            <div className="personal-detail-title">
-              <h4>Passport</h4>
+            <div>
+              <div className="personal-detail-title">
+                <h4>Passport</h4>
+              </div>
+              <p>
+                The most crucial document required to confirm your identification
+                during the hiring procedure
+              </p>
             </div>
-            <p>
-              The most crucial document required to confirm your identification
-              during the hiring procedure
-            </p>
-            <div className="profile-section-personal-resume-update">
-              <div>
+            <div>
+              <div className="profile-section-personal-resume-update">
+                <div>
+                  {documents &&
+                    documents.other_documents &&
+                    documents.other_documents.passport
+                    ? unescape(
+                      documents.other_documents.passport.split("/").pop()
+                    )
+                    : "Not Updated"}
+                </div>
                 {documents &&
                   documents.other_documents &&
-                  documents.other_documents.passport
-                  ? unescape(
-                    documents.other_documents.passport.split("/").pop()
-                  )
-                  : "Not Updated"}
-              </div>
-              {documents &&
-                documents.other_documents &&
-                documents.other_documents.passport ? (
-                <div className="resume-delete">
-                  <a href={documents.other_documents.passport} target="_blank">
-                    {/* <img
+                  documents.other_documents.passport ? (
+                  <div className="resume-delete">
+                    <a href={documents.other_documents.passport} target="_blank">
+                      <AiFillEye size={'1.4rem'} style={{ margin: "0 5px" }} />
+                    </a>
+                    <button
                       className="cursor-pointer"
-                      src={download}
-                      height={25}
-                      alt="download-icon"
-                    /> */}
-                    <AiFillEye size={'1.4rem'} style={{ marginBottom: 10 }} />
-                  </a>
-                  <button
-                    className="cursor-pointer"
-                    name="passport"
-                    onClick={(e) => {
-                      deleteDocumentData(e);
-                    }}
-                  >
-                    DELETE PASSPORT
-                  </button>
-                </div>
-              ) : (
-                ""
-              )}
-            </div>
-            <div className="resume-update">
-              <input
-                type={"file"}
-                id="resume-update"
-                name="passport"
-                placeholder=""
-                style={{ opacity: 0, visibility: "hidden" }}
-                onChange={(e) => handleFileChange(e, () => setDocumentData(e))}
-              />
-              <label
-                className="button"
-                htmlFor="resume-updat"
-                onClick={() => handleModalOpen("resume-update")}
-              >
-                Add
-              </label>
-              <p>Supported Formats: doc, docx, rtf, pdf, upto 2 MB</p>
+                      name="passport"
+                      onClick={(e) => {
+                        deleteDocumentData(e);
+                      }}
+                      style={{ margin: 0 }}
+                    >
+                      DELETE PASSPORT
+                    </button>
+                  </div>
+                ) : (
+                  ""
+                )}
+              </div>
+              <div className="resume-update">
+                <input
+                  type={"file"}
+                  id="resume-update"
+                  name="passport"
+                  placeholder=""
+                  style={{ opacity: 0, visibility: "hidden" }}
+                  onChange={(e) => handleFileChange(e, () => setDocumentData(e))}
+                />
+                <label
+                  className="button"
+                  htmlFor="resume-updat"
+                  onClick={() => handleModalOpen("resume-update")}
+                >
+                  Add
+                  <Circle style={{ height: "22px", margin: "0 10px" }} percent={60} strokeWidth={10} strokeColor="#9ad8a0" />
+                </label>
+                <p>Supported Formats: doc, docx, rtf, pdf, upto 2 MB</p>
+              </div>
             </div>
           </div>
         </div>
@@ -180,102 +181,99 @@ function DocumentDetails({ user, docs, userUpdated, setIsUserUpdated }) {
       {sideTab === 2 && (
         <div className="profile-section-personal-detail-right document-details-right">
           <div className="profile-section-personal-resume">
-            <div className="personal-detail-title">
-              <h4>Identity Document</h4>
-            </div>
-            <p>
-              The most crucial document required to confirm your identification
-              during the hiring procedure
-            </p>
-            {/* {files[0]?.name ? ( */}
-            <div className="profile-section-personal-resume-update">
-              <div>
-                RESUME.PDF{" "}
-                {/* <span>
-                  Updated on{" "}
-                  {files && moment(files[0]?.lastModified).format("DD-MM-YYYY")}
-                </span> */}
+            <div>
+              <div className="personal-detail-title">
+                <h4>Identity Document</h4>
               </div>
-              <div className="resume-delete">
-                {/* <img
-                  className="cursor-pointer"
-                  src={download}
-                  height={25}
-                  alt="download-icon"
-                /> */}
-                <a href="#">
-                  <AiFillEye size={'1.4rem'} style={{ marginBottom: 10 }} />
-                </a>
-                <button className="cursor-pointer">DELETE DOCUMENT </button>
-              </div>
+              <p>
+                The most crucial document required to confirm your identification
+                during the hiring procedure
+              </p>
             </div>
 
-            <div className="resume-update">
-              <input
-                type={"file"}
-                id="resume-update"
-                placeholder=""
-                style={{ opacity: 0, visibility: "hidden" }}
-                onChange={(e) =>
-                  handleFileChange(e, () => setFiles(e.target.files))
-                }
-              />
-              <label
-                className="button"
-                htmlFor="resume-updat"
-                onClick={() => handleModalOpen("resume-update")}
-              >
-                Add
-              </label>
-              <p>Supported Formats: doc, docx, rtf, pdf, upto 2 MB</p>
+            {/* {files[0]?.name ? ( */}
+            <div>
+              <div className="profile-section-personal-resume-update">
+                <div>
+                  RESUME.PDF{" "}
+                </div>
+                <div className="resume-delete">
+                  <a href="#">
+                    <AiFillEye size={'1.4rem'} />
+                  </a>
+                  <button className="cursor-pointer" style={{ marginTop: -2 }}>DELETE DOCUMENT </button>
+                </div>
+              </div>
+
+              <div className="resume-update">
+                <input
+                  type={"file"}
+                  id="resume-update"
+                  placeholder=""
+                  style={{ opacity: 0, visibility: "hidden" }}
+                  onChange={(e) =>
+                    handleFileChange(e, () => setFiles(e.target.files))
+                  }
+                />
+                <label
+                  className="button"
+                  htmlFor="resume-updat"
+                  onClick={() => handleModalOpen("resume-update")}
+                >
+                  Add
+                  <Circle style={{ height: "22px", margin: "0 10px" }} percent={60} strokeWidth={10} strokeColor="#9ad8a0" />
+                </label>
+                <p>Supported Formats: doc, docx, rtf, pdf, upto 2 MB</p>
+              </div>
             </div>
           </div>
         </div>
       )}
+
       {sideTab === 3 && (
         <div className="profile-section-personal-detail-right document-details-right">
           <div className="profile-section-personal-resume">
-            <div className="personal-detail-title">
-              <h4> Experience Certificate</h4>
-            </div>
-            <p>
-              The most crucial document required to confirm your identification
-              during the hiring procedure
-            </p>
-            <div className="profile-section-personal-resume-update">
-              <div>RESUME.PDF</div>
-              <div className="resume-delete">
-                {/* <img
-                  className="cursor-pointer"
-                  src={download}
-                  height={25}
-                  alt="download-icon"
-                /> */}
-                <a href="#">
-                  <AiFillEye size={'1.4rem'} style={{ marginBottom: 10 }} />
-                </a>
-                <button className="cursor-pointer">DELETE CERTIFICATE</button>
+            <div>
+              <div className="personal-detail-title">
+                <h4> Experience Certificate</h4>
               </div>
+              <p>
+                The most crucial document required to confirm your identification
+                during the hiring procedure
+              </p>
             </div>
 
-            <div className="resume-update">
-              <input
-                type={"file"}
-                id="resume-update"
-                placeholder=""
-                style={{ opacity: 0, visibility: "hidden" }}
-                onChange={(e) =>
-                  handleFileChange(e, () => setFiles(e.target.files))
-                }
-              />
-              <label
-                className="button"
-                htmlFor="resume-updat"
-                onClick={() => handleModalOpen("resume-update")}
-              >
-                Add
-              </label>
-              <p>Supported Formats: doc, docx, rtf, pdf, upto 2 MB</p>
+            <div>
+              <div className="profile-section-personal-resume-update">
+                <div>RESUME.PDF</div>
+                <div className="resume-delete">
+                  <a href="#">
+                    <AiFillEye size={'1.4rem'} />
+                  </a>
+                  <button className="cursor-pointer"  >DELETE CERTIFICATE</button>
+                </div>
+              </div>
+
+              <div className="resume-update">
+                <input
+                  type={"file"}
+                  id="resume-update"
+                  placeholder=""
+                  style={{ opacity: 0, visibility: "hidden" }}
+                  onChange={(e) =>
+                    handleFileChange(e, () => setFiles(e.target.files))
+                  }
+                />
+                <label
+                  className="button"
+                  htmlFor="resume-updat"
+                  onClick={() => handleModalOpen("resume-update")}
+                >
+                  Add
+                  <Circle style={{ height: "22px", margin: "0 10px" }} percent={60} strokeWidth={10} strokeColor="#9ad8a0" />
+                </label>
+                <p>Supported Formats: doc, docx, rtf, pdf, upto 2 MB</p>
+              </div>
             </div>
           </div>
         </div>
@@ -284,65 +282,65 @@ function DocumentDetails({ user, docs, userUpdated, setIsUserUpdated }) {
       {sideTab === 4 && (
         <div className="profile-section-personal-detail-right document-details-right">
           <div className="profile-section-personal-resume">
-            <div className="personal-detail-title">
-              <h4> IELTS/ Language Proficiency</h4>
+            <div>
+              <div className="personal-detail-title">
+                <h4> IELTS/ Language Proficiency</h4>
+              </div>
+              <p>
+                The most crucial document required to confirm your identification
+                during the hiring procedure
+              </p>
             </div>
-            <p>
-              The most crucial document required to confirm your identification
-              during the hiring procedure
-            </p>
-            <div className="profile-section-personal-resume-update">
-              <div>
+            <div>
+              <div className="profile-section-personal-resume-update">
+                <div>
+                  {documents &&
+                    documents.other_documents &&
+                    documents.other_documents.ielts
+                    ? unescape(documents.other_documents.ielts.split("/").pop())
+                    : "Not Updated"}
+                </div>
                 {documents &&
                   documents.other_documents &&
-                  documents.other_documents.ielts
-                  ? unescape(documents.other_documents.ielts.split("/").pop())
-                  : "Not Updated"}
-              </div>
-              {documents &&
-                documents.other_documents &&
-                documents.other_documents.ielts ? (
-                <div className="resume-delete">
-                  <a href={documents.other_documents.ielts} target="_blank">
-                    {/* <img
+                  documents.other_documents.ielts ? (
+                  <div className="resume-delete">
+                    <a href={documents.other_documents.ielts} target="_blank">
+                      <AiFillEye size={'1.4rem'} />
+                    </a>
+                    <button
                       className="cursor-pointer"
-                      src={download}
-                      height={25}
-                      alt="download-icon"
-                    /> */}
-                    <AiFillEye size={'1.4rem'} style={{ marginBottom: 10 }} />
-                  </a>
-                  <button
-                    className="cursor-pointer"
-                    name="ielts"
-                    onClick={(e) => {
-                      deleteDocumentData(e);
-                    }}
-                  >
-                    DELETE DOCUMENT
-                  </button>
-                </div>
-              ) : (
-                ""
-              )}
-            </div>
-            <div className="resume-update">
-              <input
-                type={"file"}
-                id="resume-update"
-                name="ielts"
-                placeholder=""
-                style={{ opacity: 0, visibility: "hidden" }}
-                onChange={(e) => handleFileChange(e, () => setDocumentData(e))}
-              />
-              <label
-                className="button"
-                htmlFor="resume-updat"
-                onClick={() => handleModalOpen("resume-update")}
-              >
-                Add
-              </label>
-              <p>Supported Formats: doc, docx, rtf, pdf, upto 2 MB</p>
+                      name="ielts"
+                      onClick={(e) => {
+                        deleteDocumentData(e);
+                      }}
+                      style={{ marginBottom: 0 }}
+                    >
+                      DELETE DOCUMENT
+                    </button>
+                  </div>
+                ) : (
+                  ""
+                )}
+              </div>
+              <div className="resume-update">
+                <input
+                  type={"file"}
+                  id="resume-update"
+                  name="ielts"
+                  placeholder=""
+                  style={{ opacity: 0, visibility: "hidden" }}
+                  onChange={(e) => handleFileChange(e, () => setDocumentData(e))}
+                />
+                <label
+                  className="button"
+                  htmlFor="resume-updat"
+                  onClick={() => handleModalOpen("resume-update")}
+                >
+                  Add
+                  <Circle style={{ height: "22px", margin: "0 10px" }} percent={60} strokeWidth={10} strokeColor="#9ad8a0" />
+                </label>
+                <p>Supported Formats: doc, docx, rtf, pdf, upto 2 MB</p>
+              </div>
             </div>
           </div>
         </div>
@@ -351,57 +349,56 @@ function DocumentDetails({ user, docs, userUpdated, setIsUserUpdated }) {
       {sideTab === 5 && (
         <div className="profile-section-personal-detail-right document-details-right">
           <div className="profile-section-personal-resume">
-            <div className="personal-detail-title">
-              <h4> Any other Supporting Documents</h4>
-            </div>
-            <p>
-              The most crucial document required to confirm your identification
-              during the hiring procedure
-            </p>
-            {files[0]?.name ? (
-              <div className="profile-section-personal-resume-update">
-                <div>
-                  RESUME.PDF -{" "}
-                  <span>
-                    Updated on{" "}
-                    {files &&
-                      moment(files[0]?.lastModified).format("DD-MM-YYYY")}
-                  </span>
-                </div>
-                <div className="resume-delete">
-                  {/* <img
-                    className="cursor-pointer"
-                    src={download}
-                    height={25}
-                    alt="download-icon"
-                  /> */}
-                  <a href="#">
-                    <AiFillEye size={'1.4rem'} style={{ marginBottom: 10 }} />
-                  </a>
-                  <button className="cursor-pointer">DELETE DOCUMENT</button>
-                </div>
+            <div>
+              <div className="personal-detail-title">
+                <h4> Any other Supporting Documents</h4>
               </div>
-            ) : (
-              ""
-            )}
-            <div className="resume-update">
-              <input
-                type={"file"}
-                id="resume-update"
-                placeholder=""
-                style={{ opacity: 0, visibility: "hidden" }}
-                onChange={(e) =>
-                  handleFileChange(e, () => setFiles(e.target.files))
-                }
-              />
-              <label
-                className="button"
-                htmlFor="resume-updat"
-                onClick={() => handleModalOpen("resume-update")}
-              >
-                Add
-              </label>
-              <p>Supported Formats: doc, docx, rtf, pdf, upto 2 MB</p>
+              <p>
+                The most crucial document required to confirm your identification
+                during the hiring procedure
+              </p>
+            </div>
+            <div>
+              {files[0]?.name ? (
+                <div className="profile-section-personal-resume-update">
+                  <div>
+                    RESUME.PDF -{" "}
+                    <span>
+                      Updated on{" "}
+                      {files &&
+                        moment(files[0]?.lastModified).format("DD-MM-YYYY")}
+                    </span>
+                  </div>
+                  <div className="resume-delete">
+                    <a href="#">
+                      <AiFillEye size={'1.4rem'} />
+                    </a>
+                    <button className="cursor-pointer">DELETE DOCUMENT</button>
+                  </div>
+                </div>
+              ) : (
+                ""
+              )}
+              <div className="resume-update">
+                <input
+                  type={"file"}
+                  id="resume-update"
+                  placeholder=""
+                  style={{ opacity: 0, visibility: "hidden" }}
+                  onChange={(e) =>
+                    handleFileChange(e, () => setFiles(e.target.files))
+                  }
+                />
+                <label
+                  className="button"
+                  htmlFor="resume-updat"
+                  onClick={() => handleModalOpen("resume-update")}
+                >
+                  Add
+                  <Circle style={{ height: "22px", margin: "0 10px" }} percent={60} strokeWidth={10} strokeColor="#9ad8a0" />
+                </label>
+                <p>Supported Formats: doc, docx, rtf, pdf, upto 2 MB</p>
+              </div>
             </div>
           </div>
         </div>

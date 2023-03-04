@@ -29,6 +29,7 @@ import "react-circular-progressbar/dist/styles.css";
 import "react-datepicker/dist/react-datepicker.css";
 import VacancyChart from "./ReservationChart";
 import { getUser } from "../../core/AuthHelpers";
+import Loader from "../Shared/Loader";
 
 function Dashboard() {
   const percentage = 86;
@@ -56,15 +57,7 @@ function Dashboard() {
         href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css"
       />
       {loading && (
-        <div className="dash-load">
-          {" "}
-          <Spinner
-            animation="border"
-            color="primary"
-            type="grow"
-            className="spinner"
-          />
-        </div>
+        <Loader />
       )}
       <div className="dashboard-main-cont">
         {/* <BackgroundDesign /> */}

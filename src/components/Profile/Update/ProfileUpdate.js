@@ -81,42 +81,47 @@ function ProfileUpdate({ isOpen, closeModal, user, setIsUserUpdated }) {
             <div className="modal-main-wrapper">
               <p>Personal Details</p>
               <form className="education-form" onSubmit={handleSubmit(onSubmit)}>
-                <label htmlFor="name" className="input-label">
-                  Full Name
-                </label>
-                <input
-                  className="profile-input"
-                  placeholder="Enter your Full Name"
-                  label="Full Name"
-                  type="text"
-                  defaultValue={user.name ? user.name : ""}
-                  {...register("name", { required: true })}
-                  name="name"
-                />
-                <div>
-                  {errors.name && (
-                    <span className="validation">{`Name is ${errors.name.type}`}</span>
-                  )}
+                <div className="input-col-6">
+                  <div>
+                    <label htmlFor="name" className="input-label">
+                      Full Name
+                    </label>
+                    <input
+                      className="profile-input"
+                      placeholder="Enter your Full Name"
+                      label="Full Name"
+                      type="text"
+                      defaultValue={user.name ? user.name : ""}
+                      {...register("name", { required: true })}
+                      name="name"
+                    />
+                    <div>
+                      {errors.name && (
+                        <span className="validation">{`Name is ${errors.name.type}`}</span>
+                      )}
+                    </div>
+                  </div>
+                  <div>
+
+
+                    <label htmlFor="phone" className="input-label">
+                      Contact Number
+                    </label>
+                    <input
+                      className="profile-input"
+                      placeholder="Enter your Contact Number"
+                      type="number"
+                      defaultValue={user.phone ? user.phone : ""}
+                      {...register("phone", { required: true })}
+                      name="phone"
+                    />
+                    <div>
+                      {errors.phone && (
+                        <span className="validation">{`Contact is ${errors.phone.type}`}</span>
+                      )}
+                    </div>
+                  </div>
                 </div>
-
-
-                <label htmlFor="phone" className="input-label">
-                  Contact Number
-                </label>
-                <input
-                  className="profile-input"
-                  placeholder="Enter your Contact Number"
-                  type="number"
-                  defaultValue={user.phone ? user.phone : ""}
-                  {...register("phone", { required: true })}
-                  name="phone"
-                />
-                <div>
-                  {errors.phone && (
-                    <span className="validation">{`Contact is ${errors.phone.type}`}</span>
-                  )}
-                </div>
-
                 <label htmlFor="position" className="input-label">
                   Position
                 </label>
@@ -153,28 +158,36 @@ function ProfileUpdate({ isOpen, closeModal, user, setIsUserUpdated }) {
                   name="company"
                 />
 
-                <label htmlFor="country" className="input-label">
-                  Country
-                </label>
-                <input
-                  className="profile-input"
-                  placeholder="Enter your country"
-                  type="text"
-                  defaultValue={user.country ? user.country : ""}
-                  {...register("country")}
-                  name="country"
-                />
-                <label htmlFor="country" className="input-label">
-                  Language
-                </label>
-                <input
-                  className="profile-input"
-                  placeholder="Enter your language"
-                  type="text"
-                  defaultValue={user.language ? user.language : ""}
-                  {...register("language")}
-                  name="language"
-                />
+                <div className="input-col-6">
+                  <div>
+                    <label htmlFor="country" className="input-label">
+                      Country
+                    </label>
+                    <input
+                      className="profile-input"
+                      placeholder="Enter your country"
+                      type="text"
+                      defaultValue={user.country ? user.country : ""}
+                      {...register("country")}
+                      name="country"
+                    />
+                  </div>
+
+                  <div>
+                    <label htmlFor="country" className="input-label">
+                      Language
+                    </label>
+                    <input
+                      className="profile-input"
+                      placeholder="Enter your language"
+                      type="text"
+                      defaultValue={user.language ? user.language : ""}
+                      {...register("language")}
+                      name="language"
+                    />
+                  </div>
+                </div>
+
                 <div
                   style={{
                     marginTop: "2rem",

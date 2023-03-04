@@ -1,6 +1,7 @@
 import React, { Fragment } from "react";
 import download from "../../../assets/images/icons/download.png";
 import profilImage from "../../../assets/images/icons/blank.png";
+import { Line, Circle } from 'rc-progress';
 import { useForm } from "react-hook-form";
 import {
   deleteDocument,
@@ -276,7 +277,6 @@ function SettingsDetails({
                   <h6>mohammedsalihak350@gmail.com</h6>
                 </div>
                 <button onClick={() => setChangeEmailModal({ status: true, data: 'mohammedsalihak350@gmail.com ' })}>Change Email</button>
-
                 <div>
                   <h5>Mobile number</h5>
                   <div
@@ -476,17 +476,17 @@ function SettingsDetails({
                     {files &&
                       moment(files[0]?.lastModified).format("DD-MM-YYYY")}
                   </span> */}
-                </p>
-                <div className="resume-delete">
                   {/* <img
                   className="cursor-pointer"
                   src={download}
                   height={25}
                   alt="download-icon"
                 /> */}
+                </p>
+                <div className="resume-delete" >
                   <a href={documents.resume}
                   >
-                    <AiFillEye size={'1.4rem'} style={{ marginBottom: 10 }} />
+                    <AiFillEye size={'1.4rem'} />
                   </a>
                   <button
                     className="cursor-pointer"
@@ -513,10 +513,13 @@ function SettingsDetails({
                 className="button"
                 htmlFor="resume-updat"
                 onClick={() => handleModalOpen("resume-update")}
+                style={{ marginBottom: 3 }}
               >
                 UPDATE
-                {/* {loading && <ImSpinner6 className="spinner" style={{ margin: "0 5px" }} />} */}
+                <Circle style={{ height: "22px", margin: "0 10px" }} percent={60} strokeWidth={10} strokeColor="#9ad8a0" />
+                {/* {<ImSpinner6 className="spinner" style={{ margin: "0 5px" }} />} */}
               </label>
+              {/* <Line style={{ height: "12px" }} percent={10} strokeWidth={4} strokeColor="#D3D3D3" /> */}
               <p>Supported Formats: doc, docx, rtf, pdf, upto 2 MB</p>
             </div>
           </div>

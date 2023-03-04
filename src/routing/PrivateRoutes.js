@@ -1,8 +1,10 @@
 import React, { lazy, Suspense, useEffect, useState } from "react";
 import { Route, Routes, Navigate } from "react-router-dom";
+import { Spinner } from "reactstrap";
 import Dashboard from "../components/Dashboard/Dashboard";
 import Jobs from "../components/Jobs/Jobs";
 import Header from "../components/Shared/Header";
+import Loader from "../components/Shared/Loader";
 import { getUser } from "../core/AuthHelpers";
 
 const PrivateRoutes = () => {
@@ -32,7 +34,7 @@ const PrivateRoutes = () => {
         <Route
           path="/profile/*"
           element={
-            <Suspense fallback={<div>Loading...</div>}>
+            <Suspense fallback={<Loader />}>
               <ProfilePage user={user} isChanged={isChanged} />
             </Suspense>
           }

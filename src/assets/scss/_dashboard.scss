@@ -251,7 +251,7 @@
 }
 .nav-links {
   // font-family: sans-serif;
-  font-family: "Poppins", sans-serif ;
+  font-family: "Poppins", sans-serif;
 
   font-weight: 600;
   font-size: 14px;
@@ -448,7 +448,7 @@
 }
 .new-jobs-head {
   // font-family: 'Open Sans';
-  font-family: "Poppins", sans-serif ;
+  font-family: "Poppins", sans-serif;
 
   font-style: normal;
   font-weight: 500;
@@ -952,7 +952,7 @@
   padding: 30px;
 }
 .job-modal-wrapper {
-  max-height: 95vh;
+  max-height: 80vh;
   overflow-y: scroll;
   &::-webkit-scrollbar {
     display: none;
@@ -1005,13 +1005,23 @@
         font-weight: 400;
         margin-bottom: 10px;
       }
-      p {
+      .description {
         font-size: 14px;
         margin-bottom: 10px;
         font-weight: 300;
         line-height: 22px;
       }
+      p {
+        font-size: 14px;
+        margin-bottom: 10px;
+        font-weight: 300;
+        line-height: 22px;
+        inline-size: 100%;
+        overflow-wrap: break-word;
+      }
       .detail-ul {
+        inline-size: 100%;
+        overflow-wrap: break-word;
         list-style: inside;
         margin-bottom: 20px;
         li {
@@ -1463,6 +1473,7 @@
   top: 0;
   left: 0;
   right: 0;
+  backdrop-filter: blur(3px);
 
   div {
     color: #292562 !important;
