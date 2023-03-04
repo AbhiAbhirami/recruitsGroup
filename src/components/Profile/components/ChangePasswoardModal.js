@@ -2,7 +2,8 @@ import React, { useState } from "react";
 import Modal from "react-modal";
 import { useEffect } from "react";
 import { IoIosClose } from "react-icons/io"
-import { useForm } from "react-hook-form";
+import { set, useForm } from "react-hook-form";
+import { FaRegEye, FaRegEyeSlash } from "react-icons/fa";
 
 const customStyles = {
   content: {
@@ -37,6 +38,8 @@ function ChangePasswoardModal({ isOpen, closeModal, confirmClick, currentData })
     console.log(values);
     closeModal()
   };
+
+  const [showPassword, setShowPassword] = useState(false)
 
   return (
     <>
@@ -78,14 +81,25 @@ function ChangePasswoardModal({ isOpen, closeModal, confirmClick, currentData })
                 <p>{currentData}</p>
               </div>
 
-              <div style={{
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                marginBottom: 10
-              }}>
-                <input type={'text'} name="verify" placeholder="Enter New Password" className="verify-input profile-input"
+              <div style={inputStyle}>
+                <input type={'text'} name="old-password" placeholder="Enter Old Password" className="verify-input profile-input"
                 />
+              </div>
+              <div style={inputStyle}>
+                <input name="new-password" type="password" placeholder="Enter New Password" className="verify-input profile-input"
+                />
+              </div>
+              <div style={inputStyle}>
+                <input type={showPassword ? "text" : "password"} name="confirm-password" placeholder="Confirm Password" className="verify-input profile-input"
+                />
+                <div style={{
+                  position: "absolute",
+                  right: 10,
+                  top: 22
+                }}>
+                  {showPassword && <FaRegEyeSlash onClick={() => setShowPassword(false)} />}
+                  {!showPassword && <FaRegEye onClick={() => setShowPassword(true)} />}
+                </div>
               </div>
               <div
                 style={{
@@ -112,3 +126,14 @@ function ChangePasswoardModal({ isOpen, closeModal, confirmClick, currentData })
 }
 
 export default ChangePasswoardModal;
+
+const inputStyle = {
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
+  // marginBottom: 10,
+  position: "relative",
+  width: "fit-content",
+  margin: "auto",
+  minWidth: "300px"
+}

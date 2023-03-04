@@ -222,8 +222,8 @@ function Jobs() {
                 <p
                   style={
                     media
-                      ? {  fontSize: "12px" }
-                      : {  fontSize: "16px" }
+                      ? { fontSize: "12px" }
+                      : { fontSize: "16px" }
                   }
                 >
                   Job title or Company
@@ -270,8 +270,8 @@ function Jobs() {
                 <p
                   style={
                     media
-                      ? {  fontSize: "12px" }
-                      : {  fontSize: "16px" }
+                      ? { fontSize: "12px" }
+                      : { fontSize: "16px" }
                   }
                 >
                   City or State
