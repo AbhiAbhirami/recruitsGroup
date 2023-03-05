@@ -9,6 +9,7 @@ import save from "../../assets/images/icons/save.png";
 
 import task from "../../assets/images/icons/task.svg";
 import notificationIcon from "../../assets/images/icons/notification.svg";
+import savedJobs from "../../assets/images/icons/savedJobs.svg";
 import NotificationCard from "../Shared/Notification/NotificationCard";
 import profile from "../../assets/images/icons/blank.png";
 
@@ -116,6 +117,9 @@ function Jobs() {
                 borderRadius: "17px",
                 backgroundColor: "#fff",
                 padding: "20px 30px",
+                display:"flex",
+                alignItems:'center',
+                justifyContent:"center"
               }}
             >
               
@@ -172,7 +176,19 @@ function Jobs() {
                 />{" "}
                 <h2 style={{ fontSize: "18px" }}>Saved Jobs </h2>
               </div>
+              
+              {true? 
+              <div style={{display:"flex",flexDirection:"column"}}>
               <SavedJobsCard jobs={savedJobsData} />
+              <SavedJobsCard jobs={savedJobsData} />
+              </div>
+              :
+              <div style={{display:"flex",flex:1,flexDirection:"column",justifyContent:"center",alignItems:"center"}}>
+              <img src={savedJobs} alt="saved-jobs" width="60%" />
+              <h5 style={{marginTop:'15px'}}>No saved jobs</h5>
+              </div>
+              }
+              
             </div>
           </div>
 
