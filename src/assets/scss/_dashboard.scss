@@ -418,12 +418,14 @@
   width: 100%;
   position: absolute;
   display: flex;
-  background-color: #1f194c;
+  background-color: #e5e5e5;
+
   flex-direction: column;
 }
 
 .blue-bg-div {
-  flex: 1.5;
+  flex: .8;
+  background: url("../images/background/bg2.png");
 }
 
 .white-bg-div {
