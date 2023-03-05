@@ -201,7 +201,7 @@ function Jobs() {
                 className=""
                 style={{ height: "100%", width: "50%", padding: "5% 2%" }}
               >
-                <h2 style={media ? { fontSize: "16px" } : { fontSize: "20px" }}>
+                <h2 style={media ? { fontSize: "16px" } : { fontSize: "18px" }}>
                   What
                 </h2>
                 <p
@@ -249,7 +249,7 @@ function Jobs() {
                 className=""
                 style={{ height: "100%", width: "50%", padding: "5% 2%" }}
               >
-                <h2 style={media ? { fontSize: "16px" } : { fontSize: "20px" }}>
+                <h2 style={media ? { fontSize: "16px" } : { fontSize: "18px" }}>
                   Where
                 </h2>
                 <p
