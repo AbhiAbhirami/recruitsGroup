@@ -1,11 +1,7 @@
 import React, { Fragment } from "react";
 import edit from "../../../assets/images/icons/edit.png";
 import { useEffect } from "react";
-import {
-  getDocuments,
-  getUser,
-  setDocuments,
-} from "../../../core/AuthHelpers";
+import { getDocuments, getUser, setDocuments } from "../../../core/AuthHelpers";
 import { toast, ToastContainer } from "react-toastify";
 import { deleteDocument, updateUserDocument } from "../../../requests/Auth";
 import { useState } from "react";
@@ -14,9 +10,9 @@ import { HiOutlinePencil } from "react-icons/hi";
 import EducationModal from "./EducationModal";
 import SkillsModal from "./SkillsModal";
 import CareerModal from "./CareerModal";
-import { AiFillEye } from "react-icons/ai"
-import { FaTrash } from "react-icons/fa"
-import { NavHashLink } from 'react-router-hash-link';
+import { AiFillEye } from "react-icons/ai";
+import { FaTrash } from "react-icons/fa";
+import { NavHashLink } from "react-router-hash-link";
 
 function PersonalDetails({
   setIsOpen,
@@ -28,10 +24,17 @@ function PersonalDetails({
   const [sideTab, setSideTab] = React.useState(1);
   const [resume, setResume] = React.useState("");
   const [documents, setDocumentsData] = useState(docs ? docs : "");
-
+  const [uploadPercent, setUploadPercent] = useState(0);
   const [cover, setCover] = React.useState("");
   const [user, setUserData] = useState(userData);
-
+  let percent = 0;
+  const options = {
+    onUploadProgress: (progressEvent) => {
+      const { loaded, total } = progressEvent;
+      percent = Math.floor((loaded * 100) / total);
+      setUploadPercent(percent);
+    },
+  };
   useEffect(() => {
     setResume(
       documents && documents.resume
@@ -62,7 +65,12 @@ function PersonalDetails({
 
   const setResumeData = async (files) => {
     try {
-      const documents = await updateUserDocument(user.id, "resume", files[0]);
+      const documents = await updateUserDocument(
+        user.id,
+        "resume",
+        files[0],
+        options
+      );
       setDocuments(documents.data.data);
       setIsUserUpdated(true);
       toast.success(documents.data.message);
@@ -115,7 +123,6 @@ function PersonalDetails({
   return (
     <Fragment>
       {confirmModal.status == false && <ToastContainer draggablePercent={60} />}
-
       <ConfirmModal
         labelId={confirmModal?.id}
         isOpen={confirmModal?.status}
@@ -124,16 +131,14 @@ function PersonalDetails({
       {confirmModal.status == false && <ToastContainer draggablePercent={60} />}
       <div className="profile-section-personal-detail-left document-details-left">
         <div className="personal-detail-title">
-          <h4>
-            Personal Details
-          </h4>
+          <h4>Personal Details</h4>
         </div>
         <ul>
           <li
             className={sideTab === 1 && "document-details-head"}
             onClick={() => setSideTab(1)}
           >
-            <NavHashLink smooth to="/profile#personal-sn" >
+            <NavHashLink smooth to="/profile#personal-sn">
               Personal Details
             </NavHashLink>
           </li>
@@ -141,7 +146,7 @@ function PersonalDetails({
             className={sideTab === 2 && "document-details-head"}
             onClick={() => setSideTab(2)}
           >
-            <NavHashLink smooth to="/profile#resume-sn" >
+            <NavHashLink smooth to="/profile#resume-sn">
               Resume / Cover Letter
             </NavHashLink>
             <button className="cursor-pointer">UPDATE</button>
@@ -150,16 +155,15 @@ function PersonalDetails({
             className={sideTab === 3 && "document-details-head"}
             onClick={() => setSideTab(3)}
           >
-            <NavHashLink smooth to="/profile#skill-sn" >
+            <NavHashLink smooth to="/profile#skill-sn">
               Key skill
-            </NavHashLink>
-            {" "}
+            </NavHashLink>{" "}
           </li>
           <li
             className={sideTab === 4 && "document-details-head"}
             onClick={() => setSideTab(4)}
           >
-            <NavHashLink smooth to="/profile#education-sn" >
+            <NavHashLink smooth to="/profile#education-sn">
               Education
             </NavHashLink>
 
@@ -181,10 +185,9 @@ function PersonalDetails({
             className={sideTab === 7 && "document-details-head"}
             onClick={() => setSideTab(7)}
           >
-            <NavHashLink smooth to="/profile#career-sn" >
+            <NavHashLink smooth to="/profile#career-sn">
               Career profile
-            </NavHashLink>
-            {" "}
+            </NavHashLink>{" "}
           </li>
         </ul>
       </div>
@@ -258,8 +261,8 @@ function PersonalDetails({
             <h4>Resume</h4>
           </div>
           <p>
-            The most key document that employers review is a resume. In
-            general, recruiters do not review profiles without resumes.
+            The most key document that employers review is a resume. In general,
+            recruiters do not review profiles without resumes.
           </p>
           <div className="profile-section-personal-resume-update">
             <div>
@@ -270,7 +273,6 @@ function PersonalDetails({
                       moment(files[0]?.lastModified).format("DD-MM-YYYY")}
                   </span> */}
             </div>
-
           </div>
           {/* {documents && documents.cover_letter ? (
               <>
@@ -305,30 +307,38 @@ function PersonalDetails({
             )} */}
 
           <div className="file-uploader-wrap">
-            <div style={{
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "end",
-              marginBottom: 30
-            }}>
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "end",
+                marginBottom: 30,
+              }}
+            >
               {documents && documents.resume ? (
-                <div className="resume-delete " style={{
-                  display: "flex",
-                  flexDirection: "column",
-                  alignItems: "flex-end",
-                  marginBottom: "20px",
-                  width: "100%"
-                }}  >
+                <div
+                  className="resume-delete "
+                  style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "flex-end",
+                    marginBottom: "20px",
+                    width: "100%",
+                  }}
+                >
                   <a
-                    // href={documents.resume} 
-                    style={{ lineHeight: 0 }} target="_blank" className="text-muted">
+                    // href={documents.resume}
+                    style={{ lineHeight: 0 }}
+                    target="_blank"
+                    className="text-muted"
+                  >
                     {/* <img
                     className="cursor-pointer"
                     src={download}
                     height={25}
                     alt="download-icon"
                   /> */}
-                    <AiFillEye size={'1.4rem'} style={{ marginBottom: 10 }} />
+                    <AiFillEye size={"1.4rem"} style={{ marginBottom: 10 }} />
                   </a>
                   {/* <FaTrash
                   className="cursor-pointer"
@@ -381,23 +391,29 @@ function PersonalDetails({
 
             }}>
               {documents && documents.resume ? (
-                <div className="resume-delete " style={{
-                  display: "flex",
-                  flexDirection: "column",
-                  alignItems: "flex-end",
-                  marginBottom: "20px",
-                  width: "100%"
-                }} >
+                <div
+                  className="resume-delete "
+                  style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "flex-end",
+                    marginBottom: "20px",
+                    width: "100%",
+                  }}
+                >
                   <a
-                    // href={documents.resume} 
-                    style={{ lineHeight: 0 }} target="_blank" className="text-muted">
+                    // href={documents.resume}
+                    style={{ lineHeight: 0 }}
+                    target="_blank"
+                    className="text-muted"
+                  >
                     {/* <img
                     className="cursor-pointer"
                     src={download}
                     height={25}
                     alt="download-icon"
                   /> */}
-                    <AiFillEye size={'1.4rem'} style={{ marginBottom: 10 }} />
+                    <AiFillEye size={"1.4rem"} style={{ marginBottom: 10 }} />
                   </a>
                   {/* <FaTrash
                   className="cursor-pointer"
@@ -441,10 +457,7 @@ function PersonalDetails({
                 <p>Supported Formats: doc, docx, rtf, pdf, upto 2 MB</p>
               </div>
             </div>
-
-
           </div>
-
         </div>
         {/* )} */}
         {/* {sideTab === 3 && ( */}
@@ -456,8 +469,11 @@ function PersonalDetails({
           />
           <div className="card">
             <div className="profile-section-personal-resume profile-skills mt-0">
-              <div id="skill-sn" className="personal-detail-title skills-heading">
-                <h4 >Key Skills</h4>
+              <div
+                id="skill-sn"
+                className="personal-detail-title skills-heading"
+              >
+                <h4>Key Skills</h4>
                 <HiOutlinePencil
                   onClick={() => setSkillsModal({ status: true, data: skills })}
                 />
@@ -480,7 +496,10 @@ function PersonalDetails({
           />
           <div className="card">
             <div className="profile-section-personal-resume profile-education mt-0">
-              <div id="education-sn" className="personal-detail-title education-heading">
+              <div
+                id="education-sn"
+                className="personal-detail-title education-heading"
+              >
                 <h4>Education</h4>
                 <button
                   to={"#"}
@@ -541,7 +560,10 @@ function PersonalDetails({
           />
           <div className="card">
             <div className="profile-section-personal-resume profile-career mt-0">
-              <div id="career-sn" className="personal-detail-title career-heading">
+              <div
+                id="career-sn"
+                className="personal-detail-title career-heading"
+              >
                 <h4>Career Profile</h4>
                 <HiOutlinePencil
                   style={{ cursor: "pointer" }}

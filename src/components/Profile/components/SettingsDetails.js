@@ -24,7 +24,7 @@ import { HiOutlinePencil } from "react-icons/hi";
 import PhoneVerifyModal from "./PhoneVerifyModal";
 import ChangeEmailModal from "./ChangeEmailModal";
 import ChangePasswoardModal from "./ChangePasswoardModal";
-import { NavHashLink } from 'react-router-hash-link';
+import { NavHashLink } from "react-router-hash-link";
 import { AiFillEye } from "react-icons/ai";
 
 function SettingsDetails({
@@ -38,7 +38,7 @@ function SettingsDetails({
   const [user, setUserData] = useState(userData);
   const [sideTab, setSideTab] = React.useState(1);
   const [avatar, setAvatar] = useState(userData.avatar);
-
+  const [uploadPercent, setUploadPercent] = useState(0);
   const {
     register,
     handleSubmit,
@@ -57,7 +57,6 @@ function SettingsDetails({
     language: user.language ? user.language : "",
   };
   const onSubmit = async (values) => {
-    console.log(values);
     try {
       const userUpdate = await updateUser(user.id, values);
       setUser(userUpdate.data.data);
@@ -83,10 +82,21 @@ function SettingsDetails({
   }, [userUpdated]);
 
   const setVideoResume = async (e) => {
+    debugger;
+    const options = {
+      onUploadProgress: (progressEvent) => {
+        console.log(progressEvent)
+        const { loaded, total } = progressEvent;
+        let percent = Math.round((loaded / total) * 100);
+        console.log(loaded, total, percent);
+        setUploadPercent(percent);
+      },
+    };
     const updateDocsData = await updateUserDocument(
       user.id,
       "video_resume",
-      e.target.files[0]
+      e.target.files[0],
+      options
     );
     setDocuments(updateDocsData.data.data);
     setIsUserUpdated(true);
@@ -147,7 +157,6 @@ function SettingsDetails({
 
   const deleteVideo = async (e) => {
     try {
-      debugger;
       const documents = await deleteDocument(user.id, e.target.name);
       setDocuments(documents.data.data);
       setIsUserUpdated(true);
@@ -159,6 +168,10 @@ function SettingsDetails({
 
   return (
     <Fragment>
+      <progress id="file" value={uploadPercent} max="100">
+        {" "}
+        {uploadPercent}%{" "}
+      </progress>
       <ConfirmModal
         labelId={confirmModal?.id}
         isOpen={confirmModal?.status}
@@ -176,7 +189,7 @@ function SettingsDetails({
             className={sideTab === 8 && "document-details-head"}
             onClick={() => setSideTab(8)}
           >
-            <NavHashLink smooth to="/profile#account-sn" >
+            <NavHashLink smooth to="/profile#account-sn">
               Account
             </NavHashLink>
             <button className="cursor-pointer">UPDATE</button>
@@ -191,7 +204,7 @@ function SettingsDetails({
             className={sideTab === 2 && "document-details-head"}
             onClick={() => setSideTab(2)}
           >
-            <NavHashLink smooth to="/profile#username-sn" >
+            <NavHashLink smooth to="/profile#username-sn">
               User Name
             </NavHashLink>
             <button className="cursor-pointer">UPDATE</button>
@@ -206,7 +219,7 @@ function SettingsDetails({
             className={sideTab === 4 && "document-details-head"}
             onClick={() => setSideTab(4)}
           >
-            <NavHashLink smooth to="/profile#position-sn" >
+            <NavHashLink smooth to="/profile#position-sn">
               Position
             </NavHashLink>
             <button className="cursor-pointer">ADD</button>
@@ -215,7 +228,7 @@ function SettingsDetails({
             className={sideTab === 5 && "document-details-head"}
             onClick={() => setSideTab(5)}
           >
-            <NavHashLink smooth to="/profile#email-sn" >
+            <NavHashLink smooth to="/profile#email-sn">
               Email
             </NavHashLink>
             <button className="cursor-pointer">ADD</button>
@@ -224,7 +237,7 @@ function SettingsDetails({
             className={sideTab === 6 && "document-details-head"}
             onClick={() => setSideTab(6)}
           >
-            <NavHashLink smooth to="/profile#phone-sn" >
+            <NavHashLink smooth to="/profile#phone-sn">
               Phone Number
             </NavHashLink>
             <button className="cursor-pointer">ADD</button>
@@ -233,7 +246,7 @@ function SettingsDetails({
             className={sideTab === 7 && "document-details-head"}
             onClick={() => setSideTab(7)}
           >
-            <NavHashLink smooth to="/profile#video-sn" >
+            <NavHashLink smooth to="/profile#video-sn">
               Video
             </NavHashLink>
             <button className="cursor-pointer">UPDATE</button>
@@ -241,9 +254,7 @@ function SettingsDetails({
         </ul>
       </div>
 
-
       <div className="profile-section-personal-detail-right">
-
         <div className="profile-section-personal-table">
           <div className="settings-profile-details">
             <>
@@ -254,15 +265,22 @@ function SettingsDetails({
               />
               <ChangeEmailModal
                 isOpen={changeEmailModal?.status}
-                closeModal={() => setChangeEmailModal({ status: false, data: '' })}
+                closeModal={() =>
+                  setChangeEmailModal({ status: false, data: "" })
+                }
                 currentData={changeEmailModal?.data}
               />
               <ChangePasswoardModal
                 isOpen={changePasswordModal?.status}
-                closeModal={() => setChangePasswordModal({ status: false, data: '' })}
+                closeModal={() =>
+                  setChangePasswordModal({ status: false, data: "" })
+                }
                 currentData={changePasswordModal?.data}
               />
-              <div className="settings-profile-details settings-account" id="account-sn">
+              <div
+                className="settings-profile-details settings-account"
+                id="account-sn"
+              >
                 <h4>Account Settings</h4>
 
                 <p style={{ marginBottom: 25 }} className="text-muted">
@@ -275,7 +293,16 @@ function SettingsDetails({
                   <p>Primary Email</p>
                   <h6>mohammedsalihak350@gmail.com</h6>
                 </div>
-                <button onClick={() => setChangeEmailModal({ status: true, data: 'mohammedsalihak350@gmail.com ' })}>Change Email</button>
+                <button
+                  onClick={() =>
+                    setChangeEmailModal({
+                      status: true,
+                      data: "mohammedsalihak350@gmail.com ",
+                    })
+                  }
+                >
+                  Change Email
+                </button>
 
                 <div>
                   <h5>Mobile number</h5>
@@ -299,10 +326,16 @@ function SettingsDetails({
 
                 <div>
                   <h5>Password</h5>
-                  <button onClick={() => setChangePasswordModal({ status: true, data: '123456' })}>Change Password</button>
+                  <button
+                    onClick={() =>
+                      setChangePasswordModal({ status: true, data: "123456" })
+                    }
+                  >
+                    Change Password
+                  </button>
                 </div>
-
-              </div></>
+              </div>
+            </>
             {/* <h4>Your Profile Picture</h4> */}
             {/* <div className="settings-profile-image-wrap"> */}
             {/* <div className="settings-profile-image"> */}
@@ -459,17 +492,22 @@ function SettingsDetails({
               type="number"
             />
           </form> */}
-          <div className="profile-section-personal-resume settings" id="video-sn">
+          <div
+            className="profile-section-personal-resume settings"
+            id="video-sn"
+          >
             <div className="personal-detail-title">
               <h4>Upload Video</h4>
             </div>
 
             {docs && docs.video_resume ? (
               <div className="profile-section-personal-resume-update">
-                <p style={{
-                  wordBreak: "break-all",
-                  padding: 0
-                }}>
+                <p
+                  style={{
+                    wordBreak: "break-all",
+                    padding: 0,
+                  }}
+                >
                   {/* {docs.video_resume.split("/").pop()} */}
                   {/* <span>
                     Updated on{" "}
@@ -484,9 +522,8 @@ function SettingsDetails({
                   height={25}
                   alt="download-icon"
                 /> */}
-                  <a href={documents.resume}
-                  >
-                    <AiFillEye size={'1.4rem'} style={{ marginBottom: 10 }} />
+                  <a href={documents.resume}>
+                    <AiFillEye size={"1.4rem"} style={{ marginBottom: 10 }} />
                   </a>
                   <button
                     className="cursor-pointer"
@@ -522,8 +559,6 @@ function SettingsDetails({
           </div>
         </div>
       </div>
-
-
     </Fragment>
   );
 }
