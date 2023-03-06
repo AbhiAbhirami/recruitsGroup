@@ -125,12 +125,12 @@ function Jobs() {
               
               
                 <div className="card-head text-center">
-                    <div style={{width:"40%",margin:"auto"}} className="image-wrapper mb-3">
+                    <div style={{width:"120px",height:"120px",margin:"auto"}} className="image-wrapper mb-3">
                       <CircularProgressbarWithChildren
                         value={percentage}
                         styles={progressbarStyle}
                       >
-                        <img style={{width:"86%",borderRadius:"50%"}} src={user.avatar ? user.avatar : profilImage} />
+                        <img style={{width:"95px",height:"95px",borderRadius:"50%"}} src={user.avatar ? user.avatar : profilImage} />
                       </CircularProgressbarWithChildren>
                     </div>
                     <div style={{paddingTop:"10px"}}>
