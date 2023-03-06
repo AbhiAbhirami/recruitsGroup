@@ -11,8 +11,9 @@ import EducationModal from "./EducationModal";
 import SkillsModal from "./SkillsModal";
 import CareerModal from "./CareerModal";
 import { AiFillEye } from "react-icons/ai";
-import { FaTrash } from "react-icons/fa";
-import { NavHashLink } from "react-router-hash-link";
+import { FaTrash } from "react-icons/fa"
+import { NavHashLink } from 'react-router-hash-link';
+import { Circle } from "rc-progress";
 
 function PersonalDetails({
   setIsOpen,
@@ -192,7 +193,7 @@ function PersonalDetails({
         </ul>
       </div>
 
-      <div className="profile-section-personal-detail-right">
+      <div className="profile-section-personal-detail-right" style={{ height: "auto" }}>
         {/* {sideTab === 1 && ( */}
         <div className="profile-section-personal-table card">
           <div className="personal-detail-title" id="personal-sn">
@@ -257,23 +258,86 @@ function PersonalDetails({
         {/* )} */}
         {/* {sideTab === 2 && ( */}
         <div className="profile-section-personal-resume mt-0 card">
+          <div>
+            <div className="personal-detail-title" id="resume-sn">
+              <h4>Resume</h4>
+            </div>
+            <p>
+              The most key document that employers review is a resume. In
+              general, recruiters do not review profiles without resumes.
+            </p>
+          </div>
+
+          <div className="">
+            <p>{resume ? resume : "Not Updated"}</p>
+            <div className="file-uploader-wrap">
+              <div style={{
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "end",
+                marginBottom: 30,
+                width: "100%",
+                margin: "3rem"
+              }}>
+                {documents && documents.resume ? (
+                  <div className="resume-delete" style={{
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "end",
+                    marginBottom: "20px",
+                    width: "100%"
+                  }}  >
+                    <a
+                      style={{ lineHeight: 0 }} target="_blank" className="text-muted">
+                      <AiFillEye size={'1.4rem'} style={{ margin: "0 10px" }} />
+                    </a>
+                    <button
+                      className="cursor-pointer"
+                      onClick={() => {
+                        deleteResume();
+                      }}
+                      style={buttonLink}
+                    >
+                      DELETE RESUME
+                    </button>
+                  </div>
+                ) : (
+                  ""
+                )}
+                <div className="resume-update" style={{ margin: 0 }}>
+                  <input
+                    type={"file"}
+                    id="resume-update"
+                    onChange={(e) =>
+                      handleFileChange(e, () => setResumeData(e.target.files))
+                    }
+                    placeholder=""
+                    style={{ opacity: 0, visibility: "hidden" }}
+                  />
+                  <label
+                    className="button"
+                    htmlFor="resume-updat"
+                    onClick={() => handleModalOpen("resume-update")}
+                  >
+                    UPDATE RESUME
+                    <Circle style={{ height: "22px", margin: "0 10px" }} percent={60} strokeWidth={10} strokeColor="#9ad8a0" />
+                  </label>
+                  <p>Supported Formats: doc, docx, rtf, pdf, upto 2 MB</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        {/* )} */}
+        {/* {sideTab === 3 && ( */}
+        <div className="profile-section-personal-resume mt-0 card">
           <div className="personal-detail-title" id="resume-sn">
-            <h4>Resume</h4>
+            <h4>Cover Letter</h4>
           </div>
           <p>
             The most key document that employers review is a resume. In general,
             recruiters do not review profiles without resumes.
           </p>
-          <div className="profile-section-personal-resume-update">
-            <div>
-              {resume ? resume : "Not Updated"}
-              {/* <span>
-                    Updated on{" "}
-                    {files &&
-                      moment(files[0]?.lastModified).format("DD-MM-YYYY")}
-                  </span> */}
-            </div>
-          </div>
           {/* {documents && documents.cover_letter ? (
               <>
                 <div>
@@ -305,162 +369,81 @@ function PersonalDetails({
             ) : (
               "Not Updated"
             )} */}
+          <div>
 
-          <div className="file-uploader-wrap">
-            <div
-              style={{
+            <p>
+              {resume ? resume : "Not Updated"}
+              {/* <span>
+                    Updated on{" "}
+                    {files &&
+                      moment(files[0]?.lastModified).format("DD-MM-YYYY")}
+                  </span> */}
+            </p>
+            <div className="file-uploader-wrap">
+
+              <div style={{
                 display: "flex",
                 flexDirection: "column",
                 alignItems: "end",
                 marginBottom: 30,
-              }}
-            >
-              {documents && documents.resume ? (
-                <div
-                  className="resume-delete "
-                  style={{
-                    display: "flex",
-                    flexDirection: "column",
-                    alignItems: "flex-end",
-                    marginBottom: "20px",
-                    width: "100%",
-                  }}
-                >
-                  <a
-                    // href={documents.resume}
-                    style={{ lineHeight: 0 }}
-                    target="_blank"
-                    className="text-muted"
-                  >
-                    {/* <img
-                    className="cursor-pointer"
-                    src={download}
-                    height={25}
-                    alt="download-icon"
-                  /> */}
-                    <AiFillEye size={"1.4rem"} style={{ marginBottom: 10 }} />
-                  </a>
-                  {/* <FaTrash
-                  className="cursor-pointer"
-                  onClick={() => {
-                    deleteResume();
-                  }} size={'1rem'}
-                  style={{
-                    color: "lightcoral",
-                    margin: "0 10px"
-                  }}
-                /> */}
-                  <button
-                    className="cursor-pointer"
-                    onClick={() => {
-                      deleteResume();
-                    }}
-                  >
-                    DELETE RESUME
-                  </button>
-                </div>
-              ) : (
-                ""
-              )}
-              <div className="resume-update" style={{ margin: 0 }}>
-                <input
-                  type={"file"}
-                  id="resume-update"
-                  onChange={(e) =>
-                    handleFileChange(e, () => setResumeData(e.target.files))
-                  }
-                  placeholder=""
-                  style={{ opacity: 0, visibility: "hidden" }}
-                />
-                <label
-                  className="button"
-                  htmlFor="resume-updat"
-                  onClick={() => handleModalOpen("resume-update")}
-                >
-                  UPDATE RESUME
-                </label>
-                <p>Supported Formats: doc, docx, rtf, pdf, upto 2 MB</p>
-              </div>
-            </div>
+                width: "100%",
+                margin: '3rem'
+              }}>
 
-            <div style={{
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "end",
-              marginBottom: 30
-
-            }}>
-              {documents && documents.resume ? (
-                <div
-                  className="resume-delete "
-                  style={{
+                {documents && documents.resume ? (
+                  <div className="resume-delete " style={{
                     display: "flex",
-                    flexDirection: "column",
-                    alignItems: "flex-end",
+                    alignItems: "center",
+                    justifyContent: "end",
                     marginBottom: "20px",
-                    width: "100%",
-                  }}
-                >
-                  <a
-                    // href={documents.resume}
-                    style={{ lineHeight: 0 }}
-                    target="_blank"
-                    className="text-muted"
+                    width: "100%"
+                  }} >
+                    <a
+                      // href={documents.resume} 
+                      style={{ lineHeight: 0 }} target="_blank" className="text-muted">
+
+                      <AiFillEye size={'1.4rem'} style={{ margin: "0 10px" }} />
+                    </a>
+                    <button
+                      className="cursor-pointer"
+                      onClick={() => {
+                        deleteResume();
+                      }}
+                      style={buttonLink}
+                    >
+                      DELETE COVER LETTER
+                    </button>
+                  </div>
+                ) : (
+                  ""
+                )}
+                <div className="resume-update " style={{ margin: 0 }}>
+                  <input
+                    type={"file"}
+                    id="resume-update"
+                    onChange={(e) =>
+                      handleFileChange(e, () => setResumeData(e.target.files))
+                    }
+                    placeholder=""
+                    style={{ opacity: 0, visibility: "hidden" }}
+                  />
+                  <label
+                    className="button"
+                    htmlFor="resume-updat"
+                    onClick={() => handleModalOpen("resume-update")}
                   >
-                    {/* <img
-                    className="cursor-pointer"
-                    src={download}
-                    height={25}
-                    alt="download-icon"
-                  /> */}
-                    <AiFillEye size={"1.4rem"} style={{ marginBottom: 10 }} />
-                  </a>
-                  {/* <FaTrash
-                  className="cursor-pointer"
-                  onClick={() => {
-                    deleteResume();
-                  }} size={'1rem'}
-                  style={{
-                    color: "lightcoral",
-                    margin: "0 10px"
-                  }}
-                /> */}
-                  <button
-                    className="cursor-pointer"
-                    onClick={() => {
-                      deleteResume();
-                    }}
-                  >
-                    DELETE COVER LETTER
-                  </button>
+                    UPDATE COVER LETTER
+                    <Circle style={{ height: "22px", margin: "0 10px" }} percent={60} strokeWidth={10} strokeColor="#9ad8a0" />
+
+                  </label>
+                  <p>Supported Formats: doc, docx, rtf, pdf, upto 2 MB</p>
                 </div>
-              ) : (
-                ""
-              )}
-              <div className="resume-update " style={{ margin: 0 }}>
-                <input
-                  type={"file"}
-                  id="resume-update"
-                  onChange={(e) =>
-                    handleFileChange(e, () => setResumeData(e.target.files))
-                  }
-                  placeholder=""
-                  style={{ opacity: 0, visibility: "hidden" }}
-                />
-                <label
-                  className="button"
-                  htmlFor="resume-updat"
-                  onClick={() => handleModalOpen("resume-update")}
-                >
-                  UPDATE COVER LETTER
-                </label>
-                <p>Supported Formats: doc, docx, rtf, pdf, upto 2 MB</p>
               </div>
             </div>
           </div>
         </div>
-        {/* )} */}
-        {/* {sideTab === 3 && ( */}
+
+
         <>
           <SkillsModal
             isOpen={skillsModal?.status}
@@ -637,3 +620,10 @@ function PersonalDetails({
 }
 
 export default PersonalDetails;
+
+const buttonLink = {
+  border: "none",
+  color: "#4892f0",
+  cursor: "pointer",
+  backgroundColor: "transparent"
+}

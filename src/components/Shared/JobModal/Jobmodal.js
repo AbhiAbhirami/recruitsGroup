@@ -95,7 +95,7 @@ function JobModal({ isOpen, closeModal, applied, job }) {
                   : "Be the first to apply"}
               </p>
             </div>
-            <div>
+            <div style={window.screen.width < 600 ? { display: "none" } : { display: 'block' }}>
               <img src={marker} height={15} alt="header-logo" />
               {job && job.location}
             </div>

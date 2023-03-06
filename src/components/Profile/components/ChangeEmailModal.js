@@ -3,6 +3,7 @@ import Modal from "react-modal";
 import { useEffect } from "react";
 import { IoIosClose } from "react-icons/io"
 import { useForm } from "react-hook-form";
+import verifyImg from "../../../assets/images/icons/emailverify.svg"
 
 const customStyles = {
   content: {
@@ -35,8 +36,11 @@ function ChangeEmailModal({ isOpen, closeModal, confirmClick, currentData }) {
 
   const onSubmit = async (values) => {
     console.log(values);
+    setConfirmModal(true)
     closeModal()
   };
+
+  const [confirmModal, setConfirmModal] = useState(false)
 
   return (
     <>
@@ -84,7 +88,16 @@ function ChangeEmailModal({ isOpen, closeModal, confirmClick, currentData }) {
                 justifyContent: "center",
                 marginBottom: 10
               }}>
-                <input type={'text'} name="verify" placeholder="Enter New Email" className="verify-input profile-input"
+                <input type={'text'} name="confirm-email" placeholder="Enter New Email" className="verify-input profile-input"
+                />
+              </div>
+              <div style={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                marginBottom: 10
+              }}>
+                <input type={'text'} name="new-email" placeholder="Confirm email" className="verify-input profile-input"
                 />
               </div>
               <div
@@ -103,6 +116,41 @@ function ChangeEmailModal({ isOpen, closeModal, confirmClick, currentData }) {
                 </button>
               </div>
             </form>
+          </div>
+        </div>
+      </Modal>
+      <Modal
+        isOpen={confirmModal}
+        onRequestClose={() => setConfirmModal(false)}
+        style={customStyles}
+        contentLabel="Example Modal"
+      >
+        <div className="job-modal-wrapper ed-modal skills-modal phone-verify-modal">
+          <div className="modal-header p-30 "
+            style={{
+              display: "flex"
+              , flexDirection: "column"
+            }}
+          >
+            <img src={verifyImg} height={200} width={"100%"} className="mb-2" />
+            <p style={{ textAlign: "center", margin: "10px", fontSize: "14px", lineHeight: "18px" }}>We have sent the code verification to <br />
+              Your Email Address</p>
+            <div
+              style={{
+                marginTop: "1.5rem",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center"
+              }}
+            >
+              <button
+                type={'button'}
+                className="button phone-verify-btn"
+                onClick={() => setConfirmModal(false)}
+              >
+                Ok
+              </button>
+            </div>
           </div>
         </div>
       </Modal>

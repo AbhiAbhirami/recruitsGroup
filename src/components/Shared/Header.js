@@ -55,11 +55,11 @@ function Header({ userData }) {
         style={
           isDropdown | isHamburger | isNotifDropdown | isSearchDropdown
             ? {
-                width: "100%",
-                height: "100vh",
-                zIndex: 10,
-                position: "absolute",
-              }
+              width: "100%",
+              height: "100vh",
+              zIndex: 10,
+              position: "absolute",
+            }
             : { display: "none" }
         }
       ></div>
@@ -120,10 +120,10 @@ function Header({ userData }) {
             className="bellIcon-cont"
             onClick={() => setIsNotifDropDown(true)}
           >
-            {/* <span style={isNewNotification ? { display: 'block' } : { display: 'none' }} className='notification-dot'></span> */}
+            <div style={isNewNotification ? { display: 'flex', justifyContent: "center", padding: "7px", alignItems: "center" } : { display: 'none' }} className='notification-dot'>2</div>
             <img
               className="bell-icon"
-              src={isNewNotification ? bellDot : bellIcon}
+              src={bellIcon}
               alt="search-icon"
             />
             <NotificationDropDown open={isNotifDropdown} />
@@ -154,11 +154,11 @@ function Header({ userData }) {
       </div>
       <div className="mobile-hamburger-div">
         <div className="bellIcon-cont">
-          {/* <span style={isNewNotification ? { display: 'block' } : { display: 'none' }} className='notification-dot'></span> */}
+          <div style={isNewNotification ? { display: 'flex', top: "35px", justifyContent: "center", padding: "7px", alignItems: "center" } : { display: 'none' }} className='notification-dot'>2</div>
           <img
             onClick={() => setIsNotifDropDown(true)}
             className="bell-icon"
-            src={isNewNotification ? bellDot : bellIcon}
+            src={bellIcon}
             alt="search-icon"
           />
           {isHamburger ? (

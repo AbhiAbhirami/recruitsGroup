@@ -11,6 +11,7 @@ import { MdDelete } from "react-icons/md"
 import DeleteModal from "./DeleteModal";
 import { useLocation } from "react-router-dom";
 import { ImSpinner6 } from "react-icons/im";
+import Loader from "../../Shared/Loader";
 
 function ProfileInfo({
   setIsUserUpdated,
@@ -93,11 +94,7 @@ function ProfileInfo({
 
   return (
     <div>
-      {loading && (
-        <div className="dash-load">
-          <ImSpinner6 className="spinner" size={'2rem'} style={{ margin: "0 5px" }} />
-        </div>
-      )}
+      {loading && (<Loader />)}
       <DeleteModal
         onDelete={removeImage}
         isOpen={confirmModal?.status}

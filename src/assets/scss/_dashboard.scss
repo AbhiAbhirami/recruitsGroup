@@ -251,6 +251,8 @@
 }
 .nav-links {
   // font-family: sans-serif;
+  font-family: "Poppins", sans-serif;
+
   font-weight: 600;
   font-size: 14px;
   line-height: 30px;
@@ -362,6 +364,7 @@
   width: 10px;
   height: 10px;
   top: 20px;
+  font-size: 10px;
   left: 30px;
   position: absolute;
   border-radius: 50%;
@@ -416,12 +419,14 @@
   width: 100%;
   position: absolute;
   display: flex;
-  background-color: #1f194c;
+  background-color: #e5e5e5;
+
   flex-direction: column;
 }
 
 .blue-bg-div {
-  flex: 1.5;
+  flex: .8;
+  background: url("../images/background/bg2.png");
 }
 
 .white-bg-div {
@@ -446,6 +451,8 @@
 }
 .new-jobs-head {
   // font-family: 'Open Sans';
+  font-family: "Poppins", sans-serif;
+
   font-style: normal;
   font-weight: 500;
   font-size: 18px;
@@ -584,7 +591,7 @@
   // background-color: white;
   background: #fcfcfc;
   // width: 45%;
-  border-radius: 20px;
+  border-radius: 17px;
   max-height: 430px;
   min-width: 40%;
   width: 100%;
@@ -640,7 +647,7 @@
   // background-color: white;
   background: #fcfcfc;
   min-width: 40%;
-  border-radius: 20px;
+  border-radius: 17px;
   max-height: 430px;
 
   padding: 2% 4%;
@@ -948,7 +955,7 @@
   padding: 30px;
 }
 .job-modal-wrapper {
-  max-height: 95vh;
+  max-height: 80vh;
   overflow-y: scroll;
   &::-webkit-scrollbar {
     display: none;
@@ -1001,13 +1008,23 @@
         font-weight: 400;
         margin-bottom: 10px;
       }
-      p {
+      .description {
         font-size: 14px;
         margin-bottom: 10px;
         font-weight: 300;
         line-height: 22px;
       }
+      p {
+        font-size: 14px;
+        margin-bottom: 10px;
+        font-weight: 300;
+        line-height: 22px;
+        inline-size: 100%;
+        overflow-wrap: break-word;
+      }
       .detail-ul {
+        inline-size: 100%;
+        overflow-wrap: break-word;
         list-style: inside;
         margin-bottom: 20px;
         li {
@@ -1459,6 +1476,7 @@
   top: 0;
   left: 0;
   right: 0;
+  backdrop-filter: blur(3px);
 
   div {
     color: #292562 !important;

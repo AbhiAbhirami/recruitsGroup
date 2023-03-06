@@ -3,11 +3,13 @@ import BackgroundDesign from "../Shared/BackgroundDesign";
 import TodoCard from "../Shared/Todo/TodoCard";
 
 import searchIcon from "../../assets/images/icons/search.png";
+import profilImage from "../../assets/images/icons/blank.png";
 
 import save from "../../assets/images/icons/save.png";
 
 import task from "../../assets/images/icons/task.svg";
 import notificationIcon from "../../assets/images/icons/notification.svg";
+import savedJobs from "../../assets/images/icons/savedJobs.svg";
 import NotificationCard from "../Shared/Notification/NotificationCard";
 import profile from "../../assets/images/icons/blank.png";
 
@@ -21,6 +23,7 @@ import SavedJobsCard from "./SavedJobsCard";
 import { useAuth } from "../../core/Auth";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllJobs } from "../../store/jobs";
+import { CircularProgressbarWithChildren } from "react-circular-progressbar";
 
 function Jobs() {
   debugger;
@@ -72,6 +75,8 @@ function Jobs() {
       // getSavedJobsDetails();
     }
   }, [window.location.pathname]);
+  const percentage = 86;
+
   let media = window.screen.width < 600;
   const data = [
     { task: "Update profile", tag: "To find you" },
@@ -106,67 +111,51 @@ function Jobs() {
             style={{
               display: "flex",
               flexDirection: "column",
-              gap: "50px",
+              gap: "10px",
               alignItems: "center",
             }}
           >
-            <div
-              className=""
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                gap: "10px",
-                alignItems: "center",
-                color: "#fff",
-              }}
-            >
-              <img
-                src={user.avatar ? user.avatar : profile}
-                style={{ marginTop: "20px", height: "121px", width: "117px" }}
-                alt=""
-              />
-              <span style={{ color: "white" }}>{user && user.name}</span>
-              <span style={{ color: "white" }}>{user && user.position}</span>
-            </div>
-
+            
             <div
               style={{
                 width: "100%",
-                height: "100px",
-                borderRadius: "18px",
+                height: "55vh",
+                borderRadius: "17px",
                 backgroundColor: "#fff",
                 padding: "20px 30px",
+                display:"flex",
+                alignItems:'center',
+                justifyContent:"center"
               }}
             >
-              <div
-                style={{
-                  display: "flex",
-                  justifyContent: "space-between",
-                  width: "100%",
-                }}
-              >
-                <h3 style={{ color: "#5C5B5B" }}>Profile Completion</h3>
-                <h3>50%</h3>
+              
+              
+                <div className="card-head text-center">
+                    <div style={{width:"40%",margin:"auto"}} className="image-wrapper mb-3">
+                      <CircularProgressbarWithChildren
+                        value={percentage}
+                        styles={progressbarStyle}
+                      >
+                        <img style={{width:"86%",borderRadius:"50%"}} src={user.avatar ? user.avatar : profilImage} />
+                      </CircularProgressbarWithChildren>
+                    </div>
+                    <div style={{paddingTop:"10px"}}>
+                      <h4 style={{fontSize:"20px"}} className="mb-0 pb-0">{user && user.name}</h4>
+                      <p style={{color: "#5c5b5b",fontSize : "14px"}} className="">{user && user.position}Web Developer</p>
+                      <p style={{maxHeight:'57px',fontSize:"13px",overflow:"hidden",marginTop:"15px",textAlign:"center",color: "rgb(92, 91, 91)",lineHeight:'1.1'}}>A kiddo who uses Bootstrap and Laravel in web development. Currently playing around with design via Figma laying around with design via Figma laying around with design via Figmalaying around with design via Figma</p>
+                    </div>
+                    <div style={{backgroundColor:'#F7DF1E',padding:"3px 0px",margin:'auto',marginTop:"20px",fontSize:'14px',borderRadius:"8px"}}>shahidafrid@gmail.com</div>
+                    <div style={{margin:"auto",marginTop:'20px',width:'90%',display:'flex',justifyContent:"space-evenly",alignItems:"center"}}> <i style={{fontSize:"20px"}} class="fa fa-twitter" aria-hidden="true"></i><i style={{fontSize:"20px"}} class="fa fa-instagram" aria-hidden="true"></i><i style={{fontSize:"20px"}} class="fa fa-linkedin" aria-hidden="true"></i><i style={{fontSize:"20px"}} class="fa fa-github" aria-hidden="true"></i></div>
+                  </div>
               </div>
-              <div
-                style={{
-                  height: "3px",
-                  width: "100%",
-                  background: "#D9D9D9",
-                  marginTop: "20px",
-                }}
-              >
-                <div
-                  style={{ height: "3px", width: "50%", background: "#9AD8A0" }}
-                ></div>
-              </div>
-            </div>
+            <div></div>
+           
 
             <div
               className="saved-jobs-cont"
               style={{
                 width: "100%",
-                borderRadius: "18px",
+                borderRadius: "17px",
                 backgroundColor: "#fff",
                 display: "flex",
                 flexDirection: "column",
@@ -193,7 +182,19 @@ function Jobs() {
                 />{" "}
                 <h2 style={{ fontSize: "18px" }}>Saved Jobs </h2>
               </div>
+              
+              {true? 
+              <div style={{display:"flex",flexDirection:"column"}}>
               <SavedJobsCard jobs={savedJobsData} />
+              <SavedJobsCard jobs={savedJobsData} />
+              </div>
+              :
+              <div style={{display:"flex",flex:1,flexDirection:"column",justifyContent:"center",alignItems:"center"}}>
+              <img src={savedJobs} alt="saved-jobs" width="60%" />
+              <h5 style={{marginTop:'15px'}}>No saved jobs</h5>
+              </div>
+              }
+              
             </div>
           </div>
 
@@ -201,7 +202,7 @@ function Jobs() {
             className="w-35"
             style={{
               background: "#E5E5E5",
-              borderRadius: "20px",
+              borderRadius: "17px",
               display: "flex",
               flexDirection: "column",
               gap: "10px",
@@ -213,23 +214,23 @@ function Jobs() {
               style={{
                 width: "95%",
                 height: "150px",
-                borderRadius: "18px",
+                borderRadius: "17px",
                 backgroundColor: "#fff",
                 display: "flex",
               }}
             >
               <div
                 className=""
-                style={{ height: "100%", width: "50%", padding: "5%" }}
+                style={{ height: "100%", width: "50%", padding: "5% 2%" }}
               >
-                <h2 style={media ? { fontSize: "16px" } : { fontSize: "20px" }}>
+                <h2 style={media ? { fontSize: "16px" } : { fontSize: "18px" }}>
                   What
                 </h2>
                 <p
                   style={
                     media
-                      ? { marginTop: ".75rem", fontSize: "14px" }
-                      : { marginTop: ".75rem", fontSize: "16px" }
+                      ? { fontSize: "12px" }
+                      : { fontSize: "16px" }
                   }
                 >
                   Job title or Company
@@ -237,7 +238,7 @@ function Jobs() {
                 <div
                   style={{
                     width: "100%",
-                    height: "30px",
+                    height: "35px",
                     marginTop: ".75rem",
                     backgroundColor: "#F2F3F7",
                     outline: "none",
@@ -268,16 +269,16 @@ function Jobs() {
               </div>
               <div
                 className=""
-                style={{ height: "100%", width: "50%", padding: "5%" }}
+                style={{ height: "100%", width: "50%", padding: "5% 2%" }}
               >
-                <h2 style={media ? { fontSize: "16px" } : { fontSize: "20px" }}>
+                <h2 style={media ? { fontSize: "16px" } : { fontSize: "18px" }}>
                   Where
                 </h2>
                 <p
                   style={
                     media
-                      ? { marginTop: ".75rem", fontSize: "14px" }
-                      : { marginTop: ".75rem", fontSize: "16px" }
+                      ? { fontSize: "12px" }
+                      : { fontSize: "16px" }
                   }
                 >
                   City or State
@@ -285,7 +286,7 @@ function Jobs() {
                 <div
                   style={{
                     width: "100%",
-                    height: "30px",
+                    height: "35px",
                     marginTop: ".75rem",
                     backgroundColor: "#F2F3F7",
                     outline: "none",
@@ -338,7 +339,7 @@ function Jobs() {
           >
             <div
               className="notification-main-cont"
-              style={{ padding: "20px 30px" }}
+              style={{ padding: "20px 30px",height:"55vh"  }}
             >
               <h3 className="new-jobs-head">Notification</h3>
               <div className="new-notification-cards-cont">
@@ -415,3 +416,30 @@ function Jobs() {
 }
 
 export default Jobs;
+
+
+
+const progressbarStyle = {
+  path: {
+    strokeWidth: "7px",
+    stroke: `rgba(69, 0, 137, 0.8)`,
+    strokeLinecap: "butt",
+    transition: "stroke-dashoffset 0.5s ease 0s",
+    transformOrigin: "center center",
+  },
+  trail: {
+    stroke: "#ffff",
+    strokeLinecap: "round",
+    transformOrigin: "center center",
+  },
+  background: {
+    fill: "#3e98c7",
+  },
+};
+
+const smallProgressbarStyle = {
+  ...progressbarStyle,
+  background: {
+    fill: "#D9D9D9",
+  },
+};
