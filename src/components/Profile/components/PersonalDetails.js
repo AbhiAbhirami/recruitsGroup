@@ -286,7 +286,9 @@ function PersonalDetails({
                   }}  >
                     <a
                       style={{ lineHeight: 0 }} target="_blank" className="text-muted">
-                      <AiFillEye size={'1.4rem'} style={{ margin: "0 10px" }} />
+                      {/* <AiFillEye size={'1.4rem'} style={{ margin: "0 10px" }} /> */}
+                      <i className="fa-regular fa-eye" style={{ fontSize: "1.2rem", margin: "0 10px" }}></i>
+
                     </a>
                     <button
                       className="cursor-pointer"
@@ -399,7 +401,9 @@ function PersonalDetails({
                       // href={documents.resume} 
                       style={{ lineHeight: 0 }} target="_blank" className="text-muted">
 
-                      <AiFillEye size={'1.4rem'} style={{ margin: "0 10px" }} />
+                      {/* <AiFillEye size={'1.4rem'} style={{ margin: "0 10px" }} /> */}
+                      <i className="fa-regular fa-eye" style={{ fontSize: "1.2rem", margin: "0 10px" }}></i>
+
                     </a>
                     <button
                       className="cursor-pointer"

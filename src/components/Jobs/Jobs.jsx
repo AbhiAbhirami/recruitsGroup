@@ -18,6 +18,7 @@ import { getAppliedJobs, getSavedJobs } from "../../requests/Auth";
 import { getJobsInfo, getUser } from "../../core/AuthHelpers";
 import JobPost from "./JobPost";
 import SavedJobsCard from "./SavedJobsCard";
+import DefaultJob from "../../assets/images/icons/noJob.svg"
 
 function Jobs() {
   const [modalIsOpen, setIsOpen] = React.useState(false);
@@ -185,9 +186,13 @@ function Jobs() {
                   style={{ height: "20px", width: "20px" }}
                   alt=""
                 />{" "}
-                <h2 style={{ fontSize: "18px" }}>Saved Jobs </h2>
+                <h2 style={{ fontSize: "18px" }}>Saved Jobs  </h2>
               </div>
-              <SavedJobsCard jobs={savedJobsData} />
+              {savedJobsData?.length >= 1 ?
+                <SavedJobsCard jobs={savedJobsData} /> : <div style={{ width: "60%", margin: "auto", marginTop: "0" }}>
+                  <img src={DefaultJob} alt="" width={"100%"} height={150} />
+                  <p className="text-center">No Jobs Found</p>
+                </div>}
             </div>
           </div>
 
