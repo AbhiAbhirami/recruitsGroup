@@ -137,7 +137,8 @@ function DocumentDetails({ user, docs, userUpdated, setIsUserUpdated }) {
                   documents.other_documents.passport ? (
                   <div className="resume-delete">
                     <a href={documents.other_documents.passport} target="_blank">
-                      <AiFillEye size={'1.4rem'} style={{ margin: "0 5px" }} />
+                      {/* <AiFillEye size={'1.4rem'} style={{ margin: "0 5px" }} /> */}
+                      <i className="fa-regular fa-eye" style={{ fontSize: "1.2rem" }}></i>
                     </a>
                     <button
                       className="cursor-pointer"
@@ -199,7 +200,9 @@ function DocumentDetails({ user, docs, userUpdated, setIsUserUpdated }) {
                 </div>
                 <div className="resume-delete">
                   <a href="#">
-                    <AiFillEye size={'1.4rem'} />
+                    {/* <AiFillEye size={'1.4rem'} /> */}
+                    <i className="fa-regular fa-eye" style={{ fontSize: "1.2rem" }}></i>
+
                   </a>
                   <button className="cursor-pointer" style={{ marginTop: -2 }}>DELETE DOCUMENT </button>
                 </div>
@@ -248,7 +251,9 @@ function DocumentDetails({ user, docs, userUpdated, setIsUserUpdated }) {
                 <div>RESUME.PDF</div>
                 <div className="resume-delete">
                   <a href="#">
-                    <AiFillEye size={'1.4rem'} />
+                    {/* <AiFillEye size={'1.4rem'} /> */}
+                    <i className="fa-regular fa-eye" style={{ fontSize: "1.2rem" }}></i>
+
                   </a>
                   <button className="cursor-pointer"  >DELETE CERTIFICATE</button>
                 </div>
@@ -305,7 +310,8 @@ function DocumentDetails({ user, docs, userUpdated, setIsUserUpdated }) {
                   documents.other_documents.ielts ? (
                   <div className="resume-delete">
                     <a href={documents.other_documents.ielts} target="_blank">
-                      <AiFillEye size={'1.4rem'} />
+                      {/* <AiFillEye size={'1.4rem'} /> */}
+                      <i className="fa-regular fa-eye" style={{ fontSize: "1.2rem" }}></i>
                     </a>
                     <button
                       className="cursor-pointer"
@@ -371,7 +377,8 @@ function DocumentDetails({ user, docs, userUpdated, setIsUserUpdated }) {
                   </div>
                   <div className="resume-delete">
                     <a href="#">
-                      <AiFillEye size={'1.4rem'} />
+                      <i className="fa-regular fa-eye" style={{ fontSize: "1.2rem" }}></i>
+                      {/* <AiFillEye size={'1.4rem'} /> */}
                     </a>
                     <button className="cursor-pointer">DELETE DOCUMENT</button>
                   </div>

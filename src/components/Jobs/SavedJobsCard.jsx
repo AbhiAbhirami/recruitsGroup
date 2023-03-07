@@ -1,6 +1,5 @@
 import React from "react";
 import JobModal from "../Shared/JobModal/Jobmodal";
-import DefaultJob from "../../assets/images/icons/noJob.svg"
 
 const SavedJobsCard = ({ jobs }) => {
   const [modalIsOpen, setIsOpen] = React.useState(false);
@@ -96,10 +95,7 @@ const SavedJobsCard = ({ jobs }) => {
             </div>
           );
         })
-        : <div style={{ width: "60%", margin: "auto", marginTop: "0" }}>
-          <img src={DefaultJob} alt="" width={"100%"} height={150} />
-          <p className="text-center">No Jobs Found</p>
-        </div>}
+        : ''}
     </>
   );
 };

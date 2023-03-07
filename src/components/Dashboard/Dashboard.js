@@ -67,7 +67,7 @@ function Dashboard() {
           style={{ backgroundColor: "#F2F2F2", overflow: "hidden" }}
         >
           <Row className="dashboard-cards mt-4">
-            <Col className="col-xl-3 col-sm-6 sm:mb-20 md:mb-10">
+            <Col className="col-xl-3 col-sm-6 sm:mb-10 md:mb-10">
               <Card className="dashboard-card card-1 shiny-effect">
                 <CardBody className="d-flex align-items-center p-4">
                   <img src={cardIcon1} height={50} />
@@ -78,7 +78,7 @@ function Dashboard() {
                 </CardBody>
               </Card>
             </Col>
-            <Col className="col-xl-3 col-sm-6 sm:mb-20 md:mb-10">
+            <Col className="col-xl-3 col-sm-6 sm:mb-10 md:mb-10">
               <Card className="dashboard-card card-2 shiny-effect">
                 <CardBody className="d-flex align-items-center p-4">
                   <img src={cardIcon2} height={50} />
@@ -90,7 +90,7 @@ function Dashboard() {
                 </CardBody>
               </Card>
             </Col>
-            <Col className="col-xl-3 col-sm-6 sm:mb-20 md:mb-10">
+            <Col className="col-xl-3 col-sm-6 sm:mb-10 md:mb-10">
               <Card className="dashboard-card card-3 shiny-effect">
                 <CardBody className="d-flex align-items-center p-4">
                   <img src={cardIcon3} height={50} />
@@ -101,7 +101,7 @@ function Dashboard() {
                 </CardBody>
               </Card>
             </Col>
-            <Col className="col-xl-3 col-sm-6 sm:mb-20 md:mb-10">
+            <Col className="col-xl-3 col-sm-6 sm:mb-10 md:mb-10">
               <Card className="dashboard-card card-4 shiny-effect">
                 <CardBody className="d-flex align-items-center p-4">
                   <img src={cardIcon4} height={50} />

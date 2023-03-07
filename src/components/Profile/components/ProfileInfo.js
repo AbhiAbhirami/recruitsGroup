@@ -2,15 +2,13 @@ import React, { useEffect, useState } from "react";
 import backgroundImage from "../../../assets/images/background/bg2.png";
 import profilImage from "../../../assets/images/icons/blank.png";
 import flag from "../../../assets/images/icons/flag.png";
-import phone from "../../../assets/images/icons/phone.png";
-import email from "../../../assets/images/icons/mail.png";
 import { getDocuments, getUser, setUser } from "../../../core/AuthHelpers";
 import { deleteUserImage, updateUserImage } from "../../../requests/Auth";
 import { toast } from "react-toastify";
 import { MdDelete } from "react-icons/md"
 import DeleteModal from "./DeleteModal";
 import { useLocation } from "react-router-dom";
-import { ImSpinner6 } from "react-icons/im";
+import { FiPhone } from "react-icons/fi";
 import Loader from "../../Shared/Loader";
 
 function ProfileInfo({
@@ -178,11 +176,16 @@ function ProfileInfo({
               )}
             </p>
             <p>
-              <img src={email} height={15} alt="flag-icon" />
+              {/* <img src={email} height={15} alt="flag-icon" /> */}
+              {user.email && <i class="fa-regular fa-envelope" style={{ marginRight: '5px' }}></i>}
               {user.email}
             </p>
             <p>
-              {user.phone && <img src={phone} height={15} alt="flag-icon" />}
+              {user.phone &&
+                <FiPhone style={{ marginRight: '5px' }} />
+              }
+              {/* <i class="fab fa-regular fa-phone"></i> */}
+              {/* <img src={phone} height={15} alt="flag-icon" /> */}
               {user.phone && user.phone}
             </p>
           </div>

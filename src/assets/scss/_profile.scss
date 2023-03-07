@@ -441,6 +441,7 @@
           }
           button {
             color: rgba(59, 111, 177, 1);
+
             font-size: 13px;
             border: none;
             margin-bottom: 5px;
@@ -482,7 +483,8 @@
         background-color: #f5f6fa;
         border: 1px dashed #5c5b5b;
         .button {
-          background-color: #4892f0;
+          // background-color: #4892f0;
+          background-color: #1f194c;
           height: 55px;
           border: none;
           width: 300px;

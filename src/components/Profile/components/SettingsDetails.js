@@ -486,7 +486,8 @@ function SettingsDetails({
                 <div className="resume-delete" >
                   <a href={documents.resume}
                   >
-                    <AiFillEye size={'1.4rem'} />
+                    <i className="fa-regular fa-eye" style={{ fontSize: "1.2rem" }}></i>
+                    {/* <AiFillEye size={'1.4rem'} /> */}
                   </a>
                   <button
                     className="cursor-pointer"
