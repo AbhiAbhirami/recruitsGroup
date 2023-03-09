@@ -24,7 +24,7 @@ function ProfilePage({ user, isChanged }) {
 
   const deleteCover = async () => {
     try {
-      const data = await deleteDocument(userId, "cover_letter");
+      const data = await deleteDocument(userId, "cover");
       toast.success(data.data.message);
     } catch (error) {
       toast.error(error.response.data.message);
@@ -33,7 +33,7 @@ function ProfilePage({ user, isChanged }) {
 
   const setCoverData = async (files) => {
     try {
-      const data = await updateUserDocument(userId, "cover_letter", files[0]);
+      const data = await updateUserDocument(userId, "cover", files[0]);
       toast.success(data.data.message);
     } catch (error) {
       toast.error(error.response.data.message);
