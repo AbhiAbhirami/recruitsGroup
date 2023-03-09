@@ -1,11 +1,7 @@
 import React, { Fragment } from "react";
 import edit from "../../../assets/images/icons/edit.png";
 import { useEffect } from "react";
-import {
-  getDocuments,
-  getUser,
-  setDocuments,
-} from "../../../core/AuthHelpers";
+import { getDocuments, getUser, setDocuments } from "../../../core/AuthHelpers";
 import { toast, ToastContainer } from "react-toastify";
 import { deleteDocument, updateUserDocument } from "../../../requests/Auth";
 import { useState } from "react";
@@ -14,9 +10,9 @@ import { HiOutlinePencil } from "react-icons/hi";
 import EducationModal from "./EducationModal";
 import SkillsModal from "./SkillsModal";
 import CareerModal from "./CareerModal";
-import { AiFillEye } from "react-icons/ai"
-import { FaTrash } from "react-icons/fa"
-import { NavHashLink } from 'react-router-hash-link';
+import { AiFillEye } from "react-icons/ai";
+import { FaTrash } from "react-icons/fa";
+import { NavHashLink } from "react-router-hash-link";
 import { Circle } from "rc-progress";
 
 function PersonalDetails({
@@ -64,6 +60,28 @@ function PersonalDetails({
   const setResumeData = async (files) => {
     try {
       const documents = await updateUserDocument(user.id, "resume", files[0]);
+      setDocuments(documents.data.data);
+      setIsUserUpdated(true);
+      toast.success(documents.data.message);
+    } catch (error) {
+      toast.error(error.response.data.message);
+    }
+  };
+
+  const deleteCover = async () => {
+    try {
+      const documents = await deleteDocument(user.id, "cover");
+      setDocuments(documents.data.data);
+      setIsUserUpdated(true);
+      toast.success(documents.data.message);
+    } catch (error) {
+      toast.error(error.response.data.message);
+    }
+  };
+
+  const setCoverData = async (files) => {
+    try {
+      const documents = await updateUserDocument(user.id, "cover", files[0]);
       setDocuments(documents.data.data);
       setIsUserUpdated(true);
       toast.success(documents.data.message);
@@ -125,16 +143,14 @@ function PersonalDetails({
       {confirmModal.status == false && <ToastContainer draggablePercent={60} />}
       <div className="profile-section-personal-detail-left document-details-left">
         <div className="personal-detail-title">
-          <h4>
-            Personal Details
-          </h4>
+          <h4>Personal Details</h4>
         </div>
         <ul>
           <li
             className={sideTab === 1 && "document-details-head"}
             onClick={() => setSideTab(1)}
           >
-            <NavHashLink smooth to="/profile#personal-sn" >
+            <NavHashLink smooth to="/profile#personal-sn">
               Personal Details
             </NavHashLink>
           </li>
@@ -142,7 +158,7 @@ function PersonalDetails({
             className={sideTab === 2 && "document-details-head"}
             onClick={() => setSideTab(2)}
           >
-            <NavHashLink smooth to="/profile#resume-sn" >
+            <NavHashLink smooth to="/profile#resume-sn">
               Resume / Cover Letter
             </NavHashLink>
             <button className="cursor-pointer">UPDATE</button>
@@ -151,47 +167,35 @@ function PersonalDetails({
             className={sideTab === 3 && "document-details-head"}
             onClick={() => setSideTab(3)}
           >
-            <NavHashLink smooth to="/profile#skill-sn" >
+            <NavHashLink smooth to="/profile#skill-sn">
               Key skill
-            </NavHashLink>
-            {" "}
+            </NavHashLink>{" "}
           </li>
           <li
             className={sideTab === 4 && "document-details-head"}
             onClick={() => setSideTab(4)}
           >
-            <NavHashLink smooth to="/profile#education-sn" >
+            <NavHashLink smooth to="/profile#education-sn">
               Education
             </NavHashLink>
 
             <button className="cursor-pointer">ADD</button>
           </li>
-          {/* <li
-            className={sideTab === 5 && "document-details-head"}
-            onClick={() => setSideTab(5)}
-          >
-            Projects <button className="cursor-pointer">ADD</button>
-          </li>
-          <li
-            className={sideTab === 6 && "document-details-head"}
-            onClick={() => setSideTab(6)}
-          >
-            Accomplishments{" "}
-          </li> */}
           <li
             className={sideTab === 7 && "document-details-head"}
             onClick={() => setSideTab(7)}
           >
-            <NavHashLink smooth to="/profile#career-sn" >
+            <NavHashLink smooth to="/profile#career-sn">
               Career profile
-            </NavHashLink>
-            {" "}
+            </NavHashLink>{" "}
           </li>
         </ul>
       </div>
 
-      <div className="profile-section-personal-detail-right" style={{ height: "auto" }}>
-        {/* {sideTab === 1 && ( */}
+      <div
+        className="profile-section-personal-detail-right"
+        style={{ height: "auto" }}
+      >
         <div className="profile-section-personal-table card">
           <div className="personal-detail-title" id="personal-sn">
             <h4>Personal Details</h4>
@@ -239,21 +243,10 @@ function PersonalDetails({
                   <td>Language</td>
                   <td>{user.language ? user.language : "Not Updated"}</td>
                 </tr>
-                {/* <tr>
-                  <td>Time Zone</td>
-                  <td>{user.time_zone ? user.time_zone : "Not Updated"}</td>
-                </tr> */}
-                {/* <tr>
-                    <td>Currency</td>
-                    <td>{user.currency ? user.currency : "Not Updated"}</td>
-                  </tr> */}
               </tbody>
             </table>
           </div>
         </div>
-
-        {/* )} */}
-        {/* {sideTab === 2 && ( */}
         <div className="profile-section-personal-resume mt-0 card">
           <div>
             <div className="personal-detail-title" id="resume-sn">
@@ -268,27 +261,36 @@ function PersonalDetails({
           <div className="">
             <p>{resume ? resume : "Not Updated"}</p>
             <div className="file-uploader-wrap">
-              <div style={{
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "end",
-                marginBottom: 30,
-                width: "100%",
-                margin: "3rem"
-              }}>
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "end",
+                  marginBottom: 30,
+                  width: "100%",
+                  margin: "3rem",
+                }}
+              >
                 {documents && documents.resume ? (
-                  <div className="resume-delete" style={{
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "end",
-                    marginBottom: "20px",
-                    width: "100%"
-                  }}  >
+                  <div
+                    className="resume-delete"
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "end",
+                      marginBottom: "20px",
+                      width: "100%",
+                    }}
+                  >
                     <a
-                      style={{ lineHeight: 0 }} target="_blank" className="text-muted">
-                      {/* <AiFillEye size={'1.4rem'} style={{ margin: "0 10px" }} /> */}
-                      <i className="fa-regular fa-eye" style={{ fontSize: "1.2rem", margin: "0 10px" }}></i>
-
+                      style={{ lineHeight: 0 }}
+                      target="_blank"
+                      className="text-muted"
+                    >
+                      <i
+                        className="fa-regular fa-eye"
+                        style={{ fontSize: "1.2rem", margin: "0 10px" }}
+                      ></i>
                     </a>
                     <button
                       className="cursor-pointer"
@@ -319,7 +321,12 @@ function PersonalDetails({
                     onClick={() => handleModalOpen("resume-update")}
                   >
                     UPDATE RESUME
-                    <Circle style={{ height: "22px", margin: "0 10px" }} percent={60} strokeWidth={10} strokeColor="#9ad8a0" />
+                    <Circle
+                      style={{ height: "22px", margin: "0 10px" }}
+                      percent={60}
+                      strokeWidth={10}
+                      strokeColor="#9ad8a0"
+                    />
                   </label>
                   <p>Supported Formats: doc, docx, rtf, pdf, upto 2 MB</p>
                 </div>
@@ -327,88 +334,53 @@ function PersonalDetails({
             </div>
           </div>
         </div>
-        {/* )} */}
-        {/* {sideTab === 3 && ( */}
+
         <div className="profile-section-personal-resume mt-0 card">
           <div className="personal-detail-title" id="resume-sn">
             <h4>Cover Letter</h4>
           </div>
           <p>
-            The most key document that employers review is a resume. In
-            general, recruiters do not review profiles without resumes.
+            The most key document that employers review is a resume. In general,
+            recruiters do not review profiles without resumes.
           </p>
-          {/* {documents && documents.cover_letter ? (
-              <>
-                <div>
-                  {cover
-                    ? cover
-                    : unescape(documents.cover_letter.split("/").pop())}
-                  
-                </div>
-                <div className="resume-delete">
-                  <a href={documents.cover_letter} target="_blank">
-                    <img
-                      className="cursor-pointer"
-                      src={download}
-                      height={25}
-                      alt="download-icon"
-                    />
-                  </a>
-                  <button
-                    className="cursor-pointer"
-                    onClick={() => {
-                      setCover("");
-                      deleteCover();
+          <div>
+            <p>{cover ? cover : "Not Updated"}</p>
+            <div className="file-uploader-wrap">
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "end",
+                  marginBottom: 30,
+                  width: "100%",
+                  margin: "3rem",
+                }}
+              >
+                {documents && documents.cover_letter ? (
+                  <div
+                    className="resume-delete "
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "end",
+                      marginBottom: "20px",
+                      width: "100%",
                     }}
                   >
-                    DELETE COVER LETTER
-                  </button>
-                </div>
-              </>
-            ) : (
-              "Not Updated"
-            )} */}
-          <div>
-
-            <p>
-              {resume ? resume : "Not Updated"}
-              {/* <span>
-                    Updated on{" "}
-                    {files &&
-                      moment(files[0]?.lastModified).format("DD-MM-YYYY")}
-                  </span> */}
-            </p>
-            <div className="file-uploader-wrap">
-
-              <div style={{
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "end",
-                marginBottom: 30,
-                width: "100%",
-                margin: '3rem'
-              }}>
-
-                {documents && documents.resume ? (
-                  <div className="resume-delete " style={{
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "end",
-                    marginBottom: "20px",
-                    width: "100%"
-                  }} >
                     <a
-                      // href={documents.resume} 
-                      style={{ lineHeight: 0 }} target="_blank" className="text-muted">
-
-                      {/* <AiFillEye size={'1.4rem'} style={{ margin: "0 10px" }} /> */}
-                      <i className="fa-regular fa-eye" style={{ fontSize: "1.2rem", margin: "0 10px" }}></i>
-
+                      style={{ lineHeight: 0 }}
+                      target="_blank"
+                      className="text-muted"
+                    >
+                      <i
+                        className="fa-regular fa-eye"
+                        style={{ fontSize: "1.2rem", margin: "0 10px" }}
+                      ></i>
                     </a>
                     <button
                       className="cursor-pointer"
                       onClick={() => {
-                        deleteResume();
+                        deleteCover();
                       }}
                       style={buttonLink}
                     >
@@ -423,7 +395,7 @@ function PersonalDetails({
                     type={"file"}
                     id="resume-update"
                     onChange={(e) =>
-                      handleFileChange(e, () => setResumeData(e.target.files))
+                      handleFileChange(e, () => setCoverData(e.target.files))
                     }
                     placeholder=""
                     style={{ opacity: 0, visibility: "hidden" }}
@@ -434,17 +406,19 @@ function PersonalDetails({
                     onClick={() => handleModalOpen("resume-update")}
                   >
                     UPDATE COVER LETTER
-                    <Circle style={{ height: "22px", margin: "0 10px" }} percent={60} strokeWidth={10} strokeColor="#9ad8a0" />
-
+                    <Circle
+                      style={{ height: "22px", margin: "0 10px" }}
+                      percent={60}
+                      strokeWidth={10}
+                      strokeColor="#9ad8a0"
+                    />
                   </label>
                   <p>Supported Formats: doc, docx, rtf, pdf, upto 2 MB</p>
                 </div>
               </div>
             </div>
           </div>
-
         </div>
-
 
         <>
           <SkillsModal
@@ -454,8 +428,11 @@ function PersonalDetails({
           />
           <div className="card">
             <div className="profile-section-personal-resume profile-skills mt-0">
-              <div id="skill-sn" className="personal-detail-title skills-heading">
-                <h4 >Key Skills</h4>
+              <div
+                id="skill-sn"
+                className="personal-detail-title skills-heading"
+              >
+                <h4>Key Skills</h4>
                 <HiOutlinePencil
                   onClick={() => setSkillsModal({ status: true, data: skills })}
                 />
@@ -468,8 +445,6 @@ function PersonalDetails({
             </div>
           </div>
         </>
-        {/* )} */}
-        {/* {sideTab === 4 && ( */}
         <>
           <EducationModal
             isOpen={educationModal?.status}
@@ -478,7 +453,10 @@ function PersonalDetails({
           />
           <div className="card">
             <div className="profile-section-personal-resume profile-education mt-0">
-              <div id="education-sn" className="personal-detail-title education-heading">
+              <div
+                id="education-sn"
+                className="personal-detail-title education-heading"
+              >
                 <h4>Education</h4>
                 <button
                   to={"#"}
@@ -521,16 +499,10 @@ function PersonalDetails({
                 </div>
                 <HiOutlinePencil />
               </div>
-              {/* <div className="px-3">
-                <button className="mb-2">Add Doctorate/PhD</button> <br />
-                <button className="mb-2">Add Masters/Post-Graduation</button>
-              </div> */}
             </div>
           </div>
         </>
-        {/* )} */}
 
-        {/* {sideTab === 7 && ( */}
         <>
           <CareerModal
             isOpen={careerModal?.status}
@@ -539,7 +511,10 @@ function PersonalDetails({
           />
           <div className="card">
             <div className="profile-section-personal-resume profile-career mt-0">
-              <div id="career-sn" className="personal-detail-title career-heading">
+              <div
+                id="career-sn"
+                className="personal-detail-title career-heading"
+              >
                 <h4>Career Profile</h4>
                 <HiOutlinePencil
                   style={{ cursor: "pointer" }}
@@ -606,8 +581,6 @@ function PersonalDetails({
           </div>
         </>
       </div>
-
-      {/* )} */}
     </Fragment>
   );
 }
@@ -618,5 +591,5 @@ const buttonLink = {
   border: "none",
   color: "#4892f0",
   cursor: "pointer",
-  backgroundColor: "transparent"
-}
+  backgroundColor: "transparent",
+};
