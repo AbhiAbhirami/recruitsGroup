@@ -11,7 +11,7 @@ import { Circle } from "rc-progress";
 function DocumentDetails({ user, docs, userUpdated, setIsUserUpdated }) {
   const [files, setFiles] = React.useState([]);
   const [documents, setDocumentsData] = useState(docs ? docs : "");
-
+  const [uploadPercent, setUploadPercent] = useState(0);
   const [sideTab, setSideTab] = React.useState(1);
 
   useEffect(() => {
@@ -31,10 +31,22 @@ function DocumentDetails({ user, docs, userUpdated, setIsUserUpdated }) {
 
   const setDocumentData = async (e) => {
     try {
+      let percent = 0;
+      const options = {
+        onUploadProgress: (progressEvent) => {
+          const { loaded, total } = progressEvent;
+          percent = Math.floor((loaded * 100) / total);
+          setUploadPercent(percent);
+          if (percent == 100) {
+            setUploadPercent(0);
+          }
+        },
+      };
       const documents = await updateUserDocument(
         user.id,
         e.target.name,
-        e.target.files[0]
+        e.target.files[0],
+        options
       );
       setDocuments(documents.data.data);
       setIsUserUpdated(true);
@@ -117,28 +129,34 @@ function DocumentDetails({ user, docs, userUpdated, setIsUserUpdated }) {
                 <h4>Passport</h4>
               </div>
               <p>
-                The most crucial document required to confirm your identification
-                during the hiring procedure
+                The most crucial document required to confirm your
+                identification during the hiring procedure
               </p>
             </div>
             <div>
               <div className="profile-section-personal-resume-update">
                 <div>
                   {documents &&
-                    documents.other_documents &&
-                    documents.other_documents.passport
+                  documents.other_documents &&
+                  documents.other_documents.passport
                     ? unescape(
-                      documents.other_documents.passport.split("/").pop()
-                    )
+                        documents.other_documents.passport.split("/").pop()
+                      )
                     : "Not Updated"}
                 </div>
                 {documents &&
-                  documents.other_documents &&
-                  documents.other_documents.passport ? (
+                documents.other_documents &&
+                documents.other_documents.passport ? (
                   <div className="resume-delete">
-                    <a href={documents.other_documents.passport} target="_blank">
+                    <a
+                      href={documents.other_documents.passport}
+                      target="_blank"
+                    >
                       {/* <AiFillEye size={'1.4rem'} style={{ margin: "0 5px" }} /> */}
-                      <i className="fa-regular fa-eye" style={{ fontSize: "1.2rem" }}></i>
+                      <i
+                        className="fa-regular fa-eye"
+                        style={{ fontSize: "1.2rem" }}
+                      ></i>
                     </a>
                     <button
                       className="cursor-pointer"
@@ -162,7 +180,9 @@ function DocumentDetails({ user, docs, userUpdated, setIsUserUpdated }) {
                   name="passport"
                   placeholder=""
                   style={{ opacity: 0, visibility: "hidden" }}
-                  onChange={(e) => handleFileChange(e, () => setDocumentData(e))}
+                  onChange={(e) =>
+                    handleFileChange(e, () => setDocumentData(e))
+                  }
                 />
                 <label
                   className="button"
@@ -170,7 +190,12 @@ function DocumentDetails({ user, docs, userUpdated, setIsUserUpdated }) {
                   onClick={() => handleModalOpen("resume-update")}
                 >
                   Add
-                  <Circle style={{ height: "22px", margin: "0 10px" }} percent={60} strokeWidth={10} strokeColor="#9ad8a0" />
+                  <Circle
+                    style={{ height: "22px", margin: "0 10px" }}
+                    percent={uploadPercent}
+                    strokeWidth={10}
+                    strokeColor="#9ad8a0"
+                  />
                 </label>
                 <p>Supported Formats: doc, docx, rtf, pdf, upto 2 MB</p>
               </div>
@@ -187,24 +212,26 @@ function DocumentDetails({ user, docs, userUpdated, setIsUserUpdated }) {
                 <h4>Identity Document</h4>
               </div>
               <p>
-                The most crucial document required to confirm your identification
-                during the hiring procedure
+                The most crucial document required to confirm your
+                identification during the hiring procedure
               </p>
             </div>
 
             {/* {files[0]?.name ? ( */}
             <div>
               <div className="profile-section-personal-resume-update">
-                <div>
-                  RESUME.PDF{" "}
-                </div>
+                <div>RESUME.PDF </div>
                 <div className="resume-delete">
                   <a href="#">
                     {/* <AiFillEye size={'1.4rem'} /> */}
-                    <i className="fa-regular fa-eye" style={{ fontSize: "1.2rem" }}></i>
-
+                    <i
+                      className="fa-regular fa-eye"
+                      style={{ fontSize: "1.2rem" }}
+                    ></i>
                   </a>
-                  <button className="cursor-pointer" style={{ marginTop: -2 }}>DELETE DOCUMENT </button>
+                  <button className="cursor-pointer" style={{ marginTop: -2 }}>
+                    DELETE DOCUMENT{" "}
+                  </button>
                 </div>
               </div>
 
@@ -224,7 +251,12 @@ function DocumentDetails({ user, docs, userUpdated, setIsUserUpdated }) {
                   onClick={() => handleModalOpen("resume-update")}
                 >
                   Add
-                  <Circle style={{ height: "22px", margin: "0 10px" }} percent={60} strokeWidth={10} strokeColor="#9ad8a0" />
+                  <Circle
+                    style={{ height: "22px", margin: "0 10px" }}
+                    percent={60}
+                    strokeWidth={10}
+                    strokeColor="#9ad8a0"
+                  />
                 </label>
                 <p>Supported Formats: doc, docx, rtf, pdf, upto 2 MB</p>
               </div>
@@ -241,8 +273,8 @@ function DocumentDetails({ user, docs, userUpdated, setIsUserUpdated }) {
                 <h4> Experience Certificate</h4>
               </div>
               <p>
-                The most crucial document required to confirm your identification
-                during the hiring procedure
+                The most crucial document required to confirm your
+                identification during the hiring procedure
               </p>
             </div>
 
@@ -252,10 +284,12 @@ function DocumentDetails({ user, docs, userUpdated, setIsUserUpdated }) {
                 <div className="resume-delete">
                   <a href="#">
                     {/* <AiFillEye size={'1.4rem'} /> */}
-                    <i className="fa-regular fa-eye" style={{ fontSize: "1.2rem" }}></i>
-
+                    <i
+                      className="fa-regular fa-eye"
+                      style={{ fontSize: "1.2rem" }}
+                    ></i>
                   </a>
-                  <button className="cursor-pointer"  >DELETE CERTIFICATE</button>
+                  <button className="cursor-pointer">DELETE CERTIFICATE</button>
                 </div>
               </div>
 
@@ -275,7 +309,12 @@ function DocumentDetails({ user, docs, userUpdated, setIsUserUpdated }) {
                   onClick={() => handleModalOpen("resume-update")}
                 >
                   Add
-                  <Circle style={{ height: "22px", margin: "0 10px" }} percent={60} strokeWidth={10} strokeColor="#9ad8a0" />
+                  <Circle
+                    style={{ height: "22px", margin: "0 10px" }}
+                    percent={60}
+                    strokeWidth={10}
+                    strokeColor="#9ad8a0"
+                  />
                 </label>
                 <p>Supported Formats: doc, docx, rtf, pdf, upto 2 MB</p>
               </div>
@@ -292,26 +331,29 @@ function DocumentDetails({ user, docs, userUpdated, setIsUserUpdated }) {
                 <h4> IELTS/ Language Proficiency</h4>
               </div>
               <p>
-                The most crucial document required to confirm your identification
-                during the hiring procedure
+                The most crucial document required to confirm your
+                identification during the hiring procedure
               </p>
             </div>
             <div>
               <div className="profile-section-personal-resume-update">
                 <div>
                   {documents &&
-                    documents.other_documents &&
-                    documents.other_documents.ielts
+                  documents.other_documents &&
+                  documents.other_documents.ielts
                     ? unescape(documents.other_documents.ielts.split("/").pop())
                     : "Not Updated"}
                 </div>
                 {documents &&
-                  documents.other_documents &&
-                  documents.other_documents.ielts ? (
+                documents.other_documents &&
+                documents.other_documents.ielts ? (
                   <div className="resume-delete">
                     <a href={documents.other_documents.ielts} target="_blank">
                       {/* <AiFillEye size={'1.4rem'} /> */}
-                      <i className="fa-regular fa-eye" style={{ fontSize: "1.2rem" }}></i>
+                      <i
+                        className="fa-regular fa-eye"
+                        style={{ fontSize: "1.2rem" }}
+                      ></i>
                     </a>
                     <button
                       className="cursor-pointer"
@@ -335,7 +377,9 @@ function DocumentDetails({ user, docs, userUpdated, setIsUserUpdated }) {
                   name="ielts"
                   placeholder=""
                   style={{ opacity: 0, visibility: "hidden" }}
-                  onChange={(e) => handleFileChange(e, () => setDocumentData(e))}
+                  onChange={(e) =>
+                    handleFileChange(e, () => setDocumentData(e))
+                  }
                 />
                 <label
                   className="button"
@@ -343,7 +387,12 @@ function DocumentDetails({ user, docs, userUpdated, setIsUserUpdated }) {
                   onClick={() => handleModalOpen("resume-update")}
                 >
                   Add
-                  <Circle style={{ height: "22px", margin: "0 10px" }} percent={60} strokeWidth={10} strokeColor="#9ad8a0" />
+                  <Circle
+                    style={{ height: "22px", margin: "0 10px" }}
+                    percent={60}
+                    strokeWidth={10}
+                    strokeColor="#9ad8a0"
+                  />
                 </label>
                 <p>Supported Formats: doc, docx, rtf, pdf, upto 2 MB</p>
               </div>
@@ -360,8 +409,8 @@ function DocumentDetails({ user, docs, userUpdated, setIsUserUpdated }) {
                 <h4> Any other Supporting Documents</h4>
               </div>
               <p>
-                The most crucial document required to confirm your identification
-                during the hiring procedure
+                The most crucial document required to confirm your
+                identification during the hiring procedure
               </p>
             </div>
             <div>
@@ -377,7 +426,10 @@ function DocumentDetails({ user, docs, userUpdated, setIsUserUpdated }) {
                   </div>
                   <div className="resume-delete">
                     <a href="#">
-                      <i className="fa-regular fa-eye" style={{ fontSize: "1.2rem" }}></i>
+                      <i
+                        className="fa-regular fa-eye"
+                        style={{ fontSize: "1.2rem" }}
+                      ></i>
                       {/* <AiFillEye size={'1.4rem'} /> */}
                     </a>
                     <button className="cursor-pointer">DELETE DOCUMENT</button>
@@ -402,7 +454,12 @@ function DocumentDetails({ user, docs, userUpdated, setIsUserUpdated }) {
                   onClick={() => handleModalOpen("resume-update")}
                 >
                   Add
-                  <Circle style={{ height: "22px", margin: "0 10px" }} percent={60} strokeWidth={10} strokeColor="#9ad8a0" />
+                  <Circle
+                    style={{ height: "22px", margin: "0 10px" }}
+                    percent={60}
+                    strokeWidth={10}
+                    strokeColor="#9ad8a0"
+                  />
                 </label>
                 <p>Supported Formats: doc, docx, rtf, pdf, upto 2 MB</p>
               </div>

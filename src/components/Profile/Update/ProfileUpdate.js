@@ -35,7 +35,7 @@ function ProfileUpdate({ isOpen, closeModal, user, setIsUserUpdated }) {
     email: user.email ? user.email : "",
     phone: user.phone ? user.phone : "",
     position: user.position ? user.position : "",
-    address: user.address ? user.address : "",
+    date_of_birth: user.date_of_birth ? user.date_of_birth : "",
     company: user.company ? user.company : "",
     language: user.language ? user.language : "",
   };
@@ -69,10 +69,11 @@ function ProfileUpdate({ isOpen, closeModal, user, setIsUserUpdated }) {
         contentLabel="Example Modal"
       >
         <div className="job-modal-wrapper ed-modal">
-          <div className="modal-header p-10 "
+          <div
+            className="modal-header p-10 "
             style={{
-              display: "flex"
-              , flexDirection: "column"
+              display: "flex",
+              flexDirection: "column",
             }}
           >
             <div className="modal-close-btn" onClick={closeModal}>
@@ -80,7 +81,10 @@ function ProfileUpdate({ isOpen, closeModal, user, setIsUserUpdated }) {
             </div>
             <div className="modal-main-wrapper">
               <p>Personal Details</p>
-              <form className="education-form" onSubmit={handleSubmit(onSubmit)}>
+              <form
+                className="education-form"
+                onSubmit={handleSubmit(onSubmit)}
+              >
                 <div className="input-col-6">
                   <div>
                     <label htmlFor="name" className="input-label">
@@ -102,8 +106,6 @@ function ProfileUpdate({ isOpen, closeModal, user, setIsUserUpdated }) {
                     </div>
                   </div>
                   <div>
-
-
                     <label htmlFor="phone" className="input-label">
                       Contact Number
                     </label>
@@ -134,16 +136,15 @@ function ProfileUpdate({ isOpen, closeModal, user, setIsUserUpdated }) {
                   name="position"
                 />
 
-                <label htmlFor="address" className="input-label">
-                  Address
+                <label htmlFor="date_of_birth" className="input-label">
+                  Date of Birth
                 </label>
                 <input
                   className="profile-input"
-                  placeholder="Enter your Address"
+                  placeholder="Enter DOB (dd/mm/yyyy)"
                   type="text"
-                  defaultValue={user.address ? user.address : ""}
-                  {...register("address")}
-                  name="address"
+                  {...register("date_of_birth")}
+                  name="date_of_birth"
                 />
 
                 <label htmlFor="company" className="input-label">
@@ -193,7 +194,7 @@ function ProfileUpdate({ isOpen, closeModal, user, setIsUserUpdated }) {
                     marginTop: "2rem",
                     display: "flex",
                     justifyContent: "flex-end",
-                    alignItems: "center"
+                    alignItems: "center",
                   }}
                 >
                   <button
@@ -202,10 +203,12 @@ function ProfileUpdate({ isOpen, closeModal, user, setIsUserUpdated }) {
                       marginRight: 10,
                       padding: "10px 20px",
                       border: "none",
-                      color: "#4892f0"
-                      , backgroundColor: "transparent"
+                      color: "#4892f0",
+                      backgroundColor: "transparent",
                     }}
-                    className="" onClick={() => resetForm()}>
+                    className=""
+                    onClick={() => resetForm()}
+                  >
                     Cancel
                   </button>
                   <button
@@ -213,17 +216,16 @@ function ProfileUpdate({ isOpen, closeModal, user, setIsUserUpdated }) {
                       height: 38,
                       padding: "10px 20px",
                       border: "none",
-                      backgroundColor: "#4892f0"
-                      , color: "#fff",
-                      cursor: "pointer"
+                      backgroundColor: "#4892f0",
+                      color: "#fff",
+                      cursor: "pointer",
                     }}
-                    type={'submit'}
+                    type={"submit"}
                     className="button"
                   >
                     Save
                   </button>
                 </div>
-
               </form>
             </div>
           </div>

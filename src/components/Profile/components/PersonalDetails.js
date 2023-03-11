@@ -29,6 +29,9 @@ function PersonalDetails({
   const [cover, setCover] = React.useState("");
   const [user, setUserData] = useState(userData);
 
+  const [uploadResumePercent, setUploadResumePercent] = useState(0);
+  const [uploadCoverPercent, setUploadCoverPercent] = useState(0);
+
   useEffect(() => {
     setResume(
       documents && documents.resume
@@ -59,7 +62,20 @@ function PersonalDetails({
 
   const setResumeData = async (files) => {
     try {
-      const documents = await updateUserDocument(user.id, "resume", files[0]);
+      let percent = 0;
+      const options = {
+        onUploadProgress: (progressEvent) => {
+          const { loaded, total } = progressEvent;
+          percent = Math.floor((loaded * 100) / total);
+          setUploadResumePercent(percent);
+        },
+      };
+      const documents = await updateUserDocument(
+        user.id,
+        "resume",
+        files[0],
+        options
+      );
       setDocuments(documents.data.data);
       setIsUserUpdated(true);
       toast.success(documents.data.message);
@@ -81,7 +97,20 @@ function PersonalDetails({
 
   const setCoverData = async (files) => {
     try {
-      const documents = await updateUserDocument(user.id, "cover", files[0]);
+      let percent = 0;
+      const options = {
+        onUploadProgress: (progressEvent) => {
+          const { loaded, total } = progressEvent;
+          percent = Math.floor((loaded * 100) / total);
+          setUploadCoverPercent(percent);
+        },
+      };
+      const documents = await updateUserDocument(
+        user.id,
+        "cover",
+        files[0],
+        options
+      );
       setDocuments(documents.data.data);
       setIsUserUpdated(true);
       toast.success(documents.data.message);
@@ -233,7 +262,9 @@ function PersonalDetails({
               <tbody>
                 <tr>
                   <td>Date of birth</td>
-                  <td>Not Updated</td>
+                  <td>
+                    {user.date_of_birth ? user.date_of_birth : "Not Updated"}
+                  </td>
                 </tr>
                 <tr>
                   <td>Country</td>
@@ -321,12 +352,14 @@ function PersonalDetails({
                     onClick={() => handleModalOpen("resume-update")}
                   >
                     UPDATE RESUME
-                    <Circle
-                      style={{ height: "22px", margin: "0 10px" }}
-                      percent={60}
-                      strokeWidth={10}
-                      strokeColor="#9ad8a0"
-                    />
+                    {documents&&!documents.resume && (
+                      <Circle
+                        style={{ height: "22px", margin: "0 10px" }}
+                        percent={uploadResumePercent}
+                        strokeWidth={10}
+                        strokeColor="#9ad8a0"
+                      />
+                    )}
                   </label>
                   <p>Supported Formats: doc, docx, rtf, pdf, upto 2 MB</p>
                 </div>
@@ -393,7 +426,7 @@ function PersonalDetails({
                 <div className="resume-update " style={{ margin: 0 }}>
                   <input
                     type={"file"}
-                    id="resume-update"
+                    id="cover-update"
                     onChange={(e) =>
                       handleFileChange(e, () => setCoverData(e.target.files))
                     }
@@ -402,16 +435,18 @@ function PersonalDetails({
                   />
                   <label
                     className="button"
-                    htmlFor="resume-updat"
-                    onClick={() => handleModalOpen("resume-update")}
+                    htmlFor="cover-update"
+                    onClick={() => handleModalOpen("cover-update")}
                   >
                     UPDATE COVER LETTER
-                    <Circle
-                      style={{ height: "22px", margin: "0 10px" }}
-                      percent={60}
-                      strokeWidth={10}
-                      strokeColor="#9ad8a0"
-                    />
+                    {documents&&!documents.cover_letter && (
+                      <Circle
+                        style={{ height: "22px", margin: "0 10px" }}
+                        percent={uploadCoverPercent}
+                        strokeWidth={10}
+                        strokeColor="#9ad8a0"
+                      />
+                    )}
                   </label>
                   <p>Supported Formats: doc, docx, rtf, pdf, upto 2 MB</p>
                 </div>

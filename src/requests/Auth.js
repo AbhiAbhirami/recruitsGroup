@@ -90,10 +90,10 @@ export function deleteDocument(id, type) {
   return axios.put(GET_USER_DOCS + "/" + type + "/" + id);
 }
 
-export function updateUserDocument(id, type, file) {
+export function updateUserDocument(id, type, file, options) {
   const data = new FormData();
   data.append("file", file);
-  return axios.post(GET_USER_DOCS + "/" + type + "/" + id, data);
+  return axios.post(GET_USER_DOCS + "/" + type + "/" + id, data, options);
 }
 
 export function updateUserImage(id, image) {
