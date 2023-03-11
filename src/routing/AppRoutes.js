@@ -14,7 +14,6 @@ import App from "../App";
 import { ErrorsPage } from "../components/Errors/ErrorsPage";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 import { Logout } from "../components/Auth/Logout";
-
 const { PUBLIC_URL } = process.env;
 
 const AppRoutes = () => {

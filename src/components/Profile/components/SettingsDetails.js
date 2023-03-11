@@ -148,7 +148,6 @@ function SettingsDetails({
 
   const deleteVideo = async (e) => {
     try {
-      debugger;
       const documents = await deleteDocument(user.id, e.target.name);
       setDocuments(documents.data.data);
       setIsUserUpdated(true);

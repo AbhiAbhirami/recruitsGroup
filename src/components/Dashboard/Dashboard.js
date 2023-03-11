@@ -32,6 +32,7 @@ import { getUser } from "../../core/AuthHelpers";
 import Loader from "../Shared/Loader";
 
 function Dashboard() {
+
   const percentage = 86;
   const [user, setUser] = useState(getUser);
   const [month, setMonth] = React.useState(Date.now());
@@ -56,9 +57,7 @@ function Dashboard() {
         rel="stylesheet"
         href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css"
       />
-      {loading && (
-        <Loader />
-      )}
+      {loading && <Loader />}
       <div className="dashboard-main-cont">
         {/* <BackgroundDesign /> */}
         <Container

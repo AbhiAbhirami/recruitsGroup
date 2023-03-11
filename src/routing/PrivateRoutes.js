@@ -14,7 +14,6 @@ const PrivateRoutes = () => {
   }, []);
 
   const isChanged = () => {
-    debugger;
     setUser(getUser());
   };
   const ProfilePage = lazy(() => import("../components/Profile/ProfilePage"));
