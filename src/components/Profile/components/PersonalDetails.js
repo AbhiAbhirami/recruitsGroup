@@ -14,6 +14,9 @@ import { AiFillEye } from "react-icons/ai";
 import { FaTrash } from "react-icons/fa";
 import { NavHashLink } from "react-router-hash-link";
 import { Circle } from "rc-progress";
+import { useSelector, useDispatch } from "react-redux";
+import { deleteEducation, getEducation } from "../../../store/reducers/profileReducer";
+import moment from "moment";
 
 function PersonalDetails({
   setIsOpen,
@@ -22,6 +25,12 @@ function PersonalDetails({
   userUpdated,
   setIsUserUpdated,
 }) {
+  const dispatch = useDispatch();
+
+  const { education } = useSelector((state) => ({
+    education: state.profile.Education,
+  }));
+
   const [sideTab, setSideTab] = React.useState(1);
   const [resume, setResume] = React.useState("");
   const [documents, setDocumentsData] = useState(docs ? docs : "");
@@ -159,6 +168,11 @@ function PersonalDetails({
     status: false,
     data: {},
   });
+
+  //get education dispatch
+  useEffect(() => {
+    dispatch(getEducation());
+  }, [dispatch]);
 
   return (
     <Fragment>
@@ -352,7 +366,7 @@ function PersonalDetails({
                     onClick={() => handleModalOpen("resume-update")}
                   >
                     UPDATE RESUME
-                    {documents&&!documents.resume && (
+                    {documents && !documents.resume && (
                       <Circle
                         style={{ height: "22px", margin: "0 10px" }}
                         percent={uploadResumePercent}
@@ -439,7 +453,7 @@ function PersonalDetails({
                     onClick={() => handleModalOpen("cover-update")}
                   >
                     UPDATE COVER LETTER
-                    {documents&&!documents.cover_letter && (
+                    {documents && !documents.cover_letter && (
                       <Circle
                         style={{ height: "22px", margin: "0 10px" }}
                         percent={uploadCoverPercent}
@@ -500,40 +514,43 @@ function PersonalDetails({
                   ADD EDUCATION
                 </button>
               </div>
-
-              <div className="px-3 profile-education-details">
-                <div>
-                  <h4>B. Tech/B.E. Computers</h4>
-                  <p className="text-muted">MEA ENGINEERING COLLEGE</p>
-                  <p className="text-muted">2018-2022 • Full Time</p>
+              {education?.data?.rows?.map((education, key) => (
+                <div key={key} className="px-3 profile-education-details">
+                  <div>
+                    <h4>
+                      {education?.specification} {education?.course}
+                    </h4>
+                    <p className="text-muted">{education?.college}</p>
+                    <p className="text-muted">
+                      {moment(education?.start_date).format("YYYY")}-
+                      {moment(education?.end_date).format("YYYY")} • Full Time
+                    </p>
+                  </div>
+                  <div className="">
+                    <HiOutlinePencil
+                      onClick={() =>
+                        setEducationModal({
+                          status: true,
+                          data: education,
+                        })
+                      }
+                      style={{
+                        cursor: "pointer",
+                      }}
+                    />
+                    <FaTrash
+                      size={"0.9rem"}
+                      color="gray"
+                      style={{
+                        cursor: "pointer",
+                        margin: "0 7px",
+                      }}
+                      onClick={() => dispatch(deleteEducation(education))
+                      }
+                    />
+                  </div>
                 </div>
-                <HiOutlinePencil
-                  onClick={() =>
-                    setEducationModal({
-                      status: true,
-                      data: {
-                        education: "b.tech",
-                      },
-                    })
-                  }
-                />
-              </div>
-              <div className="px-3 profile-education-details">
-                <div>
-                  <h4>B. Tech/B.E. Computers</h4>
-                  <p className="text-muted">MEA ENGINEERING COLLEGE</p>
-                  <p className="text-muted">2018-2022 • Full Time</p>
-                </div>
-                <HiOutlinePencil />
-              </div>
-              <div className="px-3 profile-education-details">
-                <div>
-                  <h4>B. Tech/B.E. Computers</h4>
-                  <p className="text-muted">MEA ENGINEERING COLLEGE</p>
-                  <p className="text-muted">2018-2022 • Full Time</p>
-                </div>
-                <HiOutlinePencil />
-              </div>
+              ))}
             </div>
           </div>
         </>

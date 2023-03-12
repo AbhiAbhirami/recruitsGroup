@@ -4,6 +4,9 @@ import { useEffect } from "react";
 import { IoIosClose } from "react-icons/io"
 import { useForm } from "react-hook-form";
 import { WithContext as ReactTags } from 'react-tag-input';
+import { useDispatch, useSelector } from "react-redux"
+import { updateKeySkills } from "../../../store/reducers/profileReducer";
+import { FaSpinner } from "react-icons/fa";
 
 const customStyles = {
   content: {
@@ -25,7 +28,13 @@ const KeyCodes = {
 }
 const delimiters = [KeyCodes.comma, KeyCodes.enter]
 
-function SkillsModal({ isOpen, closeModal, confirmClick, currentData }) {
+function SkillsModal({ isOpen, closeModal, currentData }) {
+  const dispatch = useDispatch()
+
+  const { loading, } = useSelector(state => ({
+    loading: state.profile.loading,
+  }))
+
   useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = "hidden";
@@ -35,15 +44,9 @@ function SkillsModal({ isOpen, closeModal, confirmClick, currentData }) {
   }, [isOpen]);
 
   const {
-    register,
     handleSubmit,
     formState: { errors },
   } = useForm();
-
-  const onSubmit = async (values) => {
-    console.log(values);
-    closeModal()
-  };
 
 
   const [skills, setSkills] = useState([])
@@ -58,12 +61,12 @@ function SkillsModal({ isOpen, closeModal, confirmClick, currentData }) {
     }
   }, [currentData])
 
-  const suggestions = [].map(country => {
-    return {
-      id: country,
-      text: country
-    };
-  });
+  // const suggestions = [].map(country => {
+  //   return {
+  //     id: country,
+  //     text: country
+  //   };
+  // });
 
   const handleAddition = tag => {
     setSkills([...skills, tag])
@@ -81,6 +84,15 @@ function SkillsModal({ isOpen, closeModal, confirmClick, currentData }) {
     console.log("at index " + index + " was clicked")
   }
 
+  const onSubmit = async (values) => {
+    console.log(skills);
+    const skillsData = skills?.map(i => i.text)
+    const dispatchObject = {
+      skills: skillsData,
+      closeModal: closeModal
+    }
+    dispatch(updateKeySkills({ dispatchObject }))
+  };
 
   return (
     <>
@@ -184,7 +196,7 @@ function SkillsModal({ isOpen, closeModal, confirmClick, currentData }) {
                   type={'submit'}
                   className="button"
                 >
-                  Save
+                  Save {loading && <FaSpinner className="spinner" style={{ margin: "0 4px" }} />}
                 </button>
               </div>
             </form>
