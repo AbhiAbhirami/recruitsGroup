@@ -17,6 +17,10 @@ export const GET_ALL_JOBS = `${API_URL}/jobs`;
 export const APPLIED_JOBS = `${API_URL}/applied`;
 export const SAVED_JOBS = `${API_URL}/saved`;
 
+export const UPDATE_KEYSKILLS = `${API_URL}/update/`;
+export const EDUCATION = `${API_URL}/education`;
+
+
 export function login(email, password) {
   return axios.post(LOGIN_URL, {
     email,
@@ -116,4 +120,30 @@ export function updateAppliedjobs(id, userId) {
 
 export function updateSavedjobs(id, userId) {
   return axios.put(SAVED_JOBS + "/" + id, userId);
+}
+
+
+
+//profile
+//skills
+export function updateKeySkillsApi(userId, skills) {
+  return axios.put(`${UPDATE_KEYSKILLS}${userId}`, skills)
+}
+
+
+//education
+export function getEducationApi(userId) {
+  return axios.get(`${EDUCATION}/${userId}`)
+}
+
+export function addEducationApi(userId, education) {
+  return axios.post(EDUCATION, { ...education, userId: userId })
+}
+
+export function updateEducationApi(id, education) {
+  return axios.put(`${EDUCATION}/${id}`, education)
+}
+
+export function deleteEducationApi(id) {
+  return axios.delete(`${EDUCATION}/${id}`)
 }

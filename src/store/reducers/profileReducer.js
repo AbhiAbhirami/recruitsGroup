@@ -1,14 +1,13 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 import axios from "axios";
+import { toast } from "react-toastify";
 import { getUser } from "../../core/AuthHelpers";
+import { addEducationApi, deleteEducationApi, getEducationApi, updateEducationApi, updateKeySkillsApi } from "../../requests/Auth";
 
 const API_URL = process.env.REACT_APP_API_URL;
 
-export const UPDATE_KEYSKILLS = `${API_URL}/update/`;
-export const EDUCATION = `${API_URL}/education`;
 export const CAREERPROFILE = `${API_URL}/career-profile`;
-
 const user = getUser();
 
 const covertToJSON = (data) => {
@@ -16,16 +15,21 @@ const covertToJSON = (data) => {
 }
 
 //api
-//skils
+//skills
 export const updateKeySkills = createAsyncThunk(
   "profile/skills",
   async (data) => {
-    const response = await axios.put(UPDATE_KEYSKILLS + `${user?.id}`, {
-      skills: data.skills
-    })
-    if (response?.status === 200) {
-      data?.closeModal()
-      return response.data
+    try {
+      const response = await updateKeySkillsApi(user?.id, {
+        skills: data.skills
+      });
+      if (response?.status === 200) {
+        data?.closeModal()
+        toast.success("Saved");
+        return response.data
+      }
+    } catch (e) {
+      toast.error(e.response.data.message);
     }
   }
 )
@@ -34,19 +38,30 @@ export const updateKeySkills = createAsyncThunk(
 export const getEducation = createAsyncThunk(
   "profile/education",
   async () => {
-    const response = await axios.get(`${EDUCATION}/${user?.id}`)
-    return response.data
+    try {
+      const response = await getEducationApi(user?.id);
+      if (response?.status === 200) {
+        toast.success("Saved");
+        return response.data
+      }
+    } catch (e) {
+      toast.error(e.response.data.message);
+    }
   }
 )
+
 export const addEducation = createAsyncThunk(
   "profile/addEducation",
   async (data) => {
-    const response = await axios.post(EDUCATION, {
-      ...data?.education, userId: user.id
-    })
-    if (response?.status === 200) {
-      data?.closeModal()
-      return response.data
+    try {
+      const response = await addEducationApi(user?.id, data?.education);
+      if (response?.status === 200) {
+        toast.success("Saved");
+        data?.closeModal()
+        return response.data
+      }
+    } catch (e) {
+      toast.error(e.response.data.message);
     }
   }
 )
@@ -54,12 +69,15 @@ export const addEducation = createAsyncThunk(
 export const updateEducation = createAsyncThunk(
   "profile/updateEducation",
   async (data) => {
-    const response = await axios.put(`${EDUCATION}/${data?.educationId}`, {
-      ...data?.education
-    })
-    if (response?.status === 200) {
-      data?.closeModal()
-      return { ...data.education, id: data?.educationId }
+    try {
+      const response = await updateEducationApi(data?.educationId, data?.education);
+      if (response?.status === 200) {
+        toast.success("Saved");
+        data?.closeModal()
+        return { ...data.education, id: data?.educationId }
+      }
+    } catch (e) {
+      toast.error(e.response.data.message);
     }
   }
 )
@@ -67,16 +85,20 @@ export const updateEducation = createAsyncThunk(
 export const deleteEducation = createAsyncThunk(
   "profile/deleteEducation",
   async (data) => {
-    const response = await axios.delete(`${EDUCATION}/${data?.id}`, {
-      ...data
-    })
-    if (response?.status === 200) {
-      return data
+    try {
+      const response = await deleteEducationApi(data?.educationId);
+      if (response?.status === 200) {
+        toast.success("Saved");
+        data?.closeModal()
+        return { ...data.education, id: data?.educationId }
+      }
+    } catch (e) {
+      toast.error(e.response.data.message);
     }
   }
 )
 
-//career-profile
+//career-profile //todo
 export const getCareerProfile = createAsyncThunk(
   "profile/career",
   async () => {

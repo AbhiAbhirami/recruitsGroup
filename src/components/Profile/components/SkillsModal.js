@@ -91,7 +91,7 @@ function SkillsModal({ isOpen, closeModal, currentData }) {
       skills: skillsData,
       closeModal: closeModal
     }
-    dispatch(updateKeySkills({ dispatchObject }))
+    dispatch(updateKeySkills(dispatchObject))
   };
 
   return (
