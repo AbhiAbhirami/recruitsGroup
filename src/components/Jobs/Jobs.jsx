@@ -150,8 +150,13 @@ function Jobs() {
                       marginTop: "15px",
                       textAlign: "center",
                       color: "rgb(92, 91, 91)",
+                      textOverflow: "ellipsis",
+                      display: "-webkit-box",
+                      lineClamp: 3,
+                      
                       lineHeight: "1.1",
                     }}
+                    className="jobs-profile-descr"
                   >
                     A kiddo who uses Bootstrap and Laravel in web development.
                     Currently playing around with design via Figma laying around
