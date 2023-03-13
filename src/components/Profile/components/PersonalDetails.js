@@ -634,19 +634,19 @@ function PersonalDetails({
                 <div>
                   <p className="title">Desired Job Type</p>
                   {currentCareerProfile?.desired_job_type ? <p className="value"> {currentCareerProfile?.desired_job_type} </p> :
-                    <button>Add Desired Job Type</button>}
+                    <p> <button>Add Desired Job Type</button></p>}
                 </div>
                 <div>
                   <p className="title">Desired Employment Type</p>
                   {currentCareerProfile?.desired_employment_type ? <p className="value"> {currentCareerProfile?.desired_employment_type}
                   </p>
                     :
-                    <button>Add Desired Employment Type</button>}
+                    <p><button>Add Desired Employment Type</button></p>}
                 </div>
                 <div>
                   <p className="title">Preferred Shift</p>
                   {currentCareerProfile?.preferred_shift ? <p className="value"> {currentCareerProfile?.preferred_shift}  </p> :
-                    <button>Add Preferred Shift</button>}
+                    <p><button>Add Preferred Shift</button></p>}
 
                 </div>
                 <div>
@@ -654,12 +654,12 @@ function PersonalDetails({
                   {currentCareerProfile?.preferred_work_location ? <p className="value"> {currentCareerProfile?.preferred_work_location}
                   </p>
                     :
-                    <button>Add Preferred Work Location</button>}
+                    <p>   <button>Add Preferred Work Location</button></p>}
                 </div>
                 <div>
                   <p className="title">Expected Salary</p>
                   {currentCareerProfile?.salary_expected ? <p className="value">  {currentCareerProfile?.salary_expected} </p> :
-                    <button>Add Expected Salary</button>}
+                    <p><button>Add Expected Salary</button></p>}
                 </div>
               </div>
             </div>

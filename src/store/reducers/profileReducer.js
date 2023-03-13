@@ -134,7 +134,6 @@ export const updateCareerProfile = createAsyncThunk(
       if (response?.status === 200) {
         toast.success(response?.data?.message);
         data?.closeModal()
-        getCareerProfile()
         return { ...data.career, id: data?.careerId }
       }
     } catch (e) {
@@ -286,13 +285,13 @@ export const profileSlice = createSlice({
     },
     [updateCareerProfile.fulfilled]: (state, action) => {
       state.loading = false;
-      // const jsonState = covertToJSON(state)
-      // state.careerProfile = {
-      //   ...jsonState.careerProfile,
-      //   data: {
-      //     rows: [action.payload]
-      //   }
-      // }
+      const jsonState = covertToJSON(state)
+      state.careerProfile = {
+        ...jsonState.careerProfile,
+        data: {
+          rows: [action.payload]
+        }
+      }
     },
     [updateCareerProfile.rejected]: (state, action) => {
       state.loading = false;
