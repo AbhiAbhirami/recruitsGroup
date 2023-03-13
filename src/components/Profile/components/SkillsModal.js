@@ -196,7 +196,8 @@ function SkillsModal({ isOpen, closeModal, currentData }) {
                   type={'submit'}
                   className="button"
                 >
-                  Save {loading && <FaSpinner className="spinner" style={{ margin: "0 4px" }} />}
+                  Save
+                  {loading && <FaSpinner className="spinner" style={{ margin: "0 4px" }} />}
                 </button>
               </div>
             </form>

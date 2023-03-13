@@ -3,18 +3,16 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { getUser } from "../../core/AuthHelpers";
-import { addEducationApi, deleteEducationApi, getEducationApi, updateEducationApi, updateKeySkillsApi } from "../../requests/Auth";
+import { addCareerProfileApi, addEducationApi, deleteCareerProfileApi, deleteEducationApi, getCareerProfileApi, getEducationApi, updateCareerProfileApi, updateEducationApi, updateKeySkillsApi } from "../../requests/Auth";
 
 const API_URL = process.env.REACT_APP_API_URL;
 
-export const CAREERPROFILE = `${API_URL}/career-profile`;
 const user = getUser();
 
 const covertToJSON = (data) => {
   return JSON.parse(JSON.stringify(data))
 }
 
-//api
 //skills
 export const updateKeySkills = createAsyncThunk(
   "profile/skills",
@@ -25,7 +23,7 @@ export const updateKeySkills = createAsyncThunk(
       });
       if (response?.status === 200) {
         data?.closeModal()
-        toast.success("Saved");
+        toast.success(response?.data?.message);
         return response.data
       }
     } catch (e) {
@@ -41,7 +39,6 @@ export const getEducation = createAsyncThunk(
     try {
       const response = await getEducationApi(user?.id);
       if (response?.status === 200) {
-        toast.success("Saved");
         return response.data
       }
     } catch (e) {
@@ -56,7 +53,7 @@ export const addEducation = createAsyncThunk(
     try {
       const response = await addEducationApi(user?.id, data?.education);
       if (response?.status === 200) {
-        toast.success("Saved");
+        toast.success(response?.data?.message);
         data?.closeModal()
         return response.data
       }
@@ -72,7 +69,7 @@ export const updateEducation = createAsyncThunk(
     try {
       const response = await updateEducationApi(data?.educationId, data?.education);
       if (response?.status === 200) {
-        toast.success("Saved");
+        toast.success(response?.data?.message);
         data?.closeModal()
         return { ...data.education, id: data?.educationId }
       }
@@ -86,11 +83,11 @@ export const deleteEducation = createAsyncThunk(
   "profile/deleteEducation",
   async (data) => {
     try {
-      const response = await deleteEducationApi(data?.educationId);
+      const response = await deleteEducationApi(data?.education?.id);
       if (response?.status === 200) {
-        toast.success("Saved");
+        toast.success(response?.data?.message);
         data?.closeModal()
-        return { ...data.education, id: data?.educationId }
+        return { ...data.education, id: data?.education?.id }
       }
     } catch (e) {
       toast.error(e.response.data.message);
@@ -98,24 +95,33 @@ export const deleteEducation = createAsyncThunk(
   }
 )
 
-//career-profile //todo
+//career-profile 
 export const getCareerProfile = createAsyncThunk(
   "profile/career",
   async () => {
-    const response = await axios.get(`${CAREERPROFILE}/${user?.id}`)
-    return response.data
+    try {
+      const response = await getCareerProfileApi(user?.id);
+      if (response?.status === 200) {
+        return response.data
+      }
+    } catch (e) {
+      toast.error(e.response.data.message);
+    }
   }
 )
 
 export const addCareerProfile = createAsyncThunk(
   "profile/addCareer",
   async (data) => {
-    const response = await axios.post(CAREERPROFILE, {
-      ...data?.career, userId: user.id
-    })
-    if (response?.status === 200) {
-      data?.closeModal()
-      return response.data
+    try {
+      const response = await addCareerProfileApi(user?.id, data?.career);
+      if (response?.status === 200) {
+        toast.success(response?.data?.message);
+        data?.closeModal()
+        return response.data
+      }
+    } catch (e) {
+      toast.error(e.response.data.message);
     }
   }
 )
@@ -123,12 +129,16 @@ export const addCareerProfile = createAsyncThunk(
 export const updateCareerProfile = createAsyncThunk(
   "profile/updateCareer",
   async (data) => {
-    const response = await axios.put(`${CAREERPROFILE}/${data?.careerId}`, {
-      ...data?.career
-    })
-    if (response?.status === 200) {
-      data?.closeModal()
-      return { ...data.career, id: data?.careerId }
+    try {
+      const response = await updateCareerProfileApi(data?.careerId, data?.career);
+      if (response?.status === 200) {
+        toast.success(response?.data?.message);
+        data?.closeModal()
+        getCareerProfile()
+        return { ...data.career, id: data?.careerId }
+      }
+    } catch (e) {
+      toast.error(e.response.data.message);
     }
   }
 )
@@ -136,11 +146,15 @@ export const updateCareerProfile = createAsyncThunk(
 export const deleteCareerProfile = createAsyncThunk(
   "profile/deleteCareer",
   async (data) => {
-    const response = await axios.delete(`${CAREERPROFILE}/${data?.id}`, {
-      ...data
-    })
-    if (response?.status === 200) {
-      return data
+    try {
+      const response = await deleteCareerProfileApi(data?.id);
+      if (response?.status === 200) {
+        toast.success(response?.data?.message);
+        data?.closeModal()
+        return { ...data.education, id: data?.education?.id }
+      }
+    } catch (e) {
+      toast.error(e.response.data.message);
     }
   }
 )
@@ -151,9 +165,9 @@ export const profileSlice = createSlice({
   name: "profile",
   initialState: {
     loading: false,
-    skills: [],
     Education: [],
-    careerProfile: {}
+    careerProfile: {},
+    profile: {}
   },
   reducers: {},
   extraReducers: {
@@ -163,7 +177,7 @@ export const profileSlice = createSlice({
     },
     [updateKeySkills.fulfilled]: (state, action) => {
       state.loading = false;
-      state.skills = action.payload;
+      state.profile = action.payload;
     },
     [updateKeySkills.rejected]: (state, action) => {
       state.loading = false;
@@ -189,7 +203,14 @@ export const profileSlice = createSlice({
     },
     [addEducation.fulfilled]: (state, action) => {
       state.loading = false;
-      state.Education = action.payload;
+      const jsonState = covertToJSON(state)
+      state.Education = {
+        ...jsonState.Education,
+        data: {
+          count: jsonState?.Education?.data?.count + 1,
+          rows: [...jsonState?.Education?.data?.rows, action?.payload?.data]
+        }
+      }
     },
     [addEducation.rejected]: (state, action) => {
       state.loading = false;
@@ -265,8 +286,13 @@ export const profileSlice = createSlice({
     },
     [updateCareerProfile.fulfilled]: (state, action) => {
       state.loading = false;
-      const jsonState = covertToJSON(state)
-      state.careerProfile = {}
+      // const jsonState = covertToJSON(state)
+      // state.careerProfile = {
+      //   ...jsonState.careerProfile,
+      //   data: {
+      //     rows: [action.payload]
+      //   }
+      // }
     },
     [updateCareerProfile.rejected]: (state, action) => {
       state.loading = false;

@@ -2,10 +2,11 @@ import React from "react";
 import Modal from "react-modal";
 import { useEffect } from "react";
 import { IoIosClose } from "react-icons/io";
-import { useForm } from "react-hook-form";
-import { addCareerProfile } from "../../../store/reducers/profileReducer";
+import { Controller, useForm } from "react-hook-form";
+import { addCareerProfile, updateCareerProfile } from "../../../store/reducers/profileReducer";
 import { useDispatch, useSelector } from "react-redux"
 import { FaSpinner } from "react-icons/fa";
+import { FormCheck } from "react-bootstrap";
 
 const customStyles = {
   content: {
@@ -38,6 +39,7 @@ function CareerModal({ isOpen, closeModal, currentData }) {
   const {
     register,
     handleSubmit,
+    control,
     formState: { errors },
   } = useForm();
 
@@ -48,8 +50,15 @@ function CareerModal({ isOpen, closeModal, currentData }) {
       career: { ...values },
       closeModal: closeModal
     }
-    dispatch(addCareerProfile(dispatchObject))
+    if (currentData?.id) {
+      dispatch(updateCareerProfile({ ...dispatchObject, career: { ...currentData, ...dispatchObject?.career, }, careerId: currentData?.id }))
+    } else {
+      dispatch(addCareerProfile(dispatchObject))
+    }
   };
+
+  console.log("title =>")
+  console.log("data :", currentData)
 
   return (
     <>
@@ -101,12 +110,16 @@ function CareerModal({ isOpen, closeModal, currentData }) {
                 <select
                   name="current_industry"
                   className="profile-input"
+                  defaultValue={currentData?.current_industry}
                   {...register("current_industry", { required: true })}
                 >
                   <option value="">Eg: IT Services & Consulting</option>
                   <option value={"it"}>Services</option>
                   <option value={"consulting"}>Consulting</option>
                 </select>
+                {errors.current_industry && (
+                  <p className="validation" style={{ fontSize: 12, color: "red", marginBottom: 15 }}>Industry is required</p>
+                )}
               </div>
               <div>
                 <label htmlFor="name" className="input-label">
@@ -122,6 +135,9 @@ function CareerModal({ isOpen, closeModal, currentData }) {
                   <option value={"Science"}>Science</option>
                   <option value={"Analytics"}>Analytics</option>
                 </select>
+                {errors.department && (
+                  <p className="validation" style={{ fontSize: 12, color: "red", marginBottom: 15 }}>Department  is required</p>
+                )}
               </div>
               <div>
                 <label htmlFor="name" className="input-label">
@@ -137,6 +153,9 @@ function CareerModal({ isOpen, closeModal, currentData }) {
                   <option value={"hr"}>HR</option>
                   <option value={"developer"}>Developer</option>
                 </select>
+                {errors.role_category && (
+                  <p className="validation" style={{ fontSize: 12, color: "red", marginBottom: 15 }}>Role Category  is required</p>
+                )}
               </div>
               <div>
                 <label htmlFor="name" className="input-label">
@@ -152,26 +171,66 @@ function CareerModal({ isOpen, closeModal, currentData }) {
                   <option value={"HR"}>HR</option>
                   <option value={"Manager"}>Manager</option>
                 </select>
+                {errors.job_role && (
+                  <p className="validation" style={{ fontSize: 12, color: "red", marginBottom: 15 }}>Job Role  is required</p>
+                )}
               </div>
 
               <div style={{ marginTop: 10, marginBottom: 30 }}>
                 <label htmlFor="name" className="input-label">
                   Desired Job Type <span className="text-danger">*</span>
                 </label>
-
                 <div className="input-radio-group" style={{ maxWidth: 250 }}>
-                  <div>
+                  <Controller
+                    name={"desired_job_type"}
+                    // rules={{ required: true }}
+                    control={control}
+                    render={({ field: { onChange }, }) => {
+                      return (
+                        <FormCheck
+                          type="radio"
+                          name="desired_job_type"
+                          label="Permanent"
+                          id="Permanent"
+                          className="current-work"
+                          onChange={onChange}
+                          value="Permanent"
+                          defaultChecked={currentData?.desired_job_type === 'Permanent'}
+                        />
+                      );
+                    }}
+                  />
+                  <Controller
+                    name={"desired_job_type"}
+                    control={control}
+                    render={({ field: { onChange }, }) => {
+                      return (
+                        <FormCheck
+                          type="radio"
+                          name="desired_job_type"
+                          label="Contractual"
+                          id="Contractual"
+                          className="current-work"
+                          onChange={onChange}
+                          value="Contractual"
+                          defaultChecked={currentData?.desired_job_type === 'Contractual'}
+                        />
+                      );
+                    }}
+                  />
+
+                  {/* <div>
                     <input
                       type={"radio"}
                       id="Permanent"
                       value="Permanent"
                       name="desired_job_type"
                       {...register("desired_job_type", { required: true })}
-                      defaultChecked={currentData?.type === "Permanent"}
+                      defaultChecked={currentData?.desired_job_type === "Permanent"}
                     />
                     <label htmlFor="Permanent">Permanent</label>
-                  </div>
-                  <div>
+                  </div> */}
+                  {/* <div>
                     <input
                       type={"radio"}
                       id="Contractual"
@@ -181,8 +240,11 @@ function CareerModal({ isOpen, closeModal, currentData }) {
                       defaultChecked={currentData?.type === "Contractual"}
                     />
                     <label htmlFor="Contractual">Contractual</label>
-                  </div>
+                  </div> */}
                 </div>
+                {errors.desired_job_type && (
+                  <p className="validation" style={{ fontSize: 12, color: "red", marginBottom: 15 }}>Desired job type is required</p>
+                )}
               </div>
 
               <div style={{ marginTop: 10, marginBottom: 30 }}>
@@ -191,7 +253,44 @@ function CareerModal({ isOpen, closeModal, currentData }) {
                 </label>
 
                 <div className="input-radio-group" style={{ maxWidth: 250 }}>
-                  <div>
+                  <Controller
+                    name={"desired_employment_type"}
+                    // rules={{ required: true }}
+                    control={control}
+                    render={({ field: { onChange }, }) => {
+                      return (
+                        <FormCheck
+                          type="radio"
+                          name="desired_employment_type"
+                          label="Full Time"
+                          id="FullTime"
+                          className="current-work"
+                          onChange={onChange}
+                          value="full_time"
+                          defaultChecked={currentData?.desired_employment_type === 'full_time'}
+                        />
+                      );
+                    }}
+                  />
+                  <Controller
+                    name={"desired_employment_type"}
+                    control={control}
+                    render={({ field: { onChange }, }) => {
+                      return (
+                        <FormCheck
+                          type="radio"
+                          name="desired_employment_type"
+                          label="Part Time"
+                          id="PartTime"
+                          className="current-work"
+                          onChange={onChange}
+                          value="part_time"
+                          defaultChecked={currentData?.desired_employment_type === 'part_time'}
+                        />
+                      );
+                    }}
+                  />
+                  {/* <div>
                     <input
                       type={"radio"}
                       id="full_time"
@@ -201,8 +300,8 @@ function CareerModal({ isOpen, closeModal, currentData }) {
                       defaultChecked={currentData?.type === "full_time"}
                     />
                     <label htmlFor="full_time">Full Time</label>
-                  </div>
-                  <div>
+                  </div> */}
+                  {/* <div>
                     <input
                       type={"radio"}
                       id="part_time"
@@ -212,8 +311,11 @@ function CareerModal({ isOpen, closeModal, currentData }) {
                       defaultChecked={currentData?.type === "part_time"}
                     />
                     <label htmlFor="part_time">Part Time</label>
-                  </div>
+                  </div> */}
                 </div>
+                {errors.desired_employment_type && (
+                  <p className="validation" style={{ fontSize: 12, color: "red", marginBottom: 15 }}>Desired employment type is required</p>
+                )}
               </div>
               <div style={{ marginTop: 10, marginBottom: 20 }}>
                 <label htmlFor="name" className="input-label">
@@ -221,7 +323,62 @@ function CareerModal({ isOpen, closeModal, currentData }) {
                 </label>
 
                 <div className="input-radio-group" style={{ maxWidth: 250 }}>
-                  <div>
+                  <Controller
+                    name={"preferred_shift"}
+                    control={control}
+                    // rules={{ required: true }}
+                    render={({ field: { onChange }, }) => {
+                      return (
+                        <FormCheck
+                          type="radio"
+                          name="preferred_shift"
+                          label="Day"
+                          id="Day"
+                          className="current-work"
+                          onChange={onChange}
+                          value="Day"
+                          defaultChecked={currentData?.preferred_shift === 'Day'}
+                        />
+                      );
+                    }}
+                  />
+                  <Controller
+                    name={"preferred_shift"}
+                    control={control}
+                    render={({ field: { onChange }, }) => {
+                      return (
+                        <FormCheck
+                          type="radio"
+                          name="preferred_shift"
+                          label="Night"
+                          id="Night"
+                          className="current-work"
+                          onChange={onChange}
+                          value="Night"
+                          defaultChecked={currentData?.preferred_shift === 'Night'}
+                        />
+                      );
+                    }}
+                  />
+                  <Controller
+                    name={"preferred_shift"}
+                    control={control}
+                    render={({ field: { onChange }, }) => {
+                      return (
+                        <FormCheck
+                          type="radio"
+                          name="preferred_shift"
+                          label="Flexible"
+                          id="Flexible"
+                          className="current-work"
+                          onChange={onChange}
+                          value="Flexible"
+                          defaultChecked={currentData?.preferred_shift === 'Flexible'}
+                        />
+                      );
+                    }}
+                  />
+                  {/* <div>
                     <input
                       type={"radio"}
                       id="Day"
@@ -232,8 +389,8 @@ function CareerModal({ isOpen, closeModal, currentData }) {
 
                     />
                     <label htmlFor="Day">Day</label>
-                  </div>
-                  <div>
+                  </div> */}
+                  {/* <div>
                     <input
                       type={"radio"}
                       id="Night"
@@ -243,8 +400,8 @@ function CareerModal({ isOpen, closeModal, currentData }) {
                       defaultChecked={currentData?.type === "Night"}
                     />
                     <label htmlFor="Night">Night</label>
-                  </div>
-                  <div>
+                  </div> */}
+                  {/* <div>
                     <input
                       type={"radio"}
                       id="Flexible"
@@ -255,8 +412,11 @@ function CareerModal({ isOpen, closeModal, currentData }) {
 
                     />
                     <label htmlFor="Flexible">Flexible</label>
-                  </div>
+                  </div> */}
                 </div>
+                {errors.preferred_shift && (
+                  <p className="validation" style={{ fontSize: 12, color: "red", marginBottom: 15 }}>Preferred shift is required</p>
+                )}
               </div>
 
               <div>
@@ -271,6 +431,9 @@ function CareerModal({ isOpen, closeModal, currentData }) {
                   <option value={"Calicut"}>Calicut</option>
                   <option value={"Malappuram"}>Malappuram</option>
                 </select>
+                {errors.preferred_work_location && (
+                  <p className="validation" style={{ fontSize: 12, color: "red", marginBottom: 15 }}>Preferred Work Location is required</p>
+                )}
               </div>
 
               <div>
@@ -299,6 +462,9 @@ function CareerModal({ isOpen, closeModal, currentData }) {
                       defaultValue={currentData?.salary_expected}
                       name="salary_expected"
                     />
+                    {errors.salary_expected && (
+                      <p className="validation" style={{ fontSize: 12, color: "red", marginBottom: 15 }}>Expected Salary is required</p>
+                    )}
                   </div>
                 </div>
               </div>

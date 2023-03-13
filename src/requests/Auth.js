@@ -19,7 +19,7 @@ export const SAVED_JOBS = `${API_URL}/saved`;
 
 export const UPDATE_KEYSKILLS = `${API_URL}/update/`;
 export const EDUCATION = `${API_URL}/education`;
-
+export const CAREERPROFILE = `${API_URL}/career-profile`;
 
 export function login(email, password) {
   return axios.post(LOGIN_URL, {
@@ -146,4 +146,22 @@ export function updateEducationApi(id, education) {
 
 export function deleteEducationApi(id) {
   return axios.delete(`${EDUCATION}/${id}`)
+}
+
+//career-profile
+
+export function getCareerProfileApi(userId) {
+  return axios.get(`${CAREERPROFILE}/${userId}`)
+}
+
+export function addCareerProfileApi(userId, education) {
+  return axios.post(CAREERPROFILE, { ...education, userId: userId })
+}
+
+export function updateCareerProfileApi(id, education) {
+  return axios.put(`${CAREERPROFILE}/${id}`, education)
+}
+
+export function deleteCareerProfileApi(id) {
+  return axios.delete(`${CAREERPROFILE}/${id}`)
 }
