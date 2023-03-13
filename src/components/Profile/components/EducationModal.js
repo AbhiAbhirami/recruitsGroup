@@ -3,8 +3,11 @@ import Modal from "react-modal";
 import { useEffect } from "react";
 import { IoIosClose } from "react-icons/io";
 import { Controller, useForm } from "react-hook-form";
-import { useDispatch, useSelector } from "react-redux"
-import { addEducation, updateEducation } from "../../../store/reducers/profileReducer";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  addEducation,
+  updateEducation,
+} from "../../../store/reducers/profileReducer";
 import Select from "react-select";
 import DatePicker from "react-datepicker";
 import { FaSpinner } from "react-icons/fa";
@@ -25,11 +28,11 @@ const customStyles = {
 };
 
 function EducationModal({ isOpen, closeModal, currentData }) {
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
-  const { loading, } = useSelector(state => ({
+  const { loading } = useSelector((state) => ({
     loading: state.profile.loading,
-  }))
+  }));
 
   useEffect(() => {
     if (isOpen) {
@@ -46,28 +49,27 @@ function EducationModal({ isOpen, closeModal, currentData }) {
     formState: { errors },
   } = useForm();
 
-  const [state, setState] = useState()
+  const [state, setState] = useState();
 
   const onSubmit = async (values) => {
     console.log(values);
-    const dispatchObject = {
+    const credentials = {
       education: { ...values, current_course: false },
-      closeModal: closeModal
-    }
+      closeModal: closeModal,
+    };
     if (state?.id) {
-      dispatch(updateEducation({ ...dispatchObject, educationId: state?.id }))
+      dispatch(updateEducation({ ...credentials, educationId: state?.id }));
     } else {
-      dispatch(addEducation(dispatchObject))
+      dispatch(addEducation(credentials));
     }
   };
 
-
   useEffect(() => {
-    setState(currentData)
-  }, [currentData?.id])
+    setState(currentData);
+  }, [currentData?.id]);
 
-  console.log("title =>")
-  console.log("data :", errors)
+  console.log("title =>");
+  console.log("data :", errors);
 
   return (
     <>
@@ -118,14 +120,25 @@ function EducationModal({ isOpen, closeModal, currentData }) {
                   {...register("education", { required: true })}
                 >
                   <option value="">Select education</option>
-                  <option selected={state?.education === 'btech'} value={"btech"}>b.tech</option>
-                  <option selected={state?.education === 'sslc'} value={"sslc"}>sslc</option>
+                  <option
+                    selected={state?.education === "btech"}
+                    value={"btech"}
+                  >
+                    b.tech
+                  </option>
+                  <option selected={state?.education === "sslc"} value={"sslc"}>
+                    sslc
+                  </option>
                 </select>
                 {errors.education && (
-                  <p className="validation" style={{ fontSize: 12, color: "red", marginBottom: 15 }}>Education Name is required</p>
+                  <p
+                    className="validation"
+                    style={{ fontSize: 12, color: "red", marginBottom: 15 }}
+                  >
+                    Education Name is required
+                  </p>
                 )}
               </div>
-
 
               <div>
                 <label htmlFor="name" className="input-label">
@@ -153,12 +166,24 @@ function EducationModal({ isOpen, closeModal, currentData }) {
                   className="profile-input"
                   defaultValue={state?.college}
                 >
-                  <option value=''>Select university/institute</option>
-                  <option selected={state?.college === 'CALICUT'} value={"CALICUT"}>CALICUT</option>
-                  <option selected={state?.college === 'KTU'} value={"KTU"}>KTU</option>
+                  <option value="">Select university/institute</option>
+                  <option
+                    selected={state?.college === "CALICUT"}
+                    value={"CALICUT"}
+                  >
+                    CALICUT
+                  </option>
+                  <option selected={state?.college === "KTU"} value={"KTU"}>
+                    KTU
+                  </option>
                 </select>
                 {errors.college && (
-                  <p className="validation" style={{ fontSize: 12, color: "red", marginBottom: 15 }}>College Name is required</p>
+                  <p
+                    className="validation"
+                    style={{ fontSize: 12, color: "red", marginBottom: 15 }}
+                  >
+                    College Name is required
+                  </p>
                 )}
               </div>
               <div>
@@ -172,11 +197,23 @@ function EducationModal({ isOpen, closeModal, currentData }) {
                   defaultValue={state?.course}
                 >
                   <option value="">Select course</option>
-                  <option selected={state?.course === 'MECHANICAL'} value={"MECHANICAL"}>MECHANICAL</option>
-                  <option selected={state?.course === 'CS'} value={"CS"}>CS</option>
+                  <option
+                    selected={state?.course === "MECHANICAL"}
+                    value={"MECHANICAL"}
+                  >
+                    MECHANICAL
+                  </option>
+                  <option selected={state?.course === "CS"} value={"CS"}>
+                    CS
+                  </option>
                 </select>
                 {errors.course && (
-                  <p className="validation" style={{ fontSize: 12, color: "red", marginBottom: 15 }}>Course Name is required</p>
+                  <p
+                    className="validation"
+                    style={{ fontSize: 12, color: "red", marginBottom: 15 }}
+                  >
+                    Course Name is required
+                  </p>
                 )}
               </div>
               <div>
@@ -190,11 +227,26 @@ function EducationModal({ isOpen, closeModal, currentData }) {
                   defaultChecked={state?.specification}
                 >
                   <option value="">Select Specialization</option>
-                  <option selected={state?.specification === 'mtech'} value={"mtech"}>M.TECH</option>
-                  <option selected={state?.specification === 'phd'} value={"phd"}>PHD</option>
+                  <option
+                    selected={state?.specification === "mtech"}
+                    value={"mtech"}
+                  >
+                    M.TECH
+                  </option>
+                  <option
+                    selected={state?.specification === "phd"}
+                    value={"phd"}
+                  >
+                    PHD
+                  </option>
                 </select>
                 {errors.specification && (
-                  <p className="validation" style={{ fontSize: 12, color: "red", marginBottom: 15 }}>Specification is required</p>
+                  <p
+                    className="validation"
+                    style={{ fontSize: 12, color: "red", marginBottom: 15 }}
+                  >
+                    Specification is required
+                  </p>
                 )}
               </div>
               <div style={{ marginTop: 10, marginBottom: 20 }}>
@@ -206,7 +258,7 @@ function EducationModal({ isOpen, closeModal, currentData }) {
                     name={"type"}
                     control={control}
                     // rules={{ required: true }}
-                    render={({ field: { onChange }, }) => {
+                    render={({ field: { onChange } }) => {
                       return (
                         <FormCheck
                           type="radio"
@@ -216,7 +268,7 @@ function EducationModal({ isOpen, closeModal, currentData }) {
                           className="current-work"
                           onChange={onChange}
                           value="full_time"
-                          defaultChecked={state?.type === 'full_time'}
+                          defaultChecked={state?.type === "full_time"}
                         />
                       );
                     }}
@@ -224,7 +276,7 @@ function EducationModal({ isOpen, closeModal, currentData }) {
                   <Controller
                     name={"type"}
                     control={control}
-                    render={({ field: { onChange }, }) => {
+                    render={({ field: { onChange } }) => {
                       return (
                         <FormCheck
                           type="radio"
@@ -234,7 +286,7 @@ function EducationModal({ isOpen, closeModal, currentData }) {
                           className="current-work"
                           onChange={onChange}
                           value="part_time"
-                          defaultChecked={state?.type === 'part_time'}
+                          defaultChecked={state?.type === "part_time"}
                         />
                       );
                     }}
@@ -242,7 +294,7 @@ function EducationModal({ isOpen, closeModal, currentData }) {
                   <Controller
                     name={"type"}
                     control={control}
-                    render={({ field: { onChange }, }) => {
+                    render={({ field: { onChange } }) => {
                       return (
                         <FormCheck
                           type="radio"
@@ -252,12 +304,11 @@ function EducationModal({ isOpen, closeModal, currentData }) {
                           className="current-work"
                           onChange={onChange}
                           value="correspondence"
-                          defaultChecked={state?.type === 'correspondence'}
+                          defaultChecked={state?.type === "correspondence"}
                         />
                       );
                     }}
                   />
-
 
                   {/* <div>
                     <input
@@ -297,7 +348,17 @@ function EducationModal({ isOpen, closeModal, currentData }) {
                   </div> */}
                 </div>
                 {errors.type && (
-                  <p className="validation" style={{ fontSize: 12, color: "red", marginBottom: 15, marginTop: 5 }}>Course Type is required</p>
+                  <p
+                    className="validation"
+                    style={{
+                      fontSize: 12,
+                      color: "red",
+                      marginBottom: 15,
+                      marginTop: 5,
+                    }}
+                  >
+                    Course Type is required
+                  </p>
                 )}
               </div>
 
@@ -306,12 +367,13 @@ function EducationModal({ isOpen, closeModal, currentData }) {
                   Course duration <span className="text-danger">*</span>
                 </label>
                 <div className="date-picker course-duration">
-
                   <div className="start-date">
                     <Controller
                       name={"start_date"}
                       defaultValue={
-                        state?.start_date ? new Date(state?.start_date) : Date.now()
+                        state?.start_date
+                          ? new Date(state?.start_date)
+                          : Date.now()
                       }
                       control={control}
                       rules={{ required: true }}
@@ -329,7 +391,12 @@ function EducationModal({ isOpen, closeModal, currentData }) {
                       }}
                     />
                     {errors.start_date && (
-                      <p className="validation" style={{ fontSize: 12, color: "red", marginBottom: 15 }}>Start Date is required</p>
+                      <p
+                        className="validation"
+                        style={{ fontSize: 12, color: "red", marginBottom: 15 }}
+                      >
+                        Start Date is required
+                      </p>
                     )}
                   </div>
                   <span>To</span>
@@ -354,7 +421,12 @@ function EducationModal({ isOpen, closeModal, currentData }) {
                       }}
                     />
                     {errors.end_date && (
-                      <p className="validation" style={{ fontSize: 12, color: "red", marginBottom: 15 }}>End Date is required</p>
+                      <p
+                        className="validation"
+                        style={{ fontSize: 12, color: "red", marginBottom: 15 }}
+                      >
+                        End Date is required
+                      </p>
                     )}
                   </div>
                 </div>
@@ -406,13 +478,26 @@ function EducationModal({ isOpen, closeModal, currentData }) {
                   defaultValue={state?.score}
                 >
                   <option value="">select grading system</option>
-                  <option selected={state?.score === '1'} value={1}>1</option>
-                  <option selected={state?.score === '2'} value={2}>2</option>
-                  <option selected={state?.score === '3'} value={3}>3</option>
-                  <option selected={state?.score === '4'} value={4}>4</option>
+                  <option selected={state?.score === "1"} value={1}>
+                    1
+                  </option>
+                  <option selected={state?.score === "2"} value={2}>
+                    2
+                  </option>
+                  <option selected={state?.score === "3"} value={3}>
+                    3
+                  </option>
+                  <option selected={state?.score === "4"} value={4}>
+                    4
+                  </option>
                 </select>
                 {errors.score && (
-                  <p className="validation" style={{ fontSize: 12, color: "red", marginBottom: 15 }}>Score is required</p>
+                  <p
+                    className="validation"
+                    style={{ fontSize: 12, color: "red", marginBottom: 15 }}
+                  >
+                    Score is required
+                  </p>
                 )}
               </div>
               <div
@@ -447,12 +532,18 @@ function EducationModal({ isOpen, closeModal, currentData }) {
                     cursor: "pointer",
                     display: "flex",
                     alignItems: "center",
-                    justifyContent: "center"
+                    justifyContent: "center",
                   }}
                   type={"submit"}
                   className="button"
                 >
-                  Save {loading && <FaSpinner className="spinner" style={{ margin: "0 4px" }} />}
+                  Save{" "}
+                  {loading && (
+                    <FaSpinner
+                      className="spinner"
+                      style={{ margin: "0 4px" }}
+                    />
+                  )}
                 </button>
               </div>
             </form>

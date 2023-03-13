@@ -3,8 +3,11 @@ import Modal from "react-modal";
 import { useEffect } from "react";
 import { IoIosClose } from "react-icons/io";
 import { Controller, useForm } from "react-hook-form";
-import { addCareerProfile, updateCareerProfile } from "../../../store/reducers/profileReducer";
-import { useDispatch, useSelector } from "react-redux"
+import {
+  addCareerProfile,
+  updateCareerProfile,
+} from "../../../store/reducers/profileReducer";
+import { useDispatch, useSelector } from "react-redux";
 import { FaSpinner } from "react-icons/fa";
 import { FormCheck } from "react-bootstrap";
 
@@ -23,11 +26,11 @@ const customStyles = {
 };
 
 function CareerModal({ isOpen, closeModal, currentData }) {
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
-  const { loading, } = useSelector(state => ({
+  const { loading } = useSelector((state) => ({
     loading: state.profile.loading,
-  }))
+  }));
   useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = "hidden";
@@ -46,19 +49,25 @@ function CareerModal({ isOpen, closeModal, currentData }) {
   const onSubmit = async (values) => {
     console.log(values);
 
-    const dispatchObject = {
+    const credentials = {
       career: { ...values },
-      closeModal: closeModal
-    }
+      closeModal: closeModal,
+    };
     if (currentData?.id) {
-      dispatch(updateCareerProfile({ ...dispatchObject, career: { ...currentData, ...dispatchObject?.career, }, careerId: currentData?.id }))
+      dispatch(
+        updateCareerProfile({
+          ...credentials,
+          career: { ...currentData, ...credentials?.career },
+          careerId: currentData?.id,
+        })
+      );
     } else {
-      dispatch(addCareerProfile(dispatchObject))
+      dispatch(addCareerProfile(credentials));
     }
   };
 
-  console.log("title =>")
-  console.log("data :", currentData)
+  console.log("title =>");
+  console.log("data :", currentData);
 
   return (
     <>
@@ -118,7 +127,12 @@ function CareerModal({ isOpen, closeModal, currentData }) {
                   <option value={"consulting"}>Consulting</option>
                 </select>
                 {errors.current_industry && (
-                  <p className="validation" style={{ fontSize: 12, color: "red", marginBottom: 15 }}>Industry is required</p>
+                  <p
+                    className="validation"
+                    style={{ fontSize: 12, color: "red", marginBottom: 15 }}
+                  >
+                    Industry is required
+                  </p>
                 )}
               </div>
               <div>
@@ -136,7 +150,12 @@ function CareerModal({ isOpen, closeModal, currentData }) {
                   <option value={"Analytics"}>Analytics</option>
                 </select>
                 {errors.department && (
-                  <p className="validation" style={{ fontSize: 12, color: "red", marginBottom: 15 }}>Department  is required</p>
+                  <p
+                    className="validation"
+                    style={{ fontSize: 12, color: "red", marginBottom: 15 }}
+                  >
+                    Department is required
+                  </p>
                 )}
               </div>
               <div>
@@ -154,7 +173,12 @@ function CareerModal({ isOpen, closeModal, currentData }) {
                   <option value={"developer"}>Developer</option>
                 </select>
                 {errors.role_category && (
-                  <p className="validation" style={{ fontSize: 12, color: "red", marginBottom: 15 }}>Role Category  is required</p>
+                  <p
+                    className="validation"
+                    style={{ fontSize: 12, color: "red", marginBottom: 15 }}
+                  >
+                    Role Category is required
+                  </p>
                 )}
               </div>
               <div>
@@ -172,7 +196,12 @@ function CareerModal({ isOpen, closeModal, currentData }) {
                   <option value={"Manager"}>Manager</option>
                 </select>
                 {errors.job_role && (
-                  <p className="validation" style={{ fontSize: 12, color: "red", marginBottom: 15 }}>Job Role  is required</p>
+                  <p
+                    className="validation"
+                    style={{ fontSize: 12, color: "red", marginBottom: 15 }}
+                  >
+                    Job Role is required
+                  </p>
                 )}
               </div>
 
@@ -185,7 +214,7 @@ function CareerModal({ isOpen, closeModal, currentData }) {
                     name={"desired_job_type"}
                     // rules={{ required: true }}
                     control={control}
-                    render={({ field: { onChange }, }) => {
+                    render={({ field: { onChange } }) => {
                       return (
                         <FormCheck
                           type="radio"
@@ -195,7 +224,9 @@ function CareerModal({ isOpen, closeModal, currentData }) {
                           className="current-work"
                           onChange={onChange}
                           value="Permanent"
-                          defaultChecked={currentData?.desired_job_type === 'Permanent'}
+                          defaultChecked={
+                            currentData?.desired_job_type === "Permanent"
+                          }
                         />
                       );
                     }}
@@ -203,7 +234,7 @@ function CareerModal({ isOpen, closeModal, currentData }) {
                   <Controller
                     name={"desired_job_type"}
                     control={control}
-                    render={({ field: { onChange }, }) => {
+                    render={({ field: { onChange } }) => {
                       return (
                         <FormCheck
                           type="radio"
@@ -213,7 +244,9 @@ function CareerModal({ isOpen, closeModal, currentData }) {
                           className="current-work"
                           onChange={onChange}
                           value="Contractual"
-                          defaultChecked={currentData?.desired_job_type === 'Contractual'}
+                          defaultChecked={
+                            currentData?.desired_job_type === "Contractual"
+                          }
                         />
                       );
                     }}
@@ -243,7 +276,12 @@ function CareerModal({ isOpen, closeModal, currentData }) {
                   </div> */}
                 </div>
                 {errors.desired_job_type && (
-                  <p className="validation" style={{ fontSize: 12, color: "red", marginBottom: 15 }}>Desired job type is required</p>
+                  <p
+                    className="validation"
+                    style={{ fontSize: 12, color: "red", marginBottom: 15 }}
+                  >
+                    Desired job type is required
+                  </p>
                 )}
               </div>
 
@@ -257,7 +295,7 @@ function CareerModal({ isOpen, closeModal, currentData }) {
                     name={"desired_employment_type"}
                     // rules={{ required: true }}
                     control={control}
-                    render={({ field: { onChange }, }) => {
+                    render={({ field: { onChange } }) => {
                       return (
                         <FormCheck
                           type="radio"
@@ -267,7 +305,9 @@ function CareerModal({ isOpen, closeModal, currentData }) {
                           className="current-work"
                           onChange={onChange}
                           value="full_time"
-                          defaultChecked={currentData?.desired_employment_type === 'full_time'}
+                          defaultChecked={
+                            currentData?.desired_employment_type === "full_time"
+                          }
                         />
                       );
                     }}
@@ -275,7 +315,7 @@ function CareerModal({ isOpen, closeModal, currentData }) {
                   <Controller
                     name={"desired_employment_type"}
                     control={control}
-                    render={({ field: { onChange }, }) => {
+                    render={({ field: { onChange } }) => {
                       return (
                         <FormCheck
                           type="radio"
@@ -285,7 +325,9 @@ function CareerModal({ isOpen, closeModal, currentData }) {
                           className="current-work"
                           onChange={onChange}
                           value="part_time"
-                          defaultChecked={currentData?.desired_employment_type === 'part_time'}
+                          defaultChecked={
+                            currentData?.desired_employment_type === "part_time"
+                          }
                         />
                       );
                     }}
@@ -314,7 +356,12 @@ function CareerModal({ isOpen, closeModal, currentData }) {
                   </div> */}
                 </div>
                 {errors.desired_employment_type && (
-                  <p className="validation" style={{ fontSize: 12, color: "red", marginBottom: 15 }}>Desired employment type is required</p>
+                  <p
+                    className="validation"
+                    style={{ fontSize: 12, color: "red", marginBottom: 15 }}
+                  >
+                    Desired employment type is required
+                  </p>
                 )}
               </div>
               <div style={{ marginTop: 10, marginBottom: 20 }}>
@@ -327,7 +374,7 @@ function CareerModal({ isOpen, closeModal, currentData }) {
                     name={"preferred_shift"}
                     control={control}
                     // rules={{ required: true }}
-                    render={({ field: { onChange }, }) => {
+                    render={({ field: { onChange } }) => {
                       return (
                         <FormCheck
                           type="radio"
@@ -337,7 +384,9 @@ function CareerModal({ isOpen, closeModal, currentData }) {
                           className="current-work"
                           onChange={onChange}
                           value="Day"
-                          defaultChecked={currentData?.preferred_shift === 'Day'}
+                          defaultChecked={
+                            currentData?.preferred_shift === "Day"
+                          }
                         />
                       );
                     }}
@@ -345,7 +394,7 @@ function CareerModal({ isOpen, closeModal, currentData }) {
                   <Controller
                     name={"preferred_shift"}
                     control={control}
-                    render={({ field: { onChange }, }) => {
+                    render={({ field: { onChange } }) => {
                       return (
                         <FormCheck
                           type="radio"
@@ -355,7 +404,9 @@ function CareerModal({ isOpen, closeModal, currentData }) {
                           className="current-work"
                           onChange={onChange}
                           value="Night"
-                          defaultChecked={currentData?.preferred_shift === 'Night'}
+                          defaultChecked={
+                            currentData?.preferred_shift === "Night"
+                          }
                         />
                       );
                     }}
@@ -363,7 +414,7 @@ function CareerModal({ isOpen, closeModal, currentData }) {
                   <Controller
                     name={"preferred_shift"}
                     control={control}
-                    render={({ field: { onChange }, }) => {
+                    render={({ field: { onChange } }) => {
                       return (
                         <FormCheck
                           type="radio"
@@ -373,7 +424,9 @@ function CareerModal({ isOpen, closeModal, currentData }) {
                           className="current-work"
                           onChange={onChange}
                           value="Flexible"
-                          defaultChecked={currentData?.preferred_shift === 'Flexible'}
+                          defaultChecked={
+                            currentData?.preferred_shift === "Flexible"
+                          }
                         />
                       );
                     }}
@@ -415,7 +468,12 @@ function CareerModal({ isOpen, closeModal, currentData }) {
                   </div> */}
                 </div>
                 {errors.preferred_shift && (
-                  <p className="validation" style={{ fontSize: 12, color: "red", marginBottom: 15 }}>Preferred shift is required</p>
+                  <p
+                    className="validation"
+                    style={{ fontSize: 12, color: "red", marginBottom: 15 }}
+                  >
+                    Preferred shift is required
+                  </p>
                 )}
               </div>
 
@@ -423,16 +481,23 @@ function CareerModal({ isOpen, closeModal, currentData }) {
                 <label htmlFor="name" className="input-label">
                   Preferred Work Location <span className="text-danger">*</span>
                 </label>
-                <select name="preferred_work_location"
+                <select
+                  name="preferred_work_location"
                   {...register("preferred_work_location", { required: true })}
                   defaultValue={currentData?.preferred_work_location}
-                  className="profile-input">
+                  className="profile-input"
+                >
                   <option value="">Calicut</option>
                   <option value={"Calicut"}>Calicut</option>
                   <option value={"Malappuram"}>Malappuram</option>
                 </select>
                 {errors.preferred_work_location && (
-                  <p className="validation" style={{ fontSize: 12, color: "red", marginBottom: 15 }}>Preferred Work Location is required</p>
+                  <p
+                    className="validation"
+                    style={{ fontSize: 12, color: "red", marginBottom: 15 }}
+                  >
+                    Preferred Work Location is required
+                  </p>
                 )}
               </div>
 
@@ -440,10 +505,12 @@ function CareerModal({ isOpen, closeModal, currentData }) {
                 <label htmlFor="name" className="input-label">
                   Expected Salary <span className="text-danger">*</span>
                 </label>
-                <div className="course-duration"
+                <div
+                  className="course-duration"
                   name="currency"
                   {...register("currency", { required: false })}
-                  style={{ maxWidth: 250 }}>
+                  style={{ maxWidth: 250 }}
+                >
                   <select
                     id="years"
                     name="course-start"
@@ -451,7 +518,7 @@ function CareerModal({ isOpen, closeModal, currentData }) {
                     style={{ width: "80px", marginTop: 10 }}
                   >
                     <option value="₹">₹ </option>
-                    <option value="$">$  </option>
+                    <option value="$">$ </option>
                   </select>
                   <div>
                     <input
@@ -463,7 +530,12 @@ function CareerModal({ isOpen, closeModal, currentData }) {
                       name="salary_expected"
                     />
                     {errors.salary_expected && (
-                      <p className="validation" style={{ fontSize: 12, color: "red", marginBottom: 15 }}>Expected Salary is required</p>
+                      <p
+                        className="validation"
+                        style={{ fontSize: 12, color: "red", marginBottom: 15 }}
+                      >
+                        Expected Salary is required
+                      </p>
                     )}
                   </div>
                 </div>
@@ -511,8 +583,13 @@ function CareerModal({ isOpen, closeModal, currentData }) {
                   type={"submit"}
                   className="button"
                 >
-                  Save {loading && <FaSpinner className="spinner" style={{ margin: "0 4px" }} />}
-
+                  Save{" "}
+                  {loading && (
+                    <FaSpinner
+                      className="spinner"
+                      style={{ margin: "0 4px" }}
+                    />
+                  )}
                 </button>
               </div>
             </form>

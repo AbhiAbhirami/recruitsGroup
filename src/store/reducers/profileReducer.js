@@ -1,17 +1,24 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
-import axios from "axios";
 import { toast } from "react-toastify";
 import { getUser } from "../../core/AuthHelpers";
-import { addCareerProfileApi, addEducationApi, deleteCareerProfileApi, deleteEducationApi, getCareerProfileApi, getEducationApi, updateCareerProfileApi, updateEducationApi, updateKeySkillsApi } from "../../requests/Auth";
-
-const API_URL = process.env.REACT_APP_API_URL;
+import {
+  addCareerProfileApi,
+  addEducationApi,
+  deleteCareerProfileApi,
+  deleteEducationApi,
+  getCareerProfileApi,
+  getEducationApi,
+  updateCareerProfileApi,
+  updateEducationApi,
+  updateKeySkillsApi,
+} from "../../requests/Auth";
 
 const user = getUser();
 
 const covertToJSON = (data) => {
-  return JSON.parse(JSON.stringify(data))
-}
+  return JSON.parse(JSON.stringify(data));
+};
 
 //skills
 export const updateKeySkills = createAsyncThunk(
@@ -19,33 +26,30 @@ export const updateKeySkills = createAsyncThunk(
   async (data) => {
     try {
       const response = await updateKeySkillsApi(user?.id, {
-        skills: data.skills
+        skills: data.skills,
       });
       if (response?.status === 200) {
-        data?.closeModal()
+        data?.closeModal();
         toast.success(response?.data?.message);
-        return response.data
+        return response.data;
       }
     } catch (e) {
       toast.error(e.response.data.message);
     }
   }
-)
+);
 
 //education
-export const getEducation = createAsyncThunk(
-  "profile/education",
-  async () => {
-    try {
-      const response = await getEducationApi(user?.id);
-      if (response?.status === 200) {
-        return response.data
-      }
-    } catch (e) {
-      toast.error(e.response.data.message);
+export const getEducation = createAsyncThunk("profile/education", async () => {
+  try {
+    const response = await getEducationApi(user?.id);
+    if (response?.status === 200) {
+      return response.data;
     }
+  } catch (e) {
+    toast.error(e.response.data.message);
   }
-)
+});
 
 export const addEducation = createAsyncThunk(
   "profile/addEducation",
@@ -54,30 +58,33 @@ export const addEducation = createAsyncThunk(
       const response = await addEducationApi(user?.id, data?.education);
       if (response?.status === 200) {
         toast.success(response?.data?.message);
-        data?.closeModal()
-        return response.data
+        data?.closeModal();
+        return response.data;
       }
     } catch (e) {
       toast.error(e.response.data.message);
     }
   }
-)
+);
 
 export const updateEducation = createAsyncThunk(
   "profile/updateEducation",
   async (data) => {
     try {
-      const response = await updateEducationApi(data?.educationId, data?.education);
+      const response = await updateEducationApi(
+        data?.educationId,
+        data?.education
+      );
       if (response?.status === 200) {
         toast.success(response?.data?.message);
-        data?.closeModal()
-        return { ...data.education, id: data?.educationId }
+        data?.closeModal();
+        return { ...data.education, id: data?.educationId };
       }
     } catch (e) {
       toast.error(e.response.data.message);
     }
   }
-)
+);
 
 export const deleteEducation = createAsyncThunk(
   "profile/deleteEducation",
@@ -86,29 +93,26 @@ export const deleteEducation = createAsyncThunk(
       const response = await deleteEducationApi(data?.education?.id);
       if (response?.status === 200) {
         toast.success(response?.data?.message);
-        data?.closeModal()
-        return { ...data.education, id: data?.education?.id }
+        data?.closeModal();
+        return { ...data.education, id: data?.education?.id };
       }
     } catch (e) {
       toast.error(e.response.data.message);
     }
   }
-)
+);
 
-//career-profile 
-export const getCareerProfile = createAsyncThunk(
-  "profile/career",
-  async () => {
-    try {
-      const response = await getCareerProfileApi(user?.id);
-      if (response?.status === 200) {
-        return response.data
-      }
-    } catch (e) {
-      toast.error(e.response.data.message);
+//career-profile
+export const getCareerProfile = createAsyncThunk("profile/career", async () => {
+  try {
+    const response = await getCareerProfileApi(user?.id);
+    if (response?.status === 200) {
+      return response.data;
     }
+  } catch (e) {
+    toast.error(e.response.data.message);
   }
-)
+});
 
 export const addCareerProfile = createAsyncThunk(
   "profile/addCareer",
@@ -117,30 +121,33 @@ export const addCareerProfile = createAsyncThunk(
       const response = await addCareerProfileApi(user?.id, data?.career);
       if (response?.status === 200) {
         toast.success(response?.data?.message);
-        data?.closeModal()
-        return response.data
+        data?.closeModal();
+        return response.data;
       }
     } catch (e) {
       toast.error(e.response.data.message);
     }
   }
-)
+);
 
 export const updateCareerProfile = createAsyncThunk(
   "profile/updateCareer",
   async (data) => {
     try {
-      const response = await updateCareerProfileApi(data?.careerId, data?.career);
+      const response = await updateCareerProfileApi(
+        data?.careerId,
+        data?.career
+      );
       if (response?.status === 200) {
         toast.success(response?.data?.message);
-        data?.closeModal()
-        return { ...data.career, id: data?.careerId }
+        data?.closeModal();
+        return { ...data.career, id: data?.careerId };
       }
     } catch (e) {
       toast.error(e.response.data.message);
     }
   }
-)
+);
 
 export const deleteCareerProfile = createAsyncThunk(
   "profile/deleteCareer",
@@ -149,15 +156,14 @@ export const deleteCareerProfile = createAsyncThunk(
       const response = await deleteCareerProfileApi(data?.id);
       if (response?.status === 200) {
         toast.success(response?.data?.message);
-        data?.closeModal()
-        return { ...data.education, id: data?.education?.id }
+        data?.closeModal();
+        return { ...data.education, id: data?.education?.id };
       }
     } catch (e) {
       toast.error(e.response.data.message);
     }
   }
-)
-
+);
 
 //slice start
 export const profileSlice = createSlice({
@@ -166,7 +172,7 @@ export const profileSlice = createSlice({
     loading: false,
     Education: [],
     careerProfile: {},
-    profile: {}
+    profile: {},
   },
   reducers: {},
   extraReducers: {
@@ -193,7 +199,7 @@ export const profileSlice = createSlice({
     },
     [getEducation.rejected]: (state, action) => {
       state.loading = false;
-      state.error = action.payload
+      state.error = action.payload;
     },
 
     //add education
@@ -202,14 +208,14 @@ export const profileSlice = createSlice({
     },
     [addEducation.fulfilled]: (state, action) => {
       state.loading = false;
-      const jsonState = covertToJSON(state)
+      const jsonState = covertToJSON(state);
       state.Education = {
         ...jsonState.Education,
         data: {
           count: jsonState?.Education?.data?.count + 1,
-          rows: [...jsonState?.Education?.data?.rows, action?.payload?.data]
-        }
-      }
+          rows: [...jsonState?.Education?.data?.rows, action?.payload?.data],
+        },
+      };
     },
     [addEducation.rejected]: (state, action) => {
       state.loading = false;
@@ -221,14 +227,16 @@ export const profileSlice = createSlice({
     },
     [updateEducation.fulfilled]: (state, action) => {
       state.loading = false;
-      const jsonState = covertToJSON(state)
+      const jsonState = covertToJSON(state);
       state.Education = {
         ...jsonState?.Education,
         data: {
           ...jsonState?.Education?.data,
-          rows: jsonState?.Education?.data?.rows?.map(i => i.id === action.payload.id ? action.payload : i)
-        }
-      }
+          rows: jsonState?.Education?.data?.rows?.map((i) =>
+            i.id === action.payload.id ? action.payload : i
+          ),
+        },
+      };
     },
     [updateEducation.rejected]: (state, action) => {
       state.loading = false;
@@ -240,14 +248,16 @@ export const profileSlice = createSlice({
     },
     [deleteEducation.fulfilled]: (state, action) => {
       state.loading = false;
-      const jsonState = covertToJSON(state)
+      const jsonState = covertToJSON(state);
       state.Education = {
         ...jsonState?.Education,
         data: {
           ...jsonState?.Education?.data,
-          rows: jsonState?.Education?.data?.rows?.filter(i => i.id !== action.payload.id)
-        }
-      }
+          rows: jsonState?.Education?.data?.rows?.filter(
+            (i) => i.id !== action.payload.id
+          ),
+        },
+      };
     },
     [deleteEducation.rejected]: (state, action) => {
       state.loading = false;
@@ -264,7 +274,7 @@ export const profileSlice = createSlice({
     },
     [getCareerProfile.rejected]: (state, action) => {
       state.loading = false;
-      state.error = action.payload
+      state.error = action.payload;
     },
 
     //add careerProfile
@@ -285,13 +295,11 @@ export const profileSlice = createSlice({
     },
     [updateCareerProfile.fulfilled]: (state, action) => {
       state.loading = false;
-      const jsonState = covertToJSON(state)
+      const jsonState = covertToJSON(state);
       state.careerProfile = {
         ...jsonState.careerProfile,
-        data: {
-          rows: [action.payload]
-        }
-      }
+        data: action.payload,
+      };
     },
     [updateCareerProfile.rejected]: (state, action) => {
       state.loading = false;
@@ -303,15 +311,15 @@ export const profileSlice = createSlice({
     },
     [deleteCareerProfile.fulfilled]: (state, action) => {
       state.loading = false;
-      const jsonState = covertToJSON(state)
-      state.careerProfile = {}
+      const jsonState = covertToJSON(state);
+      state.careerProfile = {};
     },
     [deleteCareerProfile.rejected]: (state, action) => {
       state.loading = false;
     },
-  }
+  },
 });
 
-export const { } = profileSlice.actions;
+export const {} = profileSlice.actions;
 
 export default profileSlice.reducer;

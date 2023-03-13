@@ -20,6 +20,7 @@ export const SAVED_JOBS = `${API_URL}/saved`;
 export const UPDATE_KEYSKILLS = `${API_URL}/update/`;
 export const EDUCATION = `${API_URL}/education`;
 export const CAREERPROFILE = `${API_URL}/career-profile`;
+export const UPDATE_EMAIL = `${API_URL}/update-email`;
 
 export function login(email, password) {
   return axios.post(LOGIN_URL, {
@@ -122,46 +123,48 @@ export function updateSavedjobs(id, userId) {
   return axios.put(SAVED_JOBS + "/" + id, userId);
 }
 
-
-
 //profile
 //skills
 export function updateKeySkillsApi(userId, skills) {
-  return axios.put(`${UPDATE_KEYSKILLS}${userId}`, skills)
+  return axios.put(`${UPDATE_KEYSKILLS}${userId}`, skills);
 }
-
 
 //education
 export function getEducationApi(userId) {
-  return axios.get(`${EDUCATION}/${userId}`)
+  return axios.get(`${EDUCATION}/${userId}`);
 }
 
 export function addEducationApi(userId, education) {
-  return axios.post(EDUCATION, { ...education, userId: userId })
+  return axios.post(EDUCATION, { ...education, userId: userId });
 }
 
 export function updateEducationApi(id, education) {
-  return axios.put(`${EDUCATION}/${id}`, education)
+  return axios.put(`${EDUCATION}/${id}`, education);
 }
 
 export function deleteEducationApi(id) {
-  return axios.delete(`${EDUCATION}/${id}`)
+  return axios.delete(`${EDUCATION}/${id}`);
 }
 
 //career-profile
 
 export function getCareerProfileApi(userId) {
-  return axios.get(`${CAREERPROFILE}/${userId}`)
+  return axios.get(`${CAREERPROFILE}/${userId}`);
 }
 
 export function addCareerProfileApi(userId, education) {
-  return axios.post(CAREERPROFILE, { ...education, userId: userId })
+  return axios.post(CAREERPROFILE, { ...education, userId: userId });
 }
 
 export function updateCareerProfileApi(id, education) {
-  return axios.put(`${CAREERPROFILE}/${id}`, education)
+  return axios.put(`${CAREERPROFILE}/${id}`, education);
 }
 
 export function deleteCareerProfileApi(id) {
-  return axios.delete(`${CAREERPROFILE}/${id}`)
+  return axios.delete(`${CAREERPROFILE}/${id}`);
+}
+
+//settings
+export function updateEmailApi(email) {
+  return axios.put(`${UPDATE_EMAIL}`, email);
 }
