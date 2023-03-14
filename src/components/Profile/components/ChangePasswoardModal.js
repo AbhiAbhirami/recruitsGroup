@@ -61,17 +61,14 @@ function ChangePasswoardModal({
   });
 
   const onSubmit = async (values) => {
-    console.log(values);
     const credentials = {
       password: values?.password,
-      closeModal: closeModal(),
+      closeModal: closeModal,
     };
     dispatch(updateCurrentPassword(credentials));
   };
 
   const [showPassword, setShowPassword] = useState(false);
-
-  console.log("data :", errors);
 
   return (
     <>

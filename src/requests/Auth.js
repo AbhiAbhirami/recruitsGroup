@@ -17,7 +17,7 @@ export const GET_ALL_JOBS = `${API_URL}/jobs`;
 export const APPLIED_JOBS = `${API_URL}/applied`;
 export const SAVED_JOBS = `${API_URL}/saved`;
 
-export const UPDATE_KEYSKILLS = `${API_URL}/update/`;
+export const USER_UPDATE = `${API_URL}/update/`;
 export const EDUCATION = `${API_URL}/education`;
 export const CAREERPROFILE = `${API_URL}/career-profile`;
 export const UPDATE_EMAIL = `${API_URL}/update-email`;
@@ -53,7 +53,7 @@ export function getUserByToken(token) {
 export function verifyEmailOtp(otp, email) {
   return axios.put(VERIFY_OTP, {
     otp,
-    email,
+    ...email,
   });
 }
 
@@ -126,7 +126,7 @@ export function updateSavedjobs(id, userId) {
 //profile
 //skills
 export function updateKeySkillsApi(userId, skills) {
-  return axios.put(`${UPDATE_KEYSKILLS}${userId}`, skills);
+  return axios.put(`${USER_UPDATE}${userId}`, skills);
 }
 
 //education
@@ -176,7 +176,8 @@ export function changePassword(email, password) {
   });
 }
 export function updatePassword(userId, password) {
-  return axios.put(`/update/${userId}`, {
+  return axios.put(`${USER_UPDATE}${userId}`, {
     password: password,
+    id: userId,
   });
 }

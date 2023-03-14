@@ -3,7 +3,6 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { toast } from "react-toastify";
 import { getUser } from "../../core/AuthHelpers";
 import {
-  changePassword,
   updateEmailApi,
   updatePassword,
   verifyEmailOtp,
@@ -23,7 +22,6 @@ export const updateEmailAddress = createAsyncThunk(
       if (response?.status === 200) {
         toast.success(response?.data?.message);
         data?.closeModal();
-        data?.closeConfirmModal();
         return response;
       }
     } catch (e) {
@@ -35,11 +33,14 @@ export const updateEmailAddress = createAsyncThunk(
 export const verifyOtp = createAsyncThunk(
   "settings/varifyOtp",
   async (data) => {
+    console.log(data);
     try {
       const response = await verifyEmailOtp(data?.otp, data?.email);
       if (response?.status === 200) {
         toast.success(response?.data?.message);
-        return response;
+        data.closeConfirmModal();
+        data.closeModal();
+        return data?.email;
       }
     } catch (e) {
       toast.error(e.response.data.message);
@@ -54,6 +55,7 @@ export const updateCurrentPassword = createAsyncThunk(
       const response = await updatePassword(user?.id, data?.password);
       if (response?.status === 200) {
         toast.success(response?.data?.message);
+        data.closeModal();
         return response;
       }
     } catch (e) {
@@ -92,7 +94,7 @@ export const settingsSlice = createSlice({
     [verifyOtp.fulfilled]: (state, action) => {
       state.loading = false;
       const jsonState = covertToJSON(state);
-      state.settings = {};
+      state.email = action.payload;
     },
     [verifyOtp.rejected]: (state, action) => {
       state.loading = false;

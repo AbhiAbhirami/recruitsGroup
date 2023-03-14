@@ -51,14 +51,17 @@ function ChangeEmailModal({ isOpen, closeModal, currentData }) {
 
   const [confirmModal, setConfirmModal] = useState(false);
   const [otp, setOtp] = useState("");
-  const [newEmail, setNewEmail] = useState("");
+  const [email, setEmail] = useState("");
 
+  const toggle = () => {
+    setConfirmModal(!confirmModal);
+  };
   const onSubmit = async (values) => {
     const credentials = {
       email: values,
-      closeModal: setConfirmModal(true),
+      closeModal: toggle,
     };
-    setNewEmail(values?.newEmail);
+    setEmail(values);
     dispatch(updateEmailAddress(credentials));
     setConfirmModal(true);
   };
@@ -66,10 +69,10 @@ function ChangeEmailModal({ isOpen, closeModal, currentData }) {
   const handleFinalConfirmation = () => {
     if (otp?.length === 6) {
       const credentials = {
-        email: newEmail,
+        email: email,
         otp: otp,
-        closeConfirmModal: setConfirmModal(false),
-        closeModal: closeModal(),
+        closeConfirmModal: toggle,
+        closeModal: closeModal,
       };
       dispatch(verifyOtp(credentials));
     } else {

@@ -27,6 +27,7 @@ import ChangeEmailModal from "./ChangeEmailModal";
 import ChangePasswoardModal from "./ChangePasswoardModal";
 import { NavHashLink } from "react-router-hash-link";
 import { AiFillEye } from "react-icons/ai";
+import { useSelector } from "react-redux";
 
 function SettingsDetails({
   updateUserData,
@@ -35,6 +36,10 @@ function SettingsDetails({
   setIsUserUpdated,
   userUpdated,
 }) {
+  const { newEmail } = useSelector((state) => ({
+    newEmail: state.settings.email,
+  }));
+
   const [docs, setDocs] = useState(documents);
   const [user, setUserData] = useState(userData);
   const [sideTab, setSideTab] = React.useState(1);
@@ -278,13 +283,13 @@ function SettingsDetails({
 
                 <div>
                   <p>Primary Email</p>
-                  <h6>mohammedsalihak350@gmail.com</h6>
+                  <h6>{newEmail?.newEmail}</h6>
                 </div>
                 <button
                   onClick={() =>
                     setChangeEmailModal({
                       status: true,
-                      data: "mohammedsalihak350@gmail.com ",
+                      data: newEmail?.newEmail,
                     })
                   }
                 >
