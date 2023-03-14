@@ -325,6 +325,7 @@ hr {
 .otp-input > input {
   width: 40px;
   height: 40px;
+  text-align: center;
 }
 .otp-head {
   font-family: "Open Sans", sans-serif;
@@ -516,11 +517,6 @@ hr {
 //   min-width: 300px;
 // }
 
-
-
-
-
-
 @media only screen and (max-width: 800px) {
   .form-div {
     width: 80%;
@@ -642,7 +638,7 @@ hr {
     width: 40%;
   }
 
-  .slider-container{
+  .slider-container {
     display: none !important;
   }
 }

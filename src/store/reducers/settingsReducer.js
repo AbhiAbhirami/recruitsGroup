@@ -2,7 +2,12 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 import { toast } from "react-toastify";
 import { getUser } from "../../core/AuthHelpers";
-import { updateEmailApi, verifyEmailOtp } from "../../requests/Auth";
+import {
+  changePassword,
+  updateEmailApi,
+  updatePassword,
+  verifyEmailOtp,
+} from "../../requests/Auth";
 
 const user = getUser();
 
@@ -18,6 +23,7 @@ export const updateEmailAddress = createAsyncThunk(
       if (response?.status === 200) {
         toast.success(response?.data?.message);
         data?.closeModal();
+        data?.closeConfirmModal();
         return response;
       }
     } catch (e) {
@@ -41,6 +47,21 @@ export const verifyOtp = createAsyncThunk(
   }
 );
 
+export const updateCurrentPassword = createAsyncThunk(
+  "settings/updatePassword",
+  async (data) => {
+    try {
+      const response = await updatePassword(user?.id, data?.password);
+      if (response?.status === 200) {
+        toast.success(response?.data?.message);
+        return response;
+      }
+    } catch (e) {
+      toast.error(e.response.data.message);
+    }
+  }
+);
+
 //slice start
 export const settingsSlice = createSlice({
   name: "profile",
@@ -52,7 +73,7 @@ export const settingsSlice = createSlice({
   },
   reducers: {},
   extraReducers: {
-    //update education
+    //update email
     [updateEmailAddress.pending]: (state, action) => {
       state.loading = true;
     },
@@ -74,6 +95,19 @@ export const settingsSlice = createSlice({
       state.settings = {};
     },
     [verifyOtp.rejected]: (state, action) => {
+      state.loading = false;
+    },
+
+    //change password
+    [updateCurrentPassword.pending]: (state, action) => {
+      state.loading = true;
+    },
+    [updateCurrentPassword.fulfilled]: (state, action) => {
+      state.loading = false;
+      const jsonState = covertToJSON(state);
+      state.passwoard = {};
+    },
+    [updateCurrentPassword.rejected]: (state, action) => {
       state.loading = false;
     },
   },

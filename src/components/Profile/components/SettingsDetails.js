@@ -1,7 +1,7 @@
 import React, { Fragment } from "react";
 import download from "../../../assets/images/icons/download.png";
 import profilImage from "../../../assets/images/icons/blank.png";
-import { Line, Circle } from 'rc-progress';
+import { Line, Circle } from "rc-progress";
 import { useForm } from "react-hook-form";
 import {
   deleteDocument,
@@ -25,7 +25,7 @@ import { HiOutlinePencil } from "react-icons/hi";
 import PhoneVerifyModal from "./PhoneVerifyModal";
 import ChangeEmailModal from "./ChangeEmailModal";
 import ChangePasswoardModal from "./ChangePasswoardModal";
-import { NavHashLink } from 'react-router-hash-link';
+import { NavHashLink } from "react-router-hash-link";
 import { AiFillEye } from "react-icons/ai";
 
 function SettingsDetails({
@@ -176,7 +176,7 @@ function SettingsDetails({
             className={sideTab === 8 && "document-details-head"}
             onClick={() => setSideTab(8)}
           >
-            <NavHashLink smooth to="/profile#account-sn" >
+            <NavHashLink smooth to="/profile#account-sn">
               Account
             </NavHashLink>
             <button className="cursor-pointer">UPDATE</button>
@@ -187,7 +187,7 @@ function SettingsDetails({
           >
             Profile picture <button className="cursor-pointer">UPDATE</button>
           </li> */}
-          <li
+          {/* <li
             className={sideTab === 2 && "document-details-head"}
             onClick={() => setSideTab(2)}
           >
@@ -195,27 +195,27 @@ function SettingsDetails({
               User Name
             </NavHashLink>
             <button className="cursor-pointer">UPDATE</button>
-          </li>
+          </li> */}
           {/* <li
             className={sideTab === 3 && "document-details-head"}
             onClick={() => setSideTab(3)}
           >
             Location <button className="cursor-pointer">ADD</button>
           </li> */}
-          <li
+          {/* <li
             className={sideTab === 4 && "document-details-head"}
             onClick={() => setSideTab(4)}
           >
-            <NavHashLink smooth to="/profile#position-sn" >
+            <NavHashLink smooth to="/profile#position-sn">
               Position
             </NavHashLink>
             <button className="cursor-pointer">ADD</button>
-          </li>
+          </li> */}
           <li
             className={sideTab === 5 && "document-details-head"}
             onClick={() => setSideTab(5)}
           >
-            <NavHashLink smooth to="/profile#email-sn" >
+            <NavHashLink smooth to="/profile#email-sn">
               Email
             </NavHashLink>
             <button className="cursor-pointer">ADD</button>
@@ -224,7 +224,7 @@ function SettingsDetails({
             className={sideTab === 6 && "document-details-head"}
             onClick={() => setSideTab(6)}
           >
-            <NavHashLink smooth to="/profile#phone-sn" >
+            <NavHashLink smooth to="/profile#phone-sn">
               Phone Number
             </NavHashLink>
             <button className="cursor-pointer">ADD</button>
@@ -233,7 +233,7 @@ function SettingsDetails({
             className={sideTab === 7 && "document-details-head"}
             onClick={() => setSideTab(7)}
           >
-            <NavHashLink smooth to="/profile#video-sn" >
+            <NavHashLink smooth to="/profile#video-sn">
               Video
             </NavHashLink>
             <button className="cursor-pointer">UPDATE</button>
@@ -241,9 +241,7 @@ function SettingsDetails({
         </ul>
       </div>
 
-
       <div className="profile-section-personal-detail-right">
-
         <div className="profile-section-personal-table">
           <div className="settings-profile-details">
             <>
@@ -254,30 +252,46 @@ function SettingsDetails({
               />
               <ChangeEmailModal
                 isOpen={changeEmailModal?.status}
-                closeModal={() => setChangeEmailModal({ status: false, data: '' })}
+                closeModal={() =>
+                  setChangeEmailModal({ status: false, data: "" })
+                }
                 currentData={changeEmailModal?.data}
               />
               <ChangePasswoardModal
                 isOpen={changePasswordModal?.status}
-                closeModal={() => setChangePasswordModal({ status: false, data: '' })}
+                closeModal={() =>
+                  setChangePasswordModal({ status: false, data: "" })
+                }
                 currentData={changePasswordModal?.data}
               />
-              <div className="settings-profile-details settings-account" id="account-sn">
+              <div
+                className="settings-profile-details settings-account"
+                id="account-sn"
+              >
                 <h4>Account Settings</h4>
 
                 <p style={{ marginBottom: 25 }} className="text-muted">
                   Change your primary email, mobile number or password.
                 </p>
 
-                <h5>Email Address</h5>
+                <h5 id="email-sn">Email Address</h5>
 
                 <div>
                   <p>Primary Email</p>
                   <h6>mohammedsalihak350@gmail.com</h6>
                 </div>
-                <button onClick={() => setChangeEmailModal({ status: true, data: 'mohammedsalihak350@gmail.com ' })}>Change Email</button>
+                <button
+                  onClick={() =>
+                    setChangeEmailModal({
+                      status: true,
+                      data: "mohammedsalihak350@gmail.com ",
+                    })
+                  }
+                >
+                  Change Email
+                </button>
                 <div>
-                  <h5>Mobile number</h5>
+                  <h5 id="phone-sn">Mobile number</h5>
                   <div
                     style={{
                       display: "flex",
@@ -298,10 +312,16 @@ function SettingsDetails({
 
                 <div>
                   <h5>Password</h5>
-                  <button onClick={() => setChangePasswordModal({ status: true, data: '123456' })}>Change Password</button>
+                  <button
+                    onClick={() =>
+                      setChangePasswordModal({ status: true, data: "" })
+                    }
+                  >
+                    Change Password
+                  </button>
                 </div>
-
-              </div></>
+              </div>
+            </>
             {/* <h4>Your Profile Picture</h4> */}
             {/* <div className="settings-profile-image-wrap"> */}
             {/* <div className="settings-profile-image"> */}
@@ -458,17 +478,22 @@ function SettingsDetails({
               type="number"
             />
           </form> */}
-          <div className="profile-section-personal-resume settings" id="video-sn">
+          <div
+            className="profile-section-personal-resume settings"
+            id="video-sn"
+          >
             <div className="personal-detail-title">
               <h4>Upload Video</h4>
             </div>
 
             {docs && docs.video_resume ? (
               <div className="profile-section-personal-resume-update">
-                <p style={{
-                  wordBreak: "break-all",
-                  padding: 0
-                }}>
+                <p
+                  style={{
+                    wordBreak: "break-all",
+                    padding: 0,
+                  }}
+                >
                   {/* {docs.video_resume.split("/").pop()} */}
                   {/* <span>
                     Updated on{" "}
@@ -482,10 +507,12 @@ function SettingsDetails({
                   alt="download-icon"
                 /> */}
                 </p>
-                <div className="resume-delete" >
-                  <a href={documents.resume}
-                  >
-                    <i className="fa-regular fa-eye" style={{ fontSize: "1.2rem" }}></i>
+                <div className="resume-delete">
+                  <a href={documents.resume}>
+                    <i
+                      className="fa-regular fa-eye"
+                      style={{ fontSize: "1.2rem" }}
+                    ></i>
                     {/* <AiFillEye size={'1.4rem'} /> */}
                   </a>
                   <button
@@ -516,7 +543,12 @@ function SettingsDetails({
                 style={{ marginBottom: 3 }}
               >
                 UPDATE
-                <Circle style={{ height: "22px", margin: "0 10px" }} percent={60} strokeWidth={10} strokeColor="#9ad8a0" />
+                <Circle
+                  style={{ height: "22px", margin: "0 10px" }}
+                  percent={60}
+                  strokeWidth={10}
+                  strokeColor="#9ad8a0"
+                />
                 {/* {<ImSpinner6 className="spinner" style={{ margin: "0 5px" }} />} */}
               </label>
               {/* <Line style={{ height: "12px" }} percent={10} strokeWidth={4} strokeColor="#D3D3D3" /> */}
@@ -525,8 +557,6 @@ function SettingsDetails({
           </div>
         </div>
       </div>
-
-
     </Fragment>
   );
 }

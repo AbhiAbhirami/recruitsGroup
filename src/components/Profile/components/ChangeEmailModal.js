@@ -6,7 +6,12 @@ import { useForm } from "react-hook-form";
 import verifyImg from "../../../assets/images/icons/emailverify.svg";
 import { useDispatch, useSelector } from "react-redux";
 import { FaSpinner } from "react-icons/fa";
-import { updateEmailAddress } from "../../../store/reducers/settingsReducer";
+import {
+  updateEmailAddress,
+  verifyOtp,
+} from "../../../store/reducers/settingsReducer";
+import OtpInput from "../../Shared/OtpInput";
+import { toast } from "react-toastify";
 
 const customStyles = {
   content: {
@@ -45,19 +50,35 @@ function ChangeEmailModal({ isOpen, closeModal, currentData }) {
   } = useForm();
 
   const [confirmModal, setConfirmModal] = useState(false);
+  const [otp, setOtp] = useState("");
+  const [newEmail, setNewEmail] = useState("");
 
   const onSubmit = async (values) => {
-    console.log(values);
     const credentials = {
       email: values,
       closeModal: setConfirmModal(true),
     };
+    setNewEmail(values?.newEmail);
     dispatch(updateEmailAddress(credentials));
+    setConfirmModal(true);
   };
 
   const handleFinalConfirmation = () => {
-    setConfirmModal(false);
-    closeModal();
+    if (otp?.length === 6) {
+      const credentials = {
+        email: newEmail,
+        otp: otp,
+        closeConfirmModal: setConfirmModal(false),
+        closeModal: closeModal(),
+      };
+      dispatch(verifyOtp(credentials));
+    } else {
+      toast.error("You must enter the OTP");
+    }
+  };
+
+  const otpData = (value) => {
+    setOtp(value);
   };
 
   return (
@@ -114,6 +135,7 @@ function ChangeEmailModal({ isOpen, closeModal, currentData }) {
                   alignItems: "center",
                   justifyContent: "center",
                   marginBottom: 10,
+                  flexDirection: "column",
                 }}
               >
                 <input
@@ -127,18 +149,25 @@ function ChangeEmailModal({ isOpen, closeModal, currentData }) {
                 {errors.email && (
                   <p
                     className="validation"
-                    style={{ fontSize: 12, color: "red", marginBottom: 15 }}
+                    style={{
+                      fontSize: 12,
+                      color: "red",
+                      marginBottom: 15,
+                      marginTop: 10,
+                    }}
                   >
                     Email is required
                   </p>
                 )}
               </div>
+
               <div
                 style={{
                   display: "flex",
                   alignItems: "center",
                   justifyContent: "center",
                   marginBottom: 10,
+                  flexDirection: "column",
                 }}
               >
                 <input
@@ -151,7 +180,12 @@ function ChangeEmailModal({ isOpen, closeModal, currentData }) {
                 {errors.newEmail && (
                   <p
                     className="validation"
-                    style={{ fontSize: 12, color: "red", marginBottom: 15 }}
+                    style={{
+                      fontSize: 12,
+                      color: "red",
+                      marginBottom: 15,
+                      marginTop: 10,
+                    }}
                   >
                     New Email is required
                   </p>
@@ -187,6 +221,7 @@ function ChangeEmailModal({ isOpen, closeModal, currentData }) {
           </div>
         </div>
       </Modal>
+
       <Modal
         isOpen={confirmModal}
         onRequestClose={() => setConfirmModal(false)}
@@ -213,6 +248,18 @@ function ChangeEmailModal({ isOpen, closeModal, currentData }) {
               We have sent the code verification to <br />
               Your Email Address
             </p>
+
+            <OtpInput
+              style={{
+                alignItems: "center",
+                justifyContent: "center",
+                margin: "10px 0",
+              }}
+              value={otp}
+              valueLength={6}
+              onChange={otpData}
+            />
+
             <div
               style={{
                 marginTop: "1.5rem",
@@ -226,7 +273,7 @@ function ChangeEmailModal({ isOpen, closeModal, currentData }) {
                 className="button phone-verify-btn"
                 onClick={handleFinalConfirmation}
               >
-                Ok
+                Submit
               </button>
             </div>
           </div>

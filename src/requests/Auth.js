@@ -168,3 +168,15 @@ export function deleteCareerProfileApi(id) {
 export function updateEmailApi(email) {
   return axios.put(`${UPDATE_EMAIL}`, email);
 }
+
+export function changePassword(email, password) {
+  return axios.put(CHECK_PASSWORD, {
+    id: email,
+    password: password,
+  });
+}
+export function updatePassword(userId, password) {
+  return axios.put(`/update/${userId}`, {
+    password: password,
+  });
+}
