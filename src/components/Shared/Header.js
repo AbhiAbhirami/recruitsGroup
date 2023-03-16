@@ -113,7 +113,8 @@ function Header({ userData }) {
       <div className="header-profile-cont">
         <div className="header-profile-div">
           <div onClick={() => setIsSearchDropDown(true)} className="search-div">
-            <img className="search-icon" src={searchIcon} alt="search-icon" />
+            {/* <img className="search-icon" src={searchIcon} alt="search-icon" /> */}
+            <i style={{ fontSize: "25px" }} class="fa-solid fa-magnifying-glass search-icon"></i>
             <SearchDropDown open={isSearchDropdown} />
           </div>
           <div
