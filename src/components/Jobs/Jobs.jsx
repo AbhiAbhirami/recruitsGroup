@@ -107,7 +107,7 @@ function Jobs() {
                 height: "55vh",
                 borderRadius: "17px",
                 backgroundColor: "#fff",
-                padding: "20px 30px",
+                padding: "30px 30px",
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
@@ -150,8 +150,13 @@ function Jobs() {
                       marginTop: "15px",
                       textAlign: "center",
                       color: "rgb(92, 91, 91)",
+                      textOverflow: "ellipsis",
+                      display: "-webkit-box",
+                      lineClamp: 3,
+                      
                       lineHeight: "1.1",
                     }}
+                    className="jobs-profile-descr"
                   >
                     A kiddo who uses Bootstrap and Laravel in web development.
                     Currently playing around with design via Figma laying around
@@ -229,6 +234,8 @@ function Jobs() {
                   width: "100%",
                   marginTop: "20px",
                   gap: "20px",
+                  alignItems:"center",
+                  paddingLeft:"10px"
                 }}
               >
                 <img
@@ -325,7 +332,8 @@ function Jobs() {
                     placeholder="Web developer"
                     type="text"
                   />
-                  <img height="80%" src={searchIcon} alt="search-icon" />
+                  {/* <img height="80%" src={searchIcon} alt="search-icon" /> */}
+                  <i style={{fontSize:"20px"}} class="fa-solid fa-magnifying-glass"></i>
                 </div>
               </div>
               <div
@@ -368,7 +376,8 @@ function Jobs() {
                     placeholder="Delhi"
                     type="text"
                   />
-                  <img height="80%" src={searchIcon} alt="search-icon" />
+                  {/* <img height="80%" src={searchIcon} alt="search-icon" /> */}
+                  <i style={{fontSize:"20px"}} class="fa-solid fa-magnifying-glass"></i>
                 </div>
               </div>
             </div>
@@ -393,7 +402,11 @@ function Jobs() {
               className="notification-main-cont"
               style={{ padding: "20px 30px", height: "55vh" }}
             >
+              <div style={{display:"flex",alignItems:"center",gap:"10px"}}>
+              <i style={{fontSize:"20px"}} class="fa-sharp fa-solid fa-bell"></i>
               <h3 className="new-jobs-head">Notification</h3>
+              </div>
+              
               <div className="new-notification-cards-cont">
                 {notification.length > 0 ? (
                   notification.map((e, k) => {

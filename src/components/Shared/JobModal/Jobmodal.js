@@ -66,6 +66,7 @@ function JobModal({ isOpen, closeModal, applied, job }) {
         style={customStyles}
         contentLabel="Example Modal"
       >
+        <div style={{ background: "rgba(92, 91, 91, 0.5)", position: 'absolute', left: "50%", bottom: 0, width: "30px", display: 'flex', justifyContent: 'center', alignItems: "center", height: '30px', borderRadius: "50%" }}><i style={{ fontSize: "20px", color: "white" }} class="fa fa-angle-double-down" aria-hidden="true"></i></div>
         <img
           src={closebtn}
           height={25}
@@ -81,14 +82,16 @@ function JobModal({ isOpen, closeModal, applied, job }) {
             <div className="content">
               <h3>{job && job.company}</h3>
               <p>
-                {job && job.title} <br /> 3 Days ago{" "}
+                {job && job.title}
+              </p>
+              <p style={{ display: "flex", alignItems: 'center', gap: "3px" }}> 3 Days ago{" "}
                 <img src={dot} height={5} alt="header-logo" />
                 {job && job.applied_candidates?.length
                   ? job.applied_candidates.length + "Applicants"
                   : "Be the first to apply"}
               </p>
             </div>
-            <div style={window.screen.width < 600 ? { display: "none" } : { display: 'block' }}>
+            <div style={window.screen.width < 600 ? { display: "none" } : { display: "flex", alignItems: "center", justifyContent: "center", maxWidth: "150px", wordBreak: "break-all" }}>
               <img src={marker} height={15} alt="header-logo" />
               {job && job.location}
             </div>
