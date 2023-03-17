@@ -14,6 +14,14 @@ import { AiFillEye } from "react-icons/ai";
 import { FaTrash } from "react-icons/fa";
 import { NavHashLink } from "react-router-hash-link";
 import { Circle } from "rc-progress";
+import { useSelector, useDispatch } from "react-redux";
+import {
+  deleteEducation,
+  getCareerProfile,
+  getEducation,
+} from "../../../store/reducers/profileReducer";
+import moment from "moment";
+import DeleteModal from "./DeleteModal";
 
 function PersonalDetails({
   setIsOpen,
@@ -22,6 +30,17 @@ function PersonalDetails({
   userUpdated,
   setIsUserUpdated,
 }) {
+  const dispatch = useDispatch();
+
+  const { education, profile, loading, careerProfile } = useSelector(
+    (state) => ({
+      education: state.profile.Education,
+      profile: state.profile.profile,
+      loading: state.profile.loading,
+      careerProfile: state.profile.careerProfile,
+    })
+  );
+
   const [sideTab, setSideTab] = React.useState(1);
   const [resume, setResume] = React.useState("");
   const [documents, setDocumentsData] = useState(docs ? docs : "");
@@ -139,26 +158,57 @@ function PersonalDetails({
     data: [],
   });
 
-  const skills = [
-    "Sql Ui",
-    "Project Management",
-    "Microsoft",
-    "Crm",
-    "Sales",
-    "Excel",
-    "Data Visualization",
-    "Project Management",
-    "Microsoft",
-    "Crm",
-    "Sales",
-    "Excel",
-    "Data Visualization",
-  ];
+  // const skills = [
+  //   "Sql Ui",
+  //   "Project Management",
+  //   "Microsoft",
+  //   "Crm",
+  //   "Sales",
+  //   "Excel",
+  //   "Data Visualization",
+  //   "Project Management",
+  //   "Microsoft",
+  //   "Crm",
+  //   "Sales",
+  //   "Excel",
+  //   "Data Visualization",
+  // ];
 
   const [careerModal, setCareerModal] = useState({
     status: false,
     data: {},
   });
+
+  //get education dispatch
+  useEffect(() => {
+    dispatch(getEducation());
+  }, [dispatch]);
+
+  const [educationDeleteConfirm, setEducationDeleteConfirm] = useState({
+    status: false,
+    data: "",
+  });
+
+  const closeModal = () => {
+    setEducationDeleteConfirm({ status: false, data: "" });
+  };
+
+  const handleDeleteEducation = () => {
+    console.log(educationDeleteConfirm?.data);
+    const credentials = {
+      education: educationDeleteConfirm?.data,
+      closeModal: closeModal,
+    };
+    dispatch(deleteEducation(credentials));
+  };
+
+  //get careerprofile
+
+  useEffect(() => {
+    dispatch(getCareerProfile());
+  }, [dispatch]);
+
+  const currentCareerProfile = careerProfile?.data;
 
   return (
     <Fragment>
@@ -352,7 +402,7 @@ function PersonalDetails({
                     onClick={() => handleModalOpen("resume-update")}
                   >
                     UPDATE RESUME
-                    {documents&&!documents.resume && (
+                    {documents && !documents.resume && (
                       <Circle
                         style={{ height: "22px", margin: "0 10px" }}
                         percent={uploadResumePercent}
@@ -439,7 +489,7 @@ function PersonalDetails({
                     onClick={() => handleModalOpen("cover-update")}
                   >
                     UPDATE COVER LETTER
-                    {documents&&!documents.cover_letter && (
+                    {documents && !documents.cover_letter && (
                       <Circle
                         style={{ height: "22px", margin: "0 10px" }}
                         percent={uploadCoverPercent}
@@ -469,22 +519,34 @@ function PersonalDetails({
               >
                 <h4>Key Skills</h4>
                 <HiOutlinePencil
-                  onClick={() => setSkillsModal({ status: true, data: skills })}
+                  onClick={() =>
+                    setSkillsModal({
+                      status: true,
+                      data: profile?.data?.skills,
+                    })
+                  }
                 />
               </div>
               <div className="px-3 skills-list ">
-                {skills?.map((item, key) => (
+                {profile?.data?.skills?.map((item, key) => (
                   <button key={key}>{item}</button>
                 ))}
               </div>
             </div>
           </div>
         </>
+
         <>
           <EducationModal
             isOpen={educationModal?.status}
             closeModal={() => setEducationModal({ status: false, data: {} })}
             currentData={educationModal?.data}
+          />
+          <DeleteModal
+            onDelete={handleDeleteEducation}
+            isOpen={educationDeleteConfirm?.status}
+            closeModal={closeModal}
+            loading={loading}
           />
           <div className="card">
             <div className="profile-section-personal-resume profile-education mt-0">
@@ -500,40 +562,47 @@ function PersonalDetails({
                   ADD EDUCATION
                 </button>
               </div>
-
-              <div className="px-3 profile-education-details">
-                <div>
-                  <h4>B. Tech/B.E. Computers</h4>
-                  <p className="text-muted">MEA ENGINEERING COLLEGE</p>
-                  <p className="text-muted">2018-2022 • Full Time</p>
+              {education?.data?.rows?.map((education, key) => (
+                <div key={key} className="px-3 profile-education-details">
+                  <div>
+                    <h4>
+                      {education?.specification} {education?.course}
+                    </h4>
+                    <p className="text-muted">{education?.college}</p>
+                    <p className="text-muted">
+                      {moment(education?.start_date).format("YYYY")}-
+                      {moment(education?.end_date).format("YYYY")} • Full Time
+                    </p>
+                  </div>
+                  <div className="">
+                    <HiOutlinePencil
+                      onClick={() =>
+                        setEducationModal({
+                          status: true,
+                          data: education,
+                        })
+                      }
+                      style={{
+                        cursor: "pointer",
+                      }}
+                    />
+                    <FaTrash
+                      size={"0.9rem"}
+                      color="gray"
+                      style={{
+                        cursor: "pointer",
+                        margin: "0 7px",
+                      }}
+                      onClick={() =>
+                        setEducationDeleteConfirm({
+                          status: true,
+                          data: education,
+                        })
+                      }
+                    />
+                  </div>
                 </div>
-                <HiOutlinePencil
-                  onClick={() =>
-                    setEducationModal({
-                      status: true,
-                      data: {
-                        education: "b.tech",
-                      },
-                    })
-                  }
-                />
-              </div>
-              <div className="px-3 profile-education-details">
-                <div>
-                  <h4>B. Tech/B.E. Computers</h4>
-                  <p className="text-muted">MEA ENGINEERING COLLEGE</p>
-                  <p className="text-muted">2018-2022 • Full Time</p>
-                </div>
-                <HiOutlinePencil />
-              </div>
-              <div className="px-3 profile-education-details">
-                <div>
-                  <h4>B. Tech/B.E. Computers</h4>
-                  <p className="text-muted">MEA ENGINEERING COLLEGE</p>
-                  <p className="text-muted">2018-2022 • Full Time</p>
-                </div>
-                <HiOutlinePencil />
-              </div>
+              ))}
             </div>
           </div>
         </>
@@ -553,7 +622,14 @@ function PersonalDetails({
                 <h4>Career Profile</h4>
                 <HiOutlinePencil
                   style={{ cursor: "pointer" }}
-                  onClick={() => setCareerModal({ status: true, data: skills })}
+                  onClick={() =>
+                    setCareerModal({
+                      status: true,
+                      data: currentCareerProfile?.id
+                        ? currentCareerProfile
+                        : {},
+                    })
+                  }
                 />
               </div>
               <div>
@@ -567,49 +643,88 @@ function PersonalDetails({
               <div className="career-list">
                 <div>
                   <p className="title">Current Industry</p>
-                  <p className="value">IT Services & Consulting</p>
+                  <p className="value">
+                    {currentCareerProfile?.current_industry}
+                  </p>
                 </div>
                 <div>
                   <p className="title">Department</p>
-                  <p className="value">Data Science & Analytics</p>
+                  <p className="value">{currentCareerProfile?.department}</p>
                 </div>
                 <div>
                   <p className="title">Role Category</p>
-                  <p className="value">Data Science & Analytics - Other</p>
+                  <p className="value">{currentCareerProfile?.role_category}</p>
                 </div>
                 <div>
                   <p className="title">Job Role</p>
-                  <p className="value">Data Science & Analytics - Other</p>
+                  <p className="value">{currentCareerProfile?.job_role}</p>
                 </div>
                 <div>
                   <p className="title">Desired Job Type</p>
-                  <p>
-                    <button>Add Desired Job Type</button>
-                  </p>
+                  {currentCareerProfile?.desired_job_type ? (
+                    <p className="value">
+                      {" "}
+                      {currentCareerProfile?.desired_job_type}{" "}
+                    </p>
+                  ) : (
+                    <p>
+                      {" "}
+                      <button>Add Desired Job Type</button>
+                    </p>
+                  )}
                 </div>
                 <div>
                   <p className="title">Desired Employment Type</p>
-                  <p>
-                    <button>Add Desired Employment Type</button>
-                  </p>
+                  {currentCareerProfile?.desired_employment_type ? (
+                    <p className="value">
+                      {" "}
+                      {currentCareerProfile?.desired_employment_type}
+                    </p>
+                  ) : (
+                    <p>
+                      <button>Add Desired Employment Type</button>
+                    </p>
+                  )}
                 </div>
                 <div>
                   <p className="title">Preferred Shift</p>
-                  <p>
-                    <button>Add Preferred Shift</button>
-                  </p>
+                  {currentCareerProfile?.preferred_shift ? (
+                    <p className="value">
+                      {" "}
+                      {currentCareerProfile?.preferred_shift}{" "}
+                    </p>
+                  ) : (
+                    <p>
+                      <button>Add Preferred Shift</button>
+                    </p>
+                  )}
                 </div>
                 <div>
                   <p className="title">Preferred Work Location</p>
-                  <p>
-                    <button>Add Preferred Work Location</button>
-                  </p>
+                  {currentCareerProfile?.preferred_work_location ? (
+                    <p className="value">
+                      {" "}
+                      {currentCareerProfile?.preferred_work_location}
+                    </p>
+                  ) : (
+                    <p>
+                      {" "}
+                      <button>Add Preferred Work Location</button>
+                    </p>
+                  )}
                 </div>
                 <div>
                   <p className="title">Expected Salary</p>
-                  <p>
-                    <button>Add Expected Salary</button>
-                  </p>
+                  {currentCareerProfile?.salary_expected ? (
+                    <p className="value">
+                      {" "}
+                      {currentCareerProfile?.salary_expected}{" "}
+                    </p>
+                  ) : (
+                    <p>
+                      <button>Add Expected Salary</button>
+                    </p>
+                  )}
                 </div>
               </div>
             </div>

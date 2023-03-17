@@ -2,6 +2,7 @@ import React from "react";
 import Modal from "react-modal";
 import confirmImg from "../../../assets/images/icons/confirm.svg"
 import { useEffect } from "react";
+import { FaSpinner } from "react-icons/fa";
 
 const customStyles = {
   content: {
@@ -17,7 +18,7 @@ const customStyles = {
   },
 };
 
-function DeleteModal({ isOpen, closeModal, onDelete }) {
+function DeleteModal({ isOpen, closeModal, onDelete, loading }) {
   useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = "hidden";
@@ -84,6 +85,8 @@ function DeleteModal({ isOpen, closeModal, onDelete }) {
                 }}
                 className="" onClick={onDelete}>
                 remove
+                {loading && <FaSpinner className="spinner" style={{ margin: "0 4px" }} />}
+
               </button>
 
             </div>

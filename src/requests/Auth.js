@@ -17,6 +17,11 @@ export const GET_ALL_JOBS = `${API_URL}/jobs`;
 export const APPLIED_JOBS = `${API_URL}/applied`;
 export const SAVED_JOBS = `${API_URL}/saved`;
 
+export const USER_UPDATE = `${API_URL}/update/`;
+export const EDUCATION = `${API_URL}/education`;
+export const CAREERPROFILE = `${API_URL}/career-profile`;
+export const UPDATE_EMAIL = `${API_URL}/update-email`;
+
 export function login(email, password) {
   return axios.post(LOGIN_URL, {
     email,
@@ -48,7 +53,7 @@ export function getUserByToken(token) {
 export function verifyEmailOtp(otp, email) {
   return axios.put(VERIFY_OTP, {
     otp,
-    email,
+    ...email,
   });
 }
 
@@ -116,4 +121,63 @@ export function updateAppliedjobs(id, userId) {
 
 export function updateSavedjobs(id, userId) {
   return axios.put(SAVED_JOBS + "/" + id, userId);
+}
+
+//profile
+//skills
+export function updateKeySkillsApi(userId, skills) {
+  return axios.put(`${USER_UPDATE}${userId}`, skills);
+}
+
+//education
+export function getEducationApi(userId) {
+  return axios.get(`${EDUCATION}/${userId}`);
+}
+
+export function addEducationApi(userId, education) {
+  return axios.post(EDUCATION, { ...education, userId: userId });
+}
+
+export function updateEducationApi(id, education) {
+  return axios.put(`${EDUCATION}/${id}`, education);
+}
+
+export function deleteEducationApi(id) {
+  return axios.delete(`${EDUCATION}/${id}`);
+}
+
+//career-profile
+
+export function getCareerProfileApi(userId) {
+  return axios.get(`${CAREERPROFILE}/${userId}`);
+}
+
+export function addCareerProfileApi(userId, education) {
+  return axios.post(CAREERPROFILE, { ...education, userId: userId });
+}
+
+export function updateCareerProfileApi(id, education) {
+  return axios.put(`${CAREERPROFILE}/${id}`, education);
+}
+
+export function deleteCareerProfileApi(id) {
+  return axios.delete(`${CAREERPROFILE}/${id}`);
+}
+
+//settings
+export function updateEmailApi(email) {
+  return axios.put(`${UPDATE_EMAIL}`, email);
+}
+
+export function changePassword(email, password) {
+  return axios.put(CHECK_PASSWORD, {
+    id: email,
+    password: password,
+  });
+}
+export function updatePassword(userId, password) {
+  return axios.put(`${USER_UPDATE}${userId}`, {
+    password: password,
+    id: userId,
+  });
 }

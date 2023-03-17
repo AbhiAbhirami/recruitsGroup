@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 // import BackgroundDesign from "../Shared/BackgroundDesign";
 import Header from "../Shared/Header";
 // import NewJobs from "../Shared/NewJobs/NewJobs";
@@ -30,8 +30,15 @@ import "react-datepicker/dist/react-datepicker.css";
 import VacancyChart from "./ReservationChart";
 import { getUser } from "../../core/AuthHelpers";
 import Loader from "../Shared/Loader";
+import { useDispatch, useSelector } from "react-redux";
+import { getAllUserJobs } from "../../store/reducers/jobsReducer";
 
 function Dashboard() {
+  const dispatch = useDispatch();
+
+  const { jobs } = useSelector((state) => ({
+    jobs: state.jobs.jobs,
+  }));
 
   const percentage = 86;
   const [user, setUser] = useState(getUser);
@@ -50,6 +57,17 @@ function Dashboard() {
     };
     user && loadData();
   }, [loading]);
+
+  useEffect(() => {
+    dispatch(getAllUserJobs());
+  }, []);
+
+  console.log(jobs);
+
+  const [recentActivities, setRecentActivities] = useState({
+    isClicked: false,
+    data: [1, 2],
+  });
 
   return (
     <>
@@ -167,33 +185,34 @@ function Dashboard() {
                   </div>
                   <hr className="w-100" />
 
-                  <div className="card-activities py-3">
-                    <h5 className="mb-3">Recent Activities</h5>
-                    <div className="d-flex align-items-start mb-2">
-                      <div className="me-3">
-                        <img src={activity} />
+                  <div className="card-activities py-3 pb-5">
+                    <h5 className="mb-4">Recent Activities</h5>
+                    {recentActivities?.data?.map((i, key) => (
+                      <div className="d-flex align-items-start mb-2" key={key}>
+                        <div className="me-3">
+                          <img src={activity} />
+                        </div>
+                        <div>
+                          <h6 className="mb-0">
+                            Your application has accepted by{" "}
+                            <span>company</span>
+                          </h6>
+                          <p>12h ago</p>
+                        </div>
                       </div>
-                      <div>
-                        <h6 className="mb-0">
-                          Your application has accepted by <span>company</span>
-                        </h6>
-                        <p>12h ago</p>
-                      </div>
-                    </div>
-                    <div className="d-flex align-items-start">
-                      <div className="me-3">
-                        <img src={activity} />
-                      </div>
-                      <div>
-                        <h6 className="mb-0">
-                          Your application has accepted by <span>company</span>
-                        </h6>
-                        <p>12h ago</p>
-                      </div>
-                    </div>
+                    ))}
                   </div>
                   <div className="footer-arrow position-absolute d-flex align-items-center justify-content-center w-100">
-                    <div className="arrow-icon p-2 bg-white">
+                    <div
+                      className="arrow-icon p-2 bg-white"
+                      onClick={() =>
+                        recentActivities?.isClicked === false &&
+                        setRecentActivities({
+                          isClicked: true,
+                          data: [...recentActivities.data, 3, 4],
+                        })
+                      }
+                    >
                       <IoMdArrowRoundDown size={"2rem"} />
                     </div>
                   </div>

@@ -1,6 +1,6 @@
 import { useMemo } from "react";
 
-export default function OtpInput({ value, valueLength, onChange }) {
+export default function OtpInput({ value, valueLength, onChange, style }) {
   const RE_DIGIT = new RegExp(/^\d+$/);
   const valueItems = useMemo(() => {
     const valueArray = value.split("");
@@ -120,7 +120,7 @@ export default function OtpInput({ value, valueLength, onChange }) {
   };
 
   return (
-    <div className="otp-input">
+    <div className="otp-input" style={style}>
       {valueItems.map((digit, idx) => (
         <input
           key={idx}
