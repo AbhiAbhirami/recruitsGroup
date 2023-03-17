@@ -1,6 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 import { toast } from "react-toastify";
+import useConvertToJson from "../../assets/hooks/useConvertToJson.JS";
 import { getUser } from "../../core/AuthHelpers";
 import {
   addCareerProfileApi,
@@ -15,10 +16,6 @@ import {
 } from "../../requests/Auth";
 
 const user = getUser();
-
-const covertToJSON = (data) => {
-  return JSON.parse(JSON.stringify(data));
-};
 
 //skills
 export const updateKeySkills = createAsyncThunk(
@@ -208,7 +205,7 @@ export const profileSlice = createSlice({
     },
     [addEducation.fulfilled]: (state, action) => {
       state.loading = false;
-      const jsonState = covertToJSON(state);
+      const jsonState = useConvertToJson(state);
       state.Education = {
         ...jsonState.Education,
         data: {
@@ -227,7 +224,7 @@ export const profileSlice = createSlice({
     },
     [updateEducation.fulfilled]: (state, action) => {
       state.loading = false;
-      const jsonState = covertToJSON(state);
+      const jsonState = useConvertToJson(state);
       state.Education = {
         ...jsonState?.Education,
         data: {
@@ -248,7 +245,7 @@ export const profileSlice = createSlice({
     },
     [deleteEducation.fulfilled]: (state, action) => {
       state.loading = false;
-      const jsonState = covertToJSON(state);
+      const jsonState = useConvertToJson(state);
       state.Education = {
         ...jsonState?.Education,
         data: {
@@ -295,7 +292,7 @@ export const profileSlice = createSlice({
     },
     [updateCareerProfile.fulfilled]: (state, action) => {
       state.loading = false;
-      const jsonState = covertToJSON(state);
+      const jsonState = useConvertToJson(state);
       state.careerProfile = {
         ...jsonState.careerProfile,
         data: action.payload,
@@ -311,7 +308,7 @@ export const profileSlice = createSlice({
     },
     [deleteCareerProfile.fulfilled]: (state, action) => {
       state.loading = false;
-      const jsonState = covertToJSON(state);
+      const jsonState = useConvertToJson(state);
       state.careerProfile = {};
     },
     [deleteCareerProfile.rejected]: (state, action) => {
