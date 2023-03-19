@@ -62,7 +62,7 @@ function Dashboard() {
     dispatch(getAllUserJobs());
   }, []);
 
-  console.log(jobs);
+  console.log(jobs, "jobs");
 
   const [recentActivities, setRecentActivities] = useState({
     isClicked: false,
@@ -257,86 +257,44 @@ function Dashboard() {
                   </div>
                 </CardBody>
               </Card>
-              <p>Recomended Jobs</p>
+              <p>Recommended Jobs</p>
               <div className="recomended-jobs d-flex p-2">
-                <Card className="p-2 zoom-effect zoom-effect">
-                  <CardBody>
-                    <div className="d-flex align-items-start justify-content-between">
-                      <div>
-                        <p className="mb-1">Company Name</p>
-                        <h5>
-                          Database Manager <br />
-                          <span className="text-muted">$12,000 - $25,000</span>
-                        </h5>
+                {jobs?.map((job, key) => (
+                  <Card key={key} className="p-2 zoom-effect zoom-effect">
+                    <CardBody
+                      style={{
+                        justifyContent: "space-between",
+                        display: "flex",
+                        flexDirection: "column",
+                      }}
+                    >
+                      <div className="d-flex align-items-start justify-content-between">
+                        <div>
+                          <p className="mb-1">{job?.company}</p>
+                          <h5>
+                            {job?.title} <br />
+                            <span className="text-muted">
+                              ${job?.salary_offered}
+                            </span>
+                          </h5>
+                        </div>
+                        <div className="img-wrap">
+                          <img src={activity} />
+                        </div>
                       </div>
-                      <div className="img-wrap">
-                        <img src={activity} />
-                      </div>
-                    </div>
-                    <p className="description text-muted">
-                      Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-                      sed do eiusmod tempor incididunt ut labore et dolore magna
-                      ullamco laboris{" "}
-                    </p>
+                      <p className="description text-muted">
+                        {job?.job_description[0]?.length >= 100
+                          ? job?.job_description[0]?.slice(0, 100) + "..."
+                          : job?.job_description[0]}{" "}
+                      </p>
 
-                    <div className="d-flex align-items-center justify-content-between">
-                      <Button className="px-4">Full Time</Button>
-                      <p className="m-0 p-0 fw-light">India,Kerala</p>
-                    </div>
-                  </CardBody>
-                </Card>
-                <Card className="p-2 zoom-effect">
-                  <CardBody>
-                    <div className="d-flex align-items-start justify-content-between">
-                      <div>
-                        <p className="mb-1">Company Name</p>
-                        <h5>
-                          Database Manager <br />
-                          <span className="text-muted">$12,000 - $25,000</span>
-                        </h5>
+                      <div className="d-flex align-items-center justify-content-between">
+                        <Button className="px-4">{job?.job_type}</Button>
+                        <p className="m-0 p-0 fw-light">{job?.location}</p>
                       </div>
-                      <div className="img-wrap">
-                        <img src={activity} />
-                      </div>
-                    </div>
-                    <p className="description text-muted">
-                      Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-                      sed do eiusmod tempor incididunt ut labore et dolore magna
-                      ullamco laboris{" "}
-                    </p>
-
-                    <div className="d-flex align-items-center justify-content-between">
-                      <Button className="px-4">Full Time</Button>
-                      <p className="m-0 p-0 fw-light">India,Kerala</p>
-                    </div>
-                  </CardBody>
-                </Card>
-                <Card className="p-2 zoom-effect">
-                  <CardBody>
-                    <div className="d-flex align-items-start justify-content-between">
-                      <div>
-                        <p className="mb-1">Company Name</p>
-                        <h5>
-                          Database Manager <br />
-                          <span className="text-muted">$12,000 - $25,000</span>
-                        </h5>
-                      </div>
-                      <div className="img-wrap">
-                        <img src={activity} />
-                      </div>
-                    </div>
-                    <p className="description text-muted">
-                      Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-                      sed do eiusmod tempor incididunt ut labore et dolore magna
-                      ullamco laboris{" "}
-                    </p>
-
-                    <div className="d-flex align-items-center justify-content-between">
-                      <Button className="px-4">Full Time</Button>
-                      <p className="m-0 p-0 fw-light">India,Kerala</p>
-                    </div>
-                  </CardBody>
-                </Card>
+                    </CardBody>
+                  </Card>
+                ))}
               </div>
             </Col>
           </Row>
