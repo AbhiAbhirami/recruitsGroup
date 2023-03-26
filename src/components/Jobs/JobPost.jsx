@@ -115,7 +115,8 @@ const JobPost = ({ allJobs, savedJobs, appliedJobs }) => {
                 </div>
                 <img
                   src={item.description_image}
-                  style={{ width: "100%", height: "50vh", objectFit: "cover" }}
+                  style={{ width: "100%", objectFit: "cover" }}
+                  className="job-post-cover-img"
                   alt="Job description"
                   onClick={(e) => openModal(e, item)}
                 />
@@ -209,7 +210,7 @@ const JobPost = ({ allJobs, savedJobs, appliedJobs }) => {
               alignItems: "center",
             }}
           >
-            <img src={jobsImage} width="60%" alt="jobs" />
+            <img src={jobsImage} className="no-job-img"  alt="jobs" />
             No job posts are available
           </div>
         )}

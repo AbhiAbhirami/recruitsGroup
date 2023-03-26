@@ -18,7 +18,7 @@ function Slider(props) {
     image: banner3
   },
   ])
-  let media = window.screen.width < 600;
+  let media = window.screen.width < 850;
   // console.log(media);
   useEffect(() => {
 

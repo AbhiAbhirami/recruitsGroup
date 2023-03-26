@@ -6,7 +6,9 @@
     padding: 0 10px;
 }
 
-
+.no-job-img{
+    width: 60%;
+}
 .w-30 {
     width: 25%;
 }
@@ -47,3 +49,15 @@
     background-color: rgba(175, 175, 175, 0.5019607843);
     border-radius: 5px;
   }
+
+  .job-post-cover-img{
+    height: 50vh;
+}
+  @media only screen and (max-width: 850px) and (orientation:landscape) {
+    .job-post-cover-img{
+        height: 100vh;
+    }
+    .no-job-img{
+        width: 20%;
+    }
+}

@@ -48,7 +48,7 @@ function ForgotPassword() {
         await resendOtp(email, "");
     };
     return (
-        <div className='forgot-passord-mai-cont' style={{ height: "100vh", position: "relative", overflow: "hidden", width: "100%", display: "flex", justifyContent: "center", alignItems: "center" }}>
+        <div className='forgot-passord-mai-cont' >
             <Modal
                 open={modal}
                 close={toggle}

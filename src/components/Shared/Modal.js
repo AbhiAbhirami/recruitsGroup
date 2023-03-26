@@ -48,7 +48,7 @@ function Modal({
             <button onClick={submit} className="verify-btn link-tag">
               verify
             </button>
-            <button onClick={cancel} className="verify-btn link-tag">
+            <button onClick={() => close(false)} className="verify-btn link-tag">
               Cancel
             </button>
           </div>
