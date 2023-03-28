@@ -23,10 +23,10 @@ function SignInOptions() {
         saveAuth(auth);
         const { data: user } = await getUserByToken(auth.api_token);
         setCurrentUser(user);
-        const docs = await getUserDocuments(user.data.id);
-        docs && setDocuments(docs.data.data);
-        const jobs = await getJobs();
-        jobs && setJobsInfo(jobs.data.data.rows);
+        // const docs = await getUserDocuments(user.data.id);
+        // docs && setDocuments(docs.data.data);
+        // const jobs = await getJobs();
+        // jobs && setJobsInfo(jobs.data.data.rows);
       } catch (error) {
         saveAuth(undefined);
         toast.error(error.response.data.message + "❌");

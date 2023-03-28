@@ -1,18 +1,9 @@
 import React, { useState } from "react";
-import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { getUser } from "../../core/AuthHelpers";
-import { getAppliedJobs, getSavedJobs } from "../../store/reducers/jobsReducer";
 import JobModal from "../Shared/JobModal/Jobmodal";
 
-const SavedJobsCard = () => {
-  const [modalIsOpen, setIsOpen] = React.useState(false);
-  const [user, setUser] = useState(getUser());
-  const jobs = useSelector((state) => state?.jobs?.saved_jobs);
-  const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(getSavedJobs({ jobs: user.saved_jobs }));
-  }, []);
+const SavedJobsCard = ({ jobs }) => {
+  const [modalIsOpen, setIsOpen] = useState(false);
+
   return (
     <>
       <JobModal

@@ -30,16 +30,8 @@ import "react-datepicker/dist/react-datepicker.css";
 import VacancyChart from "./ReservationChart";
 import { getUser } from "../../core/AuthHelpers";
 import Loader from "../Shared/Loader";
-import { useDispatch, useSelector } from "react-redux";
-import { getAllUserJobs } from "../../store/reducers/jobsReducer";
 
 function Dashboard() {
-  const dispatch = useDispatch();
-
-  const { jobs } = useSelector((state) => ({
-    jobs: state.jobs.jobs,
-  }));
-
   const percentage = 86;
   const [user, setUser] = useState(getUser);
   const [month, setMonth] = React.useState(Date.now());
@@ -58,11 +50,6 @@ function Dashboard() {
     user && loadData();
   }, [loading]);
 
-  useEffect(() => {
-    dispatch(getAllUserJobs());
-  }, []);
-
-  console.log(jobs);
 
   const [recentActivities, setRecentActivities] = useState({
     isClicked: false,
@@ -102,7 +89,9 @@ function Dashboard() {
 
                   <div className="ms-auto text-end text-white">
                     <p className="fs-18 text-white mb-1">Application Send</p>
-                    <h1 className="text-white mb-0">87</h1>
+                    <h1 className="text-white mb-0">
+                      {user?.applied_jobs?.length}
+                    </h1>
                   </div>
                 </CardBody>
               </Card>

@@ -48,10 +48,10 @@ function SignIn() {
       if (user) {
         toast.success(user.message);
       }
-      const docs = await getUserDocuments(user.data.id);
-      const jobs = await getJobs();
-      docs && setDocuments(docs.data.data);
-      jobs && setJobsInfo(jobs.data.data.rows);
+      // const docs = await getUserDocuments(user.data.id);
+      // const jobs = await getJobs();
+      // docs && setDocuments(docs.data.data);
+      // jobs && setJobsInfo(jobs.data.data.rows);
     } catch (error) {
       saveAuth(undefined);
       toast.error(error.response.data.message,);

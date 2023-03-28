@@ -51,7 +51,7 @@ const JobPost = ({ allJobs, savedJobs, appliedJobs }) => {
   };
   return (
     <>
-      <ToastContainer draggablePercent={60} />
+      {/* <ToastContainer draggablePercent={60} /> */}
       <JobModal
         closeModal={() => setOpen(false)}
         applied={false}
@@ -69,7 +69,7 @@ const JobPost = ({ allJobs, savedJobs, appliedJobs }) => {
           backgroundColor: "#E5E5E5",
         }}
       >
-        {jobs && jobs.length ? (
+        {jobs?.length > 0 ? (
           jobs.map((item) => {
             return (
               <div
@@ -210,7 +210,7 @@ const JobPost = ({ allJobs, savedJobs, appliedJobs }) => {
               alignItems: "center",
             }}
           >
-            <img src={jobsImage} className="no-job-img"  alt="jobs" />
+            <img src={jobsImage} className="no-job-img" alt="jobs" />
             No job posts are available
           </div>
         )}
