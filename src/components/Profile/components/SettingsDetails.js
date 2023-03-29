@@ -24,7 +24,7 @@ import ConfirmModal from "./ConfirmModal";
 import { HiOutlinePencil } from "react-icons/hi";
 import PhoneVerifyModal from "./PhoneVerifyModal";
 import ChangeEmailModal from "./ChangeEmailModal";
-import ChangePasswoardModal from "./ChangePasswoardModal";
+import ChangePasswordModal from "./ChangePasswoardModal";
 import { NavHashLink } from "react-router-hash-link";
 import { AiFillEye } from "react-icons/ai";
 import { useSelector } from "react-redux";
@@ -262,7 +262,7 @@ function SettingsDetails({
                 }
                 currentData={changeEmailModal?.data}
               />
-              <ChangePasswoardModal
+              <ChangePasswordModal
                 isOpen={changePasswordModal?.status}
                 closeModal={() =>
                   setChangePasswordModal({ status: false, data: "" })

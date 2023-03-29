@@ -23,7 +23,7 @@ const customStyles = {
   },
 };
 
-function ChangePasswoardModal({
+function ChangePasswordModal({
   isOpen,
   closeModal,
   confirmClick,
@@ -225,7 +225,7 @@ function ChangePasswoardModal({
   );
 }
 
-export default ChangePasswoardModal;
+export default ChangePasswordModal;
 
 const inputStyle = {
   display: "flex",

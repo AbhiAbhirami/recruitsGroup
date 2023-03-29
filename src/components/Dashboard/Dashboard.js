@@ -50,7 +50,6 @@ function Dashboard() {
     user && loadData();
   }, [loading]);
 
-
   const [recentActivities, setRecentActivities] = useState({
     isClicked: false,
     data: [1, 2],
@@ -121,7 +120,7 @@ function Dashboard() {
             </Col>
           </Row>
 
-          <Row className="mt-4 px-2 mb-5 ">
+          <Row className="mt-4 px-2 mb-5">
             <Col lg={3} className="lg:pe-3 sm:mb-60 md:mb-60 md:p-0">
               <Card className="personal-card p-3 position-relative">
                 <CardBody>
@@ -247,7 +246,7 @@ function Dashboard() {
                 </CardBody>
               </Card>
               <p>Recomended Jobs</p>
-              <div className="recomended-jobs d-flex p-2">
+              <div className="recomended-jobs d-flex p-2 px-0">
                 <Card className="p-2 zoom-effect zoom-effect">
                   <CardBody>
                     <div className="d-flex align-items-start justify-content-between">
