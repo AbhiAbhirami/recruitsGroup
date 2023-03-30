@@ -115,7 +115,7 @@ const JobPost = ({ allJobs, savedJobs, appliedJobs }) => {
                 </div>
                 <img
                   src={item.description_image}
-                  style={{ width: "100%", objectFit: "cover" }}
+                  style={{ width: "100%", objectFit: "fill" }}
                   className="job-post-cover-img"
                   alt="Job description"
                   onClick={(e) => openModal(e, item)}

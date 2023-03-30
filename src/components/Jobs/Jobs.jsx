@@ -299,6 +299,7 @@ function Jobs() {
               gap: "10px",
               alignItems: "center",
               paddingTop: "33px",
+              paddingBottom:"20px"
             }}
           >
             <div
