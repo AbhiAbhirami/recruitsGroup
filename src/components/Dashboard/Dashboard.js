@@ -31,7 +31,10 @@ import VacancyChart from "./ReservationChart";
 import { getUser } from "../../core/AuthHelpers";
 import Loader from "../Shared/Loader";
 import { useDispatch, useSelector } from "react-redux";
-import { getAllUserJobs } from "../../store/reducers/jobsReducer";
+import {
+  getAllUserJobs,
+  getRecommendedJobs,
+} from "../../store/reducers/jobsReducer";
 import { getCurrentUserDetails } from "../../store/reducers/profileReducer";
 import * as authHelper from "../../core/AuthHelpers";
 
@@ -39,15 +42,16 @@ function Dashboard() {
   const percentage = 86;
   const dispatch = useDispatch();
 
-  const { jobs, verifiedUser } = useSelector((state) => ({
+  const { jobs, verifiedUser, recommendedJobs } = useSelector((state) => ({
     jobs: state.jobs.jobs,
+    recommendedJobs: state.jobs.recommended,
     verifiedUser: state.profile.verifiedUser,
   }));
 
   const saved_jobs = verifiedUser?.saved_jobs?.map((i) => parseInt(i));
-  const recommendedJobs = jobs?.filter(
-    (job) => saved_jobs?.includes(job?.id) && job
-  );
+  // const recommendedJobs = jobs?.filter(
+  //   (job) => saved_jobs?.includes(job?.id) && job
+  // );
 
   const token = authHelper.getAuth();
 
@@ -71,6 +75,7 @@ function Dashboard() {
   useEffect(() => {
     dispatch(getAllUserJobs());
     dispatch(getCurrentUserDetails(token));
+    dispatch(getRecommendedJobs());
   }, []);
 
   const [recentActivities, setRecentActivities] = useState({
@@ -268,45 +273,51 @@ function Dashboard() {
                   </div>
                 </CardBody>
               </Card>
-              <p>Recommended Jobs</p>
-              <div className="recomended-jobs d-flex p-2">
-                {recommendedJobs?.map((job, key) => (
-                  <Card key={key} className="p-2 zoom-effect zoom-effect">
-                    <CardBody
-                      style={{
-                        justifyContent: "space-between",
-                        display: "flex",
-                        flexDirection: "column",
-                      }}
-                    >
-                      <div className="d-flex align-items-start justify-content-between">
-                        <div>
-                          <p className="mb-1">{job?.company}</p>
-                          <h5>
-                            {job?.title} <br />
-                            <span className="text-muted">
-                              ${job?.salary_offered}
-                            </span>
-                          </h5>
-                        </div>
-                        <div className="img-wrap">
-                          <img src={activity} />
-                        </div>
-                      </div>
-                      <p className="description text-muted">
-                        {job?.job_description[0]?.length >= 100
-                          ? job?.job_description[0]?.slice(0, 100) + "..."
-                          : job?.job_description[0]}{" "}
-                      </p>
+              {recommendedJobs?.length >= 1 ? (
+                <>
+                  <p>Recommended Jobs</p>
+                  <div className="recomended-jobs d-flex p-2">
+                    {recommendedJobs?.map((job, key) => (
+                      <Card key={key} className="p-2 zoom-effect zoom-effect">
+                        <CardBody
+                          style={{
+                            justifyContent: "space-between",
+                            display: "flex",
+                            flexDirection: "column",
+                          }}
+                        >
+                          <div className="d-flex align-items-start justify-content-between">
+                            <div>
+                              <p className="mb-1">{job?.company}</p>
+                              <h5>
+                                {job?.title} <br />
+                                <span className="text-muted">
+                                  ${job?.salary_offered}
+                                </span>
+                              </h5>
+                            </div>
+                            <div className="img-wrap">
+                              <img src={activity} />
+                            </div>
+                          </div>
+                          <p className="description text-muted">
+                            {job?.job_description[0]?.length >= 100
+                              ? job?.job_description[0]?.slice(0, 100) + "..."
+                              : job?.job_description[0]}{" "}
+                          </p>
 
-                      <div className="d-flex align-items-center justify-content-between">
-                        <Button className="px-4">{job?.job_type}</Button>
-                        <p className="m-0 p-0 fw-light">{job?.location}</p>
-                      </div>
-                    </CardBody>
-                  </Card>
-                ))}
-              </div>
+                          <div className="d-flex align-items-center justify-content-between">
+                            <Button className="px-4">{job?.job_type}</Button>
+                            <p className="m-0 p-0 fw-light">{job?.location}</p>
+                          </div>
+                        </CardBody>
+                      </Card>
+                    ))}
+                  </div>
+                </>
+              ) : (
+                <></>
+              )}
             </Col>
           </Row>
 

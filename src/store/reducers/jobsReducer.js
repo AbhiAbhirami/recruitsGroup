@@ -1,11 +1,15 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { toast } from "react-toastify";
+import { getUser } from "../../core/AuthHelpers";
 import {
   getAppliedjobs,
   getJobs,
+  getRecommendedJobsApi,
   getSavedjobs,
   getSearchedJob,
 } from "../../requests/Auth";
+
+const user = getUser();
 
 export const getAllUserJobs = createAsyncThunk("jobs/all", async () => {
   try {
@@ -48,6 +52,20 @@ export const getAppliedJobs = createAsyncThunk("jobs/applied", async (id) => {
   }
 });
 
+export const getRecommendedJobs = createAsyncThunk(
+  "jobs/recommended",
+  async () => {
+    try {
+      const response = await getRecommendedJobsApi(user?.id);
+      if (response?.status === 200) {
+        return response;
+      }
+    } catch (e) {
+      toast.error(e.response.data.message);
+    }
+  }
+);
+
 export const jobsSlice = createSlice({
   name: "jobs",
   initialState: {
@@ -55,6 +73,7 @@ export const jobsSlice = createSlice({
     jobs: [],
     applied_jobs: [],
     saved_jobs: [],
+    recommended: [],
   },
   reducers: {},
   extraReducers: {
@@ -96,6 +115,16 @@ export const jobsSlice = createSlice({
       state.applied_jobs = action.payload.data.data.rows;
     },
     [getAppliedJobs.rejected]: (state, action) => {
+      state.loading = false;
+    },
+    [getRecommendedJobs.pending]: (state, action) => {
+      state.loading = true;
+    },
+    [getRecommendedJobs.fulfilled]: (state, action) => {
+      state.loading = false;
+      state.recommended = action.payload.data.data.rows;
+    },
+    [getRecommendedJobs.rejected]: (state, action) => {
       state.loading = false;
     },
   },

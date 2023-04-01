@@ -43,7 +43,7 @@ function JobModal({ isOpen, closeModal, applied, job }) {
   const applyToJob = async () => {
     try {
       const user = getUser();
-      const apply = await updateAppliedjobs(job.id, { userId: user.id });
+      const apply = await updateAppliedjobs(job?.id, { userId: user.id });
       apply && toast.success("Applied");
     } catch (e) {
       console.log(e);
@@ -51,6 +51,7 @@ function JobModal({ isOpen, closeModal, applied, job }) {
     }
     setIsApplyConfirm(false);
   };
+
   return (
     <>
       <ToastContainer draggablePercent={60} />
@@ -66,7 +67,26 @@ function JobModal({ isOpen, closeModal, applied, job }) {
         style={customStyles}
         contentLabel="Example Modal"
       >
-        <div style={{ background: "rgba(92, 91, 91, 0.5)", position: 'absolute', left: "50%", bottom: 0, width: "30px", display: 'flex', justifyContent: 'center', alignItems: "center", height: '30px', borderRadius: "50%" }}><i style={{ fontSize: "20px", color: "white" }} class="fa fa-angle-double-down" aria-hidden="true"></i></div>
+        <div
+          style={{
+            background: "rgba(92, 91, 91, 0.5)",
+            position: "absolute",
+            left: "50%",
+            bottom: 0,
+            width: "30px",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            height: "30px",
+            borderRadius: "50%",
+          }}
+        >
+          <i
+            style={{ fontSize: "20px", color: "white" }}
+            class="fa fa-angle-double-down"
+            aria-hidden="true"
+          ></i>
+        </div>
         <img
           src={closebtn}
           height={25}
@@ -77,21 +97,45 @@ function JobModal({ isOpen, closeModal, applied, job }) {
         />
 
         <div className="job-modal-wrapper">
-          <div className="modal-header p-30" >
-            <img src={job && job.logo} className="job-modal-company-logo-imgtag" height={50} alt="header-logo" />
+          <div className="modal-header p-30">
+            <img
+              src={job && job.logo}
+              className="job-modal-company-logo-imgtag"
+              height={50}
+              alt="header-logo"
+            />
             <div className="content">
               <h3 className="job-model-company-header">{job && job.company}</h3>
-              <p style={{ fontSize: "13px" }}>
-                {job && job.title}
-              </p>
-              <p style={{ display: "flex", marginTop: '2px', fontSize: "13px", alignItems: 'center', gap: "5px" }}> 3 Days ago{" "}
-                <img src={dot} height={5} alt="header-logo" />
+              <p style={{ fontSize: "13px" }}>{job && job.title}</p>
+              <p
+                style={{
+                  display: "flex",
+                  marginTop: "2px",
+                  fontSize: "13px",
+                  alignItems: "center",
+                  gap: "5px",
+                }}
+              >
+                {" "}
+                3 Days ago <img src={dot} height={5} alt="header-logo" />
                 {job && job.applied_candidates?.length
                   ? job.applied_candidates.length + "Applicants"
                   : "Be the first to apply"}
               </p>
             </div>
-            <div style={window.screen.width < 600 ? { display: "none" } : { display: "flex", alignItems: "center", justifyContent: "center", maxWidth: "150px", wordBreak: "break-all" }}>
+            <div
+              style={
+                window.screen.width < 600
+                  ? { display: "none" }
+                  : {
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      maxWidth: "150px",
+                      wordBreak: "break-all",
+                    }
+              }
+            >
               <img src={marker} height={15} alt="header-logo" />
               <span style={{ fontSize: "14px" }}>{job && job.location}</span>
             </div>
@@ -129,16 +173,16 @@ function JobModal({ isOpen, closeModal, applied, job }) {
               <h3>Requirements :</h3>
               <ul className="detail-ul">
                 {job &&
-                  job.requirements.length > 0 &&
-                  job.requirements.map((item) => {
+                  job?.requirements?.length > 0 &&
+                  job.requirements?.map((item) => {
                     return <li>{item}</li>;
                   })}
               </ul>
               <h3>Qualifications:</h3>
               <ul className="detail-ul">
                 {job &&
-                  job.qualifications.length > 0 &&
-                  job.qualifications.map((item) => {
+                  job.qualifications?.length > 0 &&
+                  job.qualifications?.map((item) => {
                     return <li>{item}</li>;
                   })}
               </ul>
@@ -151,8 +195,8 @@ function JobModal({ isOpen, closeModal, applied, job }) {
                     alt={job && job.company}
                   />
                   <p>
-                    <span>{job && job.company}</span>
-                    <br /> {(job && job.employee_count) || 0} Employees .{" "}
+                    <span>{job && job?.company}</span>
+                    <br /> {(job && job?.employee_count) || 0} Employees .{" "}
                     {job && job.company_type ? job.company_type : ""}
                   </p>
                 </div>

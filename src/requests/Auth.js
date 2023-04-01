@@ -16,6 +16,7 @@ export const UPDATE_USER_IMAGE = `${API_URL}/profile`;
 export const GET_ALL_JOBS = `${API_URL}/jobs`;
 export const APPLIED_JOBS = `${API_URL}/applied`;
 export const SAVED_JOBS = `${API_URL}/saved`;
+export const RECOMMENDED_JOBS = `${API_URL}/recommended-jobs`;
 export const SEARCHED_JOBS = `${API_URL}/jobs/search`;
 
 export const USER_UPDATE = `${API_URL}/update/`;
@@ -138,6 +139,9 @@ export function getSearchedJob(title, location) {
   );
 }
 
+export function getRecommendedJobsApi(userId) {
+  return axios.get(`${RECOMMENDED_JOBS}/${userId}`);
+}
 //profile
 //skills
 export function updateKeySkillsApi(userId, skills) {
