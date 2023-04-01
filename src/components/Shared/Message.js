@@ -7,11 +7,11 @@ function Message({ person }) {
             {person === "me" ?
                 <><img className='profile-img-tag' style={{ width: "40px" }} src={profileImg} alt="profile-img" />
                     <div style={{ padding: "1% 2%", height: "40px", borderTopLeftRadius: "10px", maxWidth: "90%", borderBottomRightRadius: "10px", backgroundColor: "#DFE3F1" }}>
-                        <span style={{ fontSize: "14px", }}>iam interested</span>
+                        <span className='comments-message' >iam interested</span>
                     </div></>
                 : <>
                     <div style={{ padding: "1% 2%", height: "40px", borderTopLeftRadius: "10px", borderBottomRightRadius: "10px", backgroundColor: "#DFE3F1" }}>
-                        <span style={{ fontSize: "14px", }}>jnjnj</span>
+                        <span className='comments-message'>jnjnj</span>
                     </div><img className='profile-img-tag' style={{ width: "40px" }} src={profileImg} alt="profile-img" /></>
             }
 

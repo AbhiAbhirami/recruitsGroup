@@ -114,10 +114,18 @@ function SignUp() {
             <input
               className="signup-input"
               {...register("name", { required: true })}
-              placeholder="Full Name*"
+              placeholder="First Name*"
             />
             {errors.name && (
               <span className="validation">Name is required</span>
+            )}
+            <input
+              className="signup-input"
+              {...register("name", { required: true })}
+              placeholder="Surname*"
+            />
+            {errors.name && (
+              <span className="validation">Surname is required</span>
             )}
 
             <input

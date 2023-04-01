@@ -258,7 +258,12 @@ function PersonalDetails({
               Education
             </NavHashLink>
 
-            <button className="cursor-pointer">ADD</button>
+            <button
+              className="cursor-pointer"
+              onClick={() => setEducationModal({ status: true })}
+            >
+              ADD
+            </button>
           </li>
           <li
             className={sideTab === 7 && "document-details-head"}

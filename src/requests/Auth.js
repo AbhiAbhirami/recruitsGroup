@@ -16,6 +16,7 @@ export const UPDATE_USER_IMAGE = `${API_URL}/profile`;
 export const GET_ALL_JOBS = `${API_URL}/jobs`;
 export const APPLIED_JOBS = `${API_URL}/applied`;
 export const SAVED_JOBS = `${API_URL}/saved`;
+export const SEARCHED_JOBS = `${API_URL}/jobs/search`;
 
 export const USER_UPDATE = `${API_URL}/update/`;
 export const EDUCATION = `${API_URL}/education`;
@@ -119,8 +120,22 @@ export function updateAppliedjobs(id, userId) {
   return axios.put(APPLIED_JOBS + "/" + id, userId);
 }
 
+export function getAppliedjobs(userId) {
+  return axios.get(APPLIED_JOBS + "/" + userId);
+}
+
 export function updateSavedjobs(id, userId) {
   return axios.put(SAVED_JOBS + "/" + id, userId);
+}
+
+export function getSavedjobs(userId) {
+  return axios.get(SAVED_JOBS + "/" + userId);
+}
+
+export function getSearchedJob(title, location) {
+  return axios.get(
+    SEARCHED_JOBS + `?title=${title ?? ""}&location=${location ?? ""}`
+  );
 }
 
 //profile
@@ -162,6 +177,10 @@ export function updateCareerProfileApi(id, education) {
 
 export function deleteCareerProfileApi(id) {
   return axios.delete(`${CAREERPROFILE}/${id}`);
+}
+
+export function getUserDetailsApi() {
+  return axios.post(GET_USER_BY_ACCESS_TOKEN_URL);
 }
 
 //settings

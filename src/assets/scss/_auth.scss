@@ -1,6 +1,7 @@
 .signup-main-cont {
   display: flex;
   height: 100vh;
+  
   // height: 100%;
   // width: 100vw;
 }
@@ -8,7 +9,7 @@
   flex: 1;
   display: flex;
   background: #1f194c;
-
+  // height: 100%;
   flex-direction: column;
 }
 
@@ -28,7 +29,7 @@
   max-height: 90px;
 }
 .signup-input {
-  padding: 6%;
+  padding: 4% 6% ;
   width: 100%;
   outline: none;
   border: none;
@@ -361,7 +362,7 @@ hr {
 
 .close:hover,
 .close:focus {
-  color: #000;
+  // color: #000;
   text-decoration: none;
   cursor: pointer;
 }
@@ -392,10 +393,15 @@ hr {
   display: flex;
 }
 
+
+
+
 // >>>>>>> reusable
-@media only screen and (max-width: 600px) {
+@media only screen and (max-width: 850px) {
   .signup-main-cont {
     height: 93vh;
+    // background: #1f194c;
+
   }
   .signup-input-field {
     display: none;
@@ -429,7 +435,7 @@ hr {
   .signup-main-cont {
     // max-height: 100vh;
     // position: fixed;
-    overflow: hidden;
+    // overflow: hidden;
   }
   .signup-image-sec {
     background: #1f194c;
@@ -639,5 +645,27 @@ hr {
 
   .slider-container {
     display: none !important;
+  }
+}
+
+
+
+
+@media only screen and (max-width: 850px) and (orientation:landscape) {
+  .signup-main-cont {
+    height: 220vh;
+    background-color: #f5f6fa;
+  }
+  .form-div{
+    gap: 10px;
+  }
+  .signup-input-field{
+    height: 100%;
+  }
+  .sign-options{
+    padding: 3% 6%;
+  }
+  .modal-content{
+    overflow: auto;
   }
 }

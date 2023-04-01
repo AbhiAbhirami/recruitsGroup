@@ -1,62 +1,106 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { toast } from "react-toastify";
-import useConvertToJson from "../../assets/hooks/useConvertToJson.JS";
-import { AUTH_LOCAL_STORAGE_JOBS } from "../../core/AuthHelpers";
-import { getJobs } from "../../requests/Auth";
+import {
+  getAppliedjobs,
+  getJobs,
+  getSavedjobs,
+  getSearchedJob,
+} from "../../requests/Auth";
 
-export const getAllUserJobs = createAsyncThunk(
-  "settings/userJobs",
-  async () => {
-    try {
-      const response = await getJobs();
-      if (response?.status === 200) {
-        toast.success(response?.data?.message);
-        return response;
-      }
-    } catch (e) {
-      toast.error(e.response.data.message);
+export const getAllUserJobs = createAsyncThunk("jobs/all", async () => {
+  try {
+    const response = await getJobs();
+    if (response?.status === 200) {
+      return response;
     }
+  } catch (e) {
+    toast.error(e.response.data.message);
   }
-);
+});
+
+export const setJobs = createAsyncThunk("jobs/all", async (data) => {
+  try {
+    const response = await getSearchedJob(data.title, data.location);
+    return response;
+  } catch (e) {
+    toast.error(e.response.data.message);
+  }
+});
+
+export const getSavedJobs = createAsyncThunk("jobs/saved", async (id) => {
+  try {
+    const response = await getSavedjobs(id);
+    if (response?.status === 200) {
+      return response;
+    }
+  } catch (e) {
+    toast.error(e.response.data.message);
+  }
+});
+export const getAppliedJobs = createAsyncThunk("jobs/applied", async (id) => {
+  try {
+    const response = await getAppliedjobs(id);
+    if (response?.status === 200) {
+      return response;
+    }
+  } catch (e) {
+    toast.error(e.response.data.message);
+  }
+});
 
 export const jobsSlice = createSlice({
   name: "jobs",
   initialState: {
-    jobs: JSON.parse(localStorage.getItem(AUTH_LOCAL_STORAGE_JOBS)) || [],
+    loading: false,
+    jobs: [],
     applied_jobs: [],
     saved_jobs: [],
   },
-  reducers: {
-    getAllJobs: (state) => {
-      state.jobs = [...state.jobs];
-    },
-    getAppliedJobs: (state, action) => {
-      state.applied_jobs = [...state.jobs].filter((job) =>
-        action.payload.jobs.includes(job.id.toString())
-      );
-    },
-    getSavedJobs: (state, action) => {
-      state.saved_jobs = state.jobs.filter((job) =>
-        action.payload.jobs.includes(job.id.toString())
-      );
-    },
-  },
+  reducers: {},
   extraReducers: {
-    //update email
     [getAllUserJobs.pending]: (state, action) => {
       state.loading = true;
     },
     [getAllUserJobs.fulfilled]: (state, action) => {
       state.loading = false;
-      const jsonState = useConvertToJson(state);
-      state.jobs = {};
+      state.jobs = action.payload.data.data.rows;
     },
     [getAllUserJobs.rejected]: (state, action) => {
+      state.loading = false;
+    },
+    [setJobs.pending]: (state, action) => {
+      state.loading = false;
+    },
+    [setJobs.fulfilled]: (state, action) => {
+      state.loading = false;
+      state.jobs = action.payload.data.data.rows;
+    },
+    [setJobs.rejected]: (state, action) => {
+      state.loading = false;
+    },
+    [getSavedJobs.pending]: (state, action) => {
+      state.loading = true;
+    },
+    [getSavedJobs.fulfilled]: (state, action) => {
+      state.loading = false;
+      state.saved_jobs = action.payload.data.data.rows;
+    },
+    [getSavedJobs.rejected]: (state, action) => {
+      state.loading = false;
+    },
+    [getAppliedJobs.pending]: (state, action) => {
+      state.loading = true;
+    },
+    [getAppliedJobs.fulfilled]: (state, action) => {
+      state.loading = false;
+      state.applied_jobs = action.payload.data.data.rows;
+    },
+    [getAppliedJobs.rejected]: (state, action) => {
       state.loading = false;
     },
   },
 });
 
-export const { getAllJobs, getAppliedJobs, getSavedJobs } = jobsSlice.actions;
+export const {} = jobsSlice.actions;
 
 export default jobsSlice.reducer;

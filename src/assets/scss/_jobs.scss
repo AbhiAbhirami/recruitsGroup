@@ -6,7 +6,9 @@
     padding: 0 10px;
 }
 
-
+.no-job-img{
+    width: 60%;
+}
 .w-30 {
     width: 25%;
 }
@@ -21,11 +23,16 @@
 .w-35 {
     width: 50%;
 }
+.job-post-cover-img{
+    height: 60vh;
+}
 
 .h-100 {
     height: 100px;
 }
-
+.comments-message{
+    font-size: 14px;
+}
 @media screen and (max-width : 900px) {
     .w-30 {
         display: none !important;
@@ -35,7 +42,20 @@
         width: 100%;
     }
 }
-
+@media screen and (max-width : 600px) {
+    .job-model-company-header{
+        font-size: 16px;
+    }
+    .job-modal-wrapper .modal-header .content{
+        margin: 0px ;
+    }
+    .job-post-cover-img{
+        height: 50vh;
+    }
+   .comments-message{
+       font-size: 12px;
+   }
+}
 .todo-main-cont::-webkit-scrollbar {
     width: 3px;
     background-color: rgba(175, 175, 175, 0.5019607843);
@@ -47,3 +67,14 @@
     background-color: rgba(175, 175, 175, 0.5019607843);
     border-radius: 5px;
   }
+
+
+  @media only screen and (max-width: 850px) and (orientation:landscape) {
+    .job-post-cover-img{
+        height: 100vh;
+    }
+    .no-job-img{
+        width: 20%;
+    }
+    
+}

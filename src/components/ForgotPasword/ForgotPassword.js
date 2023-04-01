@@ -25,22 +25,27 @@ function ForgotPassword() {
         setOtp(value);
     };
     const submitOtp = async () => {
-        try {
-            let verifyOtp;
-            if (!otp) {
+        if (email !== "") {
+            try {
+                let verifyOtp;
+                if (!otp) {
+                    setIsValid(false);
+                    setInvalidMsg("Otp is required");
+                } else {
+                    verifyOtp = await verifyEmailOtp(otp, email);
+                }
+                if (verifyOtp.data?.data) {
+                    toast.success("Registration Successful");
+                    setModal(false);
+                    navigate("/auth/password-reset/:id", { state: { email, password } });
+                }
+            } catch (error) {
                 setIsValid(false);
-                setInvalidMsg("Otp is required");
-            } else {
-                verifyOtp = await verifyEmailOtp(otp, email);
+                setInvalidMsg(error.response.data.message);
             }
-            if (verifyOtp.data?.data) {
-                toast.success("Registration Successful");
-                setModal(false);
-                navigate("/auth/password-reset/:id", { state: { email, password } });
-            }
-        } catch (error) {
-            setIsValid(false);
-            setInvalidMsg(error.response.data.message);
+        } else {
+            toast.error("Email must be given");
+
         }
     };
     const ResendOtp = async () => {
@@ -48,7 +53,9 @@ function ForgotPassword() {
         await resendOtp(email, "");
     };
     return (
-        <div className='forgot-passord-mai-cont' style={{ height: "100vh", position: "relative", overflow: "hidden", width: "100%", display: "flex", justifyContent: "center", alignItems: "center" }}>
+        <div className='forgot-passord-mai-cont' >
+            <ToastContainer draggablePercent={60} />
+
             <Modal
                 open={modal}
                 close={toggle}

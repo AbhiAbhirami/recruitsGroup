@@ -326,7 +326,7 @@
     ul {
       padding: 1rem 2rem 4rem 2rem;
       @media screen and (max-width: 768px) {
-        padding: 1rem 2rem;
+        padding: 1rem 1rem;
       }
       list-style-type: none;
       li {
@@ -348,7 +348,7 @@
   .profile-section-personal-detail-right {
     width: 75%;
     border-radius: 10px;
-    height: 504px;
+    height: 432px;
     @media screen and (max-width: 460px) {
       width: 100%;
       margin-bottom: 20px;
@@ -1040,5 +1040,14 @@ button {
     div {
       margin: 0 !important;
     }
+  }
+}
+
+@media screen and (max-width: 980px) {
+  .tab-5px {
+    padding: 1rem 5px !important;
+  }
+  .dashboard-chart {
+    padding: 0 !important;
   }
 }

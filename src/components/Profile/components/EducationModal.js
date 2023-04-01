@@ -68,9 +68,6 @@ function EducationModal({ isOpen, closeModal, currentData }) {
     setState(currentData);
   }, [currentData?.id]);
 
-  console.log("title =>");
-  console.log("data :", errors);
-
   return (
     <>
       <Modal

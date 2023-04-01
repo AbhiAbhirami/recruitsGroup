@@ -18,49 +18,49 @@ import { Spinner } from "reactstrap";
 import { useState } from "react";
 import { useEffect } from "react";
 // import { getAppliedJobs, getSavedJobs } from "../../requests/Auth";
-import { getJobsInfo, getUser } from "../../core/AuthHelpers";
+import { getUser } from "../../core/AuthHelpers";
 import JobPost from "./JobPost";
 import SavedJobsCard from "./SavedJobsCard";
-import DefaultJob from "../../assets/images/icons/noJob.svg";
 import { CircularProgressbarWithChildren } from "react-circular-progressbar";
 import {
-  getAllJobs,
+  getAllUserJobs,
   getAppliedJobs,
   getSavedJobs,
+  setJobs,
 } from "../../store/reducers/jobsReducer";
-
 function Jobs() {
-  let jobs = useSelector((state) => state.jobs);
   const dispatch = useDispatch();
+
+  const { loading, jobs, saved_jobs, applied_jobs } = useSelector((state) => ({
+    loading: state.jobs.loading,
+    jobs: state.jobs.jobs,
+    saved_jobs: state.jobs.saved_jobs,
+    applied_jobs: state.jobs.applied_jobs,
+  }));
   const [modalIsOpen, setIsOpen] = React.useState(false);
   const [notification, setNotification] = useState([]);
   const [user, setUser] = useState(getUser());
-  const [loading, setLoading] = React.useState(false);
-
+  const [title, setTitle] = useState("");
+  const [location, setLocation] = useState("");
   useEffect(() => {
     if (loading) {
       document.body.style.overflow = "hidden";
     } else {
       document.body.style.overflow = "unset";
     }
-    const loadData = async () => {
-      setLoading(false);
-    };
-    if (!jobs || !user) {
-      setLoading(true);
-    } else {
-      loadData();
-    }
+
     if (window.location.pathname == "/jobs") {
-      dispatch(getAllJobs());
+      dispatch(getAllUserJobs());
+      dispatch(getSavedJobs(user.id));
     }
     if (window.location.pathname == "/applied-jobs") {
-      dispatch(getAppliedJobs({ jobs: user.applied_jobs }));
+      dispatch(getAppliedJobs(user.id));
+      dispatch(getSavedJobs(user.id));
     }
     if (window.location.pathname == "/saved-jobs") {
-      dispatch(getSavedJobs({ jobs: user.saved_jobs }));
+      dispatch(getSavedJobs(user.id));
     }
-  }, [window.location.pathname]);
+  }, [dispatch, window.location.pathname]);
   const percentage = 86;
 
   let media = window.screen.width < 600;
@@ -75,6 +75,23 @@ function Jobs() {
     { task: "Update profile", tag: "To find you" },
   ];
 
+  const getSearchedJobs = async (e) => {
+    if (e.target.id === "title" && !location) {
+      setTitle(e.target.value);
+      dispatch(setJobs({ title: e.target.value }));
+    } else if (e.target.id === "title" && location) {
+      setLocation(e.target.value);
+      dispatch(setJobs({ title: e.target.value, location }));
+    } else if (e.target.id === "location" && title) {
+      setLocation(e.target.value);
+      dispatch(setJobs({ title, location: e.target.value }));
+    } else if (e.target.id === "location" && !title) {
+      setLocation(e.target.value);
+      dispatch(setJobs({ location: e.target.value }));
+    } else {
+      dispatch(setJobs({ title, location }));
+    }
+  };
   return (
     <>
       <BackgroundDesign />
@@ -140,7 +157,7 @@ function Jobs() {
                     style={{ color: "#5c5b5b", fontSize: "14px" }}
                     className=""
                   >
-                    {user && user.position}Web Developer
+                    {user && user.position}
                   </p>
                   <p
                     style={{
@@ -153,7 +170,7 @@ function Jobs() {
                       textOverflow: "ellipsis",
                       display: "-webkit-box",
                       lineClamp: 3,
-                      
+
                       lineHeight: "1.1",
                     }}
                     className="jobs-profile-descr"
@@ -234,8 +251,8 @@ function Jobs() {
                   width: "100%",
                   marginTop: "20px",
                   gap: "20px",
-                  alignItems:"center",
-                  paddingLeft:"10px"
+                  alignItems: "center",
+                  paddingLeft: "10px",
                 }}
               >
                 <img
@@ -253,7 +270,7 @@ function Jobs() {
 
               {true ? (
                 <div style={{ display: "flex", flexDirection: "column" }}>
-                  <SavedJobsCard user={user} />
+                  <SavedJobsCard user={user} jobs={saved_jobs} />
                 </div>
               ) : (
                 <div
@@ -282,6 +299,7 @@ function Jobs() {
               gap: "10px",
               alignItems: "center",
               paddingTop: "33px",
+              paddingBottom: "20px"
             }}
           >
             <div
@@ -329,11 +347,16 @@ function Jobs() {
                       border: "none",
                       // borderRadius: "10px",
                     }}
+                    id="title"
                     placeholder="Web developer"
                     type="text"
+                    onChange={(e) => getSearchedJobs(e)}
                   />
                   {/* <img height="80%" src={searchIcon} alt="search-icon" /> */}
-                  <i style={{fontSize:"20px"}} class="fa-solid fa-magnifying-glass"></i>
+                  <i
+                    style={{ fontSize: "20px" }}
+                    class="fa-solid fa-magnifying-glass"
+                  ></i>
                 </div>
               </div>
               <div
@@ -363,6 +386,7 @@ function Jobs() {
                   }}
                 >
                   <input
+                    id="location"
                     style={{
                       width: "100%",
                       height: "100%",
@@ -375,18 +399,27 @@ function Jobs() {
                     }}
                     placeholder="Delhi"
                     type="text"
+                    onChange={(e) => getSearchedJobs(e)}
                   />
                   {/* <img height="80%" src={searchIcon} alt="search-icon" /> */}
-                  <i style={{fontSize:"20px"}} class="fa-solid fa-magnifying-glass"></i>
+                  <i
+                    style={{ fontSize: "20px" }}
+                    class="fa-solid fa-magnifying-glass"
+                  ></i>
                 </div>
               </div>
             </div>
-            <JobPost
-              setIsOpen={setIsOpen}
-              allJobs={jobs.jobs}
-              savedJobs={jobs.saved_jobs}
-              appliedJobs={jobs.applied_jobs}
-            />
+            {jobs.length > 0 && window.location.pathname == "/jobs" && (
+              <JobPost setIsOpen={setIsOpen} allJobs={jobs} />
+            )}
+            {saved_jobs.length > 0 &&
+              window.location.pathname == "/saved-jobs" && (
+                <JobPost setIsOpen={setIsOpen} savedJobs={saved_jobs} />
+              )}
+            {applied_jobs.length > 0 &&
+              window.location.pathname == "/applied-jobs" && (
+                <JobPost setIsOpen={setIsOpen} appliedJobs={applied_jobs} />
+              )}
           </div>
 
           <div
@@ -402,11 +435,16 @@ function Jobs() {
               className="notification-main-cont"
               style={{ padding: "20px 30px", height: "55vh" }}
             >
-              <div style={{display:"flex",alignItems:"center",gap:"10px"}}>
-              <i style={{fontSize:"20px"}} class="fa-sharp fa-solid fa-bell"></i>
-              <h3 className="new-jobs-head">Notification</h3>
+              <div
+                style={{ display: "flex", alignItems: "center", gap: "10px" }}
+              >
+                <i
+                  style={{ fontSize: "20px" }}
+                  class="fa-sharp fa-solid fa-bell"
+                ></i>
+                <h3 className="new-jobs-head">Notification</h3>
               </div>
-              
+
               <div className="new-notification-cards-cont">
                 {notification.length > 0 ? (
                   notification.map((e, k) => {

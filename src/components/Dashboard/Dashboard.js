@@ -32,15 +32,25 @@ import { getUser } from "../../core/AuthHelpers";
 import Loader from "../Shared/Loader";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllUserJobs } from "../../store/reducers/jobsReducer";
+import { getCurrentUserDetails } from "../../store/reducers/profileReducer";
+import * as authHelper from "../../core/AuthHelpers";
 
 function Dashboard() {
+  const percentage = 86;
   const dispatch = useDispatch();
 
-  const { jobs } = useSelector((state) => ({
+  const { jobs, verifiedUser } = useSelector((state) => ({
     jobs: state.jobs.jobs,
+    verifiedUser: state.profile.verifiedUser,
   }));
 
-  const percentage = 86;
+  const saved_jobs = verifiedUser?.saved_jobs?.map((i) => parseInt(i));
+  const recommendedJobs = jobs?.filter(
+    (job) => saved_jobs?.includes(job?.id) && job
+  );
+
+  const token = authHelper.getAuth();
+
   const [user, setUser] = useState(getUser);
   const [month, setMonth] = React.useState(Date.now());
 
@@ -60,9 +70,8 @@ function Dashboard() {
 
   useEffect(() => {
     dispatch(getAllUserJobs());
+    dispatch(getCurrentUserDetails(token));
   }, []);
-
-  console.log(jobs, "jobs");
 
   const [recentActivities, setRecentActivities] = useState({
     isClicked: false,
@@ -102,7 +111,9 @@ function Dashboard() {
 
                   <div className="ms-auto text-end text-white">
                     <p className="fs-18 text-white mb-1">Application Send</p>
-                    <h1 className="text-white mb-0">87</h1>
+                    <h1 className="text-white mb-0">
+                      {user?.applied_jobs?.length}
+                    </h1>
                   </div>
                 </CardBody>
               </Card>
@@ -132,7 +143,7 @@ function Dashboard() {
             </Col>
           </Row>
 
-          <Row className="mt-4 px-2 mb-5 ">
+          <Row className="mt-4 px-2 mb-5">
             <Col lg={3} className="lg:pe-3 sm:mb-60 md:mb-60 md:p-0">
               <Card className="personal-card p-3 position-relative">
                 <CardBody>
@@ -259,7 +270,7 @@ function Dashboard() {
               </Card>
               <p>Recommended Jobs</p>
               <div className="recomended-jobs d-flex p-2">
-                {jobs?.map((job, key) => (
+                {recommendedJobs?.map((job, key) => (
                   <Card key={key} className="p-2 zoom-effect zoom-effect">
                     <CardBody
                       style={{

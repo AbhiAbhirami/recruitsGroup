@@ -24,7 +24,7 @@ import ConfirmModal from "./ConfirmModal";
 import { HiOutlinePencil } from "react-icons/hi";
 import PhoneVerifyModal from "./PhoneVerifyModal";
 import ChangeEmailModal from "./ChangeEmailModal";
-import ChangePasswoardModal from "./ChangePasswoardModal";
+import ChangePasswordModal from "./ChangePasswoardModal";
 import { NavHashLink } from "react-router-hash-link";
 import { AiFillEye } from "react-icons/ai";
 import { useSelector } from "react-redux";
@@ -184,7 +184,7 @@ function SettingsDetails({
             <NavHashLink smooth to="/profile#account-sn">
               Account
             </NavHashLink>
-            <button className="cursor-pointer">UPDATE</button>
+            {/* <button className="cursor-pointer">UPDATE</button> */}
           </li>
           {/* <li
             className={sideTab === 1 && "document-details-head"}
@@ -223,7 +223,17 @@ function SettingsDetails({
             <NavHashLink smooth to="/profile#email-sn">
               Email
             </NavHashLink>
-            <button className="cursor-pointer">ADD</button>
+            <button
+              className="cursor-pointer"
+              onClick={() =>
+                setChangeEmailModal({
+                  status: true,
+                  data: newEmail?.newEmail,
+                })
+              }
+            >
+              ADD
+            </button>
           </li>
           <li
             className={sideTab === 6 && "document-details-head"}
@@ -232,7 +242,12 @@ function SettingsDetails({
             <NavHashLink smooth to="/profile#phone-sn">
               Phone Number
             </NavHashLink>
-            <button className="cursor-pointer">ADD</button>
+            <button
+              className="cursor-pointer"
+              onClick={() => setVerifyModal({ status: true })}
+            >
+              ADD
+            </button>
           </li>
           <li
             className={sideTab === 7 && "document-details-head"}
@@ -262,7 +277,7 @@ function SettingsDetails({
                 }
                 currentData={changeEmailModal?.data}
               />
-              <ChangePasswoardModal
+              <ChangePasswordModal
                 isOpen={changePasswordModal?.status}
                 closeModal={() =>
                   setChangePasswordModal({ status: false, data: "" })

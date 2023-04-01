@@ -77,14 +77,14 @@ function JobModal({ isOpen, closeModal, applied, job }) {
         />
 
         <div className="job-modal-wrapper">
-          <div className="modal-header p-30">
-            <img src={job && job.logo} height={50} alt="header-logo" />
+          <div className="modal-header p-30" >
+            <img src={job && job.logo} className="job-modal-company-logo-imgtag" height={50} alt="header-logo" />
             <div className="content">
-              <h3>{job && job.company}</h3>
-              <p>
+              <h3 className="job-model-company-header">{job && job.company}</h3>
+              <p style={{ fontSize: "13px" }}>
                 {job && job.title}
               </p>
-              <p style={{ display: "flex", alignItems: 'center', gap: "3px" }}> 3 Days ago{" "}
+              <p style={{ display: "flex", marginTop: '2px', fontSize: "13px", alignItems: 'center', gap: "5px" }}> 3 Days ago{" "}
                 <img src={dot} height={5} alt="header-logo" />
                 {job && job.applied_candidates?.length
                   ? job.applied_candidates.length + "Applicants"
@@ -93,7 +93,7 @@ function JobModal({ isOpen, closeModal, applied, job }) {
             </div>
             <div style={window.screen.width < 600 ? { display: "none" } : { display: "flex", alignItems: "center", justifyContent: "center", maxWidth: "150px", wordBreak: "break-all" }}>
               <img src={marker} height={15} alt="header-logo" />
-              {job && job.location}
+              <span style={{ fontSize: "14px" }}>{job && job.location}</span>
             </div>
           </div>
           <div className="modal-image-section">
