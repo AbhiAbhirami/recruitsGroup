@@ -8,6 +8,7 @@ import React, {
 import * as authHelper from "./AuthHelpers";
 import { getJobs, getUserByToken } from "../requests/Auth";
 import { LayoutSplashScreen } from "./SplashScreen";
+import SocketProvider from "./socketIoContext/socketProvider";
 
 const initAuthContextPropsState = {
   auth: authHelper.getAuth(),
@@ -91,7 +92,13 @@ const AuthInit = ({ children }) => {
     // eslint-disable-next-line
   }, []);
 
-  return showSplashScreen ? <LayoutSplashScreen /> : <>{children}</>;
+  return showSplashScreen ? (
+    <LayoutSplashScreen />
+  ) : (
+    <>
+      <SocketProvider>{children}</SocketProvider>
+    </>
+  );
 };
 
 export { AuthProvider, AuthInit, useAuth };

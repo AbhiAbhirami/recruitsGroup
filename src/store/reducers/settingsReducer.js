@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 import { toast } from "react-toastify";
-import useConvertToJson from "../../assets/hooks/useConvertToJson.JS";
+// import useConvertToJson from "../../assets/hooks/useConvertToJson.JS";
 import { getUser } from "../../core/AuthHelpers";
 import {
   updateEmailApi,
@@ -78,7 +78,7 @@ export const settingsSlice = createSlice({
     },
     [updateEmailAddress.fulfilled]: (state, action) => {
       state.loading = false;
-      const jsonState = useConvertToJson(state);
+      // const jsonState = useConvertToJson(state);
       state.email = {};
     },
     [updateEmailAddress.rejected]: (state, action) => {
@@ -90,7 +90,7 @@ export const settingsSlice = createSlice({
     },
     [verifyOtp.fulfilled]: (state, action) => {
       state.loading = false;
-      const jsonState = useConvertToJson(state);
+      // const jsonState = useConvertToJson(state);
       state.email = action.payload;
     },
     [verifyOtp.rejected]: (state, action) => {
@@ -103,7 +103,7 @@ export const settingsSlice = createSlice({
     },
     [updateCurrentPassword.fulfilled]: (state, action) => {
       state.loading = false;
-      const jsonState = useConvertToJson(state);
+      // const jsonState = useConvertToJson(state);
       state.passwoard = {};
     },
     [updateCurrentPassword.rejected]: (state, action) => {

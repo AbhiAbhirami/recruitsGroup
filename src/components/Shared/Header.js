@@ -12,27 +12,37 @@ import Hamburger from "./Hamburger";
 import { Link, useLocation } from "react-router-dom";
 import SearchDropDown from "./SearchDropDown";
 import { getUser } from "../../core/AuthHelpers";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  getAllNotifications,
+  getCountOfNewNotifications,
+} from "../../store/reducers/notificationReducer";
+import { io } from "socket.io-client";
+import { useContext } from "react";
+import { SocketContext } from "../../core/socketIoContext/socketIoContext";
 
 function Header({ userData }) {
   const location = useLocation();
+  const dispatch = useDispatch();
+
+  const { loading, notifications, countNew } = useSelector((state) => ({
+    loading: state.notifications.loading,
+    notifications: state.notifications.notifications,
+    countNew: state.notifications.countNew,
+  }));
+  const [socket, setSocket] = useState(null);
   const [isDropdown, setIsDropDown] = useState(false);
   const [isNotifDropdown, setIsNotifDropDown] = useState(false);
   const [isSearchDropdown, setIsSearchDropDown] = useState(false);
-  const [isNewNotification, setIsNewNotification] = useState(true);
-  const [user, setUser] = useState(getUser);
-  const [notification, setNotification] = useState([
-    { comment: "commented", new: true },
-    { comment: "comment 2", new: false },
-  ]);
-  const [isHamburger, setIsHamburger] = useState(false);
+  const [user, setUser] = useState(getUser());
 
+  const [isHamburger, setIsHamburger] = useState(false);
+  const { setNewUser } = useContext(SocketContext);
   useEffect(() => {
-    const newNot = notification.filter((item) => item.new);
-    if (newNot.length > 0) {
-      setIsNewNotification(true);
-    }
-    setUser(getUser);
-  }, [userData]);
+    dispatch(getAllNotifications(user.id));
+    dispatch(getCountOfNewNotifications(user.id));
+    setNewUser(notifications);
+  }, []);
 
   const handleOnClickOutside = (e) => {
     if (e.target.className === "dropdown-modal") {
@@ -43,10 +53,6 @@ function Header({ userData }) {
     }
   };
 
-  const changeNotificationInfo = () => {
-    setIsNewNotification(false);
-  };
-
   return (
     <div className="header-main-cont">
       <div
@@ -55,11 +61,11 @@ function Header({ userData }) {
         style={
           isDropdown | isHamburger | isNotifDropdown | isSearchDropdown
             ? {
-              width: "100%",
-              height: "100vh",
-              zIndex: 10,
-              position: "absolute",
-            }
+                width: "100%",
+                height: "100vh",
+                zIndex: 10,
+                position: "absolute",
+              }
             : { display: "none" }
         }
       ></div>
@@ -114,20 +120,36 @@ function Header({ userData }) {
         <div className="header-profile-div">
           <div onClick={() => setIsSearchDropDown(true)} className="search-div">
             {/* <img className="search-icon" src={searchIcon} alt="search-icon" /> */}
-            <i style={{ fontSize: "25px" }} class="fa-solid fa-magnifying-glass search-icon"></i>
+            <i
+              style={{ fontSize: "25px" }}
+              class="fa-solid fa-magnifying-glass search-icon"
+            ></i>
             <SearchDropDown open={isSearchDropdown} />
           </div>
           <div
             className="bellIcon-cont"
             onClick={() => setIsNotifDropDown(true)}
           >
-            <div style={isNewNotification ? { display: 'flex', justifyContent: "center", padding: "7px", alignItems: "center" } : { display: 'none' }} className='notification-dot'>2</div>
-            <img
-              className="bell-icon"
-              src={bellIcon}
-              alt="search-icon"
+            <div
+              style={
+                countNew
+                  ? {
+                      display: "flex",
+                      justifyContent: "center",
+                      padding: "7px",
+                      alignItems: "center",
+                    }
+                  : { display: "none" }
+              }
+              className="notification-dot"
+            >
+              {countNew}
+            </div>
+            <img className="bell-icon" src={bellIcon} alt="search-icon" />
+            <NotificationDropDown
+              open={isNotifDropdown}
+              notifications={notifications}
             />
-            <NotificationDropDown open={isNotifDropdown} />
           </div>
           <div className="profile-dropdown-main-cont">
             <div
@@ -155,7 +177,22 @@ function Header({ userData }) {
       </div>
       <div className="mobile-hamburger-div">
         <div className="bellIcon-cont">
-          <div style={isNewNotification ? { display: 'flex', top: "35px", justifyContent: "center", padding: "7px", alignItems: "center" } : { display: 'none' }} className='notification-dot'>2</div>
+          <div
+            style={
+              countNew > 0
+                ? {
+                    display: "flex",
+                    top: "35px",
+                    justifyContent: "center",
+                    padding: "7px",
+                    alignItems: "center",
+                  }
+                : { display: "none" }
+            }
+            className="notification-dot"
+          >
+            {countNew}
+          </div>
           <img
             onClick={() => setIsNotifDropDown(true)}
             className="bell-icon"
