@@ -179,6 +179,10 @@ export function deleteCareerProfileApi(id) {
   return axios.delete(`${CAREERPROFILE}/${id}`);
 }
 
+export function getUserDetailsApi() {
+  return axios.post(GET_USER_BY_ACCESS_TOKEN_URL);
+}
+
 //settings
 export function updateEmailApi(email) {
   return axios.put(`${UPDATE_EMAIL}`, email);

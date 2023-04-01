@@ -10,6 +10,7 @@ import {
   deleteEducationApi,
   getCareerProfileApi,
   getEducationApi,
+  getUserDetailsApi,
   updateCareerProfileApi,
   updateEducationApi,
   updateKeySkillsApi,
@@ -162,6 +163,20 @@ export const deleteCareerProfile = createAsyncThunk(
   }
 );
 
+export const getCurrentUserDetails = createAsyncThunk(
+  "profile/userDetails",
+  async (data) => {
+    try {
+      const response = await getUserDetailsApi(data);
+      if (response?.status === 200) {
+        return response.data?.data;
+      }
+    } catch (e) {
+      toast.error(e.response.data.message);
+    }
+  }
+);
+
 //slice start
 export const profileSlice = createSlice({
   name: "profile",
@@ -170,9 +185,23 @@ export const profileSlice = createSlice({
     Education: [],
     careerProfile: {},
     profile: {},
+    verifiedUser: {},
   },
   reducers: {},
   extraReducers: {
+    //user_details
+    [getCurrentUserDetails.pending]: (state, action) => {
+      state.loading = true;
+    },
+    [getCurrentUserDetails.fulfilled]: (state, action) => {
+      state.loading = false;
+      state.verifiedUser = action.payload;
+    },
+    [getCurrentUserDetails.rejected]: (state, action) => {
+      state.loading = false;
+      state.error = action.payload;
+    },
+
     //skils
     [updateKeySkills.pending]: (state, action) => {
       state.loading = true;

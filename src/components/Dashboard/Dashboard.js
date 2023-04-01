@@ -30,9 +30,27 @@ import "react-datepicker/dist/react-datepicker.css";
 import VacancyChart from "./ReservationChart";
 import { getUser } from "../../core/AuthHelpers";
 import Loader from "../Shared/Loader";
+import { useDispatch, useSelector } from "react-redux";
+import { getAllUserJobs } from "../../store/reducers/jobsReducer";
+import { getCurrentUserDetails } from "../../store/reducers/profileReducer";
+import * as authHelper from "../../core/AuthHelpers";
 
 function Dashboard() {
   const percentage = 86;
+  const dispatch = useDispatch();
+
+  const { jobs, verifiedUser } = useSelector((state) => ({
+    jobs: state.jobs.jobs,
+    verifiedUser: state.profile.verifiedUser,
+  }));
+
+  const saved_jobs = verifiedUser?.saved_jobs?.map((i) => parseInt(i));
+  const recommendedJobs = jobs?.filter(
+    (job) => saved_jobs?.includes(job?.id) && job
+  );
+
+  const token = authHelper.getAuth();
+
   const [user, setUser] = useState(getUser);
   const [month, setMonth] = React.useState(Date.now());
 
@@ -49,6 +67,11 @@ function Dashboard() {
     };
     user && loadData();
   }, [loading]);
+
+  useEffect(() => {
+    dispatch(getAllUserJobs());
+    dispatch(getCurrentUserDetails(token));
+  }, []);
 
   const [recentActivities, setRecentActivities] = useState({
     isClicked: false,
@@ -245,86 +268,44 @@ function Dashboard() {
                   </div>
                 </CardBody>
               </Card>
-              <p>Recomended Jobs</p>
-              <div className="recomended-jobs d-flex p-2 px-0">
-                <Card className="p-2 zoom-effect zoom-effect">
-                  <CardBody>
-                    <div className="d-flex align-items-start justify-content-between">
-                      <div>
-                        <p className="mb-1">Company Name</p>
-                        <h5>
-                          Database Manager <br />
-                          <span className="text-muted">$12,000 - $25,000</span>
-                        </h5>
+              <p>Recommended Jobs</p>
+              <div className="recomended-jobs d-flex p-2">
+                {recommendedJobs?.map((job, key) => (
+                  <Card key={key} className="p-2 zoom-effect zoom-effect">
+                    <CardBody
+                      style={{
+                        justifyContent: "space-between",
+                        display: "flex",
+                        flexDirection: "column",
+                      }}
+                    >
+                      <div className="d-flex align-items-start justify-content-between">
+                        <div>
+                          <p className="mb-1">{job?.company}</p>
+                          <h5>
+                            {job?.title} <br />
+                            <span className="text-muted">
+                              ${job?.salary_offered}
+                            </span>
+                          </h5>
+                        </div>
+                        <div className="img-wrap">
+                          <img src={activity} />
+                        </div>
                       </div>
-                      <div className="img-wrap">
-                        <img src={activity} />
-                      </div>
-                    </div>
-                    <p className="description text-muted">
-                      Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-                      sed do eiusmod tempor incididunt ut labore et dolore magna
-                      ullamco laboris{" "}
-                    </p>
+                      <p className="description text-muted">
+                        {job?.job_description[0]?.length >= 100
+                          ? job?.job_description[0]?.slice(0, 100) + "..."
+                          : job?.job_description[0]}{" "}
+                      </p>
 
-                    <div className="d-flex align-items-center justify-content-between">
-                      <Button className="px-4">Full Time</Button>
-                      <p className="m-0 p-0 fw-light">India,Kerala</p>
-                    </div>
-                  </CardBody>
-                </Card>
-                <Card className="p-2 zoom-effect">
-                  <CardBody>
-                    <div className="d-flex align-items-start justify-content-between">
-                      <div>
-                        <p className="mb-1">Company Name</p>
-                        <h5>
-                          Database Manager <br />
-                          <span className="text-muted">$12,000 - $25,000</span>
-                        </h5>
+                      <div className="d-flex align-items-center justify-content-between">
+                        <Button className="px-4">{job?.job_type}</Button>
+                        <p className="m-0 p-0 fw-light">{job?.location}</p>
                       </div>
-                      <div className="img-wrap">
-                        <img src={activity} />
-                      </div>
-                    </div>
-                    <p className="description text-muted">
-                      Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-                      sed do eiusmod tempor incididunt ut labore et dolore magna
-                      ullamco laboris{" "}
-                    </p>
-
-                    <div className="d-flex align-items-center justify-content-between">
-                      <Button className="px-4">Full Time</Button>
-                      <p className="m-0 p-0 fw-light">India,Kerala</p>
-                    </div>
-                  </CardBody>
-                </Card>
-                <Card className="p-2 zoom-effect">
-                  <CardBody>
-                    <div className="d-flex align-items-start justify-content-between">
-                      <div>
-                        <p className="mb-1">Company Name</p>
-                        <h5>
-                          Database Manager <br />
-                          <span className="text-muted">$12,000 - $25,000</span>
-                        </h5>
-                      </div>
-                      <div className="img-wrap">
-                        <img src={activity} />
-                      </div>
-                    </div>
-                    <p className="description text-muted">
-                      Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-                      sed do eiusmod tempor incididunt ut labore et dolore magna
-                      ullamco laboris{" "}
-                    </p>
-
-                    <div className="d-flex align-items-center justify-content-between">
-                      <Button className="px-4">Full Time</Button>
-                      <p className="m-0 p-0 fw-light">India,Kerala</p>
-                    </div>
-                  </CardBody>
-                </Card>
+                    </CardBody>
+                  </Card>
+                ))}
               </div>
             </Col>
           </Row>

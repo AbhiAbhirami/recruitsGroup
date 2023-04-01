@@ -184,7 +184,7 @@ function SettingsDetails({
             <NavHashLink smooth to="/profile#account-sn">
               Account
             </NavHashLink>
-            <button className="cursor-pointer">UPDATE</button>
+            {/* <button className="cursor-pointer">UPDATE</button> */}
           </li>
           {/* <li
             className={sideTab === 1 && "document-details-head"}
@@ -223,7 +223,17 @@ function SettingsDetails({
             <NavHashLink smooth to="/profile#email-sn">
               Email
             </NavHashLink>
-            <button className="cursor-pointer">ADD</button>
+            <button
+              className="cursor-pointer"
+              onClick={() =>
+                setChangeEmailModal({
+                  status: true,
+                  data: newEmail?.newEmail,
+                })
+              }
+            >
+              ADD
+            </button>
           </li>
           <li
             className={sideTab === 6 && "document-details-head"}
@@ -232,7 +242,12 @@ function SettingsDetails({
             <NavHashLink smooth to="/profile#phone-sn">
               Phone Number
             </NavHashLink>
-            <button className="cursor-pointer">ADD</button>
+            <button
+              className="cursor-pointer"
+              onClick={() => setVerifyModal({ status: true })}
+            >
+              ADD
+            </button>
           </li>
           <li
             className={sideTab === 7 && "document-details-head"}
