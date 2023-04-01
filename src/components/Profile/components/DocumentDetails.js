@@ -190,12 +190,14 @@ function DocumentDetails({ user, docs, userUpdated, setIsUserUpdated }) {
                   onClick={() => handleModalOpen("resume-update")}
                 >
                   Add
-                  <Circle
-                    style={{ height: "22px", margin: "0 10px" }}
-                    percent={uploadPercent}
-                    strokeWidth={10}
-                    strokeColor="#9ad8a0"
-                  />
+                  {uploadPercent > 0 && (
+                    <Circle
+                      style={{ height: "22px", margin: "0 10px" }}
+                      percent={uploadPercent}
+                      strokeWidth={10}
+                      strokeColor="#9ad8a0"
+                    />
+                  )}
                 </label>
                 <p>Supported Formats: doc, docx, rtf, pdf, upto 2 MB</p>
               </div>

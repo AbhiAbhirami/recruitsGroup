@@ -28,6 +28,7 @@ import {
   getSavedJobs,
   setJobs,
 } from "../../store/reducers/jobsReducer";
+import Loader from "../Shared/Loader";
 function Jobs() {
   const dispatch = useDispatch();
 
@@ -97,15 +98,7 @@ function Jobs() {
       <BackgroundDesign />
 
       {loading && (
-        <div className="dash-load">
-          {" "}
-          <Spinner
-            animation="border"
-            color="primary"
-            type="grow"
-            className="spinner"
-          />
-        </div>
+        <Loader />
       )}
       <div>
         <div className="main-jobs">

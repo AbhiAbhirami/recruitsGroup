@@ -219,6 +219,7 @@ function PersonalDetails({
         isOpen={confirmModal?.status}
         closeModal={() => setConfirmModal({ status: false, id: "" })}
       />
+
       {confirmModal.status == false && <ToastContainer draggablePercent={60} />}
       <div className="profile-section-personal-detail-left document-details-left">
         <div className="personal-detail-title">
