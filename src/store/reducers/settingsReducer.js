@@ -1,7 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 import { toast } from "react-toastify";
-import useConvertToJson from "../../assets/hooks/useConvertToJson.JS";
 import { getUser } from "../../core/AuthHelpers";
 import {
   updateEmailApi,
@@ -10,6 +9,10 @@ import {
 } from "../../requests/Auth";
 
 const user = getUser();
+
+const useConvertToJson = (data) => {
+  return JSON.parse(JSON.stringify(data));
+};
 
 export const updateEmailAddress = createAsyncThunk(
   "settings/updateEmail",

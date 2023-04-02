@@ -1,7 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 import { toast } from "react-toastify";
-import useConvertToJson from "../../assets/hooks/useConvertToJson.JS";
 import { getUser } from "../../core/AuthHelpers";
 import {
   addCareerProfileApi,
@@ -18,11 +17,17 @@ import {
 
 const user = getUser();
 
+const useConvertToJson = (data) => {
+  return JSON.parse(JSON.stringify(data));
+};
+
 //skills
 export const updateKeySkills = createAsyncThunk(
   "profile/skills",
   async (data) => {
     try {
+      console.log("user :", user);
+
       const response = await updateKeySkillsApi(user?.id, {
         skills: data.skills,
       });
@@ -196,6 +201,7 @@ export const profileSlice = createSlice({
     [getCurrentUserDetails.fulfilled]: (state, action) => {
       state.loading = false;
       state.verifiedUser = action.payload;
+      state.profile = { data: action.payload };
     },
     [getCurrentUserDetails.rejected]: (state, action) => {
       state.loading = false;
@@ -221,7 +227,7 @@ export const profileSlice = createSlice({
     },
     [getEducation.fulfilled]: (state, action) => {
       state.loading = false;
-      state.Education = action.payload;
+      state.Education = action.payload.data?.rows;
     },
     [getEducation.rejected]: (state, action) => {
       state.loading = false;
@@ -235,13 +241,7 @@ export const profileSlice = createSlice({
     [addEducation.fulfilled]: (state, action) => {
       state.loading = false;
       const jsonState = useConvertToJson(state);
-      state.Education = {
-        ...jsonState.Education,
-        data: {
-          count: jsonState?.Education?.data?.count + 1,
-          rows: [...jsonState?.Education?.data?.rows, action?.payload?.data],
-        },
-      };
+      state.Education = [...jsonState?.Education, action?.payload?.data];
     },
     [addEducation.rejected]: (state, action) => {
       state.loading = false;
@@ -254,15 +254,9 @@ export const profileSlice = createSlice({
     [updateEducation.fulfilled]: (state, action) => {
       state.loading = false;
       const jsonState = useConvertToJson(state);
-      state.Education = {
-        ...jsonState?.Education,
-        data: {
-          ...jsonState?.Education?.data,
-          rows: jsonState?.Education?.data?.rows?.map((i) =>
-            i.id === action.payload.id ? action.payload : i
-          ),
-        },
-      };
+      state.Education = jsonState?.Education?.map((i) =>
+        i.id === action.payload.id ? action.payload : i
+      );
     },
     [updateEducation.rejected]: (state, action) => {
       state.loading = false;
@@ -275,15 +269,9 @@ export const profileSlice = createSlice({
     [deleteEducation.fulfilled]: (state, action) => {
       state.loading = false;
       const jsonState = useConvertToJson(state);
-      state.Education = {
-        ...jsonState?.Education,
-        data: {
-          ...jsonState?.Education?.data,
-          rows: jsonState?.Education?.data?.rows?.filter(
-            (i) => i.id !== action.payload.id
-          ),
-        },
-      };
+      state.Education = jsonState?.Education?.filter(
+        (i) => i.id !== action.payload.id
+      );
     },
     [deleteEducation.rejected]: (state, action) => {
       state.loading = false;

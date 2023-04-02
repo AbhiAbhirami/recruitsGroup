@@ -40,6 +40,7 @@ function PersonalDetails({
       careerProfile: state.profile.careerProfile,
     })
   );
+  console.log("profile :", profile);
 
   const [sideTab, setSideTab] = React.useState(1);
   const [resume, setResume] = React.useState("");
@@ -241,7 +242,12 @@ function PersonalDetails({
             <NavHashLink smooth to="/profile#resume-sn">
               Resume / Cover Letter
             </NavHashLink>
-            <button className="cursor-pointer">UPDATE</button>
+            <button
+              className="cursor-pointer"
+              onClick={() => handleModalOpen("resume-update")}
+            >
+              UPDATE
+            </button>
           </li>
           <li
             className={sideTab === 3 && "document-details-head"}
@@ -250,6 +256,17 @@ function PersonalDetails({
             <NavHashLink smooth to="/profile#skill-sn">
               Key skill
             </NavHashLink>{" "}
+            <button
+              className="cursor-pointer"
+              onClick={() =>
+                setSkillsModal({
+                  status: true,
+                  data: profile?.data?.skills,
+                })
+              }
+            >
+              ADD
+            </button>
           </li>
           <li
             className={sideTab === 4 && "document-details-head"}
@@ -408,14 +425,16 @@ function PersonalDetails({
                     onClick={() => handleModalOpen("resume-update")}
                   >
                     UPDATE RESUME
-                    {documents && !documents.resume && (
-                      <Circle
-                        style={{ height: "22px", margin: "0 10px" }}
-                        percent={uploadResumePercent}
-                        strokeWidth={10}
-                        strokeColor="#9ad8a0"
-                      />
-                    )}
+                    {uploadResumePercent > 0 &&
+                      documents &&
+                      !documents.resume && (
+                        <Circle
+                          style={{ height: "22px", margin: "0 10px" }}
+                          percent={uploadResumePercent}
+                          strokeWidth={10}
+                          strokeColor="#9ad8a0"
+                        />
+                      )}
                   </label>
                   <p>Supported Formats: doc, docx, rtf, pdf, upto 2 MB</p>
                 </div>
@@ -495,14 +514,16 @@ function PersonalDetails({
                     onClick={() => handleModalOpen("cover-update")}
                   >
                     UPDATE COVER LETTER
-                    {documents && !documents.cover_letter && (
-                      <Circle
-                        style={{ height: "22px", margin: "0 10px" }}
-                        percent={uploadCoverPercent}
-                        strokeWidth={10}
-                        strokeColor="#9ad8a0"
-                      />
-                    )}
+                    {uploadResumePercent > 0 &&
+                      documents &&
+                      !documents.cover_letter && (
+                        <Circle
+                          style={{ height: "22px", margin: "0 10px" }}
+                          percent={uploadCoverPercent}
+                          strokeWidth={10}
+                          strokeColor="#9ad8a0"
+                        />
+                      )}
                   </label>
                   <p>Supported Formats: doc, docx, rtf, pdf, upto 2 MB</p>
                 </div>
@@ -568,7 +589,7 @@ function PersonalDetails({
                   ADD EDUCATION
                 </button>
               </div>
-              {education?.data?.rows?.map((education, key) => (
+              {education?.map((education, key) => (
                 <div key={key} className="px-3 profile-education-details">
                   <div>
                     <h4>

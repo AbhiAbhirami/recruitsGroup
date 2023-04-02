@@ -1,17 +1,21 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { toast, ToastContainer } from "react-toastify";
 import {
   AUTH_LOCAL_STORAGE_USER_DATA,
   getDocuments,
 } from "../../core/AuthHelpers";
 import { deleteDocument, updateUserDocument } from "../../requests/Auth";
+import { getCurrentUserDetails } from "../../store/reducers/profileReducer";
 import DocumentDetails from "./components/DocumentDetails";
 import PersonalDetails from "./components/PersonalDetails";
 import ProfileInfo from "./components/ProfileInfo";
 import SettingsDetails from "./components/SettingsDetails";
 import ProfileUpdate from "./Update/ProfileUpdate";
+import * as authHelper from "../../core/AuthHelpers";
+import { useDispatch } from "react-redux";
 
 function ProfilePage({ user, isChanged }) {
+  const dispatch = useDispatch();
   const [modalIsOpen, setIsOpen] = React.useState(false);
   const [tab, setTab] = React.useState("overview");
   const [userId, setUserId] = useState(
@@ -44,6 +48,12 @@ function ProfilePage({ user, isChanged }) {
     setUpdated(!updated);
     isChanged();
   };
+
+  const token = authHelper.getAuth();
+
+  useEffect(() => {
+    dispatch(getCurrentUserDetails(token));
+  }, []);
 
   return (
     <>
