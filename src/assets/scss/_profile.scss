@@ -348,7 +348,8 @@
   .profile-section-personal-detail-right {
     width: 75%;
     border-radius: 10px;
-    height: 432px;
+    min-height: 432px;
+    height: auto;
     @media screen and (max-width: 460px) {
       width: 100%;
       margin-bottom: 20px;
@@ -396,6 +397,7 @@
     }
     .profile-section-personal-resume {
       height: 100%;
+      min-height: 432px;
       // box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
       background-color: #ffffff;
       margin-top: 20px;

@@ -19,33 +19,17 @@ function DocumentDetails({ user, docs, userUpdated, setIsUserUpdated }) {
     setDocumentsData(getDocuments());
   }, [userUpdated]);
 
-  const handleDocumentFiles = (e) => {
-    const array = Array.from(e)?.map((i) => i);
-    setFiles(array);
-  };
-
-  console.log("title =>", documents);
+  // const handleDocumentFiles = (e) => {
+  //   const array = Array.from(e)?.map((i) => i);
+  //   setFiles(array);
+  // };
+  console.log("title =>");
   console.log("data :", files);
 
   const deleteDocumentData = async (e) => {
     try {
       const documents = await deleteDocument(user.id, e.target.name);
       setDocuments(documents.data.data);
-      setIsUserUpdated(true);
-      toast.success(documents.data.message);
-    } catch (error) {
-      toast.error(error.response.data.message);
-    }
-  };
-
-  const uploadDocument = async (e) => {
-    try {
-      const documents = await updateUserDocument(
-        user.id,
-        e.target.name,
-        e.target.files[0]
-      );
-
       setIsUserUpdated(true);
       toast.success(documents.data.message);
     } catch (error) {
@@ -73,6 +57,9 @@ function DocumentDetails({ user, docs, userUpdated, setIsUserUpdated }) {
         options
       );
       setDocuments(documents.data.data);
+      if (e.target.name === "otherDocument") {
+        setFiles([...files, e?.target?.files[0]]);
+      }
       setIsUserUpdated(true);
       toast.success(documents.data.message);
     } catch (error) {
@@ -537,10 +524,11 @@ function DocumentDetails({ user, docs, userUpdated, setIsUserUpdated }) {
                       </a>
                       <button
                         className="cursor-pointer"
+                        name="other_documents"
                         onClick={(e) => {
                           setDeleteConfirm({
                             status: true,
-                            func: () => console.log("delete function"),
+                            func: () => deleteDocumentData(e),
                           });
                         }}
                       >
@@ -556,12 +544,16 @@ function DocumentDetails({ user, docs, userUpdated, setIsUserUpdated }) {
                   id="resume-update"
                   placeholder=""
                   style={{ opacity: 0, visibility: "hidden" }}
+                  // onChange={(e) =>
+                  //   handleFileChange(e, () =>
+                  //     handleDocumentFiles(e.target.files)
+                  //   )
+                  // }
+                  name="other_documents"
                   onChange={(e) =>
-                    handleFileChange(e, () =>
-                      handleDocumentFiles(e.target.files)
-                    )
+                    handleFileChange(e, () => handleUploadDocumentData(e))
                   }
-                  multiple
+                  // multiple
                 />
                 <label
                   className="button"
