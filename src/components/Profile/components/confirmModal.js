@@ -1,6 +1,6 @@
 import React from "react";
 import Modal from "react-modal";
-import confirmImg from "../../../assets/images/icons/confirm.svg"
+import confirmImg from "../../../assets/images/icons/confirm.svg";
 import { useEffect } from "react";
 
 const customStyles = {
@@ -13,7 +13,7 @@ const customStyles = {
     transform: "translate(-50%, -50%)",
     width: window.screen.width < 768 ? "90%" : "40%",
     padding: "0",
-    zIndex: 999
+    zIndex: 999,
   },
 };
 
@@ -35,30 +35,45 @@ function ConfirmModal({ isOpen, closeModal, labelId }) {
         contentLabel="Example Modal"
       >
         <div className="job-modal-wrapper">
-          <div className="modal-header p-30 "
+          <div
+            className="modal-header p-30 "
             style={{
-              display: "flex"
-              , flexDirection: "column"
+              display: "flex",
+              flexDirection: "column",
             }}
           >
-            <div className="content"
+            <div
+              className="content"
               style={{
                 textAlign: "center",
               }}
             >
-              <img src={confirmImg} alt="confirmation image" style={{ width: 200, margin: "auto", height: 200, marginBottom: 20 }} />
-              <h3 style={{
-                textAlign: "center",
-                fontSize: 16,
-                marginBottom: 20
-              }}>You are sure you want to upload files ?</h3>
+              <img
+                src={confirmImg}
+                alt="confirmation image"
+                style={{
+                  width: 200,
+                  margin: "auto",
+                  height: 200,
+                  marginBottom: 20,
+                }}
+              />
+              <h3
+                style={{
+                  textAlign: "center",
+                  fontSize: 16,
+                  marginBottom: 20,
+                }}
+              >
+                You are sure you want to upload files ?
+              </h3>
             </div>
             <div
               style={{
                 marginTop: "2rem",
                 display: "flex",
                 justifyContent: "flex-end",
-                alignItems: "center"
+                alignItems: "center",
               }}
             >
               <button
@@ -67,9 +82,14 @@ function ConfirmModal({ isOpen, closeModal, labelId }) {
                   marginRight: 10,
                   padding: "10px 20px",
                   border: "none",
-                  borderRadius: 10
+                  borderRadius: 10,
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
                 }}
-                className="" onClick={closeModal}>
+                className=""
+                onClick={closeModal}
+              >
                 Cancel
               </button>
               <label
@@ -78,10 +98,14 @@ function ConfirmModal({ isOpen, closeModal, labelId }) {
                   padding: "10px 20px",
                   border: "none",
                   borderRadius: 10,
-                  backgroundColor: "#4892f0"
-                  , color: "#fff"
+                  backgroundColor: "#4892f0",
+                  color: "#fff",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
                 }}
-                className="button" htmlFor={labelId}
+                className="button"
+                htmlFor={labelId}
               >
                 Upload File
               </label>

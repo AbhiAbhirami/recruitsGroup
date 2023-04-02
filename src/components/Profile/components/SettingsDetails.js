@@ -1,6 +1,4 @@
 import React, { Fragment } from "react";
-import download from "../../../assets/images/icons/download.png";
-import profilImage from "../../../assets/images/icons/blank.png";
 import { Line, Circle } from "rc-progress";
 import { useForm } from "react-hook-form";
 import {
@@ -20,7 +18,7 @@ import { toast, ToastContainer } from "react-toastify";
 import { useEffect } from "react";
 import { useState } from "react";
 import { ImSpinner6 } from "react-icons/im";
-import ConfirmModal from "./ConfirmModal";
+import ConfirmModal from "./confirmModal";
 import { HiOutlinePencil } from "react-icons/hi";
 import PhoneVerifyModal from "./PhoneVerifyModal";
 import ChangeEmailModal from "./ChangeEmailModal";
@@ -28,6 +26,8 @@ import ChangePasswordModal from "./ChangePasswoardModal";
 import { NavHashLink } from "react-router-hash-link";
 import { AiFillEye } from "react-icons/ai";
 import { useSelector } from "react-redux";
+import { FaSpinner } from "react-icons/fa";
+import DeleteModal from "./DeleteModal";
 
 function SettingsDetails({
   updateUserData,
@@ -88,7 +88,10 @@ function SettingsDetails({
     setUserData(getUser());
   }, [userUpdated]);
 
+  const [videoLoading, setVideoLoading] = useState(false);
+
   const setVideoResume = async (e) => {
+    setVideoLoading(true);
     const updateDocsData = await updateUserDocument(
       user.id,
       "video_resume",
@@ -96,6 +99,10 @@ function SettingsDetails({
     );
     setDocuments(updateDocsData.data.data);
     setIsUserUpdated(true);
+
+    setTimeout(() => {
+      setVideoLoading(false);
+    }, 1500);
   };
 
   const uploadProfile = async (event) => {
@@ -162,12 +169,33 @@ function SettingsDetails({
     }
   };
 
+  const [deleteConfirm, setDeleteConfirm] = useState({
+    status: false,
+    func: () => {},
+  });
+
+  const closeModal = () => {
+    setDeleteConfirm({ status: false, func: () => {} });
+  };
+
+  const handleDelete = async () => {
+    deleteConfirm.func();
+    closeModal();
+  };
+
   return (
     <Fragment>
       <ConfirmModal
         labelId={confirmModal?.id}
         isOpen={confirmModal?.status}
         closeModal={() => setConfirmModal({ status: false, id: "" })}
+      />
+
+      <DeleteModal
+        onDelete={handleDelete}
+        isOpen={deleteConfirm?.status}
+        closeModal={closeModal}
+        loading={false}
       />
 
       {confirmModal.status == false && <ToastContainer draggablePercent={60} />}
@@ -256,7 +284,12 @@ function SettingsDetails({
             <NavHashLink smooth to="/profile#video-sn">
               Video
             </NavHashLink>
-            <button className="cursor-pointer">UPDATE</button>
+            <button
+              className="cursor-pointer"
+              onClick={() => handleModalOpen("resume-update")}
+            >
+              UPDATE
+            </button>
           </li>
         </ul>
       </div>
@@ -538,7 +571,12 @@ function SettingsDetails({
                   <button
                     className="cursor-pointer"
                     name="video_resume"
-                    onClick={(e) => deleteVideo(e)}
+                    onClick={(e) => {
+                      setDeleteConfirm({
+                        status: true,
+                        func: () => deleteVideo(e),
+                      });
+                    }}
                   >
                     DELETE VIDEO
                   </button>
@@ -563,12 +601,15 @@ function SettingsDetails({
                 style={{ marginBottom: 3 }}
               >
                 UPDATE
-                <Circle
+                {videoLoading && (
+                  <FaSpinner className="spinner" style={{ margin: "0 4px" }} />
+                )}
+                {/* <Circle
                   style={{ height: "22px", margin: "0 10px" }}
                   percent={60}
                   strokeWidth={10}
                   strokeColor="#9ad8a0"
-                />
+                /> */}
                 {/* {<ImSpinner6 className="spinner" style={{ margin: "0 5px" }} />} */}
               </label>
               {/* <Line style={{ height: "12px" }} percent={10} strokeWidth={4} strokeColor="#D3D3D3" /> */}

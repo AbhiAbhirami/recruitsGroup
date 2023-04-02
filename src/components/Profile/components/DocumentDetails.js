@@ -1,12 +1,12 @@
 import React, { Fragment, useState, useEffect } from "react";
-import download from "../../../assets/images/icons/download.png";
 import moment from "moment";
 import { getDocuments, setDocuments } from "../../../core/AuthHelpers";
 import { toast, ToastContainer } from "react-toastify";
 import { deleteDocument, updateUserDocument } from "../../../requests/Auth";
-import ConfirmModal from "./ConfirmModal";
-import { AiFillEye } from "react-icons/ai";
+import ConfirmModal from "./confirmModal";
 import { Circle } from "rc-progress";
+import { FaSpinner } from "react-icons/fa";
+import DeleteModal from "./DeleteModal";
 
 function DocumentDetails({ user, docs, userUpdated, setIsUserUpdated }) {
   const [files, setFiles] = React.useState([]);
@@ -17,6 +17,11 @@ function DocumentDetails({ user, docs, userUpdated, setIsUserUpdated }) {
   useEffect(() => {
     setDocumentsData(getDocuments());
   }, [userUpdated]);
+
+  const handleDocumentFiles = (e) => {
+    const array = Array.from(e)?.map((i) => i);
+    setFiles(array);
+  };
 
   const deleteDocumentData = async (e) => {
     try {
@@ -57,6 +62,7 @@ function DocumentDetails({ user, docs, userUpdated, setIsUserUpdated }) {
   };
 
   const [confirmModal, setConfirmModal] = useState({ status: false, id: "" });
+
   const handleModalOpen = (id) => {
     setConfirmModal({ status: true, id: id });
   };
@@ -66,8 +72,30 @@ function DocumentDetails({ user, docs, userUpdated, setIsUserUpdated }) {
     setConfirmModal({ status: false, id: "" });
   };
 
+  const loading = false;
+
+  const [deleteConfirm, setDeleteConfirm] = useState({
+    status: false,
+    func: () => {},
+  });
+
+  const closeModal = () => {
+    setDeleteConfirm({ status: false, func: () => {} });
+  };
+
+  const handleDelete = () => {
+    deleteConfirm.func();
+  };
+
   return (
     <Fragment>
+      <DeleteModal
+        onDelete={handleDelete}
+        isOpen={deleteConfirm?.status}
+        closeModal={closeModal}
+        loading={loading}
+      />
+
       {confirmModal.status == false && <ToastContainer draggablePercent={60} />}
       <ConfirmModal
         labelId={confirmModal?.id}
@@ -84,7 +112,8 @@ function DocumentDetails({ user, docs, userUpdated, setIsUserUpdated }) {
             className={sideTab === 1 ? "document-details-head" : ""}
             onClick={() => setSideTab(1)}
           >
-            Passport <button className="cursor-pointer">UPDATE</button>
+            Passport
+            {/* <button className="cursor-pointer">UPDATE</button> */}
           </li>
           <li
             className={sideTab === 2 ? "document-details-head" : ""}
@@ -92,7 +121,7 @@ function DocumentDetails({ user, docs, userUpdated, setIsUserUpdated }) {
           >
             Identity Document <br />
             (National Id)
-            <button className="cursor-pointer">ADD</button>{" "}
+            {/* <button className="cursor-pointer">ADD</button>{" "} */}
           </li>
 
           <li
@@ -100,7 +129,7 @@ function DocumentDetails({ user, docs, userUpdated, setIsUserUpdated }) {
             onClick={() => setSideTab(3)}
           >
             Experience Certificate{" "}
-            <button className="cursor-pointer">ADD</button>
+            {/* <button className="cursor-pointer">ADD</button> */}
           </li>
           <li
             className={sideTab === 4 && "document-details-head"}
@@ -108,7 +137,7 @@ function DocumentDetails({ user, docs, userUpdated, setIsUserUpdated }) {
           >
             IELTS/ <br />
             Language Proficiency
-            <button className="cursor-pointer">ADD</button>
+            {/* <button className="cursor-pointer">ADD</button> */}
           </li>
 
           <li
@@ -117,7 +146,7 @@ function DocumentDetails({ user, docs, userUpdated, setIsUserUpdated }) {
           >
             Any other Supporting <br />
             Documents
-            <button className="cursor-pointer">ADD</button>
+            {/* <button className="cursor-pointer">ADD</button> */}
           </li>
         </ul>
       </div>
@@ -162,7 +191,10 @@ function DocumentDetails({ user, docs, userUpdated, setIsUserUpdated }) {
                       className="cursor-pointer"
                       name="passport"
                       onClick={(e) => {
-                        deleteDocumentData(e);
+                        setDeleteConfirm({
+                          status: true,
+                          func: deleteDocumentData(e),
+                        });
                       }}
                       style={{ margin: 0 }}
                     >
@@ -219,19 +251,28 @@ function DocumentDetails({ user, docs, userUpdated, setIsUserUpdated }) {
               </p>
             </div>
 
-            {/* {files[0]?.name ? ( */}
             <div>
               <div className="profile-section-personal-resume-update">
                 <div>RESUME.PDF </div>
                 <div className="resume-delete">
                   <a href="#">
-                    {/* <AiFillEye size={'1.4rem'} /> */}
                     <i
                       className="fa-regular fa-eye"
                       style={{ fontSize: "1.2rem" }}
                     ></i>
                   </a>
-                  <button className="cursor-pointer" style={{ marginTop: -2 }}>
+                  <button
+                    className="cursor-pointer"
+                    name="Identity Document"
+                    onClick={(e) => {
+                      setDeleteConfirm({
+                        status: true,
+                        func: () =>
+                          console.log("function for deleting this doc"),
+                      });
+                    }}
+                    style={{ marginTop: -2 }}
+                  >
                     DELETE DOCUMENT{" "}
                   </button>
                 </div>
@@ -244,7 +285,9 @@ function DocumentDetails({ user, docs, userUpdated, setIsUserUpdated }) {
                   placeholder=""
                   style={{ opacity: 0, visibility: "hidden" }}
                   onChange={(e) =>
-                    handleFileChange(e, () => setFiles(e.target.files))
+                    handleFileChange(e, () =>
+                      handleDocumentFiles(e.target.files)
+                    )
                   }
                 />
                 <label
@@ -253,12 +296,18 @@ function DocumentDetails({ user, docs, userUpdated, setIsUserUpdated }) {
                   onClick={() => handleModalOpen("resume-update")}
                 >
                   Add
-                  <Circle
+                  {loading && (
+                    <FaSpinner
+                      className="spinner"
+                      style={{ margin: "0 4px" }}
+                    />
+                  )}
+                  {/* <Circle
                     style={{ height: "22px", margin: "0 10px" }}
                     percent={60}
                     strokeWidth={10}
                     strokeColor="#9ad8a0"
-                  />
+                  /> */}
                 </label>
                 <p>Supported Formats: doc, docx, rtf, pdf, upto 2 MB</p>
               </div>
@@ -291,7 +340,18 @@ function DocumentDetails({ user, docs, userUpdated, setIsUserUpdated }) {
                       style={{ fontSize: "1.2rem" }}
                     ></i>
                   </a>
-                  <button className="cursor-pointer">DELETE CERTIFICATE</button>
+                  <button
+                    className="cursor-pointer"
+                    onClick={(e) => {
+                      setDeleteConfirm({
+                        status: true,
+                        func: () =>
+                          console.log("function for deleting this doc"),
+                      });
+                    }}
+                  >
+                    DELETE CERTIFICATE
+                  </button>
                 </div>
               </div>
 
@@ -302,7 +362,9 @@ function DocumentDetails({ user, docs, userUpdated, setIsUserUpdated }) {
                   placeholder=""
                   style={{ opacity: 0, visibility: "hidden" }}
                   onChange={(e) =>
-                    handleFileChange(e, () => setFiles(e.target.files))
+                    handleFileChange(e, () =>
+                      handleDocumentFiles(e.target.files)
+                    )
                   }
                 />
                 <label
@@ -311,12 +373,12 @@ function DocumentDetails({ user, docs, userUpdated, setIsUserUpdated }) {
                   onClick={() => handleModalOpen("resume-update")}
                 >
                   Add
-                  <Circle
-                    style={{ height: "22px", margin: "0 10px" }}
-                    percent={60}
-                    strokeWidth={10}
-                    strokeColor="#9ad8a0"
-                  />
+                  {loading && (
+                    <FaSpinner
+                      className="spinner"
+                      style={{ margin: "0 4px" }}
+                    />
+                  )}
                 </label>
                 <p>Supported Formats: doc, docx, rtf, pdf, upto 2 MB</p>
               </div>
@@ -361,7 +423,10 @@ function DocumentDetails({ user, docs, userUpdated, setIsUserUpdated }) {
                       className="cursor-pointer"
                       name="ielts"
                       onClick={(e) => {
-                        deleteDocumentData(e);
+                        setDeleteConfirm({
+                          status: true,
+                          func: () => deleteDocumentData(e),
+                        });
                       }}
                       style={{ marginBottom: 0 }}
                     >
@@ -389,12 +454,12 @@ function DocumentDetails({ user, docs, userUpdated, setIsUserUpdated }) {
                   onClick={() => handleModalOpen("resume-update")}
                 >
                   Add
-                  <Circle
-                    style={{ height: "22px", margin: "0 10px" }}
-                    percent={60}
-                    strokeWidth={10}
-                    strokeColor="#9ad8a0"
-                  />
+                  {uploadPercent > 0 && (
+                    <FaSpinner
+                      className="spinner"
+                      style={{ margin: "0 4px" }}
+                    />
+                  )}
                 </label>
                 <p>Supported Formats: doc, docx, rtf, pdf, upto 2 MB</p>
               </div>
@@ -416,30 +481,41 @@ function DocumentDetails({ user, docs, userUpdated, setIsUserUpdated }) {
               </p>
             </div>
             <div>
-              {files[0]?.name ? (
-                <div className="profile-section-personal-resume-update">
-                  <div>
-                    RESUME.PDF -{" "}
-                    <span>
-                      Updated on{" "}
-                      {files &&
-                        moment(files[0]?.lastModified).format("DD-MM-YYYY")}
-                    </span>
+              {files?.length > 0 &&
+                files?.map((file, key) => (
+                  <div
+                    className="profile-section-personal-resume-update"
+                    key={key}
+                  >
+                    <div>
+                      {file?.name} -{" "}
+                      <span>
+                        Updated on{" "}
+                        {moment(file?.lastModified).format("DD-MM-YYYY")}
+                      </span>
+                    </div>
+                    <div className="resume-delete">
+                      <a href="!#">
+                        <i
+                          className="fa-regular fa-eye"
+                          style={{ fontSize: "1.2rem" }}
+                        ></i>
+                      </a>
+                      <button
+                        className="cursor-pointer"
+                        onClick={(e) => {
+                          setDeleteConfirm({
+                            status: true,
+                            func: () => console.log("delete function"),
+                          });
+                        }}
+                      >
+                        DELETE DOCUMENT
+                      </button>
+                    </div>
                   </div>
-                  <div className="resume-delete">
-                    <a href="#">
-                      <i
-                        className="fa-regular fa-eye"
-                        style={{ fontSize: "1.2rem" }}
-                      ></i>
-                      {/* <AiFillEye size={'1.4rem'} /> */}
-                    </a>
-                    <button className="cursor-pointer">DELETE DOCUMENT</button>
-                  </div>
-                </div>
-              ) : (
-                ""
-              )}
+                ))}
+
               <div className="resume-update">
                 <input
                   type={"file"}
@@ -447,8 +523,11 @@ function DocumentDetails({ user, docs, userUpdated, setIsUserUpdated }) {
                   placeholder=""
                   style={{ opacity: 0, visibility: "hidden" }}
                   onChange={(e) =>
-                    handleFileChange(e, () => setFiles(e.target.files))
+                    handleFileChange(e, () =>
+                      handleDocumentFiles(e.target.files)
+                    )
                   }
+                  multiple
                 />
                 <label
                   className="button"
@@ -456,12 +535,12 @@ function DocumentDetails({ user, docs, userUpdated, setIsUserUpdated }) {
                   onClick={() => handleModalOpen("resume-update")}
                 >
                   Add
-                  <Circle
-                    style={{ height: "22px", margin: "0 10px" }}
-                    percent={60}
-                    strokeWidth={10}
-                    strokeColor="#9ad8a0"
-                  />
+                  {uploadPercent > 0 && (
+                    <FaSpinner
+                      className="spinner"
+                      style={{ margin: "0 4px" }}
+                    />
+                  )}
                 </label>
                 <p>Supported Formats: doc, docx, rtf, pdf, upto 2 MB</p>
               </div>
