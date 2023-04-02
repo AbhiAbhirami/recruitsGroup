@@ -23,6 +23,8 @@ export const USER_UPDATE = `${API_URL}/update/`;
 export const EDUCATION = `${API_URL}/education`;
 export const CAREERPROFILE = `${API_URL}/career-profile`;
 export const UPDATE_EMAIL = `${API_URL}/update-email`;
+export const NOTIFICATIONS = `${API_URL}/notifications`;
+export const NEW_NOTIFICATIONS = `${API_URL}/new-notifications`;
 
 export function login(email, password) {
   return axios.post(LOGIN_URL, {
@@ -203,4 +205,16 @@ export function updatePassword(userId, password) {
     password: password,
     id: userId,
   });
+}
+
+export function getNotification(id) {
+  return axios.get(NOTIFICATIONS + "/" + id);
+}
+
+export function getCountOfNotification(id) {
+  return axios.get(NEW_NOTIFICATIONS + "/" + id);
+}
+
+export function markAllNotificationsRead(id) {
+  return axios.put(NOTIFICATIONS + "/" + id);
 }

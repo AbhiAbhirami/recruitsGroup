@@ -1,6 +1,4 @@
 import React, { Fragment } from "react";
-import download from "../../../assets/images/icons/download.png";
-import profilImage from "../../../assets/images/icons/blank.png";
 import { Line, Circle } from "rc-progress";
 import { useForm } from "react-hook-form";
 import {
@@ -20,7 +18,7 @@ import { toast, ToastContainer } from "react-toastify";
 import { useEffect } from "react";
 import { useState } from "react";
 import { ImSpinner6 } from "react-icons/im";
-import ConfirmModal from "./ConfirmModal";
+import ConfirmModal from "./confirmModal";
 import { HiOutlinePencil } from "react-icons/hi";
 import PhoneVerifyModal from "./PhoneVerifyModal";
 import ChangeEmailModal from "./ChangeEmailModal";

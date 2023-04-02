@@ -3,7 +3,7 @@ import moment from "moment";
 import { getDocuments, setDocuments } from "../../../core/AuthHelpers";
 import { toast, ToastContainer } from "react-toastify";
 import { deleteDocument, updateUserDocument } from "../../../requests/Auth";
-import ConfirmModal from "./ConfirmModal";
+import ConfirmModal from "./confirmModal";
 import { Circle } from "rc-progress";
 import { FaSpinner } from "react-icons/fa";
 import DeleteModal from "./DeleteModal";

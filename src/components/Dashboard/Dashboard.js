@@ -55,7 +55,7 @@ function Dashboard() {
 
   const token = authHelper.getAuth();
 
-  const [user, setUser] = useState(getUser);
+  const [user, setUser] = useState(getUser());
   const [month, setMonth] = React.useState(Date.now());
 
   const [loading, setLoading] = React.useState(false);

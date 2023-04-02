@@ -5,7 +5,7 @@ import { getDocuments, getUser, setDocuments } from "../../../core/AuthHelpers";
 import { toast, ToastContainer } from "react-toastify";
 import { deleteDocument, updateUserDocument } from "../../../requests/Auth";
 import { useState } from "react";
-import ConfirmModal from "./ConfirmModal";
+import ConfirmModal from "./confirmModal";
 import { HiOutlinePencil } from "react-icons/hi";
 import EducationModal from "./EducationModal";
 import SkillsModal from "./SkillsModal";
