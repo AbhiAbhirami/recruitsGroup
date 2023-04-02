@@ -102,7 +102,7 @@ export function deleteDocument(id, type) {
 export function updateUserDocument(id, type, file, options) {
   const data = new FormData();
   data.append("file", file);
-  return axios.post(GET_USER_DOCS + "/" + type + "/" + id, data, options);
+  return axios.post(`${GET_USER_DOCS}/${type}/${id}`, data, options);
 }
 
 export function updateUserImage(id, image) {

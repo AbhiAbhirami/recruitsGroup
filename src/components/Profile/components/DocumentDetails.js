@@ -10,6 +10,7 @@ import DeleteModal from "./DeleteModal";
 
 function DocumentDetails({ user, docs, userUpdated, setIsUserUpdated }) {
   const [files, setFiles] = React.useState([]);
+
   const [documents, setDocumentsData] = useState(docs ? docs : "");
   const [uploadPercent, setUploadPercent] = useState(0);
   const [sideTab, setSideTab] = React.useState(1);
@@ -23,6 +24,9 @@ function DocumentDetails({ user, docs, userUpdated, setIsUserUpdated }) {
     setFiles(array);
   };
 
+  console.log("title =>", documents);
+  console.log("data :", files);
+
   const deleteDocumentData = async (e) => {
     try {
       const documents = await deleteDocument(user.id, e.target.name);
@@ -34,7 +38,22 @@ function DocumentDetails({ user, docs, userUpdated, setIsUserUpdated }) {
     }
   };
 
-  const setDocumentData = async (e) => {
+  const uploadDocument = async (e) => {
+    try {
+      const documents = await updateUserDocument(
+        user.id,
+        e.target.name,
+        e.target.files[0]
+      );
+
+      setIsUserUpdated(true);
+      toast.success(documents.data.message);
+    } catch (error) {
+      toast.error(error.response.data.message);
+    }
+  };
+
+  const handleUploadDocumentData = async (e) => {
     try {
       let percent = 0;
       const options = {
@@ -150,6 +169,7 @@ function DocumentDetails({ user, docs, userUpdated, setIsUserUpdated }) {
           </li>
         </ul>
       </div>
+
       {sideTab === 1 && (
         <div className="profile-section-personal-detail-right document-details-right">
           <div className="profile-section-personal-resume">
@@ -181,7 +201,6 @@ function DocumentDetails({ user, docs, userUpdated, setIsUserUpdated }) {
                       href={documents.other_documents.passport}
                       target="_blank"
                     >
-                      {/* <AiFillEye size={'1.4rem'} style={{ margin: "0 5px" }} /> */}
                       <i
                         className="fa-regular fa-eye"
                         style={{ fontSize: "1.2rem" }}
@@ -205,6 +224,7 @@ function DocumentDetails({ user, docs, userUpdated, setIsUserUpdated }) {
                   ""
                 )}
               </div>
+
               <div className="resume-update">
                 <input
                   type={"file"}
@@ -213,7 +233,7 @@ function DocumentDetails({ user, docs, userUpdated, setIsUserUpdated }) {
                   placeholder=""
                   style={{ opacity: 0, visibility: "hidden" }}
                   onChange={(e) =>
-                    handleFileChange(e, () => setDocumentData(e))
+                    handleFileChange(e, () => handleUploadDocumentData(e))
                   }
                 />
                 <label
@@ -222,7 +242,7 @@ function DocumentDetails({ user, docs, userUpdated, setIsUserUpdated }) {
                   onClick={() => handleModalOpen("resume-update")}
                 >
                   Add
-                  {uploadPercent > 0 && (
+                  {uploadPercent > 0 && uploadPercent !== 100 && (
                     <Circle
                       style={{ height: "22px", margin: "0 10px" }}
                       percent={uploadPercent}
@@ -253,41 +273,51 @@ function DocumentDetails({ user, docs, userUpdated, setIsUserUpdated }) {
 
             <div>
               <div className="profile-section-personal-resume-update">
-                <div>RESUME.PDF </div>
-                <div className="resume-delete">
-                  <a href="#">
-                    <i
-                      className="fa-regular fa-eye"
-                      style={{ fontSize: "1.2rem" }}
-                    ></i>
-                  </a>
-                  <button
-                    className="cursor-pointer"
-                    name="Identity Document"
-                    onClick={(e) => {
-                      setDeleteConfirm({
-                        status: true,
-                        func: () =>
-                          console.log("function for deleting this doc"),
-                      });
-                    }}
-                    style={{ marginTop: -2 }}
-                  >
-                    DELETE DOCUMENT{" "}
-                  </button>
+                <div>
+                  {documents?.other_documents.identity
+                    ? unescape(
+                        documents?.other_documents?.identity.split("/").pop()
+                      )
+                    : "Not Updated"}
                 </div>
+                {documents &&
+                documents?.other_documents &&
+                documents?.other_documents.identity ? (
+                  <div className="resume-delete">
+                    <a href="#">
+                      <i
+                        className="fa-regular fa-eye"
+                        style={{ fontSize: "1.2rem" }}
+                      ></i>
+                    </a>
+                    <button
+                      className="cursor-pointer"
+                      name="identity"
+                      onClick={(e) => {
+                        setDeleteConfirm({
+                          status: true,
+                          func: deleteDocumentData(e),
+                        });
+                      }}
+                      style={{ marginTop: -2 }}
+                    >
+                      DELETE DOCUMENT{" "}
+                    </button>
+                  </div>
+                ) : (
+                  ""
+                )}
               </div>
 
               <div className="resume-update">
                 <input
                   type={"file"}
                   id="resume-update"
+                  name="identity"
                   placeholder=""
                   style={{ opacity: 0, visibility: "hidden" }}
                   onChange={(e) =>
-                    handleFileChange(e, () =>
-                      handleDocumentFiles(e.target.files)
-                    )
+                    handleFileChange(e, () => handleUploadDocumentData(e))
                   }
                 />
                 <label
@@ -296,18 +326,12 @@ function DocumentDetails({ user, docs, userUpdated, setIsUserUpdated }) {
                   onClick={() => handleModalOpen("resume-update")}
                 >
                   Add
-                  {loading && (
+                  {uploadPercent > 0 && uploadPercent !== 100 && (
                     <FaSpinner
                       className="spinner"
                       style={{ margin: "0 4px" }}
                     />
                   )}
-                  {/* <Circle
-                    style={{ height: "22px", margin: "0 10px" }}
-                    percent={60}
-                    strokeWidth={10}
-                    strokeColor="#9ad8a0"
-                  /> */}
                 </label>
                 <p>Supported Formats: doc, docx, rtf, pdf, upto 2 MB</p>
               </div>
@@ -331,28 +355,39 @@ function DocumentDetails({ user, docs, userUpdated, setIsUserUpdated }) {
 
             <div>
               <div className="profile-section-personal-resume-update">
-                <div>RESUME.PDF</div>
-                <div className="resume-delete">
-                  <a href="#">
-                    {/* <AiFillEye size={'1.4rem'} /> */}
-                    <i
-                      className="fa-regular fa-eye"
-                      style={{ fontSize: "1.2rem" }}
-                    ></i>
-                  </a>
-                  <button
-                    className="cursor-pointer"
-                    onClick={(e) => {
-                      setDeleteConfirm({
-                        status: true,
-                        func: () =>
-                          console.log("function for deleting this doc"),
-                      });
-                    }}
-                  >
-                    DELETE CERTIFICATE
-                  </button>
+                <div>
+                  {documents?.other_documents.experience
+                    ? unescape(
+                        documents?.other_documents.experience.split("/").pop()
+                      )
+                    : "Not Updated"}
                 </div>
+                {documents &&
+                documents?.other_documents &&
+                documents?.other_documents.experience ? (
+                  <div className="resume-delete">
+                    <a href="#">
+                      <i
+                        className="fa-regular fa-eye"
+                        style={{ fontSize: "1.2rem" }}
+                      ></i>
+                    </a>
+                    <button
+                      className="cursor-pointer"
+                      name="experience"
+                      onClick={(e) => {
+                        setDeleteConfirm({
+                          status: true,
+                          func: () => deleteDocumentData(e),
+                        });
+                      }}
+                    >
+                      DELETE CERTIFICATE
+                    </button>
+                  </div>
+                ) : (
+                  ""
+                )}
               </div>
 
               <div className="resume-update">
@@ -360,11 +395,10 @@ function DocumentDetails({ user, docs, userUpdated, setIsUserUpdated }) {
                   type={"file"}
                   id="resume-update"
                   placeholder=""
+                  name="experience"
                   style={{ opacity: 0, visibility: "hidden" }}
                   onChange={(e) =>
-                    handleFileChange(e, () =>
-                      handleDocumentFiles(e.target.files)
-                    )
+                    handleFileChange(e, () => handleUploadDocumentData(e))
                   }
                 />
                 <label
@@ -373,7 +407,7 @@ function DocumentDetails({ user, docs, userUpdated, setIsUserUpdated }) {
                   onClick={() => handleModalOpen("resume-update")}
                 >
                   Add
-                  {loading && (
+                  {uploadPercent > 0 && uploadPercent !== 100 && (
                     <FaSpinner
                       className="spinner"
                       style={{ margin: "0 4px" }}
@@ -403,14 +437,14 @@ function DocumentDetails({ user, docs, userUpdated, setIsUserUpdated }) {
               <div className="profile-section-personal-resume-update">
                 <div>
                   {documents &&
-                  documents.other_documents &&
-                  documents.other_documents.ielts
+                  documents?.other_documents &&
+                  documents?.other_documents.ielts
                     ? unescape(documents.other_documents.ielts.split("/").pop())
                     : "Not Updated"}
                 </div>
                 {documents &&
-                documents.other_documents &&
-                documents.other_documents.ielts ? (
+                documents?.other_documents &&
+                documents?.other_documents.ielts ? (
                   <div className="resume-delete">
                     <a href={documents.other_documents.ielts} target="_blank">
                       {/* <AiFillEye size={'1.4rem'} /> */}
@@ -445,7 +479,7 @@ function DocumentDetails({ user, docs, userUpdated, setIsUserUpdated }) {
                   placeholder=""
                   style={{ opacity: 0, visibility: "hidden" }}
                   onChange={(e) =>
-                    handleFileChange(e, () => setDocumentData(e))
+                    handleFileChange(e, () => handleUploadDocumentData(e))
                   }
                 />
                 <label
@@ -454,7 +488,7 @@ function DocumentDetails({ user, docs, userUpdated, setIsUserUpdated }) {
                   onClick={() => handleModalOpen("resume-update")}
                 >
                   Add
-                  {uploadPercent > 0 && (
+                  {uploadPercent > 0 && uploadPercent !== 100 && (
                     <FaSpinner
                       className="spinner"
                       style={{ margin: "0 4px" }}
@@ -535,7 +569,7 @@ function DocumentDetails({ user, docs, userUpdated, setIsUserUpdated }) {
                   onClick={() => handleModalOpen("resume-update")}
                 >
                   Add
-                  {uploadPercent > 0 && (
+                  {uploadPercent > 0 && uploadPercent !== 100 && (
                     <FaSpinner
                       className="spinner"
                       style={{ margin: "0 4px" }}
