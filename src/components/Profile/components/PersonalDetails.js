@@ -11,7 +11,7 @@ import EducationModal from "./EducationModal";
 import SkillsModal from "./SkillsModal";
 import CareerModal from "./CareerModal";
 import { AiFillEye } from "react-icons/ai";
-import { FaTrash } from "react-icons/fa";
+import { FaSpinner, FaTrash } from "react-icons/fa";
 import { NavHashLink } from "react-router-hash-link";
 import { Circle } from "rc-progress";
 import { useSelector, useDispatch } from "react-redux";
@@ -227,70 +227,69 @@ function PersonalDetails({
           <h4>Personal Details</h4>
         </div>
         <ul>
-          <li
-            className={sideTab === 1 && "document-details-head"}
-            onClick={() => setSideTab(1)}
-          >
-            <NavHashLink smooth to="/profile#personal-sn">
+          <NavHashLink smooth to="/profile#personal-sn">
+            <li
+              className={sideTab === 1 && "document-details-head"}
+              onClick={() => setSideTab(1)}
+            >
               Personal Details
-            </NavHashLink>
-          </li>
-          <li
-            className={sideTab === 2 && "document-details-head"}
-            onClick={() => setSideTab(2)}
-          >
-            <NavHashLink smooth to="/profile#resume-sn">
+            </li>
+          </NavHashLink>
+          <NavHashLink smooth to="/profile#resume-sn">
+            <li
+              className={sideTab === 2 && "document-details-head"}
+              onClick={() => setSideTab(2)}
+            >
               Resume / Cover Letter
-            </NavHashLink>
-            <button
-              className="cursor-pointer"
-              onClick={() => handleModalOpen("resume-update")}
+              <button
+                className="cursor-pointer"
+                onClick={() => handleModalOpen("resume-update")}
+              >
+                UPDATE
+              </button>
+            </li>
+          </NavHashLink>
+          <NavHashLink smooth to="/profile#skill-sn">
+            <li
+              className={sideTab === 3 && "document-details-head"}
+              onClick={() => setSideTab(3)}
             >
-              UPDATE
-            </button>
-          </li>
-          <li
-            className={sideTab === 3 && "document-details-head"}
-            onClick={() => setSideTab(3)}
-          >
-            <NavHashLink smooth to="/profile#skill-sn">
               Key skill
-            </NavHashLink>{" "}
-            <button
-              className="cursor-pointer"
-              onClick={() =>
-                setSkillsModal({
-                  status: true,
-                  data: profile?.data?.skills,
-                })
-              }
+              <button
+                className="cursor-pointer"
+                onClick={() =>
+                  setSkillsModal({
+                    status: true,
+                    data: profile?.data?.skills,
+                  })
+                }
+              >
+                ADD
+              </button>
+            </li>
+          </NavHashLink>{" "}
+          <NavHashLink smooth to="/profile#education-sn">
+            <li
+              className={sideTab === 4 && "document-details-head"}
+              onClick={() => setSideTab(4)}
             >
-              ADD
-            </button>
-          </li>
-          <li
-            className={sideTab === 4 && "document-details-head"}
-            onClick={() => setSideTab(4)}
-          >
-            <NavHashLink smooth to="/profile#education-sn">
               Education
-            </NavHashLink>
-
-            <button
-              className="cursor-pointer"
-              onClick={() => setEducationModal({ status: true })}
+              <button
+                className="cursor-pointer"
+                onClick={() => setEducationModal({ status: true })}
+              >
+                ADD
+              </button>
+            </li>
+          </NavHashLink>
+          <NavHashLink smooth to="/profile#career-sn">
+            <li
+              className={sideTab === 7 && "document-details-head"}
+              onClick={() => setSideTab(7)}
             >
-              ADD
-            </button>
-          </li>
-          <li
-            className={sideTab === 7 && "document-details-head"}
-            onClick={() => setSideTab(7)}
-          >
-            <NavHashLink smooth to="/profile#career-sn">
               Career profile
-            </NavHashLink>{" "}
-          </li>
+            </li>
+          </NavHashLink>{" "}
         </ul>
       </div>
 
@@ -425,7 +424,7 @@ function PersonalDetails({
                     onClick={() => handleModalOpen("resume-update")}
                   >
                     UPDATE RESUME
-                    {uploadResumePercent > 0 &&
+                    {/* {uploadResumePercent > 0 &&
                       documents &&
                       !documents.resume && (
                         <Circle
@@ -434,7 +433,13 @@ function PersonalDetails({
                           strokeWidth={10}
                           strokeColor="#9ad8a0"
                         />
-                      )}
+                      )} */}
+                    {uploadResumePercent > 0 && uploadResumePercent !== 100 && (
+                      <FaSpinner
+                        className="spinner"
+                        style={{ margin: "0 4px" }}
+                      />
+                    )}
                   </label>
                   <p>Supported Formats: doc, docx, rtf, pdf, upto 2 MB</p>
                 </div>
@@ -514,7 +519,7 @@ function PersonalDetails({
                     onClick={() => handleModalOpen("cover-update")}
                   >
                     UPDATE COVER LETTER
-                    {uploadResumePercent > 0 &&
+                    {/* {uploadResumePercent > 0 &&
                       documents &&
                       !documents.cover_letter && (
                         <Circle
@@ -523,7 +528,13 @@ function PersonalDetails({
                           strokeWidth={10}
                           strokeColor="#9ad8a0"
                         />
-                      )}
+                      )} */}
+                    {uploadCoverPercent > 0 && uploadCoverPercent !== 100 && (
+                      <FaSpinner
+                        className="spinner"
+                        style={{ margin: "0 4px" }}
+                      />
+                    )}
                   </label>
                   <p>Supported Formats: doc, docx, rtf, pdf, upto 2 MB</p>
                 </div>

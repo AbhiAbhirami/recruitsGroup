@@ -183,6 +183,9 @@ function SettingsDetails({
     closeModal();
   };
 
+  console.log("title =>");
+  console.log("data :", docs);
+
   return (
     <Fragment>
       <ConfirmModal
@@ -539,7 +542,7 @@ function SettingsDetails({
               <h4>Upload Video</h4>
             </div>
 
-            {docs && docs.video_resume ? (
+            {docs && docs?.video_resume ? (
               <div className="profile-section-personal-resume-update">
                 <p
                   style={{
@@ -547,7 +550,7 @@ function SettingsDetails({
                     padding: 0,
                   }}
                 >
-                  {/* {docs.video_resume.split("/").pop()} */}
+                  {docs?.video_resume?.split("/").pop()}
                   {/* <span>
                     Updated on{" "}
                     {files &&
@@ -559,14 +562,14 @@ function SettingsDetails({
                   height={25}
                   alt="download-icon"
                 /> */}
+                  {/* {docs?.video_resume} */}
                 </p>
                 <div className="resume-delete">
-                  <a href={documents.resume}>
+                  <a href={documents?.resume}>
                     <i
                       className="fa-regular fa-eye"
                       style={{ fontSize: "1.2rem" }}
                     ></i>
-                    {/* <AiFillEye size={'1.4rem'} /> */}
                   </a>
                   <button
                     className="cursor-pointer"

@@ -171,7 +171,7 @@
   justify-content: flex-start;
   align-items: center;
   flex: 1;
-  
+
   // font-weight: 500;
   text-align: start;
   font-size: 13px;
@@ -427,7 +427,7 @@
 }
 
 .blue-bg-div {
-  flex: .8;
+  flex: 0.8;
   background: url("../images/background/bg2.png");
 }
 
@@ -1484,6 +1484,12 @@
     color: #292562 !important;
     height: 60px;
     width: 60px;
+    span {
+      // display: none !important;
+      &.visually-hidden {
+        display: none !important;
+      }
+    }
   }
 }
 
