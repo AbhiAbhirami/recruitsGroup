@@ -158,8 +158,8 @@ function DocumentDetails({ user, docs, userUpdated, setIsUserUpdated }) {
       </div>
 
       {sideTab === 1 && (
-        <div className="profile-section-personal-detail-right document-details-right">
-          <div className="profile-section-personal-resume">
+        <div className="profile-section-personal-detail-right min-height document-details-right">
+          <div className="profile-section-personal-resume min-height">
             <div>
               <div className="personal-detail-title">
                 <h4>Passport</h4>
@@ -230,13 +230,19 @@ function DocumentDetails({ user, docs, userUpdated, setIsUserUpdated }) {
                 >
                   Add
                   {uploadPercent > 0 && uploadPercent !== 100 && (
+                    <FaSpinner
+                      className="spinner"
+                      style={{ margin: "0 4px" }}
+                    />
+                  )}
+                  {/* {uploadPercent > 0 && uploadPercent !== 100 && (
                     <Circle
                       style={{ height: "22px", margin: "0 10px" }}
                       percent={uploadPercent}
                       strokeWidth={10}
                       strokeColor="#9ad8a0"
                     />
-                  )}
+                  )} */}
                 </label>
                 <p>Supported Formats: doc, docx, rtf, pdf, upto 2 MB</p>
               </div>
@@ -246,8 +252,8 @@ function DocumentDetails({ user, docs, userUpdated, setIsUserUpdated }) {
       )}
 
       {sideTab === 2 && (
-        <div className="profile-section-personal-detail-right document-details-right">
-          <div className="profile-section-personal-resume">
+        <div className="profile-section-personal-detail-right min-height document-details-right">
+          <div className="profile-section-personal-resume min-height">
             <div>
               <div className="personal-detail-title">
                 <h4>Identity Document</h4>
@@ -328,8 +334,8 @@ function DocumentDetails({ user, docs, userUpdated, setIsUserUpdated }) {
       )}
 
       {sideTab === 3 && (
-        <div className="profile-section-personal-detail-right document-details-right">
-          <div className="profile-section-personal-resume">
+        <div className="profile-section-personal-detail-right min-height document-details-right">
+          <div className="profile-section-personal-resume min-height">
             <div>
               <div className="personal-detail-title">
                 <h4> Experience Certificate</h4>
@@ -409,8 +415,8 @@ function DocumentDetails({ user, docs, userUpdated, setIsUserUpdated }) {
       )}
 
       {sideTab === 4 && (
-        <div className="profile-section-personal-detail-right document-details-right">
-          <div className="profile-section-personal-resume">
+        <div className="profile-section-personal-detail-right min-height document-details-right">
+          <div className="profile-section-personal-resume min-height">
             <div>
               <div className="personal-detail-title">
                 <h4> IELTS/ Language Proficiency</h4>
@@ -490,8 +496,8 @@ function DocumentDetails({ user, docs, userUpdated, setIsUserUpdated }) {
       )}
 
       {sideTab === 5 && (
-        <div className="profile-section-personal-detail-right document-details-right">
-          <div className="profile-section-personal-resume">
+        <div className="profile-section-personal-detail-right min-height document-details-right">
+          <div className="profile-section-personal-resume min-height">
             <div>
               <div className="personal-detail-title">
                 <h4> Any other Supporting Documents</h4>
