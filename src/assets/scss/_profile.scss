@@ -326,7 +326,7 @@
     ul {
       padding: 1rem 2rem 4rem 2rem;
       @media screen and (max-width: 768px) {
-        padding: 1rem 1rem;
+        padding: 1rem 1.3rem;
       }
       list-style-type: none;
       li {
@@ -365,12 +365,18 @@
       .personal-detail-title {
         justify-content: space-between;
         padding: 0 3rem;
+        @media screen and (max-width: 460px) {
+          padding: 0 2rem;
+        }
         h4 {
           font-weight: 500 !important;
         }
       }
       .personal-detail-table {
         padding: 1rem 3rem;
+        @media screen and (max-width: 460px) {
+          padding: 1rem 2rem;
+        }
         display: flex;
         table {
           border-collapse: separate;

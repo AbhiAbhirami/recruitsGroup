@@ -91,6 +91,7 @@ function DocumentDetails({ user, docs, userUpdated, setIsUserUpdated }) {
 
   const handleDelete = () => {
     deleteConfirm.func();
+    closeModal();
   };
 
   return (
@@ -199,7 +200,7 @@ function DocumentDetails({ user, docs, userUpdated, setIsUserUpdated }) {
                       onClick={(e) => {
                         setDeleteConfirm({
                           status: true,
-                          func: deleteDocumentData(e),
+                          func: () => deleteDocumentData(e),
                         });
                       }}
                       style={{ margin: 0 }}
@@ -229,7 +230,7 @@ function DocumentDetails({ user, docs, userUpdated, setIsUserUpdated }) {
                   onClick={() => handleModalOpen("resume-update")}
                 >
                   Add
-                  {uploadPercent > 0 && uploadPercent !== 100 && (
+                  {uploadPercent > 0 && (
                     <FaSpinner
                       className="spinner"
                       style={{ margin: "0 4px" }}
@@ -289,7 +290,7 @@ function DocumentDetails({ user, docs, userUpdated, setIsUserUpdated }) {
                       onClick={(e) => {
                         setDeleteConfirm({
                           status: true,
-                          func: deleteDocumentData(e),
+                          func: () => deleteDocumentData(e),
                         });
                       }}
                       style={{ marginTop: -2 }}
