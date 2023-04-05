@@ -403,7 +403,7 @@ function Jobs() {
               </div>
             </div>
             {jobs.length > 0 && window.location.pathname == "/jobs" && (
-              <JobPost setIsOpen={setIsOpen} allJobs={jobs} />
+              <JobPost setIsOpen={setIsOpen} allJobs={jobs} savedJobs={saved_jobs}/>
             )}
             {saved_jobs.length > 0 &&
               window.location.pathname == "/saved-jobs" && (
@@ -411,7 +411,7 @@ function Jobs() {
               )}
             {applied_jobs.length > 0 &&
               window.location.pathname == "/applied-jobs" && (
-                <JobPost setIsOpen={setIsOpen} appliedJobs={applied_jobs} />
+                <JobPost setIsOpen={setIsOpen} appliedJobs={applied_jobs} savedJobs={saved_jobs} />
               )}
           </div>
 

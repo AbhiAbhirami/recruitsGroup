@@ -17,7 +17,7 @@ const JobPost = ({ allJobs, savedJobs, appliedJobs }) => {
     setOpen(true);
     setJob(item);
   };
-
+  console.log(savedJobs);
   useEffect(() => {
     if (window.location.pathname == "/jobs") {
       setJobs(allJobs);
@@ -132,7 +132,7 @@ const JobPost = ({ allJobs, savedJobs, appliedJobs }) => {
                     <div style={{ height: "30px", width: "30px" }}>
                       <i
                         style={{ fontSize: "25px", cursor: "pointer" }}
-                        class={window.location.pathname == "/saved-jobs" ? "fa fa-bookmark" : "fa fa-bookmark-o"}
+                        class={savedJobs.some(e=>e.id === item.id) ? "fa fa-bookmark" : "fa fa-bookmark-o"}
                         aria-hidden="true"
                         onClick={(e) => saveJob(e, item)}
                       ></i>
