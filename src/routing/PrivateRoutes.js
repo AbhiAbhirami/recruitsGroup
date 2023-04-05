@@ -1,5 +1,6 @@
 import React, { lazy, Suspense, useEffect, useState } from "react";
 import { Route, Routes, Navigate } from "react-router-dom";
+import NotificationTab from "../components/NotificationTab/NotificationTab";
 import Header from "../components/Shared/Header";
 import Loader from "../components/Shared/Loader";
 import { getUser } from "../core/AuthHelpers";
@@ -56,7 +57,14 @@ const PrivateRoutes = () => {
             </Suspense>
           }
         />
-
+        <Route
+          path="notifications"
+          element={
+            <Suspense fallback={<Loader />}>
+              <NotificationTab user={user} />
+            </Suspense>
+          }
+        />
         <Route
           path="/profile/*"
           element={

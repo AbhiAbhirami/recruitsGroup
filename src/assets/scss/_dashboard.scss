@@ -126,7 +126,7 @@
 .dropdown-notification-div {
   display: flex;
   flex-direction: column;
-  overflow-y: scroll;
+  overflow-y: hidden;
   &::-webkit-scrollbar {
     // display: none;
     width: 2px;

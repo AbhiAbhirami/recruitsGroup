@@ -149,6 +149,7 @@ function Header({ userData }) {
             <NotificationDropDown
               open={isNotifDropdown}
               notifications={notifications}
+              close={() => setIsNotifDropDown(false)}
             />
           </div>
           <div className="profile-dropdown-main-cont">
