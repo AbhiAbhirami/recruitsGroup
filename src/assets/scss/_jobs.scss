@@ -24,7 +24,7 @@
     width: 50%;
 }
 .job-post-cover-img{
-    height: 60vh;
+    height: 65vh;
 }
 
 .h-100 {
@@ -33,6 +33,74 @@
 .comments-message{
     font-size: 14px;
 }
+
+.notification-tab-main-cont{
+    width: 80%;
+    height: 70vh;
+    border-radius: 13px;
+    background-color: white;
+    margin-top: 55px;
+    display: flex;
+    flex-direction: column;
+}
+
+.notification-tab-header-cont{
+    flex: 1;
+    // background-color: red;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    padding: 0 5%;
+    border-bottom: 1px solid gray;
+}
+.notification-tab-notification-cont{
+    flex: 7;
+    overflow: auto;
+}
+
+
+.notification-tab-notification-cont::-webkit-scrollbar {
+    width: 8px;
+    background-color: rgba(175, 175, 175, 0.5019607843);
+    border-radius: 5px;
+  }
+
+.notification-single-main-cont{
+    width: 92%;
+    min-height: 50px;
+    padding: 5px 0;
+    margin: 5px 4%;
+    // position: relative;
+    // background-color: red;
+    display: flex;
+    // overflow: hidden;
+    gap: 15px;
+    align-items: center;
+    border-bottom: 1px solid gray;
+}
+.notification-single-dismiss-pop-up{
+    position: absolute;
+    border-radius: 13px;
+    box-shadow: 0px -25px 20px -20px rgba(0, 0, 0, 0.45), 25px 0 20px -20px rgba(0, 0, 0, 0.45), 0px 25px 20px -20px rgba(0, 0, 0, 0.45), -25px 0 20px -20px rgba(0, 0, 0, 0.45);
+    padding: 15px;
+    font-size: 14px;
+    cursor: pointer;
+    background-color: white;
+}
+.notification-content-p-tag{
+    // overflow: hidden;
+    font-size: 15px;
+
+    // text-overflow: ellipsis;
+    // display: -webkit-box;
+    // -webkit-line-clamp: 2;
+    // line-clamp: 2;
+    // -webkit-box-orient: vertical;
+}
+
+
+
+
 @media screen and (max-width : 900px) {
     .w-30 {
         display: none !important;
@@ -45,6 +113,15 @@
 @media screen and (max-width : 600px) {
     .job-model-company-header{
         font-size: 16px;
+
+    }
+    .notification-tab-main-cont{
+        width: 90%;
+    }
+    .notification-content-p-tag{
+        font-size: 14px;
+       
+        // height: 40px;
     }
     .job-modal-wrapper .modal-header .content{
         margin: 0px ;
@@ -75,6 +152,9 @@
     }
     .no-job-img{
         width: 20%;
+    }
+    .otp-input{
+        padding-top: 10px;
     }
     
 }

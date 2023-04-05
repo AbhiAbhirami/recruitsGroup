@@ -1,5 +1,6 @@
 import React, { lazy, Suspense, useEffect, useState } from "react";
 import { Route, Routes, Navigate } from "react-router-dom";
+import NotificationTab from "../components/NotificationTab/NotificationTab";
 import Header from "../components/Shared/Header";
 import Loader from "../components/Shared/Loader";
 import { getUser } from "../core/AuthHelpers";
@@ -44,7 +45,7 @@ const PrivateRoutes = () => {
           path="saved-jobs"
           element={
             <Suspense fallback={<Loader />}>
-              <Jobs user={user} />
+              <NotificationTab user={user} />
             </Suspense>
           }
         />
