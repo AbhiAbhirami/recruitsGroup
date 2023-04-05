@@ -79,12 +79,17 @@ function PersonalDetails({
     }
   };
 
-  const [resumeDoc, setResumeDoc] = useState()
+  const [docRestrict, setDocRestrict] = useState()
+  const { fileTypeError, isSuccess } = useFileTypeRestrict(docRestrict, 'doc,docx,rtf,pdf', '2044', '2MB')
+  useEffect(() => {
+    if (!isSuccess) {
+      toast.error(fileTypeError);
+    }
+  }, [fileTypeError])
 
-  const { fileTypeError, isSuccess } = useFileTypeRestrict(resumeDoc, 'doc,docx,rtf,pdf', '2044', '2MB')
 
   const onUploadResumeDoc = async (files) => {
-    setResumeDoc(files)
+    setDocRestrict(files)
     if (isSuccess) {
       try {
         let percent = 0;
@@ -112,10 +117,7 @@ function PersonalDetails({
     }
 
   };
-  useEffect(() => {
-    toast.error(fileTypeError);
 
-  }, [fileTypeError])
 
 
   const deleteCover = async () => {
@@ -130,7 +132,7 @@ function PersonalDetails({
   };
 
   const onUploadCoverLetter = async (files) => {
-    setResumeDoc(files)
+    setDocRestrict(files)
     if (isSuccess) {
       try {
         let percent = 0;

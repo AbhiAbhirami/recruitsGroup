@@ -8,7 +8,7 @@ function bytesToSize(bytes) {
     }
 }
 
-export const useFileTypeRestrict = (file, accept, maxSize, display) => {
+export const useFileTypeRestrict = (file, accept, maxSize, limit) => {
     if (file && file[0]?.name) {
         const fileType = file && file[0]?.name?.split('.')[1]
         const { size, sizeInKb } = bytesToSize(file && file[0]?.size)
@@ -23,7 +23,7 @@ export const useFileTypeRestrict = (file, accept, maxSize, display) => {
                 }
             } else return {
                 isSuccess: false,
-                fileTypeError: `It is allowed to upload files up to ${display}, but you uploaded ${size} ,`,
+                fileTypeError: `It is allowed to upload files up to ${limit}, but you uploaded ${size} ,`,
             }
         } else {
             return {
