@@ -34,7 +34,7 @@ function ResetPassword() {
                     </div>
                 </div>
                 <div className='back-to-login-btn'>
-                    <i style={{ cursor: "pointer", fontSize: "16px" }} class="fa fa-chevron-left" aria-hidden="true"></i>
+                    <i style={{ cursor: "pointer", fontSize: "16px" }} className="fa fa-chevron-left" aria-hidden="true"></i>
                     <Link to="/auth/login" className='back-to-login-tag'>Back to Login</Link>
                 </div>
             </div>

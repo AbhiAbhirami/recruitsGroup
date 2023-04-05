@@ -37,12 +37,12 @@ function Comments({ isOpen }) {
                     /> */}
                     {file && <p style={{ whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>{file.name}</p>}
                     <label htmlFor="file-uploader">
-                        <i class="fa fa-paperclip" style={{ fontSize: "25px", cursor: "pointer" }} aria-hidden="true"></i>
+                        <i className="fa fa-paperclip" style={{ fontSize: "25px", cursor: "pointer" }} aria-hidden="true"></i>
 
                     </label>
                     <input id="file-uploader" onChange={handleChange} type={"file"} style={{ display: "none" }} />
 
-                    <i class="fa fa-paper-plane" style={{ fontSize: "25px", cursor: "pointer", transform: "rotate(50deg)" }} aria-hidden="true"></i>
+                    <i className="fa fa-paper-plane" style={{ fontSize: "25px", cursor: "pointer", transform: "rotate(50deg)" }} aria-hidden="true"></i>
                 </div>
             </div>
         </div>

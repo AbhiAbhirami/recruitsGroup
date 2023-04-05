@@ -10,10 +10,8 @@ import { HiOutlinePencil } from "react-icons/hi";
 import EducationModal from "./EducationModal";
 import SkillsModal from "./SkillsModal";
 import CareerModal from "./CareerModal";
-import { AiFillEye } from "react-icons/ai";
 import { FaSpinner, FaTrash } from "react-icons/fa";
 import { NavHashLink } from "react-router-hash-link";
-import { Circle } from "rc-progress";
 import { useSelector, useDispatch } from "react-redux";
 import {
   deleteEducation,
@@ -22,6 +20,7 @@ import {
 } from "../../../store/reducers/profileReducer";
 import moment from "moment";
 import DeleteModal from "./DeleteModal";
+import { useFileTypeRestrict } from "../../../assets/hooks/useFileTypeRestrict";
 
 function PersonalDetails({
   setIsOpen,
@@ -80,29 +79,44 @@ function PersonalDetails({
     }
   };
 
-  const setResumeData = async (files) => {
-    try {
-      let percent = 0;
-      const options = {
-        onUploadProgress: (progressEvent) => {
-          const { loaded, total } = progressEvent;
-          percent = Math.floor((loaded * 100) / total);
-          setUploadResumePercent(percent);
-        },
-      };
-      const documents = await updateUserDocument(
-        user.id,
-        "resume",
-        files[0],
-        options
-      );
-      setDocuments(documents.data.data);
-      setIsUserUpdated(true);
-      toast.success(documents.data.message);
-    } catch (error) {
-      toast.error(error.response.data.message);
+  const [resumeDoc, setResumeDoc] = useState()
+
+  const { fileTypeError, isSuccess } = useFileTypeRestrict(resumeDoc, 'doc,docx,rtf,pdf', '2044', '2MB')
+
+  const onUploadResumeDoc = async (files) => {
+    setResumeDoc(files)
+    if (isSuccess) {
+      try {
+        let percent = 0;
+        const options = {
+          onUploadProgress: (progressEvent) => {
+            const { loaded, total } = progressEvent;
+            percent = Math.floor((loaded * 100) / total);
+            setUploadResumePercent(percent);
+          },
+        };
+        const documents = await updateUserDocument(
+          user.id,
+          "resume",
+          files[0],
+          options
+        );
+        setDocuments(documents.data.data);
+        setIsUserUpdated(true);
+        toast.success(documents.data.message);
+      } catch (error) {
+        toast.error(error.response.data.message);
+      }
+    } else {
+      toast.error(fileTypeError);
     }
+
   };
+  useEffect(() => {
+    toast.error(fileTypeError);
+
+  }, [fileTypeError])
+
 
   const deleteCover = async () => {
     try {
@@ -115,27 +129,32 @@ function PersonalDetails({
     }
   };
 
-  const setCoverData = async (files) => {
-    try {
-      let percent = 0;
-      const options = {
-        onUploadProgress: (progressEvent) => {
-          const { loaded, total } = progressEvent;
-          percent = Math.floor((loaded * 100) / total);
-          setUploadCoverPercent(percent);
-        },
-      };
-      const documents = await updateUserDocument(
-        user.id,
-        "cover",
-        files[0],
-        options
-      );
-      setDocuments(documents.data.data);
-      setIsUserUpdated(true);
-      toast.success(documents.data.message);
-    } catch (error) {
-      toast.error(error.response.data.message);
+  const onUploadCoverLetter = async (files) => {
+    setResumeDoc(files)
+    if (isSuccess) {
+      try {
+        let percent = 0;
+        const options = {
+          onUploadProgress: (progressEvent) => {
+            const { loaded, total } = progressEvent;
+            percent = Math.floor((loaded * 100) / total);
+            setUploadCoverPercent(percent);
+          },
+        };
+        const documents = await updateUserDocument(
+          user.id,
+          "cover",
+          files[0],
+          options
+        );
+        setDocuments(documents.data.data);
+        setIsUserUpdated(true);
+        toast.success(documents.data.message);
+      } catch (error) {
+        toast.error(error.response.data.message);
+      }
+    } else {
+      toast.error(fileTypeError);
     }
   };
 
@@ -430,7 +449,7 @@ function PersonalDetails({
                     type={"file"}
                     id="resume-update"
                     onChange={(e) =>
-                      handleFileChange(e, () => setResumeData(e.target.files))
+                      handleFileChange(e, () => onUploadResumeDoc(e.target.files))
                     }
                     placeholder=""
                     style={{ opacity: 0, visibility: "hidden" }}
@@ -520,19 +539,19 @@ function PersonalDetails({
                 ) : (
                   ""
                 )}
-                <div className="resume-update " style={{ margin: 0 }}>
+                <div className="resume-update" style={{ margin: 0 }}>
                   <input
                     type={"file"}
                     id="cover-update"
                     onChange={(e) =>
-                      handleFileChange(e, () => setCoverData(e.target.files))
+                      handleFileChange(e, () => onUploadCoverLetter(e.target.files))
                     }
                     placeholder=""
                     style={{ opacity: 0, visibility: "hidden" }}
                   />
                   <label
                     className="button"
-                    htmlFor="cover-update"
+                    htmlFor="cover-"
                     onClick={() => handleModalOpen("cover-update")}
                   >
                     UPDATE COVER LETTER

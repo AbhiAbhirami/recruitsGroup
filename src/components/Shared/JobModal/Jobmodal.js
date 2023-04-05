@@ -83,7 +83,7 @@ function JobModal({ isOpen, closeModal, applied, job }) {
         >
           <i
             style={{ fontSize: "20px", color: "white" }}
-            class="fa fa-angle-double-down"
+            className="fa fa-angle-double-down"
             aria-hidden="true"
           ></i>
         </div>
@@ -128,12 +128,12 @@ function JobModal({ isOpen, closeModal, applied, job }) {
                 window.screen.width < 600
                   ? { display: "none" }
                   : {
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                      maxWidth: "150px",
-                      wordBreak: "break-all",
-                    }
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    maxWidth: "150px",
+                    wordBreak: "break-all",
+                  }
               }
             >
               <img src={marker} height={15} alt="header-logo" />

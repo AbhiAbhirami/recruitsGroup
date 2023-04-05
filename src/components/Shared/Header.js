@@ -61,11 +61,11 @@ function Header({ userData }) {
         style={
           isDropdown | isHamburger | isNotifDropdown | isSearchDropdown
             ? {
-                width: "100%",
-                height: "100vh",
-                zIndex: 10,
-                position: "absolute",
-              }
+              width: "100%",
+              height: "100vh",
+              zIndex: 10,
+              position: "absolute",
+            }
             : { display: "none" }
         }
       ></div>
@@ -122,7 +122,7 @@ function Header({ userData }) {
             {/* <img className="search-icon" src={searchIcon} alt="search-icon" /> */}
             <i
               style={{ fontSize: "25px" }}
-              class="fa-solid fa-magnifying-glass search-icon"
+              className="fa-solid fa-magnifying-glass search-icon"
             ></i>
             <SearchDropDown open={isSearchDropdown} />
           </div>
@@ -134,11 +134,11 @@ function Header({ userData }) {
               style={
                 countNew
                   ? {
-                      display: "flex",
-                      justifyContent: "center",
-                      padding: "7px",
-                      alignItems: "center",
-                    }
+                    display: "flex",
+                    justifyContent: "center",
+                    padding: "7px",
+                    alignItems: "center",
+                  }
                   : { display: "none" }
               }
               className="notification-dot"
@@ -181,12 +181,12 @@ function Header({ userData }) {
             style={
               countNew > 0
                 ? {
-                    display: "flex",
-                    top: "35px",
-                    justifyContent: "center",
-                    padding: "7px",
-                    alignItems: "center",
-                  }
+                  display: "flex",
+                  top: "35px",
+                  justifyContent: "center",
+                  padding: "7px",
+                  alignItems: "center",
+                }
                 : { display: "none" }
             }
             className="notification-dot"
@@ -217,7 +217,7 @@ function Header({ userData }) {
                   width: 0,
                   fontSize: "40px",
                 }}
-                class="close"
+                className="close"
               >
                 &times;
               </span>
