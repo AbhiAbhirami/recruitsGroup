@@ -132,7 +132,7 @@ const JobPost = ({ allJobs, savedJobs, appliedJobs }) => {
                     <div style={{ height: "30px", width: "30px" }}>
                       <i
                         style={{ fontSize: "25px", cursor: "pointer" }}
-                        class="fa fa-bookmark"
+                        class={window.location.pathname == "/saved-jobs" ? "fa fa-bookmark" : "fa fa-bookmark-o"}
                         aria-hidden="true"
                         onClick={(e) => saveJob(e, item)}
                       ></i>

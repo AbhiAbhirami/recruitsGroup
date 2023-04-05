@@ -61,11 +61,11 @@ function Header({ userData }) {
         style={
           isDropdown | isHamburger | isNotifDropdown | isSearchDropdown
             ? {
-                width: "100%",
-                height: "100vh",
-                zIndex: 10,
-                position: "absolute",
-              }
+              width: "100%",
+              height: "100vh",
+              zIndex: 10,
+              position: "absolute",
+            }
             : { display: "none" }
         }
       ></div>
@@ -134,11 +134,11 @@ function Header({ userData }) {
               style={
                 countNew
                   ? {
-                      display: "flex",
-                      justifyContent: "center",
-                      padding: "7px",
-                      alignItems: "center",
-                    }
+                    display: "flex",
+                    justifyContent: "center",
+                    padding: "7px",
+                    alignItems: "center",
+                  }
                   : { display: "none" }
               }
               className="notification-dot"
@@ -149,6 +149,7 @@ function Header({ userData }) {
             <NotificationDropDown
               open={isNotifDropdown}
               notifications={notifications}
+              close={() => setIsNotifDropDown(false)}
             />
           </div>
           <div className="profile-dropdown-main-cont">
@@ -181,12 +182,12 @@ function Header({ userData }) {
             style={
               countNew > 0
                 ? {
-                    display: "flex",
-                    top: "35px",
-                    justifyContent: "center",
-                    padding: "7px",
-                    alignItems: "center",
-                  }
+                  display: "flex",
+                  top: "35px",
+                  justifyContent: "center",
+                  padding: "7px",
+                  alignItems: "center",
+                }
                 : { display: "none" }
             }
             className="notification-dot"

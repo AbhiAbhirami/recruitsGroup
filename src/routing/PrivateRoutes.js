@@ -45,7 +45,7 @@ const PrivateRoutes = () => {
           path="saved-jobs"
           element={
             <Suspense fallback={<Loader />}>
-              <NotificationTab user={user} />
+              <Jobs user={user} />
             </Suspense>
           }
         />
@@ -57,7 +57,14 @@ const PrivateRoutes = () => {
             </Suspense>
           }
         />
-
+        <Route
+          path="notifications"
+          element={
+            <Suspense fallback={<Loader />}>
+              <NotificationTab user={user} />
+            </Suspense>
+          }
+        />
         <Route
           path="/profile/*"
           element={
