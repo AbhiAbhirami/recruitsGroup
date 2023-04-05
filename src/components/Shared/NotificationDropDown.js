@@ -1,11 +1,11 @@
 import React from "react";
 import { useState } from "react";
-import { useEffect } from "react";
+// import { useEffect } from "react";
 import { Link } from "react-router-dom";
 
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch, } from "react-redux";
 import { getUser } from "../../core/AuthHelpers";
-import { getAllNotifications, markAllAsRead } from "../../store/reducers/notificationReducer";
+import { markAllAsRead } from "../../store/reducers/notificationReducer";
 // import NotificationCard from './Notification/NotificationCard'
 import SingleDropdwonNotifCard from "./SingleDropdwonNotifCard";
 

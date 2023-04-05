@@ -325,7 +325,7 @@ export const profileSlice = createSlice({
     },
     [deleteCareerProfile.fulfilled]: (state, action) => {
       state.loading = false;
-      const jsonState = useConvertToJson(state);
+      // const jsonState = useConvertToJson(state);
       state.careerProfile = {};
     },
     [deleteCareerProfile.rejected]: (state, action) => {
@@ -334,6 +334,6 @@ export const profileSlice = createSlice({
   },
 });
 
-export const {} = profileSlice.actions;
+// export const { } = profileSlice.actions;
 
 export default profileSlice.reducer;

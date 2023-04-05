@@ -1,20 +1,17 @@
 import React, { useState } from "react";
 import Modal from "react-modal";
-import google from "../../../assets/images/icons/google.png";
 import dot from "../../../assets/images/icons/dot.png";
 import marker from "../../../assets/images/icons/placemarker.png";
-import modalBg from "../../../assets/images/background/bg4.png";
 import bookmark from "../../../assets/images/icons/bookmark.png";
 import send from "../../../assets/images/icons/send.png";
 import closebtn from "../../../assets/images/icons/close.png";
 
-import { Link } from "react-router-dom";
 import ApplyConfirmModal from "../ApplyConfirmModal";
 import { useEffect } from "react";
 import { updateAppliedjobs } from "../../../requests/Auth";
 import { getUser } from "../../../core/AuthHelpers";
 import { toast, ToastContainer } from "react-toastify";
-let media = window.screen.width < 600;
+// let media = window.screen.width < 600;
 
 const customStyles = {
   content: {
@@ -153,7 +150,7 @@ function JobModal({ isOpen, closeModal, applied, job }) {
               {job && <span>{job.title} -</span>} {job && job.type}
               <br />
               {job && (
-                <a href={`https://` + job.company_url} target="_blank">
+                <a rel="noreferrer" href={`https://` + job.company_url} target="_blank">
                   {job.company}
                 </a>
               )}
@@ -209,7 +206,7 @@ function JobModal({ isOpen, closeModal, applied, job }) {
               <img src={send} height={30} alt="" />
               <img src={bookmark} height={30} alt="" />
             </div>
-            {applied || window.location.pathname == "/applied-jobs" ? (
+            {applied || window.location.pathname === "/applied-jobs" ? (
               <p>Applied</p>
             ) : (
               <button onClick={() => [setIsApplyConfirm(true), closeModal()]}>
