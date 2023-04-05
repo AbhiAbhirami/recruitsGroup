@@ -53,7 +53,8 @@ function DropDown({ open, user, close }) {
           <Link to={{
             pathname: "/profile",
             search: 'overview'
-          }} className="dropdown-div-nav-tag" onClick={close}>
+          }}
+            className="dropdown-div-nav-tag" onClick={close}>
             Profile
           </Link>
           {/* <span className="dropdown-div-nav-tag">My Projects</span> */}
@@ -61,20 +62,22 @@ function DropDown({ open, user, close }) {
             to={{
               pathname: "/profile",
               search: 'documents'
-            }} className="dropdown-div-nav-tag" onClick={close}>
+            }}
+            className="dropdown-div-nav-tag" onClick={close}>
             My Documents
           </Link>
         </div>
         <div className="dropdown-settings-div">
-          <span className="dropdown-div-nav-tag" onClick={close}>
+          {/* <span className="dropdown-div-nav-tag" onClick={close}>
             Language
-          </span>
+          </span> */}
 
           <Link
             to={{
               pathname: "/profile",
               search: 'settings'
-            }} className="dropdown-div-nav-tag" onClick={close}>
+            }}
+            className="dropdown-div-nav-tag" onClick={close}>
             Settings
           </Link>
           <span className="dropdown-div-nav-tag" onClick={handleLogoutModal}>

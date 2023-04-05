@@ -19,9 +19,21 @@ function Hamburger({ open, close }) {
                 <Link to="/applied-jobs" onClick={() => close(false)} className='hamburger-single-nav-option'>Applied Jobs</Link>
                 <Link to="/saved-jobs" onClick={() => close(false)} className='hamburger-single-nav-option'>Saved Jobs</Link>
                 <Link to="/profile" onClick={() => close(false)} className='hamburger-single-nav-option'>Profile</Link>
-                <span className='hamburger-single-nav-option' onClick={() => close(false)}>My Documents</span>
-                <span className='hamburger-single-nav-option' onClick={() => close(false)}>Language</span>
-                <span className='hamburger-single-nav-option' onClick={() => close(false)}>Settings</span>
+                <Link to={{
+                    pathname: "/profile",
+                    search: 'documents'
+                }}
+                    className='hamburger-single-nav-option' onClick={() => close(false)}>My Documents</Link>
+                {/* <Link to={{
+                    pathname: "/profile",
+                    search: 'documents'
+                }}
+                    className='hamburger-single-nav-option' onClick={() => close(false)}>Language</Link> */}
+                <Link to={{
+                    pathname: "/profile",
+                    search: 'settings'
+                }}
+                    className='hamburger-single-nav-option' onClick={() => close(false)}>Settings</Link>
                 <span className='hamburger-single-nav-option' onClick={logout}>Sign Out</span>
             </div>
         </div>
