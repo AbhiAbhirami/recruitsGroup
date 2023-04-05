@@ -233,6 +233,12 @@ function PersonalDetails({
               onClick={() => setSideTab(1)}
             >
               Personal Details
+              <button
+                className="cursor-pointer"
+                onClick={() => setIsOpen(true)}
+              >
+                ADD
+              </button>
             </li>
           </NavHashLink>
           <NavHashLink smooth to="/profile#resume-sn">
@@ -288,6 +294,17 @@ function PersonalDetails({
               onClick={() => setSideTab(7)}
             >
               Career profile
+              <button
+                className="cursor-pointer"
+                onClick={() =>
+                  setCareerModal({
+                    status: true,
+                    data: currentCareerProfile?.id ? currentCareerProfile : {},
+                  })
+                }
+              >
+                ADD
+              </button>
             </li>
           </NavHashLink>{" "}
         </ul>
@@ -420,7 +437,7 @@ function PersonalDetails({
                   />
                   <label
                     className="button"
-                    htmlFor="resume-updat"
+                    htmlFor="resume-"
                     onClick={() => handleModalOpen("resume-update")}
                   >
                     UPDATE RESUME

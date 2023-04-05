@@ -208,7 +208,7 @@ export const profileSlice = createSlice({
       state.error = action.payload;
     },
 
-    //skils
+    //skill
     [updateKeySkills.pending]: (state, action) => {
       state.loading = true;
     },
