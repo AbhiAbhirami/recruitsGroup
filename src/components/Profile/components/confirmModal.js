@@ -50,7 +50,7 @@ function ConfirmModal({ isOpen, closeModal, labelId }) {
             >
               <img
                 src={confirmImg}
-                alt="confirmation image"
+                alt="confirmation "
                 style={{
                   width: 200,
                   margin: "auto",

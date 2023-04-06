@@ -122,7 +122,7 @@ function Header({ userData }) {
             {/* <img className="search-icon" src={searchIcon} alt="search-icon" /> */}
             <i
               style={{ fontSize: "25px" }}
-              class="fa-solid fa-magnifying-glass search-icon"
+              className="fa-solid fa-magnifying-glass search-icon"
             ></i>
             <SearchDropDown open={isSearchDropdown} />
           </div>
@@ -218,7 +218,7 @@ function Header({ userData }) {
                   width: 0,
                   fontSize: "40px",
                 }}
-                class="close"
+                className="close"
               >
                 &times;
               </span>

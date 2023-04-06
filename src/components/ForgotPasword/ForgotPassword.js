@@ -79,7 +79,7 @@ function ForgotPassword() {
                     <p className='forgot-password-text-tag'>Enter your email and we'll send you a link to reset your password</p>
                 </div>
                 <div className='forgot-password-email-input'>
-                    <i style={{ color: "#999898", fontSize: "24px" }} class="fa fa-envelope" aria-hidden="true"></i>
+                    <i style={{ color: "#999898", fontSize: "24px" }} className="fa fa-envelope" aria-hidden="true"></i>
                     <input style={{ width: "100%", fontSize: "16px", height: '100%', outline: 'none', border: "none" }} type="email" />
                 </div>
                 <div className='forgot-password-submit-btn-cont'>
@@ -89,7 +89,7 @@ function ForgotPassword() {
                     </div>
                 </div>
                 <div className='back-to-login-btn'>
-                    <i style={{ cursor: "pointer", fontSize: "16px" }} class="fa fa-chevron-left" aria-hidden="true"></i>
+                    <i style={{ cursor: "pointer", fontSize: "16px" }} className="fa fa-chevron-left" aria-hidden="true"></i>
                     <Link to="/auth/login" className='back-to-login-tag'>Back to Login</Link>
                 </div>
             </div>

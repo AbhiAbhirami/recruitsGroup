@@ -134,7 +134,7 @@ function ProfileInfo({
                 onChange={uploadProfile}
                 hidden
               />
-              <label for="newProfilePhoto" className="upload-file-block">
+              <label htmlFor="newProfilePhoto" className="upload-file-block">
                 <div className="text-center">
                   <div className="mb-2" style={{ display: "flex", alignItems: "center", justifyContent: "flex-end" }}>
                     <i
@@ -177,14 +177,14 @@ function ProfileInfo({
             </p>
             <p>
               {/* <img src={email} height={15} alt="flag-icon" /> */}
-              {user.email && <i class="fa-regular fa-envelope" style={{ marginRight: '5px' }}></i>}
+              {user.email && <i className="fa-regular fa-envelope" style={{ marginRight: '5px' }}></i>}
               {user.email}
             </p>
             <p>
               {user.phone &&
                 <FiPhone style={{ marginRight: '5px' }} />
               }
-              {/* <i class="fab fa-regular fa-phone"></i> */}
+              {/* <i className="fab fa-regular fa-phone"></i> */}
               {/* <img src={phone} height={15} alt="flag-icon" /> */}
               {user.phone && user.phone}
             </p>
