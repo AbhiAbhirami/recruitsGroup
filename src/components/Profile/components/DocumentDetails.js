@@ -20,13 +20,7 @@ function DocumentDetails({ user, docs, userUpdated, setIsUserUpdated }) {
     setDocumentsData(getDocuments());
   }, [userUpdated]);
 
-  const [docRestrict, setDocRestrict] = useState()
-  const { fileTypeError, isSuccess } = useFileTypeRestrict(docRestrict, 'doc,docx,rtf,pdf', '2044', '2MB')
-  useEffect(() => {
-    if (!isSuccess) {
-      toast.error(fileTypeError);
-    }
-  }, [fileTypeError])
+
 
   // const handleDocumentFiles = (e) => {
   //   const array = Array.from(e)?.map((i) => i);
@@ -45,40 +39,48 @@ function DocumentDetails({ user, docs, userUpdated, setIsUserUpdated }) {
     }
   };
 
-  const handleUploadDocumentData = async (e) => {
-    setDocRestrict(e.target.files)
-    if (isSuccess) {
+  const [docRestrict, setDocRestrict] = useState()
+  const { fileTypeError, isSuccess } = useFileTypeRestrict(docRestrict?.target.files, 'doc,docx,rtf,pdf', '2044', '2MB')
 
-      try {
-        let percent = 0;
-        const options = {
-          onUploadProgress: (progressEvent) => {
-            const { loaded, total } = progressEvent;
-            percent = Math.floor((loaded * 100) / total);
-            setUploadPercent(percent);
-            if (percent == 100) {
-              setUploadPercent(0);
-            }
-          },
-        };
-        const documents = await updateUserDocument(
-          user.id,
-          e.target.name,
-          e.target.files[0],
-          options
-        );
-        setDocuments(documents.data.data);
-        if (e.target.name === "otherDocument") {
-          setFiles([...files, e?.target?.files[0]]);
+  useEffect(() => {
+    const handleUploadDocumentData = async (e) => {
+      if (isSuccess) {
+        try {
+          let percent = 0;
+          const options = {
+            onUploadProgress: (progressEvent) => {
+              const { loaded, total } = progressEvent;
+              percent = Math.floor((loaded * 100) / total);
+              setUploadPercent(percent);
+              if (percent == 100) {
+                setUploadPercent(0);
+              }
+            },
+          };
+          const documents = await updateUserDocument(
+            user.id,
+            e.target.name,
+            e.target.files[0],
+            options
+          );
+          setDocuments(documents.data.data);
+          if (e.target.name === "otherDocument") {
+            setFiles([...files, e?.target?.files[0]]);
+          }
+          setIsUserUpdated(true);
+          toast.success(documents.data.message);
+        } catch (error) {
+          toast.error(error.response.data.message);
         }
-        setIsUserUpdated(true);
-        toast.success(documents.data.message);
-      } catch (error) {
-        toast.error(error.response.data.message);
+      } else {
+        toast.error(fileTypeError);
       }
-    } else {
-      toast.error(fileTypeError);
-    }
+    };
+    handleUploadDocumentData(docRestrict)
+  }, [fileTypeError, isSuccess])
+
+  const handleUploadDocumentData = async (e) => {
+    setDocRestrict(e)
   };
 
   const [confirmModal, setConfirmModal] = useState({ status: false, id: "" });

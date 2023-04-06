@@ -82,40 +82,37 @@ function PersonalDetails({
   const [docRestrict, setDocRestrict] = useState()
   const { fileTypeError, isSuccess } = useFileTypeRestrict(docRestrict, 'doc,docx,rtf,pdf', '2044', '2MB')
   useEffect(() => {
-    if (!isSuccess) {
-      toast.error(fileTypeError);
-    }
-  }, [fileTypeError])
-
-
+    const onUploadResumeDoc = async (files) => {
+      if (isSuccess) {
+        try {
+          let percent = 0;
+          const options = {
+            onUploadProgress: (progressEvent) => {
+              const { loaded, total } = progressEvent;
+              percent = Math.floor((loaded * 100) / total);
+              setUploadResumePercent(percent);
+            },
+          };
+          const documents = await updateUserDocument(
+            user.id,
+            "resume",
+            files[0],
+            options
+          );
+          setDocuments(documents.data.data);
+          setIsUserUpdated(true);
+          toast.success(documents.data.message);
+        } catch (error) {
+          toast.error(error.response.data.message);
+        }
+      } else {
+        toast.error(fileTypeError);
+      }
+    };
+    onUploadResumeDoc(docRestrict)
+  }, [fileTypeError, isSuccess])
   const onUploadResumeDoc = async (files) => {
     setDocRestrict(files)
-    if (isSuccess) {
-      try {
-        let percent = 0;
-        const options = {
-          onUploadProgress: (progressEvent) => {
-            const { loaded, total } = progressEvent;
-            percent = Math.floor((loaded * 100) / total);
-            setUploadResumePercent(percent);
-          },
-        };
-        const documents = await updateUserDocument(
-          user.id,
-          "resume",
-          files[0],
-          options
-        );
-        setDocuments(documents.data.data);
-        setIsUserUpdated(true);
-        toast.success(documents.data.message);
-      } catch (error) {
-        toast.error(error.response.data.message);
-      }
-    } else {
-      toast.error(fileTypeError);
-    }
-
   };
 
 
@@ -131,33 +128,41 @@ function PersonalDetails({
     }
   };
 
-  const onUploadCoverLetter = async (files) => {
-    setDocRestrict(files)
-    if (isSuccess) {
-      try {
-        let percent = 0;
-        const options = {
-          onUploadProgress: (progressEvent) => {
-            const { loaded, total } = progressEvent;
-            percent = Math.floor((loaded * 100) / total);
-            setUploadCoverPercent(percent);
-          },
-        };
-        const documents = await updateUserDocument(
-          user.id,
-          "cover",
-          files[0],
-          options
-        );
-        setDocuments(documents.data.data);
-        setIsUserUpdated(true);
-        toast.success(documents.data.message);
-      } catch (error) {
-        toast.error(error.response.data.message);
+
+  const [coverLetterRestrict, setCoverLetterRestrict] = useState()
+  const { fileTypeError: coverLetterTypeError, isSuccess: coverLetterSuccess } = useFileTypeRestrict(coverLetterRestrict, 'doc,docx,rtf,pdf', '2044', '2MB')
+  useEffect(() => {
+    const onUploadCoverLetter = async (files) => {
+      if (isSuccess) {
+        try {
+          let percent = 0;
+          const options = {
+            onUploadProgress: (progressEvent) => {
+              const { loaded, total } = progressEvent;
+              percent = Math.floor((loaded * 100) / total);
+              setUploadCoverPercent(percent);
+            },
+          };
+          const documents = await updateUserDocument(
+            user.id,
+            "cover",
+            files[0],
+            options
+          );
+          setDocuments(documents.data.data);
+          setIsUserUpdated(true);
+          toast.success(documents.data.message);
+        } catch (error) {
+          toast.error(error.response.data.message);
+        }
+      } else {
+        toast.error(coverLetterTypeError);
       }
-    } else {
-      toast.error(fileTypeError);
-    }
+    };
+    onUploadCoverLetter(coverLetterRestrict)
+  }, [coverLetterRestrict, coverLetterSuccess])
+  const onUploadCoverLetter = async (files) => {
+    setCoverLetterRestrict(files)
   };
 
   const [confirmModal, setConfirmModal] = useState({ status: false, id: "" });
