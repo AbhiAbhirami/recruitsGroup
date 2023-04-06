@@ -231,7 +231,9 @@ function Header({ userData }) {
               alt="hamburger"
             />
           )}
-          <NotificationDropDown open={isNotifDropdown} />
+          <NotificationDropDown open={isNotifDropdown}
+            notifications={notifications}
+            close={() => setIsNotifDropDown(false)} />
           <Hamburger open={isHamburger} close={setIsHamburger} />
         </div>
       </div>

@@ -47,7 +47,8 @@ function NotificationDropDown({ open, notifications, close }) {
       </div>
       <Link
         onClick={close}
-        to="/notifications" style={notifications && notifications.length == 0 ? { marginTop: "auto", textDecoration: "none", color: "black", alignSelf: 'center', borderRadius: "15px", marginBottom: "5px", background: "rgba(72, 146, 240, 0.42)", display: 'flex', justifyContent: "center", cursor: "pointer", alignItems: "center", width: '70%', height: '50px' } : { display: "none" }}>
+
+        to="/notifications" style={notifications && notifications.length > 0 ? { marginTop: "auto", textDecoration: "none", color: "black", alignSelf: 'center', borderRadius: "15px", marginBottom: "5px", background: "rgba(72, 146, 240, 0.42)", display: 'flex', justifyContent: "center", cursor: "pointer", alignItems: "center", width: '70%', height: '50px' } : { display: "none" }}>
         View All
       </Link>
     </div>

@@ -27,6 +27,9 @@ function SignIn() {
   const location = useLocation();
   let media = window.screen.width < 600;
   let ipad = window.screen.width > 1000 && window.screen.height > 1300
+  window.addEventListener("orientationchange", function () {
+    window.location.reload();
+  }, false);
 
 
   useEffect(() => {

@@ -5,7 +5,6 @@ import { Link } from "react-router-dom";
 import LogoutConfirm from "./LogoutConfirm";
 function DropDown({ open, user, close }) {
   const { logout } = useAuth();
-
   const [confirmModal, setConfirmModal] = useState({ status: false, });
 
   const handleLogoutModal = () => {
