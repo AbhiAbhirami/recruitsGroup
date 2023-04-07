@@ -78,6 +78,14 @@ function Dashboard() {
     dispatch(getRecommendedJobs());
   }, []);
 
+  const userDetail = localStorage?.getItem("user-data");
+
+  useEffect(() => {
+    if (!userDetail?.id) {
+      dispatch(getCurrentUserDetails(token));
+    }
+  }, [userDetail?.id]);
+
   const [recentActivities, setRecentActivities] = useState({
     isClicked: false,
     data: [1, 2],
@@ -324,62 +332,19 @@ function Dashboard() {
           <Row>
             <p> Featured Companies</p>
             <div className="d-flex featured-companies p-2">
-              <Card className="me-3 zoom-effect">
-                <CardBody className=" d-flex align-items-center p-2">
-                  <div className="img-wrap me-3">
-                    <img src={company} />
-                  </div>
-                  <div className="pe-3">
-                    <h5 className="p-0 m-0">Company Name</h5>
-                    <p className="p-0 m-0 text-muted">21 Vacancy</p>
-                  </div>
-                </CardBody>
-              </Card>
-              <Card className="me-3  zoom-effect">
-                <CardBody className="d-flex align-items-center p-2">
-                  <div className="img-wrap me-3">
-                    <img src={company} />
-                  </div>
-                  <div className="pe-3">
-                    <h5 className="p-0 m-0">Company Name</h5>
-                    <p className="p-0 m-0 text-muted">21 Vacancy</p>
-                  </div>
-                </CardBody>
-              </Card>
-              <Card className="me-3  zoom-effect">
-                <CardBody className="d-flex align-items-center p-2">
-                  <div className="img-wrap me-3">
-                    <img src={company} />
-                  </div>
-                  <div className="pe-3">
-                    <h5 className="p-0 m-0">Company Name</h5>
-                    <p className="p-0 m-0 text-muted">21 Vacancy</p>
-                  </div>
-                </CardBody>
-              </Card>
-              <Card className="me-3  zoom-effect">
-                <CardBody className="d-flex align-items-center p-2">
-                  <div className="img-wrap me-3">
-                    <img src={company} />
-                  </div>
-                  <div className="pe-3">
-                    <h5 className="p-0 m-0">Company Name</h5>
-                    <p className="p-0 m-0 text-muted">21 Vacancy</p>
-                  </div>
-                </CardBody>
-              </Card>
-
-              <Card className="me-3  zoom-effect">
-                <CardBody className="d-flex align-items-center p-2">
-                  <div className="img-wrap me-3">
-                    <img src={company} />
-                  </div>
-                  <div className="pe-3">
-                    <h5 className="p-0 m-0">Company Name</h5>
-                    <p className="p-0 m-0 text-muted">21 Vacancy</p>
-                  </div>
-                </CardBody>
-              </Card>
+              {jobs?.map((job, key) => (
+                <Card key={key} className="me-3 zoom-effect">
+                  <CardBody className=" d-flex align-items-center p-2">
+                    <div className="img-wrap me-3">
+                      <img src={job?.logo} />
+                    </div>
+                    <div className="pe-3">
+                      <h5 className="p-0 m-0">{job?.title}</h5>
+                      <p className="p-0 m-0 text-muted">{job?.job_type}</p>
+                    </div>
+                  </CardBody>
+                </Card>
+              ))}
             </div>
           </Row>
         </Container>

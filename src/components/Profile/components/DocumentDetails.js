@@ -20,8 +20,6 @@ function DocumentDetails({ user, docs, userUpdated, setIsUserUpdated }) {
     setDocumentsData(getDocuments());
   }, [userUpdated]);
 
-
-
   // const handleDocumentFiles = (e) => {
   //   const array = Array.from(e)?.map((i) => i);
   //   setFiles(array);
@@ -39,8 +37,13 @@ function DocumentDetails({ user, docs, userUpdated, setIsUserUpdated }) {
     }
   };
 
-  const [docRestrict, setDocRestrict] = useState()
-  const { fileTypeError, isSuccess } = useFileTypeRestrict(docRestrict?.target.files, 'doc,docx,rtf,pdf', '2044', '2MB')
+  const [docRestrict, setDocRestrict] = useState();
+  const { fileTypeError, isSuccess } = useFileTypeRestrict(
+    docRestrict?.target.files,
+    "doc,docx,rtf,pdf",
+    "2044",
+    "2MB"
+  );
 
   useEffect(() => {
     const handleUploadDocumentData = async (e) => {
@@ -76,11 +79,11 @@ function DocumentDetails({ user, docs, userUpdated, setIsUserUpdated }) {
         toast.error(fileTypeError);
       }
     };
-    handleUploadDocumentData(docRestrict)
-  }, [fileTypeError, isSuccess])
+    handleUploadDocumentData(docRestrict);
+  }, [fileTypeError, isSuccess]);
 
   const handleUploadDocumentData = async (e) => {
-    setDocRestrict(e)
+    setDocRestrict(e);
   };
 
   const [confirmModal, setConfirmModal] = useState({ status: false, id: "" });
@@ -98,20 +101,17 @@ function DocumentDetails({ user, docs, userUpdated, setIsUserUpdated }) {
 
   const [deleteConfirm, setDeleteConfirm] = useState({
     status: false,
-    func: () => { },
+    func: () => {},
   });
 
   const closeModal = () => {
-    setDeleteConfirm({ status: false, func: () => { } });
+    setDeleteConfirm({ status: false, func: () => {} });
   };
 
   const handleDelete = () => {
     deleteConfirm.func();
     closeModal();
   };
-
-
-
 
   return (
     <Fragment>
@@ -193,16 +193,16 @@ function DocumentDetails({ user, docs, userUpdated, setIsUserUpdated }) {
               <div className="profile-section-personal-resume-update">
                 <div>
                   {documents &&
-                    documents.other_documents &&
-                    documents.other_documents.passport
+                  documents.other_documents &&
+                  documents.other_documents.passport
                     ? unescape(
-                      documents.other_documents.passport.split("/").pop()
-                    )
+                        documents.other_documents.passport.split("/").pop()
+                      )
                     : "Not Updated"}
                 </div>
                 {documents &&
-                  documents.other_documents &&
-                  documents.other_documents.passport ? (
+                documents.other_documents &&
+                documents.other_documents.passport ? (
                   <div className="resume-delete">
                     <a
                       href={documents.other_documents.passport}
@@ -289,13 +289,13 @@ function DocumentDetails({ user, docs, userUpdated, setIsUserUpdated }) {
                 <div>
                   {documents?.other_documents.identity
                     ? unescape(
-                      documents?.other_documents?.identity.split("/").pop()
-                    )
+                        documents?.other_documents?.identity.split("/").pop()
+                      )
                     : "Not Updated"}
                 </div>
                 {documents &&
-                  documents?.other_documents &&
-                  documents?.other_documents.identity ? (
+                documents?.other_documents &&
+                documents?.other_documents.identity ? (
                   <div className="resume-delete">
                     <a href="#">
                       <i
@@ -371,13 +371,13 @@ function DocumentDetails({ user, docs, userUpdated, setIsUserUpdated }) {
                 <div>
                   {documents?.other_documents.experience
                     ? unescape(
-                      documents?.other_documents.experience.split("/").pop()
-                    )
+                        documents?.other_documents.experience.split("/").pop()
+                      )
                     : "Not Updated"}
                 </div>
                 {documents &&
-                  documents?.other_documents &&
-                  documents?.other_documents.experience ? (
+                documents?.other_documents &&
+                documents?.other_documents.experience ? (
                   <div className="resume-delete">
                     <a href="#">
                       <i
@@ -450,14 +450,14 @@ function DocumentDetails({ user, docs, userUpdated, setIsUserUpdated }) {
               <div className="profile-section-personal-resume-update">
                 <div>
                   {documents &&
-                    documents?.other_documents &&
-                    documents?.other_documents.ielts
+                  documents?.other_documents &&
+                  documents?.other_documents.ielts
                     ? unescape(documents.other_documents.ielts.split("/").pop())
                     : "Not Updated"}
                 </div>
                 {documents &&
-                  documents?.other_documents &&
-                  documents?.other_documents.ielts ? (
+                documents?.other_documents &&
+                documents?.other_documents.ielts ? (
                   <div className="resume-delete">
                     <a href={documents.other_documents.ielts} target="_blank">
                       {/* <AiFillEye size={'1.4rem'} /> */}
@@ -579,7 +579,7 @@ function DocumentDetails({ user, docs, userUpdated, setIsUserUpdated }) {
                   onChange={(e) =>
                     handleFileChange(e, () => handleUploadDocumentData(e))
                   }
-                // multiple
+                  // multiple
                 />
                 <label
                   className="button"
