@@ -3,6 +3,7 @@ import { toast } from "react-toastify";
 import { getUser } from "../../core/AuthHelpers";
 import {
   getAppliedjobs,
+  getFeaturedCompanyApi,
   getJobs,
   getRecommendedJobsApi,
   getSavedjobs,
@@ -66,6 +67,20 @@ export const getRecommendedJobs = createAsyncThunk(
   }
 );
 
+export const getFeaturedCompany = createAsyncThunk(
+  "jobs/featuredCompany",
+  async () => {
+    try {
+      const response = await getFeaturedCompanyApi(user?.id);
+      if (response?.status === 200) {
+        return response;
+      }
+    } catch (e) {
+      toast.error(e.response.data.message);
+    }
+  }
+);
+
 export const jobsSlice = createSlice({
   name: "jobs",
   initialState: {
@@ -74,6 +89,7 @@ export const jobsSlice = createSlice({
     applied_jobs: [],
     saved_jobs: [],
     recommended: [],
+    featuredCompany: [],
   },
   reducers: {},
   extraReducers: {
@@ -125,6 +141,16 @@ export const jobsSlice = createSlice({
       state.recommended = action.payload.data.data.rows;
     },
     [getRecommendedJobs.rejected]: (state, action) => {
+      state.loading = false;
+    },
+    [getFeaturedCompany.pending]: (state, action) => {
+      state.loading = true;
+    },
+    [getFeaturedCompany.fulfilled]: (state, action) => {
+      state.loading = false;
+      state.featuredCompany = action.payload.data.data;
+    },
+    [getFeaturedCompany.rejected]: (state, action) => {
       state.loading = false;
     },
   },

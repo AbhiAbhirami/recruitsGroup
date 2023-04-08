@@ -18,10 +18,11 @@ export const APPLIED_JOBS = `${API_URL}/applied`;
 export const SAVED_JOBS = `${API_URL}/saved`;
 export const RECOMMENDED_JOBS = `${API_URL}/recommended-jobs`;
 export const SEARCHED_JOBS = `${API_URL}/jobs/search`;
+export const FEATURED_COMPANY = `${API_URL}/company`;
 
 export const USER_UPDATE = `${API_URL}/update/`;
 export const EDUCATION = `${API_URL}/education`;
-export const CAREERPROFILE = `${API_URL}/career-profile`;
+export const CAREER_PROFILE = `${API_URL}/career-profile`;
 export const UPDATE_EMAIL = `${API_URL}/update-email`;
 export const NOTIFICATIONS = `${API_URL}/notifications`;
 export const NEW_NOTIFICATIONS = `${API_URL}/new-notifications`;
@@ -144,6 +145,10 @@ export function getSearchedJob(title, location) {
 export function getRecommendedJobsApi(userId) {
   return axios.get(`${RECOMMENDED_JOBS}/${userId}`);
 }
+
+export function getFeaturedCompanyApi(userId) {
+  return axios.get(`${FEATURED_COMPANY}/${userId}`);
+}
 //profile
 //skills
 export function updateKeySkillsApi(userId, skills) {
@@ -170,19 +175,19 @@ export function deleteEducationApi(id) {
 //career-profile
 
 export function getCareerProfileApi(userId) {
-  return axios.get(`${CAREERPROFILE}/${userId}`);
+  return axios.get(`${CAREER_PROFILE}/${userId}`);
 }
 
 export function addCareerProfileApi(userId, education) {
-  return axios.post(CAREERPROFILE, { ...education, userId: userId });
+  return axios.post(CAREER_PROFILE, { ...education, userId: userId });
 }
 
 export function updateCareerProfileApi(id, education) {
-  return axios.put(`${CAREERPROFILE}/${id}`, education);
+  return axios.put(`${CAREER_PROFILE}/${id}`, education);
 }
 
 export function deleteCareerProfileApi(id) {
-  return axios.delete(`${CAREERPROFILE}/${id}`);
+  return axios.delete(`${CAREER_PROFILE}/${id}`);
 }
 
 export function getUserDetailsApi() {
