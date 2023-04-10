@@ -16,7 +16,7 @@ function NotificationSingle() {
                 {/* <i style={{ fontSize: '25px', cursor: "pointer" }} onClick={() => setIsPopUp(!isPopUp)} class="fa fa-ellipsis-v" aria-hidden="true"></i> */}
                 <p style={{ fontSize: '13px' }}>6 min</p>
 
-                <p style={{ fontSize: "14px", cursor: "pointer", color: 'black', textDecoration: "underline" }}>Dismiss</p>
+                <p className='dismiss-btn-tag' style={{ fontSize: "14px", cursor: "pointer", color: 'black', textDecoration: "underline" }}>Dismiss</p>
                 {/* <div style={isPopUp ? { display: "flex" } : { display: "none" }} className='notification-single-dismiss-pop-up'>
                     <p className='dismiss-pop-up-p-tag'>Dismiss</p>
                 </div> */}

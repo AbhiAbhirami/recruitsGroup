@@ -32,8 +32,9 @@ function Header({ userData }) {
   }));
   const [socket, setSocket] = useState(null);
   const [isDropdown, setIsDropDown] = useState(false);
-  const [isNotifDropdown, setIsNotifDropDown] = useState(false);
   const [isSearchDropdown, setIsSearchDropDown] = useState(false);
+  const [isNotifDropdown, setIsNotifDropDown] = useState(false);
+
   const [user, setUser] = useState(getUser());
 
   const [isHamburger, setIsHamburger] = useState(false);
