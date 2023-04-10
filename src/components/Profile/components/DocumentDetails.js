@@ -10,7 +10,8 @@ import DeleteModal from "./DeleteModal";
 import { useFileTypeRestrict } from "../../../assets/hooks/useFileTypeRestrict";
 
 function DocumentDetails({ user, docs, userUpdated, setIsUserUpdated }) {
-  const [files, setFiles] = React.useState([]);
+  const [otherDocument, setOtherDocument] = React.useState([]);
+  const [experience, setExperience] = React.useState([]);
 
   const [documents, setDocumentsData] = useState(docs ? docs : "");
   const [uploadPercent, setUploadPercent] = useState(0);
@@ -24,7 +25,7 @@ function DocumentDetails({ user, docs, userUpdated, setIsUserUpdated }) {
   //   const array = Array.from(e)?.map((i) => i);
   //   setFiles(array);
   // };
-  console.log("data :", files);
+  console.log("data :", otherDocument);
 
   const deleteDocumentData = async (e) => {
     try {
@@ -68,7 +69,10 @@ function DocumentDetails({ user, docs, userUpdated, setIsUserUpdated }) {
           );
           setDocuments(documents.data.data);
           if (e.target.name === "otherDocument") {
-            setFiles([...files, e?.target?.files[0]]);
+            setOtherDocument([...otherDocument, e?.target?.files[0]]);
+          }
+          if (e.target.name === "experience") {
+            setExperience([...experience, e?.target?.files[0]]);
           }
           setIsUserUpdated(true);
           toast.success(documents.data.message);
@@ -375,7 +379,45 @@ function DocumentDetails({ user, docs, userUpdated, setIsUserUpdated }) {
                       )
                     : "Not Updated"}
                 </div>
-                {documents &&
+                {experience?.length > 0 &&
+                  experience?.map((file, key) => (
+                    <div
+                      className="profile-section-personal-resume-update"
+                      key={key}
+                    >
+                      <div>
+                        {file?.name} -{" "}
+                        <span>
+                          Updated on{" "}
+                          {moment(file?.lastModified).format("DD-MM-YYYY")}
+                        </span>
+                      </div>
+                      <div className="resume-delete">
+                        <a
+                          // href={file?.name}
+                          href={"!#"}
+                        >
+                          <i
+                            className="fa-regular fa-eye"
+                            style={{ fontSize: "1.2rem" }}
+                          ></i>
+                        </a>
+                        <button
+                          className="cursor-pointer"
+                          name="other_documents"
+                          onClick={(e) => {
+                            setDeleteConfirm({
+                              status: true,
+                              func: () => deleteDocumentData(e),
+                            });
+                          }}
+                        >
+                          DELETE DOCUMENT
+                        </button>
+                      </div>
+                    </div>
+                  ))}
+                {/* {documents &&
                 documents?.other_documents &&
                 documents?.other_documents.experience ? (
                   <div className="resume-delete">
@@ -400,7 +442,7 @@ function DocumentDetails({ user, docs, userUpdated, setIsUserUpdated }) {
                   </div>
                 ) : (
                   ""
-                )}
+                )} */}
               </div>
 
               <div className="resume-update">
@@ -528,8 +570,8 @@ function DocumentDetails({ user, docs, userUpdated, setIsUserUpdated }) {
               </p>
             </div>
             <div>
-              {files?.length > 0 &&
-                files?.map((file, key) => (
+              {otherDocument?.length > 0 &&
+                otherDocument?.map((file, key) => (
                   <div
                     className="profile-section-personal-resume-update"
                     key={key}
