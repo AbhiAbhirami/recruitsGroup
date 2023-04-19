@@ -33,6 +33,7 @@ import Loader from "../Shared/Loader";
 import { useDispatch, useSelector } from "react-redux";
 import {
   getAllUserJobs,
+  getFeaturedCompany,
   getRecommendedJobs,
 } from "../../store/reducers/jobsReducer";
 import { getCurrentUserDetails } from "../../store/reducers/profileReducer";
@@ -42,11 +43,14 @@ function Dashboard() {
   const percentage = 86;
   const dispatch = useDispatch();
 
-  const { jobs, verifiedUser, recommendedJobs } = useSelector((state) => ({
-    jobs: state.jobs.jobs,
-    recommendedJobs: state.jobs.recommended,
-    verifiedUser: state.profile.verifiedUser,
-  }));
+  const { jobs, verifiedUser, recommendedJobs, featuredCompany } = useSelector(
+    (state) => ({
+      jobs: state.jobs.jobs,
+      recommendedJobs: state.jobs.recommended,
+      featuredCompany: state.jobs.featuredCompany,
+      verifiedUser: state.profile.verifiedUser,
+    })
+  );
 
   const saved_jobs = verifiedUser?.saved_jobs?.map((i) => parseInt(i));
   // const recommendedJobs = jobs?.filter(
@@ -76,7 +80,16 @@ function Dashboard() {
     dispatch(getAllUserJobs());
     dispatch(getCurrentUserDetails(token));
     dispatch(getRecommendedJobs());
+    dispatch(getFeaturedCompany());
   }, []);
+
+  const userDetail = localStorage?.getItem("user-data");
+
+  useEffect(() => {
+    if (!userDetail?.id) {
+      dispatch(getCurrentUserDetails(token));
+    }
+  }, [userDetail?.id]);
 
   const [recentActivities, setRecentActivities] = useState({
     isClicked: false,
@@ -324,62 +337,22 @@ function Dashboard() {
           <Row>
             <p> Featured Companies</p>
             <div className="d-flex featured-companies p-2">
-              <Card className="me-3 zoom-effect">
-                <CardBody className=" d-flex align-items-center p-2">
-                  <div className="img-wrap me-3">
-                    <img src={company} />
-                  </div>
-                  <div className="pe-3">
-                    <h5 className="p-0 m-0">Company Name</h5>
-                    <p className="p-0 m-0 text-muted">21 Vacancy</p>
-                  </div>
-                </CardBody>
-              </Card>
-              <Card className="me-3  zoom-effect">
-                <CardBody className="d-flex align-items-center p-2">
-                  <div className="img-wrap me-3">
-                    <img src={company} />
-                  </div>
-                  <div className="pe-3">
-                    <h5 className="p-0 m-0">Company Name</h5>
-                    <p className="p-0 m-0 text-muted">21 Vacancy</p>
-                  </div>
-                </CardBody>
-              </Card>
-              <Card className="me-3  zoom-effect">
-                <CardBody className="d-flex align-items-center p-2">
-                  <div className="img-wrap me-3">
-                    <img src={company} />
-                  </div>
-                  <div className="pe-3">
-                    <h5 className="p-0 m-0">Company Name</h5>
-                    <p className="p-0 m-0 text-muted">21 Vacancy</p>
-                  </div>
-                </CardBody>
-              </Card>
-              <Card className="me-3  zoom-effect">
-                <CardBody className="d-flex align-items-center p-2">
-                  <div className="img-wrap me-3">
-                    <img src={company} />
-                  </div>
-                  <div className="pe-3">
-                    <h5 className="p-0 m-0">Company Name</h5>
-                    <p className="p-0 m-0 text-muted">21 Vacancy</p>
-                  </div>
-                </CardBody>
-              </Card>
-
-              <Card className="me-3  zoom-effect">
-                <CardBody className="d-flex align-items-center p-2">
-                  <div className="img-wrap me-3">
-                    <img src={company} />
-                  </div>
-                  <div className="pe-3">
-                    <h5 className="p-0 m-0">Company Name</h5>
-                    <p className="p-0 m-0 text-muted">21 Vacancy</p>
-                  </div>
-                </CardBody>
-              </Card>
+              {featuredCompany?.map((company, key) => (
+                <Card key={key} className="me-3 zoom-effect">
+                  <CardBody className=" d-flex align-items-center p-2">
+                    <div className="img-wrap me-3">
+                      <img src={company?.logo} />
+                    </div>
+                    <div className="pe-3">
+                      <h5 className="p-0 m-0">{company?.company}</h5>
+                      <p className="p-0 m-0 text-muted">
+                        {company?.company_type}
+                      </p>
+                      <p className="p-0 m-0 text-muted">{company?.location}</p>
+                    </div>
+                  </CardBody>
+                </Card>
+              ))}
             </div>
           </Row>
         </Container>

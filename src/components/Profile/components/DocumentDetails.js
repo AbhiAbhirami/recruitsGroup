@@ -10,7 +10,8 @@ import DeleteModal from "./DeleteModal";
 import { useFileTypeRestrict } from "../../../assets/hooks/useFileTypeRestrict";
 
 function DocumentDetails({ user, docs, userUpdated, setIsUserUpdated }) {
-  const [files, setFiles] = React.useState([]);
+  const [otherDocument, setOtherDocument] = React.useState([]);
+  const [experience, setExperience] = React.useState([]);
 
   const [documents, setDocumentsData] = useState(docs ? docs : "");
   const [uploadPercent, setUploadPercent] = useState(0);
@@ -20,13 +21,11 @@ function DocumentDetails({ user, docs, userUpdated, setIsUserUpdated }) {
     setDocumentsData(getDocuments());
   }, [userUpdated]);
 
-
-
   // const handleDocumentFiles = (e) => {
   //   const array = Array.from(e)?.map((i) => i);
   //   setFiles(array);
   // };
-  console.log("data :", files);
+  console.log("data :", otherDocument);
 
   const deleteDocumentData = async (e) => {
     try {
@@ -39,8 +38,13 @@ function DocumentDetails({ user, docs, userUpdated, setIsUserUpdated }) {
     }
   };
 
-  const [docRestrict, setDocRestrict] = useState()
-  const { fileTypeError, isSuccess } = useFileTypeRestrict(docRestrict?.target.files, 'doc,docx,rtf,pdf', '2044', '2MB')
+  const [docRestrict, setDocRestrict] = useState();
+  const { fileTypeError, isSuccess } = useFileTypeRestrict(
+    docRestrict?.target.files,
+    "doc,docx,rtf,pdf",
+    "2044",
+    "2MB"
+  );
 
   useEffect(() => {
     const handleUploadDocumentData = async (e) => {
@@ -65,7 +69,10 @@ function DocumentDetails({ user, docs, userUpdated, setIsUserUpdated }) {
           );
           setDocuments(documents.data.data);
           if (e.target.name === "otherDocument") {
-            setFiles([...files, e?.target?.files[0]]);
+            setOtherDocument([...otherDocument, e?.target?.files[0]]);
+          }
+          if (e.target.name === "experience") {
+            setExperience([...experience, e?.target?.files[0]]);
           }
           setIsUserUpdated(true);
           toast.success(documents.data.message);
@@ -76,11 +83,11 @@ function DocumentDetails({ user, docs, userUpdated, setIsUserUpdated }) {
         toast.error(fileTypeError);
       }
     };
-    handleUploadDocumentData(docRestrict)
-  }, [fileTypeError, isSuccess])
+    handleUploadDocumentData(docRestrict);
+  }, [fileTypeError, isSuccess]);
 
   const handleUploadDocumentData = async (e) => {
-    setDocRestrict(e)
+    setDocRestrict(e);
   };
 
   const [confirmModal, setConfirmModal] = useState({ status: false, id: "" });
@@ -98,20 +105,17 @@ function DocumentDetails({ user, docs, userUpdated, setIsUserUpdated }) {
 
   const [deleteConfirm, setDeleteConfirm] = useState({
     status: false,
-    func: () => { },
+    func: () => {},
   });
 
   const closeModal = () => {
-    setDeleteConfirm({ status: false, func: () => { } });
+    setDeleteConfirm({ status: false, func: () => {} });
   };
 
   const handleDelete = () => {
     deleteConfirm.func();
     closeModal();
   };
-
-
-
 
   return (
     <Fragment>
@@ -193,16 +197,16 @@ function DocumentDetails({ user, docs, userUpdated, setIsUserUpdated }) {
               <div className="profile-section-personal-resume-update">
                 <div>
                   {documents &&
-                    documents.other_documents &&
-                    documents.other_documents.passport
+                  documents.other_documents &&
+                  documents.other_documents.passport
                     ? unescape(
-                      documents.other_documents.passport.split("/").pop()
-                    )
+                        documents.other_documents.passport.split("/").pop()
+                      )
                     : "Not Updated"}
                 </div>
                 {documents &&
-                  documents.other_documents &&
-                  documents.other_documents.passport ? (
+                documents.other_documents &&
+                documents.other_documents.passport ? (
                   <div className="resume-delete">
                     <a
                       href={documents.other_documents.passport}
@@ -289,13 +293,13 @@ function DocumentDetails({ user, docs, userUpdated, setIsUserUpdated }) {
                 <div>
                   {documents?.other_documents.identity
                     ? unescape(
-                      documents?.other_documents?.identity.split("/").pop()
-                    )
+                        documents?.other_documents?.identity.split("/").pop()
+                      )
                     : "Not Updated"}
                 </div>
                 {documents &&
-                  documents?.other_documents &&
-                  documents?.other_documents.identity ? (
+                documents?.other_documents &&
+                documents?.other_documents.identity ? (
                   <div className="resume-delete">
                     <a href="#">
                       <i
@@ -371,13 +375,51 @@ function DocumentDetails({ user, docs, userUpdated, setIsUserUpdated }) {
                 <div>
                   {documents?.other_documents.experience
                     ? unescape(
-                      documents?.other_documents.experience.split("/").pop()
-                    )
+                        documents?.other_documents.experience.split("/").pop()
+                      )
                     : "Not Updated"}
                 </div>
-                {documents &&
-                  documents?.other_documents &&
-                  documents?.other_documents.experience ? (
+                {experience?.length > 0 &&
+                  experience?.map((file, key) => (
+                    <div
+                      className="profile-section-personal-resume-update"
+                      key={key}
+                    >
+                      <div>
+                        {file?.name} -{" "}
+                        <span>
+                          Updated on{" "}
+                          {moment(file?.lastModified).format("DD-MM-YYYY")}
+                        </span>
+                      </div>
+                      <div className="resume-delete">
+                        <a
+                          // href={file?.name}
+                          href={"!#"}
+                        >
+                          <i
+                            className="fa-regular fa-eye"
+                            style={{ fontSize: "1.2rem" }}
+                          ></i>
+                        </a>
+                        <button
+                          className="cursor-pointer"
+                          name="other_documents"
+                          onClick={(e) => {
+                            setDeleteConfirm({
+                              status: true,
+                              func: () => deleteDocumentData(e),
+                            });
+                          }}
+                        >
+                          DELETE DOCUMENT
+                        </button>
+                      </div>
+                    </div>
+                  ))}
+                {/* {documents &&
+                documents?.other_documents &&
+                documents?.other_documents.experience ? (
                   <div className="resume-delete">
                     <a href="#">
                       <i
@@ -400,7 +442,7 @@ function DocumentDetails({ user, docs, userUpdated, setIsUserUpdated }) {
                   </div>
                 ) : (
                   ""
-                )}
+                )} */}
               </div>
 
               <div className="resume-update">
@@ -450,14 +492,14 @@ function DocumentDetails({ user, docs, userUpdated, setIsUserUpdated }) {
               <div className="profile-section-personal-resume-update">
                 <div>
                   {documents &&
-                    documents?.other_documents &&
-                    documents?.other_documents.ielts
+                  documents?.other_documents &&
+                  documents?.other_documents.ielts
                     ? unescape(documents.other_documents.ielts.split("/").pop())
                     : "Not Updated"}
                 </div>
                 {documents &&
-                  documents?.other_documents &&
-                  documents?.other_documents.ielts ? (
+                documents?.other_documents &&
+                documents?.other_documents.ielts ? (
                   <div className="resume-delete">
                     <a href={documents.other_documents.ielts} target="_blank">
                       {/* <AiFillEye size={'1.4rem'} /> */}
@@ -528,8 +570,8 @@ function DocumentDetails({ user, docs, userUpdated, setIsUserUpdated }) {
               </p>
             </div>
             <div>
-              {files?.length > 0 &&
-                files?.map((file, key) => (
+              {otherDocument?.length > 0 &&
+                otherDocument?.map((file, key) => (
                   <div
                     className="profile-section-personal-resume-update"
                     key={key}
@@ -579,7 +621,7 @@ function DocumentDetails({ user, docs, userUpdated, setIsUserUpdated }) {
                   onChange={(e) =>
                     handleFileChange(e, () => handleUploadDocumentData(e))
                   }
-                // multiple
+                  // multiple
                 />
                 <label
                   className="button"
